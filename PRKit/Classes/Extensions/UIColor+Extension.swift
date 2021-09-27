@@ -61,6 +61,23 @@ extension UIColor {
         return UIColor.named("BrandPrimary900")
     }
 
+    static var brandSecondary300: UIColor {
+        return UIColor.named("BrandSecondary300")
+    }
+
+    static var brandSecondary400: UIColor {
+        return UIColor.named("BrandSecondary400")
+    }
+
+    static var brandSecondary500: UIColor {
+        return UIColor.named("BrandSecondary500")
+    }
+
+    static var brandSecondary800: UIColor {
+        return UIColor.named("BrandSecondary800")
+    }
+
+
     static var immediateRed: UIColor {
         return UIColor.named("ImmediateRed")
     }

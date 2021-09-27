@@ -62,10 +62,23 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="placeholderText" value="********"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vcJ-Ow-yxv" customClass="TextField" customModule="PRKit">
+                                <rect key="frame" x="20" y="344.5" width="683.5" height="72.5"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="labelText" value="Empty Field"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="placeholderText" value="Sample Input"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="hasError" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="errorText" value="Error note"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="text" value="Input"/>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" name="Base100"/>
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="JGV-fz-1Ch" secondAttribute="trailing" id="31J-wM-qHC"/>
+                            <constraint firstItem="vcJ-Ow-yxv" firstAttribute="leading" secondItem="bVO-ox-Q8p" secondAttribute="leadingMargin" id="D7v-OB-J0u"/>
+                            <constraint firstItem="vcJ-Ow-yxv" firstAttribute="top" secondItem="vgv-B0-hHD" secondAttribute="bottom" constant="16" id="HzB-ks-Gav"/>
                             <constraint firstItem="vgv-B0-hHD" firstAttribute="leading" secondItem="bVO-ox-Q8p" secondAttribute="leadingMargin" id="NgD-qY-I9J"/>
                             <constraint firstItem="JGV-fz-1Ch" firstAttribute="leading" secondItem="bVO-ox-Q8p" secondAttribute="leadingMargin" id="UXK-mO-OKH"/>
                             <constraint firstItem="vgv-B0-hHD" firstAttribute="top" secondItem="JGV-fz-1Ch" secondAttribute="bottom" constant="16" id="WIc-05-rCc"/>
@@ -73,6 +86,7 @@
                             <constraint firstAttribute="trailingMargin" secondItem="vxt-c4-Uev" secondAttribute="trailing" id="b5O-47-slq"/>
                             <constraint firstItem="vxt-c4-Uev" firstAttribute="top" secondItem="MqT-dz-7bR" secondAttribute="bottom" constant="8" symbolic="YES" id="bKE-tZ-zjt"/>
                             <constraint firstAttribute="trailingMargin" secondItem="vgv-B0-hHD" secondAttribute="trailing" id="bhD-fE-04e"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="vcJ-Ow-yxv" secondAttribute="trailing" id="irE-BY-GwR"/>
                             <constraint firstItem="JGV-fz-1Ch" firstAttribute="top" secondItem="vxt-c4-Uev" secondAttribute="bottom" constant="16" id="kl2-7C-F9s"/>
                         </constraints>
                     </view>

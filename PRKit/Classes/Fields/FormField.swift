@@ -20,35 +20,22 @@ import UIKit
 class FormField: UIView, Localizable {
     weak var contentView: UIView!
 
-    weak var statusButton: UIButton!
-    var statusButtonWidthConstraint: NSLayoutConstraint!
-    weak var label: UILabel!
-
-    private var _detailLabel: UILabel!
-    var detailLabel: UILabel {
-        if _detailLabel == nil {
-            initDetailLabel()
-        }
-        return _detailLabel
-    }
-    private var _alertLabel: UILabel!
-    var alertLabel: UILabel {
-        if _alertLabel == nil {
-            initAlertLabel()
-        }
-        return _alertLabel
-    }
-    private var _statusLabel: UILabel!
-    var statusLabel: UILabel {
-        if _statusLabel == nil {
-            initStatusLabel()
-        }
-        return _statusLabel
-    }
-
     var status: PredictionStatus = .none {
         didSet { updateStyle() }
     }
+    weak var statusButton: UIButton!
+    var statusButtonWidthConstraint: NSLayoutConstraint!
+
+    weak var label: UILabel!
+
+    private var _errorLabel: UILabel!
+    var errorLabel: UILabel {
+        if _errorLabel == nil {
+            initErrorLabel()
+        }
+        return _errorLabel
+    }
+
 
     @IBOutlet weak var delegate: FormFieldDelegate?
 
@@ -69,7 +56,15 @@ class FormField: UIView, Localizable {
         didSet { updateStyle() }
     }
 
-    var isEditing = true
+    @IBInspectable var isEditing: Bool = true
+
+    @IBInspectable var hasError: Bool = false {
+        didSet { updateStyle() }
+    }
+    @IBInspectable var errorText: String? {
+        get { return _errorLabel?.text }
+        set { errorLabel.text = newValue }
+    }
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -123,43 +118,23 @@ class FormField: UIView, Localizable {
         self.label = label
     }
 
-    private func initAlertLabel() {
-        _alertLabel = UILabel()
-        _alertLabel.translatesAutoresizingMaskIntoConstraints = false
-        _alertLabel.font = .copyXSBold
-        _alertLabel.textColor = .orangeAccent
-        addSubview(_alertLabel)
+    private func initErrorLabel() {
+        _errorLabel = UILabel()
+        _errorLabel.translatesAutoresizingMaskIntoConstraints = false
+        _errorLabel.font = .body14Bold
+        _errorLabel.numberOfLines = 0
+        _errorLabel.textColor = .brandSecondary500
+        _errorLabel.isHidden = !hasError
+        addSubview(_errorLabel)
+        
+        let bottomConstraint = bottomAnchor.constraint(equalTo: _errorLabel.bottomAnchor)
+        bottomConstraint.priority = .defaultHigh
         NSLayoutConstraint.activate([
-            _alertLabel.firstBaselineAnchor.constraint(equalTo: label.firstBaselineAnchor),
-            _alertLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -10)
-        ])
-    }
-
-    private func initStatusLabel() {
-        _statusLabel = UILabel()
-        _statusLabel.translatesAutoresizingMaskIntoConstraints = false
-        _statusLabel.font = .copyXSBold
-        _statusLabel.text = "BaseField.statusLabel.unconfirmed".localized
-        _statusLabel.textAlignment = .right
-        _statusLabel.textColor = .orangeAccent
-        _statusLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
-        addSubview(_statusLabel)
-        NSLayoutConstraint.activate([
-            _statusLabel.firstBaselineAnchor.constraint(equalTo: label.firstBaselineAnchor),
-            _statusLabel.leftAnchor.constraint(equalTo: label.rightAnchor, constant: 10),
-            _statusLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -10)
-        ])
-    }
-
-    private func initDetailLabel() {
-        _detailLabel = UILabel()
-        _detailLabel.translatesAutoresizingMaskIntoConstraints = false
-        _detailLabel.font = .copyXSRegular
-        _detailLabel.textColor = .mainGrey
-        addSubview(_detailLabel)
-        NSLayoutConstraint.activate([
-            _detailLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -10),
-            _detailLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -3)
+            _errorLabel.topAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 4),
+            _errorLabel.heightAnchor.constraint(equalToConstant: 18),
+            _errorLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 16),
+            _errorLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -16),
+            bottomConstraint
         ])
     }
 
@@ -179,7 +154,14 @@ class FormField: UIView, Localizable {
             contentView.backgroundColor = .white
             contentView.layer.borderWidth = 2
             contentView.layer.cornerRadius = 8
-            if isFirstResponder {
+            if hasError {
+                contentView.layer.borderColor = UIColor.brandSecondary500.cgColor
+                if isFirstResponder {
+                    contentView.addOutline(size: 4, color: .brandSecondary400, opacity: 1)
+                } else {
+                    contentView.removeOutline()
+                }
+            } else if isFirstResponder {
                 contentView.layer.borderColor = UIColor.brandPrimary500.cgColor
                 contentView.addOutline(size: 4, color: .brandPrimary200, opacity: 1)
             } else {
@@ -189,13 +171,14 @@ class FormField: UIView, Localizable {
         }
 
         label.font = .h4SemiBold
-        label.textColor = isFirstResponder ? .brandPrimary500 : .base500
+        label.textColor = hasError ? .brandSecondary500 : (isFirstResponder ? .brandPrimary500 : .base500)
+
         statusButton.backgroundColor = .middlePeakBlue
         statusButton.backgroundColor = status == .unconfirmed ? UIColor.orangeAccent.withAlphaComponent(0.3) : UIColor.middlePeakBlue
         statusButton.isUserInteractionEnabled = isEditing && status == .unconfirmed
         statusButton.setImage(isEditing && status == .unconfirmed ? UIImage(named: "Unconfirmed") : nil, for: .normal)
-        _statusLabel?.isHidden = true
-        _alertLabel?.alpha = 1
+
+        _errorLabel?.isHidden = !hasError
 
         if status == .none || text?.isEmpty ?? true {
             statusButtonWidthConstraint.constant = 0
