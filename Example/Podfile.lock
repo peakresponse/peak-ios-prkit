@@ -5,14 +5,17 @@ PODS:
   - FBSnapshotTestCase/SwiftSupport (2.1.4):
     - FBSnapshotTestCase/Core
   - PRKit (0.1.0)
+  - SwiftLint (0.43.1)
 
 DEPENDENCIES:
   - FBSnapshotTestCase (~> 2.1.4)
   - PRKit (from `../`)
+  - SwiftLint
 
 SPEC REPOS:
   trunk:
     - FBSnapshotTestCase
+    - SwiftLint
 
 EXTERNAL SOURCES:
   PRKit:
@@ -21,7 +24,8 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   FBSnapshotTestCase: 094f9f314decbabe373b87cc339bea235a63e07a
   PRKit: d29e6465eacaec5e94ae0c42a6bce618d2286292
+  SwiftLint: 99f82d07b837b942dd563c668de129a03fc3fb52
 
-PODFILE CHECKSUM: a24c79fb40dcf1af3c415a16346a571827a22cc8
+PODFILE CHECKSUM: b1812f551ecc642a15958456495156b9655311ee
 
 COCOAPODS: 1.11.2

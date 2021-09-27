@@ -4,6 +4,7 @@ platform :ios, '12.5'
 
 target 'PRKit_Example' do
   pod 'PRKit', :path => '../'
+  pod 'SwiftLint'
 
   target 'PRKit_Tests' do
     inherit! :search_paths
