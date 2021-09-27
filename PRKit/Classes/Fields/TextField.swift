@@ -1,5 +1,5 @@
 //
-//  FormField.swift
+//  TextField.swift
 //  PRKit
 //
 //  Created by Francis Li on 9/4/20.
@@ -7,12 +7,12 @@
 
 import UIKit
 
-private class FormFieldTextView: UITextView {
-    weak var formField: FormField?
+private class InternalTextView: UITextView {
+    weak var textField: TextField?
 
     override func becomeFirstResponder() -> Bool {
         if super.becomeFirstResponder() {
-            formField?.updateStyle()
+            textField?.updateStyle()
             return true
         }
         return false
@@ -20,7 +20,7 @@ private class FormFieldTextView: UITextView {
 
     override func resignFirstResponder() -> Bool {
         if super.resignFirstResponder() {
-            formField?.updateStyle()
+            textField?.updateStyle()
             return true
         }
         return false
@@ -28,8 +28,8 @@ private class FormFieldTextView: UITextView {
 }
 
 @IBDesignable
-class FormField: BaseField, UITextViewDelegate {
-    let textView: UITextView = FormFieldTextView()
+class TextField: BaseField, UITextViewDelegate {
+    let textView: UITextView = InternalTextView()
     var textViewTopConstraint: NSLayoutConstraint!
     var textViewHeightConstraint: NSLayoutConstraint!
     var bottomConstraint: NSLayoutConstraint!
@@ -60,7 +60,7 @@ class FormField: BaseField, UITextViewDelegate {
         super.commonInit()
 
         textView.delegate = self
-        (textView as? FormFieldTextView)?.formField = self
+        (textView as? InternalTextView)?.textField = self
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.contentInset = .zero
         textView.textContainerInset = .zero
@@ -110,7 +110,6 @@ class FormField: BaseField, UITextViewDelegate {
     }
 
     func textViewDidBeginEditing(_ textView: UITextView) {
-        updateStyle()
         delegate?.formFieldDidBeginEditing?(self)
     }
 
@@ -119,7 +118,6 @@ class FormField: BaseField, UITextViewDelegate {
     }
 
     func textViewDidEndEditing(_ textView: UITextView) {
-        updateStyle()
         delegate?.formFieldDidEndEditing?(self)
     }
 
