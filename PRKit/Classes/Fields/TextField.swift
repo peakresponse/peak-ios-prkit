@@ -30,9 +30,7 @@ private class InternalTextView: UITextView {
 @IBDesignable
 class TextField: BaseField, UITextViewDelegate {
     let textView: UITextView = InternalTextView()
-    var textViewTopConstraint: NSLayoutConstraint!
     var textViewHeightConstraint: NSLayoutConstraint!
-    var bottomConstraint: NSLayoutConstraint!
 
     @IBInspectable var isEnabled: Bool {
         get { return textView.isUserInteractionEnabled }
@@ -53,7 +51,7 @@ class TextField: BaseField, UITextViewDelegate {
                                         .font: font,
                                         .paragraphStyle: paragraphStyle
                                      ], context: nil)
-        return max(2 * font.lineHeight * 1.2, ceil(rect.height / (font.lineHeight * 1.2)) * font.lineHeight * 1.2)
+        return max(font.lineHeight * 1.2, ceil(rect.height / (font.lineHeight * 1.2)) * font.lineHeight * 1.2)
     }
 
     override func commonInit() {
@@ -65,30 +63,25 @@ class TextField: BaseField, UITextViewDelegate {
         textView.contentInset = .zero
         textView.textContainerInset = .zero
         textView.textContainer.lineFragmentPadding = 0
-        textView.font = .copySBold
-        textView.textColor = .mainGrey
+        textView.textColor = .base800
+        textView.font = .h4SemiBold
         contentView.addSubview(textView)
 
-        textViewTopConstraint = textView.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 10)
-        textViewHeightConstraint = textView.heightAnchor.constraint(equalToConstant: 2 * round(textView.font!.lineHeight * 1.2))
-        bottomConstraint = contentView.bottomAnchor.constraint(equalTo: textView.bottomAnchor, constant: 14)
+        textViewHeightConstraint = textView.heightAnchor.constraint(equalToConstant: round(textView.font!.lineHeight * 1.2))
 
         NSLayoutConstraint.activate([
-            textViewTopConstraint,
-            textView.leftAnchor.constraint(equalTo: statusButton.rightAnchor, constant: 10),
-            textView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -10),
+            textView.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 0),
+            textView.leftAnchor.constraint(equalTo: label.leftAnchor),
+            textView.rightAnchor.constraint(equalTo: label.rightAnchor),
             textViewHeightConstraint,
-            bottomConstraint
+            contentView.bottomAnchor.constraint(equalTo: textView.bottomAnchor, constant: 8)
         ])
     }
 
     override func updateStyle() {
         super.updateStyle()
-        textView.font = .copySBold
-        textViewTopConstraint.constant = 4
-        bottomConstraint.constant = 12
-
         textViewHeightConstraint.constant = heightForText(textView.text, font: textView.font!, width: textView.frame.width)
+        
     }
 
     override var isFirstResponder: Bool {

@@ -107,7 +107,6 @@ class BaseField: UIView, Localizable {
         let statusButton = UIButton()
         statusButton.translatesAutoresizingMaskIntoConstraints = false
         statusButton.addTarget(self, action: #selector(statusPressed), for: .touchUpInside)
-        statusButton.backgroundColor = .middlePeakBlue
         contentView.addSubview(statusButton)
         statusButtonWidthConstraint = statusButton.widthAnchor.constraint(equalToConstant: 8)
         NSLayoutConstraint.activate([
@@ -120,11 +119,12 @@ class BaseField: UIView, Localizable {
 
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = .lowPriorityGrey
         contentView.addSubview(label)
         NSLayoutConstraint.activate([
-            label.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 6),
-            label.leftAnchor.constraint(equalTo: statusButton.rightAnchor, constant: 10)
+            label.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
+            label.leftAnchor.constraint(equalTo: statusButton.rightAnchor, constant: 16),
+            label.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -16),
+            label.heightAnchor.constraint(equalToConstant: 28)
         ])
         self.label = label
     }
@@ -169,6 +169,13 @@ class BaseField: UIView, Localizable {
         ])
     }
 
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        if isFirstResponder {
+            contentView.addOutline(size: 4, color: .brandPrimary200, opacity: 1)
+        }
+    }
+    
     // swiftlint:disable:next function_body_length
     func updateStyle() {
         if isPlainText {
@@ -187,7 +194,9 @@ class BaseField: UIView, Localizable {
             }
         }
 
-        label.font = .copyXSBold
+        label.font = .h4SemiBold
+        label.textColor = isFirstResponder ? .brandPrimary500 : .base500
+        statusButton.backgroundColor = .middlePeakBlue
         statusButton.backgroundColor = status == .unconfirmed ? UIColor.orangeAccent.withAlphaComponent(0.3) : UIColor.middlePeakBlue
         statusButton.isUserInteractionEnabled = isEditing && status == .unconfirmed
         statusButton.setImage(isEditing && status == .unconfirmed ? UIImage(named: "Unconfirmed") : nil, for: .normal)
