@@ -38,7 +38,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vxt-c4-Uev" customClass="TextField" customModule="PRKit">
-                                <rect key="frame" x="20" y="78" width="663.5" height="72.5"/>
+                                <rect key="frame" x="20" y="78" width="683.5" height="72.5"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="labelText" value="Empty Field"/>
@@ -46,7 +46,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JGV-fz-1Ch" customClass="TextField" customModule="PRKit">
-                                <rect key="frame" x="20" y="166.5" width="663.5" height="73"/>
+                                <rect key="frame" x="20" y="166.5" width="683.5" height="73"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="labelText" value="Disabled Field"/>
@@ -54,14 +54,25 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="placeholderText" value="Sample Input"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vgv-B0-hHD" customClass="PasswordField" customModule="PRKit">
+                                <rect key="frame" x="20" y="255.5" width="683.5" height="73"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="labelText" value="Password Field"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="placeholderText" value="********"/>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" name="Base100"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="JGV-fz-1Ch" secondAttribute="trailing" constant="20" symbolic="YES" id="31J-wM-qHC"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="JGV-fz-1Ch" secondAttribute="trailing" id="31J-wM-qHC"/>
+                            <constraint firstItem="vgv-B0-hHD" firstAttribute="leading" secondItem="bVO-ox-Q8p" secondAttribute="leadingMargin" id="NgD-qY-I9J"/>
                             <constraint firstItem="JGV-fz-1Ch" firstAttribute="leading" secondItem="bVO-ox-Q8p" secondAttribute="leadingMargin" id="UXK-mO-OKH"/>
+                            <constraint firstItem="vgv-B0-hHD" firstAttribute="top" secondItem="JGV-fz-1Ch" secondAttribute="bottom" constant="16" id="WIc-05-rCc"/>
                             <constraint firstItem="vxt-c4-Uev" firstAttribute="leading" secondItem="bVO-ox-Q8p" secondAttribute="leadingMargin" id="Yfa-x0-tZb"/>
-                            <constraint firstAttribute="trailing" secondItem="vxt-c4-Uev" secondAttribute="trailing" constant="20" symbolic="YES" id="b5O-47-slq"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="vxt-c4-Uev" secondAttribute="trailing" id="b5O-47-slq"/>
                             <constraint firstItem="vxt-c4-Uev" firstAttribute="top" secondItem="MqT-dz-7bR" secondAttribute="bottom" constant="8" symbolic="YES" id="bKE-tZ-zjt"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="vgv-B0-hHD" secondAttribute="trailing" id="bhD-fE-04e"/>
                             <constraint firstItem="JGV-fz-1Ch" firstAttribute="top" secondItem="vxt-c4-Uev" secondAttribute="bottom" constant="16" id="kl2-7C-F9s"/>
                         </constraints>
                     </view>
@@ -69,7 +80,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mGf-W1-tWC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2320" y="1205"/>
+            <point key="canvasLocation" x="2319.7265625" y="1204.6875"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="82g-Fc-mL0">

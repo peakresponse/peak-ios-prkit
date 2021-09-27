@@ -31,10 +31,10 @@ private class InternalTextView: UITextView {
 class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
     let textView: UITextView = InternalTextView()
     var textViewHeightConstraint: NSLayoutConstraint!
-
+    
     @IBInspectable override var text: String? {
         get { return textView.text }
-        set { textView.text = newValue }
+        set { textView.text = newValue}
     }
 
     private var _placeholderLabel: UILabel!
