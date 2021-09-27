@@ -17,6 +17,34 @@ extension UIColor {
         return UIColor(named: name, in: Bundle(for: UIColorExtension.self), compatibleWith: nil)!
     }
 
+    static var brandPrimary100: UIColor {
+        return UIColor.named("BrandPrimary100")
+    }
+
+    static var brandPrimary200: UIColor {
+        return UIColor.named("BrandPrimary200")
+    }
+
+    static var brandPrimary300: UIColor {
+        return UIColor.named("BrandPrimary300")
+    }
+
+    static var brandPrimary500: UIColor {
+        return UIColor.named("BrandPrimary500")
+    }
+
+    static var brandPrimary600: UIColor {
+        return UIColor.named("BrandPrimary600")
+    }
+
+    static var brandPrimary700: UIColor {
+        return UIColor.named("BrandPrimary700")
+    }
+
+    static var brandPrimary900: UIColor {
+        return UIColor.named("BrandPrimary900")
+    }
+
     static var immediateRed: UIColor {
         return UIColor.named("ImmediateRed")
     }

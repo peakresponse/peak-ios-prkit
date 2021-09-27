@@ -43,7 +43,7 @@ class FormField: BaseField, UITextViewDelegate {
         get { return textView.text }
         set { textView.text = newValue }
     }
-
+    
     private func heightForText(_ text: String, font: UIFont, width: CGFloat) -> CGFloat {
         let text = text as NSString
         let paragraphStyle = NSMutableParagraphStyle()
@@ -84,28 +84,10 @@ class FormField: BaseField, UITextViewDelegate {
 
     override func updateStyle() {
         super.updateStyle()
-        switch style {
-        case .input:
-            textView.font = .copySBold
-            if isFirstResponder {
-                textViewTopConstraint.constant = 6
-                bottomConstraint.constant = 16
+        textView.font = .copySBold
+        textViewTopConstraint.constant = 4
+        bottomConstraint.constant = 12
 
-                let dy: CGFloat = 5
-                contentViewConstraints[0].constant = -dy
-                contentViewConstraints[3].constant = -dy
-            } else {
-                textViewTopConstraint.constant = 4
-                bottomConstraint.constant = 12
-
-                contentViewConstraints[0].constant = 0
-                contentViewConstraints[3].constant = 0
-            }
-        case .onboarding:
-            textView.font = .copyMBold
-            textViewTopConstraint.constant = 10
-            bottomConstraint.constant = 14
-        }
         textViewHeightConstraint.constant = heightForText(textView.text, font: textView.font!, width: textView.frame.width)
     }
 
@@ -128,6 +110,7 @@ class FormField: BaseField, UITextViewDelegate {
     }
 
     func textViewDidBeginEditing(_ textView: UITextView) {
+        updateStyle()
         delegate?.formFieldDidBeginEditing?(self)
     }
 
@@ -136,6 +119,7 @@ class FormField: BaseField, UITextViewDelegate {
     }
 
     func textViewDidEndEditing(_ textView: UITextView) {
+        updateStyle()
         delegate?.formFieldDidEndEditing?(self)
     }
 
