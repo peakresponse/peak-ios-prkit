@@ -1,5 +1,5 @@
 //
-//  BaseField.swift
+//  FormField.swift
 //  PRKit
 //
 //  Created by Francis Li on 9/24/21.
@@ -7,21 +7,17 @@
 
 import UIKit
 
-enum FormFieldStyle: String {
-    case input, onboarding
-}
-
 @objc protocol FormFieldDelegate {
-    @objc optional func formFieldShouldBeginEditing(_ field: BaseField) -> Bool
-    @objc optional func formFieldDidBeginEditing(_ field: BaseField)
-    @objc optional func formFieldShouldEndEditing(_ field: BaseField) -> Bool
-    @objc optional func formFieldDidEndEditing(_ field: BaseField)
-    @objc optional func formFieldShouldReturn(_ field: BaseField) -> Bool
-    @objc optional func formFieldDidChange(_ field: BaseField)
-    @objc optional func formFieldDidConfirmStatus(_ field: BaseField)
+    @objc optional func formFieldShouldBeginEditing(_ field: FormField) -> Bool
+    @objc optional func formFieldDidBeginEditing(_ field: FormField)
+    @objc optional func formFieldShouldEndEditing(_ field: FormField) -> Bool
+    @objc optional func formFieldDidEndEditing(_ field: FormField)
+    @objc optional func formFieldShouldReturn(_ field: FormField) -> Bool
+    @objc optional func formFieldDidChange(_ field: FormField)
+    @objc optional func formFieldDidConfirmStatus(_ field: FormField)
 }
 
-class BaseField: UIView, Localizable {
+class FormField: UIView, Localizable {
     weak var contentView: UIView!
 
     weak var statusButton: UIButton!
@@ -54,9 +50,6 @@ class BaseField: UIView, Localizable {
         didSet { updateStyle() }
     }
 
-    @objc var text: String?
-    @objc var placeholderText: String?
-
     @IBOutlet weak var delegate: FormFieldDelegate?
 
     @IBInspectable var l10nKey: String? {
@@ -70,6 +63,7 @@ class BaseField: UIView, Localizable {
     }
 
     @IBInspectable var attributeKey: String?
+    @objc var text: String?
 
     @IBInspectable var isPlainText: Bool = false {
         didSet { updateStyle() }
@@ -189,7 +183,7 @@ class BaseField: UIView, Localizable {
                 contentView.layer.borderColor = UIColor.brandPrimary500.cgColor
                 contentView.addOutline(size: 4, color: .brandPrimary200, opacity: 1)
             } else {
-                contentView.layer.borderColor = UIColor.brandPrimary300.cgColor
+                contentView.layer.borderColor = isUserInteractionEnabled ? UIColor.brandPrimary300.cgColor : UIColor.base500.cgColor
                 contentView.removeOutline()
             }
         }

@@ -28,18 +28,26 @@ private class InternalTextView: UITextView {
 }
 
 @IBDesignable
-class TextField: BaseField, UITextViewDelegate {
+class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
     let textView: UITextView = InternalTextView()
     var textViewHeightConstraint: NSLayoutConstraint!
-
-    @IBInspectable var isEnabled: Bool {
-        get { return textView.isUserInteractionEnabled }
-        set { textView.isUserInteractionEnabled = newValue }
-    }
 
     @IBInspectable override var text: String? {
         get { return textView.text }
         set { textView.text = newValue }
+    }
+
+    private var _placeholderLabel: UILabel!
+    var placeholderLabel: UILabel {
+        if _placeholderLabel == nil {
+            initPlaceholderLabel()
+        }
+        return _placeholderLabel
+    }
+    
+    @IBInspectable var placeholderText: String? {
+        get { return _placeholderLabel?.text }
+        set { placeholderLabel.text = newValue }
     }
     
     private func heightForText(_ text: String, font: UIFont, width: CGFloat) -> CGFloat {
@@ -63,7 +71,7 @@ class TextField: BaseField, UITextViewDelegate {
         textView.contentInset = .zero
         textView.textContainerInset = .zero
         textView.textContainer.lineFragmentPadding = 0
-        textView.textColor = .base800
+        textView.textStorage.delegate = self
         textView.font = .h4SemiBold
         contentView.addSubview(textView)
 
@@ -78,8 +86,25 @@ class TextField: BaseField, UITextViewDelegate {
         ])
     }
 
+    private func initPlaceholderLabel() {
+        guard _placeholderLabel == nil else { return }
+        let placeholderLabel = UILabel()
+        placeholderLabel.translatesAutoresizingMaskIntoConstraints = false
+        placeholderLabel.font = textView.font
+        placeholderLabel.textColor = .base300
+        placeholderLabel.isHidden = !(text?.isEmpty ?? true)
+        contentView.addSubview(placeholderLabel)
+        NSLayoutConstraint.activate([
+            placeholderLabel.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 0),
+            placeholderLabel.leftAnchor.constraint(equalTo: label.leftAnchor),
+            placeholderLabel.rightAnchor.constraint(equalTo: label.rightAnchor),
+        ])
+        _placeholderLabel = placeholderLabel
+    }
+    
     override func updateStyle() {
         super.updateStyle()
+        textView.textColor = isUserInteractionEnabled ? .base800 : .base300
         textViewHeightConstraint.constant = heightForText(textView.text, font: textView.font!, width: textView.frame.width)
         
     }
@@ -94,6 +119,14 @@ class TextField: BaseField, UITextViewDelegate {
 
     override func resignFirstResponder() -> Bool {
         return textView.resignFirstResponder()
+    }
+
+    // MARK: - NSTextStorageDelegate
+    
+    func textStorage(_ textStorage: NSTextStorage, didProcessEditing editedMask: NSTextStorage.EditActions, range editedRange: NSRange, changeInLength delta: Int) {
+        if editedMask.contains(.editedCharacters) {
+            _placeholderLabel?.isHidden = !(text?.isEmpty ?? true)
+        }
     }
 
     // MARK: - UITextViewDelegate

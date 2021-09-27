@@ -37,20 +37,32 @@
                         <rect key="frame" x="0.0" y="0.0" width="703.5" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vxt-c4-Uev" customClass="TextField" customModule="PRKit">
-                                <rect key="frame" x="20" y="78" width="663.5" height="74"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vxt-c4-Uev" customClass="TextField" customModule="PRKit">
+                                <rect key="frame" x="20" y="78" width="663.5" height="72.5"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="labelText" value="Empty Field"/>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="text" value="Placeholder?"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="placeholderText" value="Sample Input"/>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JGV-fz-1Ch" customClass="TextField" customModule="PRKit">
+                                <rect key="frame" x="20" y="166.5" width="663.5" height="73"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="labelText" value="Disabled Field"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="text" value="Input"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="placeholderText" value="Sample Input"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
                         <color key="backgroundColor" name="Base100"/>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="JGV-fz-1Ch" secondAttribute="trailing" constant="20" symbolic="YES" id="31J-wM-qHC"/>
+                            <constraint firstItem="JGV-fz-1Ch" firstAttribute="leading" secondItem="bVO-ox-Q8p" secondAttribute="leadingMargin" id="UXK-mO-OKH"/>
                             <constraint firstItem="vxt-c4-Uev" firstAttribute="leading" secondItem="bVO-ox-Q8p" secondAttribute="leadingMargin" id="Yfa-x0-tZb"/>
                             <constraint firstAttribute="trailing" secondItem="vxt-c4-Uev" secondAttribute="trailing" constant="20" symbolic="YES" id="b5O-47-slq"/>
                             <constraint firstItem="vxt-c4-Uev" firstAttribute="top" secondItem="MqT-dz-7bR" secondAttribute="bottom" constant="8" symbolic="YES" id="bKE-tZ-zjt"/>
+                            <constraint firstItem="JGV-fz-1Ch" firstAttribute="top" secondItem="vxt-c4-Uev" secondAttribute="bottom" constant="16" id="kl2-7C-F9s"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Inputs" id="rwP-sB-YSr"/>
