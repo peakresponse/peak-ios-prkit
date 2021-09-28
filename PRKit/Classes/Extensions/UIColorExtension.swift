@@ -77,7 +77,6 @@ extension UIColor {
         return UIColor.named("BrandSecondary800")
     }
 
-
     static var immediateRed: UIColor {
         return UIColor.named("ImmediateRed")
     }

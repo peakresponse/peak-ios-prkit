@@ -30,7 +30,7 @@ private class InternalTextField: UITextField {
 @IBDesignable
 class PasswordField: FormField, UITextFieldDelegate {
     let textField: UITextField = InternalTextField()
-    
+
     @IBInspectable override var text: String? {
         get { return textField.text }
         set { textField.text = newValue}
@@ -40,7 +40,7 @@ class PasswordField: FormField, UITextFieldDelegate {
         get { return textField.placeholder }
         set { textField.placeholder = newValue }
     }
-    
+
     override func commonInit() {
         super.commonInit()
 
@@ -60,7 +60,7 @@ class PasswordField: FormField, UITextFieldDelegate {
             contentView.bottomAnchor.constraint(equalTo: textField.bottomAnchor, constant: 8)
         ])
     }
-    
+
     @objc func textFieldDidChange() {
         delegate?.formFieldDidChange?(self)
     }

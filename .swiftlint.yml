@@ -1,5 +1,5 @@
 excluded:
-  - Pods
+  - Example/Pods
 identifier_name:
   validates_start_with_lowercase: false
   allowed_symbols: "_"

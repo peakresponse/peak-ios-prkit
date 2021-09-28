@@ -24,7 +24,7 @@ extension UIFont {
     @objc static var body14Bold: UIFont {
         return UIFont(name: "Barlow-SemiBold", size: 14) ?? .boldSystemFont(ofSize: 14)
     }
-    
+
     @objc static var h1: UIFont {
         return UIFont(name: "Barlow-Regular", size: 48) ?? .systemFont(ofSize: 48)
     }
@@ -32,7 +32,7 @@ extension UIFont {
     @objc static var h1Bold: UIFont {
         return UIFont(name: "Barlow-Bold", size: 48) ?? .boldSystemFont(ofSize: 48)
     }
-    
+
     @objc static var h2: UIFont {
         return UIFont(name: "Barlow-Regular", size: 36) ?? .systemFont(ofSize: 36)
     }
@@ -40,7 +40,7 @@ extension UIFont {
     @objc static var h2Bold: UIFont {
         return UIFont(name: "Barlow-SemiBold", size: 36) ?? .boldSystemFont(ofSize: 36)
     }
-    
+
     @objc static var h3: UIFont {
         return UIFont(name: "Barlow-Regular", size: 24) ?? .systemFont(ofSize: 24)
     }
@@ -48,7 +48,7 @@ extension UIFont {
     @objc static var h3SemiBold: UIFont {
         return UIFont(name: "Barlow-SemiBold", size: 24) ?? .boldSystemFont(ofSize: 24)
     }
-    
+
     @objc static var h4: UIFont {
         return UIFont(name: "Barlow-Regular", size: 20) ?? .systemFont(ofSize: 20)
     }

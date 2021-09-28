@@ -31,7 +31,7 @@ private class InternalTextView: UITextView {
 class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
     let textView: UITextView = InternalTextView()
     var textViewHeightConstraint: NSLayoutConstraint!
-    
+
     @IBInspectable override var text: String? {
         get { return textView.text }
         set { textView.text = newValue}
@@ -44,12 +44,12 @@ class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
         }
         return _placeholderLabel
     }
-    
+
     @IBInspectable var placeholderText: String? {
         get { return _placeholderLabel?.text }
         set { placeholderLabel.text = newValue }
     }
-    
+
     private func heightForText(_ text: String, font: UIFont, width: CGFloat) -> CGFloat {
         let text = text as NSString
         let paragraphStyle = NSMutableParagraphStyle()
@@ -97,16 +97,16 @@ class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
         NSLayoutConstraint.activate([
             placeholderLabel.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 0),
             placeholderLabel.leftAnchor.constraint(equalTo: label.leftAnchor),
-            placeholderLabel.rightAnchor.constraint(equalTo: label.rightAnchor),
+            placeholderLabel.rightAnchor.constraint(equalTo: label.rightAnchor)
         ])
         _placeholderLabel = placeholderLabel
     }
-    
+
     override func updateStyle() {
         super.updateStyle()
         textView.textColor = isUserInteractionEnabled ? .base800 : .base300
         textViewHeightConstraint.constant = heightForText(textView.text, font: textView.font!, width: textView.frame.width)
-        
+
     }
 
     override var isFirstResponder: Bool {
@@ -122,8 +122,9 @@ class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
     }
 
     // MARK: - NSTextStorageDelegate
-    
-    func textStorage(_ textStorage: NSTextStorage, didProcessEditing editedMask: NSTextStorage.EditActions, range editedRange: NSRange, changeInLength delta: Int) {
+
+    func textStorage(_ textStorage: NSTextStorage, didProcessEditing editedMask: NSTextStorage.EditActions,
+                     range editedRange: NSRange, changeInLength delta: Int) {
         if editedMask.contains(.editedCharacters) {
             _placeholderLabel?.isHidden = !(text?.isEmpty ?? true)
         }

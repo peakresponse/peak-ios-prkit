@@ -36,7 +36,6 @@ class FormField: UIView, Localizable {
         return _errorLabel
     }
 
-
     @IBOutlet weak var delegate: FormFieldDelegate?
 
     @IBInspectable var l10nKey: String? {
@@ -126,7 +125,7 @@ class FormField: UIView, Localizable {
         _errorLabel.textColor = .brandSecondary500
         _errorLabel.isHidden = !hasError
         addSubview(_errorLabel)
-        
+
         let bottomConstraint = bottomAnchor.constraint(equalTo: _errorLabel.bottomAnchor)
         bottomConstraint.priority = .defaultHigh
         NSLayoutConstraint.activate([
@@ -144,8 +143,7 @@ class FormField: UIView, Localizable {
             contentView.addOutline(size: 4, color: .brandPrimary200, opacity: 1)
         }
     }
-    
-    // swiftlint:disable:next function_body_length
+
     func updateStyle() {
         if isPlainText {
             contentView.backgroundColor = .clear
