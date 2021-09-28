@@ -1,10 +1,16 @@
 PODS:
+  - CocoaLumberjack (3.7.2):
+    - CocoaLumberjack/Core (= 3.7.2)
+  - CocoaLumberjack/Core (3.7.2)
   - FBSnapshotTestCase (2.1.4):
     - FBSnapshotTestCase/SwiftSupport (= 2.1.4)
   - FBSnapshotTestCase/Core (2.1.4)
   - FBSnapshotTestCase/SwiftSupport (2.1.4):
     - FBSnapshotTestCase/Core
-  - PRKit (0.1.0)
+  - PRKit (0.1.0):
+    - SVGKit (~> 3.0)
+  - SVGKit (3.0.0):
+    - CocoaLumberjack (~> 3.0)
   - SwiftLint (0.43.1)
 
 DEPENDENCIES:
@@ -14,7 +20,9 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - CocoaLumberjack
     - FBSnapshotTestCase
+    - SVGKit
     - SwiftLint
 
 EXTERNAL SOURCES:
@@ -22,8 +30,10 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
+  CocoaLumberjack: b7e05132ff94f6ae4dfa9d5bce9141893a21d9da
   FBSnapshotTestCase: 094f9f314decbabe373b87cc339bea235a63e07a
-  PRKit: d29e6465eacaec5e94ae0c42a6bce618d2286292
+  PRKit: 57aef9444b83c849cb4b02ac07ec0f4663642526
+  SVGKit: 1ad7513f8c74d9652f94ed64ddecda1a23864dea
   SwiftLint: 99f82d07b837b942dd563c668de129a03fc3fb52
 
 PODFILE CHECKSUM: b1812f551ecc642a15958456495156b9655311ee
