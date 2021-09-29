@@ -17,6 +17,11 @@ enum ButtonStyle: String {
 
 @IBDesignable
 class Button: UIButton {
+    @IBInspectable var l10nKey: String? {
+        get { return nil }
+        set { setTitle(newValue?.localized, for: .normal); updateStyle() }
+    }
+
     var size: ButtonSize = .medium {
         didSet { updateStyle() }
     }
