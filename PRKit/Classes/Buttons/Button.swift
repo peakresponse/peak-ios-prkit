@@ -57,6 +57,10 @@ class Button: UIButton {
         updateStyle()
     }
 
+    override func contentCompressionResistancePriority(for axis: NSLayoutConstraint.Axis) -> UILayoutPriority {
+        return .required
+    }
+
     private func updateStyle() {
         var font: UIFont
         var borderWidth: CGFloat = 3
