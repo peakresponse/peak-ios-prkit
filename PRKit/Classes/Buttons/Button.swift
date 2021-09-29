@@ -57,10 +57,6 @@ class Button: UIButton {
         updateStyle()
     }
 
-    override func contentCompressionResistancePriority(for axis: NSLayoutConstraint.Axis) -> UILayoutPriority {
-        return .required
-    }
-
     private func updateStyle() {
         var font: UIFont
         var borderWidth: CGFloat = 3
@@ -97,6 +93,8 @@ class Button: UIButton {
             setTitleAttributes(font: font, color: .brandPrimary600, for: .highlighted)
             setTitleAttributes(font: font, color: .base300, for: .disabled)
         }
+        setContentCompressionResistancePriority(.required, for: .horizontal)
+        setContentCompressionResistancePriority(.required, for: .vertical)
     }
 
     private func setTitleAttributes(font: UIFont, color: UIColor, for state: UIControl.State) {
