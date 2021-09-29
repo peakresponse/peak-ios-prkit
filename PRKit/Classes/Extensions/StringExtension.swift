@@ -9,6 +9,6 @@ import Foundation
 
 extension String {
     var localized: String {
-        return NSLocalizedString(self, bundle: Bundle(for: type(of: UIApplication.shared)), comment: "")
+        return NSLocalizedString(self, bundle: Bundle(for: type(of: UIApplication.shared.delegate!)), comment: "")
     }
 }
