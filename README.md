@@ -26,4 +26,4 @@ Francis Li, mail@francisli.com
 
 ## License
 
-PRKit is available under the MIT license. See the LICENSE file for more info.
+PRKit is available under the GNU Lesser General Public License license, Version 3. See the LICENSE file for more info.
