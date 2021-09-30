@@ -100,6 +100,10 @@ open class PasswordField: FormField, UITextFieldDelegate {
         delegate?.formFieldDidEndEditing?(self)
     }
 
+    public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        return delegate?.formFieldShouldReturn?(self) ?? true
+    }
+
     public func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         return true
     }
