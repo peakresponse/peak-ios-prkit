@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum PredictionStatus: String {
+public enum PredictionStatus: String {
     case none
     case unconfirmed = "UNCONFIRMED"
     case confirmed = "CONFIRMED"

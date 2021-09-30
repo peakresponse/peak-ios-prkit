@@ -29,23 +29,23 @@ private class InternalTextView: UITextView {
 
 @IBDesignable
 open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
-    let textView: UITextView = InternalTextView()
-    var textViewHeightConstraint: NSLayoutConstraint!
+    open var textView: UITextView!
+    open var textViewHeightConstraint: NSLayoutConstraint!
 
-    @IBInspectable override var text: String? {
+    @IBInspectable open override var text: String? {
         get { return textView.text }
         set { textView.text = newValue}
     }
 
     private var _placeholderLabel: UILabel!
-    var placeholderLabel: UILabel {
+    open var placeholderLabel: UILabel {
         if _placeholderLabel == nil {
             initPlaceholderLabel()
         }
         return _placeholderLabel
     }
 
-    @IBInspectable var placeholderText: String? {
+    @IBInspectable open var placeholderText: String? {
         get { return _placeholderLabel?.text }
         set { placeholderLabel.text = newValue }
     }
@@ -62,11 +62,12 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
         return max(font.lineHeight * 1.2, ceil(rect.height / (font.lineHeight * 1.2)) * font.lineHeight * 1.2)
     }
 
-    override func commonInit() {
+    override open func commonInit() {
         super.commonInit()
 
+        let textView = InternalTextView()
         textView.delegate = self
-        (textView as? InternalTextView)?.textField = self
+        textView.textField = self
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.contentInset = .zero
         textView.textContainerInset = .zero
@@ -74,6 +75,7 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
         textView.textStorage.delegate = self
         textView.font = .h4SemiBold
         contentView.addSubview(textView)
+        self.textView = textView
 
         textViewHeightConstraint = textView.heightAnchor.constraint(equalToConstant: round(textView.font!.lineHeight * 1.2))
 
@@ -102,7 +104,7 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
         _placeholderLabel = placeholderLabel
     }
 
-    override func updateStyle() {
+    override open func updateStyle() {
         super.updateStyle()
         textView.textColor = isUserInteractionEnabled ? .base800 : .base300
         textViewHeightConstraint.constant = heightForText(textView.text, font: textView.font!, width: textView.frame.width)

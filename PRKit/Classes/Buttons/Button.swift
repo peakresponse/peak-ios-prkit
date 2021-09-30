@@ -7,38 +7,38 @@
 
 import UIKit
 
-enum ButtonSize: String {
+public enum ButtonSize: String {
     case small, medium, large
 }
 
-enum ButtonStyle: String {
+public enum ButtonStyle: String {
     case primary, secondary, tertiary
 }
 
 @IBDesignable
 open class Button: UIButton {
-    @IBInspectable var l10nKey: String? {
+    @IBInspectable open var l10nKey: String? {
         get { return nil }
         set { setTitle(newValue?.localized, for: .normal); updateStyle() }
     }
 
-    var size: ButtonSize = .medium {
+    open var size: ButtonSize = .medium {
         didSet { updateStyle() }
     }
-    @IBInspectable var Size: String {
+    @IBInspectable open var Size: String {
         get { return size.rawValue }
         set { size = ButtonSize(rawValue: newValue) ?? .medium }
     }
 
-    var style: ButtonStyle = .tertiary {
+    open var style: ButtonStyle = .tertiary {
         didSet { updateStyle() }
     }
-    @IBInspectable var Style: String {
+    @IBInspectable open var Style: String {
         get { return style.rawValue }
         set { style = ButtonStyle(rawValue: newValue) ?? .tertiary }
     }
 
-    override init(frame: CGRect) {
+    override public init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
     }

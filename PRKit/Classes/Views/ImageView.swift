@@ -10,23 +10,23 @@ import UIKit
 
 @IBDesignable
 open class ImageView: UIView {
-    weak var imageView: UIImageView!
-    weak var activityIndicatorView: UIActivityIndicatorView!
+    open weak var imageView: UIImageView!
+    open weak var activityIndicatorView: UIActivityIndicatorView!
 
-    @IBInspectable var round: Bool = false {
+    @IBInspectable open var round: Bool = false {
         didSet { configureConstraints() }
     }
 
-    @IBInspectable var image: UIImage? {
+    @IBInspectable open var image: UIImage? {
         get { return imageView.image }
         set { imageView.image = newValue }
     }
 
-    var imageURL: String? {
+    open var imageURL: String? {
         didSet { loadImage() }
     }
 
-    override init(frame: CGRect) {
+    override public init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
     }

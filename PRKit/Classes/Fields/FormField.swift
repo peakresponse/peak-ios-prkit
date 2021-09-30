@@ -18,54 +18,54 @@ import UIKit
 }
 
 open class FormField: UIView, Localizable {
-    weak var contentView: UIView!
+    open weak var contentView: UIView!
 
-    var status: PredictionStatus = .none {
+    open var status: PredictionStatus = .none {
         didSet { updateStyle() }
     }
-    weak var statusButton: UIButton!
-    var statusButtonWidthConstraint: NSLayoutConstraint!
+    open weak var statusButton: UIButton!
+    open var statusButtonWidthConstraint: NSLayoutConstraint!
 
-    weak var label: UILabel!
+    open weak var label: UILabel!
 
     private var _errorLabel: UILabel!
-    var errorLabel: UILabel {
+    open var errorLabel: UILabel {
         if _errorLabel == nil {
             initErrorLabel()
         }
         return _errorLabel
     }
 
-    @IBOutlet weak var delegate: FormFieldDelegate?
+    @IBOutlet open weak var delegate: FormFieldDelegate?
 
-    @IBInspectable var l10nKey: String? {
+    @IBInspectable open var l10nKey: String? {
         get { return nil }
         set { label.l10nKey = newValue }
     }
 
-    @IBInspectable var labelText: String? {
+    @IBInspectable open var labelText: String? {
         get { return label.text }
         set { label.text = newValue }
     }
 
-    @IBInspectable var attributeKey: String?
-    @objc var text: String?
+    @IBInspectable open var attributeKey: String?
+    @objc open var text: String?
 
-    @IBInspectable var isPlainText: Bool = false {
+    @IBInspectable open var isPlainText: Bool = false {
         didSet { updateStyle() }
     }
 
-    @IBInspectable var isEditing: Bool = true
+    @IBInspectable open var isEditing: Bool = true
 
-    @IBInspectable var hasError: Bool = false {
+    @IBInspectable open var hasError: Bool = false {
         didSet { updateStyle() }
     }
-    @IBInspectable var errorText: String? {
+    @IBInspectable open var errorText: String? {
         get { return _errorLabel?.text }
         set { errorLabel.text = newValue }
     }
 
-    override init(frame: CGRect) {
+    override public init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
         updateStyle()
@@ -77,8 +77,7 @@ open class FormField: UIView, Localizable {
         updateStyle()
     }
 
-    // swiftlin:disable:next function_body_length
-    func commonInit() {
+    open func commonInit() {
         backgroundColor = .clear
 
         let contentView = UIView()
@@ -144,7 +143,7 @@ open class FormField: UIView, Localizable {
         }
     }
 
-    func updateStyle() {
+    open func updateStyle() {
         if isPlainText {
             contentView.backgroundColor = .clear
             contentView.layer.borderWidth = 0
@@ -187,7 +186,7 @@ open class FormField: UIView, Localizable {
         }
     }
 
-    @objc func statusPressed() {
+    @objc open func statusPressed() {
         delegate?.formFieldDidConfirmStatus?(self)
         status = .confirmed
         updateStyle()

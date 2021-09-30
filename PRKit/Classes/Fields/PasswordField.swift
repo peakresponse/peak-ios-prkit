@@ -31,17 +31,17 @@ private class InternalTextField: UITextField {
 open class PasswordField: FormField, UITextFieldDelegate {
     let textField: UITextField = InternalTextField()
 
-    @IBInspectable override var text: String? {
+    @IBInspectable override open var text: String? {
         get { return textField.text }
         set { textField.text = newValue}
     }
 
-    @IBInspectable var placeholderText: String? {
+    @IBInspectable open var placeholderText: String? {
         get { return textField.placeholder }
         set { textField.placeholder = newValue }
     }
 
-    override func commonInit() {
+    override open func commonInit() {
         super.commonInit()
 
         textField.delegate = self
@@ -65,7 +65,7 @@ open class PasswordField: FormField, UITextFieldDelegate {
         delegate?.formFieldDidChange?(self)
     }
 
-    override func updateStyle() {
+    override open func updateStyle() {
         super.updateStyle()
         textField.textColor = isUserInteractionEnabled ? .base800 : .base300
     }

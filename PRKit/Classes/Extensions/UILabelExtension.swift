@@ -8,7 +8,7 @@
 import UIKit
 
 extension UILabel: Localizable {
-    @IBInspectable var l10nKey: String? {
+    @IBInspectable public var l10nKey: String? {
         get { return nil }
         set { text = newValue?.localized }
     }

@@ -7,6 +7,6 @@
 
 import Foundation
 
-protocol Localizable {
+public protocol Localizable {
     var l10nKey: String? { get set }
 }

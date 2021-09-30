@@ -8,11 +8,11 @@
 import UIKit
 import SVGKit
 
-enum LogoStyle: String {
+public enum LogoStyle: String {
     case full, square
 }
 
-enum LogoVariant: String {
+public enum LogoVariant: String {
     case dark, light, white
 }
 
@@ -21,23 +21,23 @@ open class LogoView: UIView {
     private weak var imageView: SVGKImageView!
     private var imageViewAspectConstraint: NSLayoutConstraint!
 
-    var style: LogoStyle = .full {
+    open var style: LogoStyle = .full {
         didSet { updateLogo() }
     }
-    @IBInspectable var Style: String {
+    @IBInspectable open var Style: String {
         get { return style.rawValue }
         set { style = LogoStyle(rawValue: newValue) ?? .full }
     }
 
-    var variant: LogoVariant = .dark {
+    open var variant: LogoVariant = .dark {
         didSet { updateLogo() }
     }
-    @IBInspectable var Variant: String {
+    @IBInspectable open var Variant: String {
         get { return variant.rawValue }
         set { variant = LogoVariant(rawValue: newValue) ?? .dark }
     }
 
-    override init(frame: CGRect) {
+    override public init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
     }
