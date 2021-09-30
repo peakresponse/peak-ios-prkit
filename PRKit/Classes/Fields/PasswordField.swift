@@ -28,7 +28,7 @@ private class InternalTextField: UITextField {
 }
 
 @IBDesignable
-class PasswordField: FormField, UITextFieldDelegate {
+open class PasswordField: FormField, UITextFieldDelegate {
     let textField: UITextField = InternalTextField()
 
     @IBInspectable override var text: String? {
@@ -70,37 +70,37 @@ class PasswordField: FormField, UITextFieldDelegate {
         textField.textColor = isUserInteractionEnabled ? .base800 : .base300
     }
 
-    override var isFirstResponder: Bool {
+    override open var isFirstResponder: Bool {
         return textField.isFirstResponder
     }
 
-    override func becomeFirstResponder() -> Bool {
+    override open func becomeFirstResponder() -> Bool {
         return textField.becomeFirstResponder()
     }
 
-    override func resignFirstResponder() -> Bool {
+    override open func resignFirstResponder() -> Bool {
         return textField.resignFirstResponder()
     }
 
     // MARK: - UITextViewDelegate
 
-    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+    public func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         return delegate?.formFieldShouldBeginEditing?(self) ?? true
     }
 
-    func textFieldDidBeginEditing(_ textField: UITextField) {
+    public func textFieldDidBeginEditing(_ textField: UITextField) {
         delegate?.formFieldDidBeginEditing?(self)
     }
 
-    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+    public func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
         return delegate?.formFieldShouldEndEditing?(self) ?? true
     }
 
-    func textFieldDidEndEditing(_ textField: UITextField) {
+    public func textFieldDidEndEditing(_ textField: UITextField) {
         delegate?.formFieldDidEndEditing?(self)
     }
 
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+    public func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         return true
     }
 }

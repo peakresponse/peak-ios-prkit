@@ -9,7 +9,7 @@
 import UIKit
 
 @IBDesignable
-class ImageView: UIView {
+open class ImageView: UIView {
     weak var imageView: UIImageView!
     weak var activityIndicatorView: UIActivityIndicatorView!
 
@@ -31,12 +31,12 @@ class ImageView: UIView {
         commonInit()
     }
 
-    required init?(coder: NSCoder) {
+    required public init?(coder: NSCoder) {
         super.init(coder: coder)
         commonInit()
     }
 
-    override func layoutSubviews() {
+    override open func layoutSubviews() {
         super.layoutSubviews()
         if round {
             imageView.layer.cornerRadius = imageView.frame.size.width / 2

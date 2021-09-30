@@ -17,7 +17,7 @@ enum LogoVariant: String {
 }
 
 @IBDesignable
-class LogoView: UIView {
+open class LogoView: UIView {
     private weak var imageView: SVGKImageView!
     private var imageViewAspectConstraint: NSLayoutConstraint!
 
@@ -42,12 +42,12 @@ class LogoView: UIView {
         commonInit()
     }
 
-    required init?(coder: NSCoder) {
+    required public init?(coder: NSCoder) {
         super.init(coder: coder)
         commonInit()
     }
 
-    override func awakeFromNib() {
+    override open func awakeFromNib() {
         super.awakeFromNib()
         updateLogo()
     }

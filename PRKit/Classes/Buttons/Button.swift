@@ -16,7 +16,7 @@ enum ButtonStyle: String {
 }
 
 @IBDesignable
-class Button: UIButton {
+open class Button: UIButton {
     @IBInspectable var l10nKey: String? {
         get { return nil }
         set { setTitle(newValue?.localized, for: .normal); updateStyle() }
@@ -43,7 +43,7 @@ class Button: UIButton {
         commonInit()
     }
 
-    required init?(coder: NSCoder) {
+    required public init?(coder: NSCoder) {
         super.init(coder: coder)
         commonInit()
     }
@@ -52,7 +52,7 @@ class Button: UIButton {
         updateStyle()
     }
 
-    override func awakeFromNib() {
+    override open func awakeFromNib() {
         super.awakeFromNib()
         updateStyle()
     }

@@ -7,7 +7,7 @@
 
 import UIKit
 
-@objc protocol FormFieldDelegate {
+@objc public protocol FormFieldDelegate {
     @objc optional func formFieldShouldBeginEditing(_ field: FormField) -> Bool
     @objc optional func formFieldDidBeginEditing(_ field: FormField)
     @objc optional func formFieldShouldEndEditing(_ field: FormField) -> Bool
@@ -17,7 +17,7 @@ import UIKit
     @objc optional func formFieldDidConfirmStatus(_ field: FormField)
 }
 
-class FormField: UIView, Localizable {
+open class FormField: UIView, Localizable {
     weak var contentView: UIView!
 
     var status: PredictionStatus = .none {
@@ -71,7 +71,7 @@ class FormField: UIView, Localizable {
         updateStyle()
     }
 
-    required init?(coder: NSCoder) {
+    required public init?(coder: NSCoder) {
         super.init(coder: coder)
         commonInit()
         updateStyle()
@@ -137,7 +137,7 @@ class FormField: UIView, Localizable {
         ])
     }
 
-    override func layoutSubviews() {
+    override open func layoutSubviews() {
         super.layoutSubviews()
         if isFirstResponder {
             contentView.addOutline(size: 4, color: .brandPrimary200, opacity: 1)

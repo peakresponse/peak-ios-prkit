@@ -28,7 +28,7 @@ private class InternalTextView: UITextView {
 }
 
 @IBDesignable
-class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
+open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
     let textView: UITextView = InternalTextView()
     var textViewHeightConstraint: NSLayoutConstraint!
 
@@ -109,21 +109,21 @@ class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
 
     }
 
-    override var isFirstResponder: Bool {
+    override open var isFirstResponder: Bool {
         return textView.isFirstResponder
     }
 
-    override func becomeFirstResponder() -> Bool {
+    override open func becomeFirstResponder() -> Bool {
         return textView.becomeFirstResponder()
     }
 
-    override func resignFirstResponder() -> Bool {
+    override open func resignFirstResponder() -> Bool {
         return textView.resignFirstResponder()
     }
 
     // MARK: - NSTextStorageDelegate
 
-    func textStorage(_ textStorage: NSTextStorage, didProcessEditing editedMask: NSTextStorage.EditActions,
+    public func textStorage(_ textStorage: NSTextStorage, didProcessEditing editedMask: NSTextStorage.EditActions,
                      range editedRange: NSRange, changeInLength delta: Int) {
         if editedMask.contains(.editedCharacters) {
             _placeholderLabel?.isHidden = !(text?.isEmpty ?? true)
@@ -132,23 +132,23 @@ class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
 
     // MARK: - UITextViewDelegate
 
-    func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
+    public func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
         return delegate?.formFieldShouldBeginEditing?(self) ?? true
     }
 
-    func textViewDidBeginEditing(_ textView: UITextView) {
+    public func textViewDidBeginEditing(_ textView: UITextView) {
         delegate?.formFieldDidBeginEditing?(self)
     }
 
-    func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
+    public func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
         return delegate?.formFieldShouldEndEditing?(self) ?? true
     }
 
-    func textViewDidEndEditing(_ textView: UITextView) {
+    public func textViewDidEndEditing(_ textView: UITextView) {
         delegate?.formFieldDidEndEditing?(self)
     }
 
-    func textViewDidChange(_ textView: UITextView) {
+    public func textViewDidChange(_ textView: UITextView) {
         textViewHeightConstraint.constant = heightForText(textView.text, font: textView.font!, width: textView.frame.width)
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineSpacing = 4
@@ -160,7 +160,7 @@ class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
         delegate?.formFieldDidChange?(self)
     }
 
-    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+    public func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         if text == "\n" && !(delegate?.formFieldShouldReturn?(self) ?? true) {
             return false
         }
