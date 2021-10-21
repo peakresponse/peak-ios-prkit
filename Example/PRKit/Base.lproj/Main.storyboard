@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="pLw-Kb-tnX">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="pLw-Kb-tnX">
     <device id="ipad9_7" orientation="landscape" layout="fullscreen" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -66,7 +66,7 @@
                                 <rect key="frame" x="20" y="344.5" width="683.5" height="72.5"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="labelText" value="Empty Field"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="labelText" value="Error Field"/>
                                     <userDefinedRuntimeAttribute type="string" keyPath="placeholderText" value="Sample Input"/>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="hasError" value="YES"/>
                                     <userDefinedRuntimeAttribute type="string" keyPath="errorText" value="Error note"/>
@@ -451,6 +451,55 @@
             </objects>
             <point key="canvasLocation" x="2319.7265625" y="2615.625"/>
         </scene>
+        <!--Headers-->
+        <scene sceneID="TN4-1M-cWi">
+            <objects>
+                <viewController id="XnX-u6-GFM" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="30E-si-bCG"/>
+                        <viewControllerLayoutGuide type="bottom" id="SqT-E0-mjs"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Iwy-8u-HRk">
+                        <rect key="frame" x="0.0" y="0.0" width="703.5" height="768"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" placeholderIntrinsicWidth="663.5" placeholderIntrinsicHeight="122" translatesAutoresizingMaskIntoConstraints="NO" id="EFh-Xu-yMl" customClass="WelcomeHeader" customModule="PRKit">
+                                <rect key="frame" x="20" y="70" width="683.5" height="122"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="labelText" value="Welcome Captain John Doe. Testing really long label."/>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="EFh-Xu-yMl" firstAttribute="trailing" secondItem="Iwy-8u-HRk" secondAttribute="trailingMargin" id="4Ij-Jx-chH"/>
+                            <constraint firstItem="EFh-Xu-yMl" firstAttribute="leading" secondItem="Iwy-8u-HRk" secondAttribute="leadingMargin" id="8MF-p0-3Fn"/>
+                            <constraint firstItem="EFh-Xu-yMl" firstAttribute="top" secondItem="30E-si-bCG" secondAttribute="bottom" id="UA2-dh-IPe"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Headers" id="pgM-Pp-WZ2"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hRt-gX-fsN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2320" y="3338"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="SYF-Ju-xpA">
+            <objects>
+                <navigationController id="vj7-Yp-XGI" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="zlP-AE-kew">
+                        <rect key="frame" x="0.0" y="20" width="703.5" height="50"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="XnX-u6-GFM" kind="relationship" relationship="rootViewController" id="4GR-PH-bHD"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="LDm-E6-WlQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1625" y="3338"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="6n2-re-e3n">
             <objects>
@@ -538,6 +587,26 @@
                                             <segue destination="eBN-Ll-pee" kind="showDetail" id="4N9-5W-YaK"/>
                                         </connections>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="2p7-6z-GbB" style="IBUITableViewCellStyleDefault" id="EVk-F0-eoi">
+                                        <rect key="frame" x="0.0" y="175" width="420" height="43.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="EVk-F0-eoi" id="xhx-JK-ctR">
+                                            <rect key="frame" x="100" y="0.0" width="294.5" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Headers" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="2p7-6z-GbB">
+                                                    <rect key="frame" x="16" y="0.0" width="270.5" height="43.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="vj7-Yp-XGI" kind="showDetail" id="NR8-lJ-oVF"/>
+                                        </connections>
+                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                         </sections>
@@ -593,6 +662,9 @@
         </designable>
         <designable name="C8C-G5-bl9">
             <size key="intrinsicContentSize" width="44" height="34"/>
+        </designable>
+        <designable name="EFh-Xu-yMl">
+            <size key="intrinsicContentSize" width="663.5" height="122"/>
         </designable>
         <designable name="FS8-OE-DNM">
             <size key="intrinsicContentSize" width="44" height="34"/>
