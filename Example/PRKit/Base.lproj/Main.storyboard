@@ -37,7 +37,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="703.5" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vxt-c4-Uev" customClass="TextField" customModule="PRKit">
+                            <view contentMode="scaleToFill" placeholderIntrinsicWidth="683.5" placeholderIntrinsicHeight="72.5" translatesAutoresizingMaskIntoConstraints="NO" id="vxt-c4-Uev" customClass="TextField" customModule="PRKit">
                                 <rect key="frame" x="20" y="78" width="683.5" height="72.5"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <userDefinedRuntimeAttributes>
@@ -45,7 +45,7 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="placeholderText" value="Sample Input"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JGV-fz-1Ch" userLabel="Disabled Field" customClass="TextField" customModule="PRKit">
+                            <view userInteractionEnabled="NO" contentMode="scaleToFill" placeholderIntrinsicWidth="683.5" placeholderIntrinsicHeight="73" translatesAutoresizingMaskIntoConstraints="NO" id="JGV-fz-1Ch" userLabel="Disabled Field" customClass="TextField" customModule="PRKit">
                                 <rect key="frame" x="20" y="166.5" width="683.5" height="73"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <userDefinedRuntimeAttributes>
@@ -54,7 +54,7 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="placeholderText" value="Sample Input"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vgv-B0-hHD" customClass="PasswordField" customModule="PRKit">
+                            <view contentMode="scaleToFill" placeholderIntrinsicWidth="683.5" placeholderIntrinsicHeight="73" translatesAutoresizingMaskIntoConstraints="NO" id="vgv-B0-hHD" customClass="PasswordField" customModule="PRKit">
                                 <rect key="frame" x="20" y="255.5" width="683.5" height="73"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <userDefinedRuntimeAttributes>
@@ -62,7 +62,7 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="placeholderText" value="********"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vcJ-Ow-yxv" userLabel="Error Field" customClass="TextField" customModule="PRKit">
+                            <view contentMode="scaleToFill" placeholderIntrinsicWidth="683.5" placeholderIntrinsicHeight="72.5" translatesAutoresizingMaskIntoConstraints="NO" id="vcJ-Ow-yxv" userLabel="Error Field" customClass="TextField" customModule="PRKit">
                                 <rect key="frame" x="20" y="344.5" width="683.5" height="72.5"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <userDefinedRuntimeAttributes>
@@ -84,7 +84,8 @@
                                 <rect key="frame" x="20" y="505" width="240" height="40"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="labelText" value="Checkbox"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="labelText" value="Disabled Checkbox"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isChecked" value="YES"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
@@ -696,6 +697,9 @@
         <designable name="Ilr-rg-JZw">
             <size key="intrinsicContentSize" width="116" height="68.5"/>
         </designable>
+        <designable name="JGV-fz-1Ch">
+            <size key="intrinsicContentSize" width="683.5" height="73"/>
+        </designable>
         <designable name="JNM-8P-ijA">
             <size key="intrinsicContentSize" width="145" height="83"/>
         </designable>
@@ -725,6 +729,15 @@
         </designable>
         <designable name="v4f-RK-WUL">
             <size key="intrinsicContentSize" width="77" height="42.5"/>
+        </designable>
+        <designable name="vcJ-Ow-yxv">
+            <size key="intrinsicContentSize" width="683.5" height="72.5"/>
+        </designable>
+        <designable name="vgv-B0-hHD">
+            <size key="intrinsicContentSize" width="683.5" height="73"/>
+        </designable>
+        <designable name="vxt-c4-Uev">
+            <size key="intrinsicContentSize" width="683.5" height="72.5"/>
         </designable>
         <designable name="wv2-Hf-YxN">
             <size key="intrinsicContentSize" width="145" height="83"/>

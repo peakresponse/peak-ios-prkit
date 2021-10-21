@@ -16,6 +16,11 @@ open class Checkbox: UIView {
     open weak var button: UIButton!
     open weak var label: UILabel!
 
+    @IBInspectable open var isChecked: Bool {
+        get { return button.isSelected }
+        set { button.isSelected = newValue }
+    }
+
     @IBInspectable open var labelText: String? {
         get { return label.text }
         set { label.text = newValue }
