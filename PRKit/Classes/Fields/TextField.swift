@@ -108,7 +108,6 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
         super.updateStyle()
         textView.textColor = isUserInteractionEnabled ? .base800 : .base300
         textViewHeightConstraint.constant = heightForText(textView.text, font: textView.font!, width: textView.frame.width)
-
     }
 
     override open var isFirstResponder: Bool {

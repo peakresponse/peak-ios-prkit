@@ -162,7 +162,9 @@ open class FormField: UIView, Localizable {
                 contentView.layer.borderColor = UIColor.brandPrimary500.cgColor
                 contentView.addOutline(size: 4, color: .brandPrimary200, opacity: 1)
             } else {
-                contentView.layer.borderColor = isUserInteractionEnabled ? UIColor.brandPrimary300.cgColor : UIColor.base500.cgColor
+                contentView.layer.borderColor = isUserInteractionEnabled ?
+                    (text?.isEmpty ?? true ? UIColor.base500.cgColor : UIColor.brandPrimary300.cgColor) :
+                    UIColor.base300.cgColor
                 contentView.removeOutline()
             }
         }
