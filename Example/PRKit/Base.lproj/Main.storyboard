@@ -37,7 +37,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="703.5" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vxt-c4-Uev" customClass="TextField" customModule="PRKit">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vxt-c4-Uev" customClass="TextField" customModule="PRKit">
                                 <rect key="frame" x="20" y="78" width="683.5" height="72.5"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <userDefinedRuntimeAttributes>
@@ -45,7 +45,7 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="placeholderText" value="Sample Input"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <view userInteractionEnabled="NO" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JGV-fz-1Ch" customClass="TextField" customModule="PRKit">
+                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JGV-fz-1Ch" userLabel="Disabled Field" customClass="TextField" customModule="PRKit">
                                 <rect key="frame" x="20" y="166.5" width="683.5" height="73"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <userDefinedRuntimeAttributes>
@@ -54,7 +54,7 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="placeholderText" value="Sample Input"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vgv-B0-hHD" customClass="PasswordField" customModule="PRKit">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vgv-B0-hHD" customClass="PasswordField" customModule="PRKit">
                                 <rect key="frame" x="20" y="255.5" width="683.5" height="73"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <userDefinedRuntimeAttributes>
@@ -62,7 +62,7 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="placeholderText" value="********"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vcJ-Ow-yxv" customClass="TextField" customModule="PRKit">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vcJ-Ow-yxv" userLabel="Error Field" customClass="TextField" customModule="PRKit">
                                 <rect key="frame" x="20" y="344.5" width="683.5" height="72.5"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <userDefinedRuntimeAttributes>
@@ -73,11 +73,26 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="text" value="Input"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
+                            <view contentMode="scaleToFill" placeholderIntrinsicWidth="240" placeholderIntrinsicHeight="40" translatesAutoresizingMaskIntoConstraints="NO" id="CBl-dn-Vqh" customClass="Checkbox" customModule="PRKit">
+                                <rect key="frame" x="20" y="449" width="240" height="40"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="labelText" value="Checkbox"/>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <view userInteractionEnabled="NO" contentMode="scaleToFill" placeholderIntrinsicWidth="240" placeholderIntrinsicHeight="40" translatesAutoresizingMaskIntoConstraints="NO" id="jW0-wr-d3R" customClass="Checkbox" customModule="PRKit">
+                                <rect key="frame" x="20" y="505" width="240" height="40"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="labelText" value="Checkbox"/>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" name="Base100"/>
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="JGV-fz-1Ch" secondAttribute="trailing" id="31J-wM-qHC"/>
                             <constraint firstItem="vcJ-Ow-yxv" firstAttribute="leading" secondItem="bVO-ox-Q8p" secondAttribute="leadingMargin" id="D7v-OB-J0u"/>
+                            <constraint firstItem="CBl-dn-Vqh" firstAttribute="top" secondItem="vcJ-Ow-yxv" secondAttribute="bottom" constant="32" id="Efl-hy-E3P"/>
                             <constraint firstItem="vcJ-Ow-yxv" firstAttribute="top" secondItem="vgv-B0-hHD" secondAttribute="bottom" constant="16" id="HzB-ks-Gav"/>
                             <constraint firstItem="vgv-B0-hHD" firstAttribute="leading" secondItem="bVO-ox-Q8p" secondAttribute="leadingMargin" id="NgD-qY-I9J"/>
                             <constraint firstItem="JGV-fz-1Ch" firstAttribute="leading" secondItem="bVO-ox-Q8p" secondAttribute="leadingMargin" id="UXK-mO-OKH"/>
@@ -86,8 +101,11 @@
                             <constraint firstAttribute="trailingMargin" secondItem="vxt-c4-Uev" secondAttribute="trailing" id="b5O-47-slq"/>
                             <constraint firstItem="vxt-c4-Uev" firstAttribute="top" secondItem="MqT-dz-7bR" secondAttribute="bottom" constant="8" symbolic="YES" id="bKE-tZ-zjt"/>
                             <constraint firstAttribute="trailingMargin" secondItem="vgv-B0-hHD" secondAttribute="trailing" id="bhD-fE-04e"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="jW0-wr-d3R" secondAttribute="leading" id="f4x-Fe-DgQ"/>
                             <constraint firstAttribute="trailingMargin" secondItem="vcJ-Ow-yxv" secondAttribute="trailing" id="irE-BY-GwR"/>
                             <constraint firstItem="JGV-fz-1Ch" firstAttribute="top" secondItem="vxt-c4-Uev" secondAttribute="bottom" constant="16" id="kl2-7C-F9s"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="CBl-dn-Vqh" secondAttribute="leading" id="rcq-sB-LFi"/>
+                            <constraint firstItem="jW0-wr-d3R" firstAttribute="top" secondItem="CBl-dn-Vqh" secondAttribute="bottom" constant="16" id="xxz-GR-EZN"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Inputs" id="rwP-sB-YSr"/>
@@ -125,7 +143,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aCL-k2-3Kd" userLabel="Primary Small" customClass="Button" customModule="PRKit">
-                                <rect key="frame" x="20" y="70" width="44" height="34"/>
+                                <rect key="frame" x="20" y="70" width="77" height="42.5"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="Label"/>
                                 <userDefinedRuntimeAttributes>
@@ -134,7 +152,7 @@
                                 </userDefinedRuntimeAttributes>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b6b-xF-Y9q" userLabel="Primary Small Disabled" customClass="Button" customModule="PRKit">
-                                <rect key="frame" x="80" y="70" width="44" height="34"/>
+                                <rect key="frame" x="113" y="70" width="77" height="42.5"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="Label"/>
                                 <userDefinedRuntimeAttributes>
@@ -143,7 +161,7 @@
                                 </userDefinedRuntimeAttributes>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zVG-Zi-WJU" userLabel="Secondary Small" customClass="Button" customModule="PRKit">
-                                <rect key="frame" x="20" y="120" width="44" height="34"/>
+                                <rect key="frame" x="20" y="128.5" width="77" height="42.5"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="Label"/>
                                 <userDefinedRuntimeAttributes>
@@ -152,7 +170,7 @@
                                 </userDefinedRuntimeAttributes>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v4f-RK-WUL" userLabel="Secondary SmallDisabled" customClass="Button" customModule="PRKit">
-                                <rect key="frame" x="80" y="120" width="44" height="34"/>
+                                <rect key="frame" x="113" y="128.5" width="77" height="42.5"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="Label"/>
                                 <userDefinedRuntimeAttributes>
@@ -161,7 +179,7 @@
                                 </userDefinedRuntimeAttributes>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QdN-nI-UqF" userLabel="Tertiary Small" customClass="Button" customModule="PRKit">
-                                <rect key="frame" x="20" y="170" width="44" height="34"/>
+                                <rect key="frame" x="20" y="187" width="77" height="42.5"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="Label"/>
                                 <userDefinedRuntimeAttributes>
@@ -169,7 +187,7 @@
                                 </userDefinedRuntimeAttributes>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="atj-J9-YhT" userLabel="Tertiary Small Disabled" customClass="Button" customModule="PRKit">
-                                <rect key="frame" x="80" y="170" width="44" height="34"/>
+                                <rect key="frame" x="113" y="187" width="77" height="42.5"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="Label"/>
                                 <userDefinedRuntimeAttributes>
@@ -177,7 +195,7 @@
                                 </userDefinedRuntimeAttributes>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C8C-G5-bl9" userLabel="Primary Medium" customClass="Button" customModule="PRKit">
-                                <rect key="frame" x="20" y="220" width="44" height="34"/>
+                                <rect key="frame" x="20" y="245.5" width="116" height="68.5"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="Label"/>
                                 <userDefinedRuntimeAttributes>
@@ -186,7 +204,7 @@
                                 </userDefinedRuntimeAttributes>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jZ5-Um-X0Z" userLabel="Primary Medium Disabled" customClass="Button" customModule="PRKit">
-                                <rect key="frame" x="80" y="220" width="44" height="34"/>
+                                <rect key="frame" x="152" y="245.5" width="116" height="68.5"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="Label"/>
                                 <userDefinedRuntimeAttributes>
@@ -195,7 +213,7 @@
                                 </userDefinedRuntimeAttributes>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uAD-nH-mpg" userLabel="Secondary Medium" customClass="Button" customModule="PRKit">
-                                <rect key="frame" x="20" y="270" width="44" height="34"/>
+                                <rect key="frame" x="20" y="330" width="116" height="68.5"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="Label"/>
                                 <userDefinedRuntimeAttributes>
@@ -204,7 +222,7 @@
                                 </userDefinedRuntimeAttributes>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HyR-fI-M7N" userLabel="Secondary MediumDisabled" customClass="Button" customModule="PRKit">
-                                <rect key="frame" x="80" y="270" width="44" height="34"/>
+                                <rect key="frame" x="152" y="330" width="116" height="68.5"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="Label"/>
                                 <userDefinedRuntimeAttributes>
@@ -213,7 +231,7 @@
                                 </userDefinedRuntimeAttributes>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FS8-OE-DNM" userLabel="Tertiary Medium" customClass="Button" customModule="PRKit">
-                                <rect key="frame" x="20" y="320" width="44" height="34"/>
+                                <rect key="frame" x="20" y="414.5" width="116" height="68.5"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="Label"/>
                                 <userDefinedRuntimeAttributes>
@@ -221,7 +239,7 @@
                                 </userDefinedRuntimeAttributes>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ilr-rg-JZw" userLabel="Tertiary Medium Disabled" customClass="Button" customModule="PRKit">
-                                <rect key="frame" x="80" y="320" width="44" height="34"/>
+                                <rect key="frame" x="152" y="414.5" width="116" height="68.5"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="Label"/>
                                 <userDefinedRuntimeAttributes>
@@ -229,7 +247,7 @@
                                 </userDefinedRuntimeAttributes>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1I8-st-BMR" userLabel="Primary Large" customClass="Button" customModule="PRKit">
-                                <rect key="frame" x="20" y="370" width="44" height="34"/>
+                                <rect key="frame" x="20" y="499" width="145" height="83"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="Label"/>
                                 <userDefinedRuntimeAttributes>
@@ -238,7 +256,7 @@
                                 </userDefinedRuntimeAttributes>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wv2-Hf-YxN" userLabel="Primary Large Disabled" customClass="Button" customModule="PRKit">
-                                <rect key="frame" x="80" y="370" width="44" height="34"/>
+                                <rect key="frame" x="181" y="499" width="145" height="83"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="Label"/>
                                 <userDefinedRuntimeAttributes>
@@ -247,7 +265,7 @@
                                 </userDefinedRuntimeAttributes>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vfy-pw-F0e" userLabel="Secondary Large" customClass="Button" customModule="PRKit">
-                                <rect key="frame" x="20" y="420" width="44" height="34"/>
+                                <rect key="frame" x="20" y="598" width="145" height="83"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="Label"/>
                                 <userDefinedRuntimeAttributes>
@@ -256,7 +274,7 @@
                                 </userDefinedRuntimeAttributes>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BKi-Hz-sby" userLabel="Secondary Large Disabled" customClass="Button" customModule="PRKit">
-                                <rect key="frame" x="80" y="420" width="44" height="34"/>
+                                <rect key="frame" x="181" y="598" width="145" height="83"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="Label"/>
                                 <userDefinedRuntimeAttributes>
@@ -265,7 +283,7 @@
                                 </userDefinedRuntimeAttributes>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B1r-1u-J1E" userLabel="Tertiary Large" customClass="Button" customModule="PRKit">
-                                <rect key="frame" x="20" y="470" width="44" height="34"/>
+                                <rect key="frame" x="20" y="697" width="145" height="83"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="Label"/>
                                 <userDefinedRuntimeAttributes>
@@ -273,7 +291,7 @@
                                 </userDefinedRuntimeAttributes>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JNM-8P-ijA" userLabel="Tertiary Large Disabled" customClass="Button" customModule="PRKit">
-                                <rect key="frame" x="80" y="470" width="44" height="34"/>
+                                <rect key="frame" x="181" y="697" width="145" height="83"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="Label"/>
                                 <userDefinedRuntimeAttributes>
@@ -652,61 +670,67 @@
     </scenes>
     <designables>
         <designable name="1I8-st-BMR">
-            <size key="intrinsicContentSize" width="44" height="34"/>
+            <size key="intrinsicContentSize" width="145" height="83"/>
         </designable>
         <designable name="B1r-1u-J1E">
-            <size key="intrinsicContentSize" width="44" height="34"/>
+            <size key="intrinsicContentSize" width="145" height="83"/>
         </designable>
         <designable name="BKi-Hz-sby">
-            <size key="intrinsicContentSize" width="44" height="34"/>
+            <size key="intrinsicContentSize" width="145" height="83"/>
         </designable>
         <designable name="C8C-G5-bl9">
-            <size key="intrinsicContentSize" width="44" height="34"/>
+            <size key="intrinsicContentSize" width="116" height="68.5"/>
+        </designable>
+        <designable name="CBl-dn-Vqh">
+            <size key="intrinsicContentSize" width="240" height="40"/>
         </designable>
         <designable name="EFh-Xu-yMl">
             <size key="intrinsicContentSize" width="663.5" height="122"/>
         </designable>
         <designable name="FS8-OE-DNM">
-            <size key="intrinsicContentSize" width="44" height="34"/>
+            <size key="intrinsicContentSize" width="116" height="68.5"/>
         </designable>
         <designable name="HyR-fI-M7N">
-            <size key="intrinsicContentSize" width="44" height="34"/>
+            <size key="intrinsicContentSize" width="116" height="68.5"/>
         </designable>
         <designable name="Ilr-rg-JZw">
-            <size key="intrinsicContentSize" width="44" height="34"/>
+            <size key="intrinsicContentSize" width="116" height="68.5"/>
         </designable>
         <designable name="JNM-8P-ijA">
-            <size key="intrinsicContentSize" width="44" height="34"/>
+            <size key="intrinsicContentSize" width="145" height="83"/>
         </designable>
         <designable name="QdN-nI-UqF">
-            <size key="intrinsicContentSize" width="44" height="34"/>
+            <size key="intrinsicContentSize" width="77" height="42.5"/>
         </designable>
         <designable name="Vfy-pw-F0e">
-            <size key="intrinsicContentSize" width="44" height="34"/>
+            <size key="intrinsicContentSize" width="145" height="83"/>
         </designable>
         <designable name="aCL-k2-3Kd">
-            <size key="intrinsicContentSize" width="44" height="34"/>
+            <size key="intrinsicContentSize" width="77" height="42.5"/>
         </designable>
         <designable name="atj-J9-YhT">
-            <size key="intrinsicContentSize" width="44" height="34"/>
+            <size key="intrinsicContentSize" width="77" height="42.5"/>
         </designable>
         <designable name="b6b-xF-Y9q">
-            <size key="intrinsicContentSize" width="44" height="34"/>
+            <size key="intrinsicContentSize" width="77" height="42.5"/>
+        </designable>
+        <designable name="jW0-wr-d3R">
+            <size key="intrinsicContentSize" width="240" height="40"/>
         </designable>
         <designable name="jZ5-Um-X0Z">
-            <size key="intrinsicContentSize" width="44" height="34"/>
+            <size key="intrinsicContentSize" width="116" height="68.5"/>
         </designable>
         <designable name="uAD-nH-mpg">
-            <size key="intrinsicContentSize" width="44" height="34"/>
+            <size key="intrinsicContentSize" width="116" height="68.5"/>
         </designable>
         <designable name="v4f-RK-WUL">
-            <size key="intrinsicContentSize" width="44" height="34"/>
+            <size key="intrinsicContentSize" width="77" height="42.5"/>
         </designable>
         <designable name="wv2-Hf-YxN">
-            <size key="intrinsicContentSize" width="44" height="34"/>
+            <size key="intrinsicContentSize" width="145" height="83"/>
         </designable>
         <designable name="zVG-Zi-WJU">
-            <size key="intrinsicContentSize" width="44" height="34"/>
+            <size key="intrinsicContentSize" width="77" height="42.5"/>
         </designable>
     </designables>
     <resources>

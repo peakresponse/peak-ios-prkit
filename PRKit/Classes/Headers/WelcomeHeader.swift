@@ -8,7 +8,7 @@
 import UIKit
 
 @IBDesignable
-class WelcomeHeader: UIView {
+open class WelcomeHeader: UIView {
     open weak var imageView: ImageView!
     open weak var label: UILabel!
 
