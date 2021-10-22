@@ -32,9 +32,9 @@ open class WelcomeHeader: UIView {
 
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(view)
         let maxWidthConstraint = view.widthAnchor.constraint(equalTo: widthAnchor)
         maxWidthConstraint.priority = .defaultHigh
-        addSubview(view)
         NSLayoutConstraint.activate([
             view.topAnchor.constraint(equalTo: layoutMarginsGuide.topAnchor),
             view.leftAnchor.constraint(greaterThanOrEqualTo: leftAnchor),
