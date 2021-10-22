@@ -731,10 +731,13 @@
             <size key="intrinsicContentSize" width="145" height="83"/>
         </designable>
         <designable name="O9a-pY-KIg">
-            <size key="intrinsicContentSize" width="174" height="68.5"/>
+            <size key="intrinsicContentSize" width="170" height="69"/>
         </designable>
         <designable name="QdN-nI-UqF">
             <size key="intrinsicContentSize" width="77" height="42.5"/>
+        </designable>
+        <designable name="V9L-Nz-wav">
+            <size key="intrinsicContentSize" width="414" height="128"/>
         </designable>
         <designable name="Vfy-pw-F0e">
             <size key="intrinsicContentSize" width="145" height="83"/>
@@ -749,7 +752,7 @@
             <size key="intrinsicContentSize" width="77" height="42.5"/>
         </designable>
         <designable name="iJC-4p-Gve">
-            <size key="intrinsicContentSize" width="141" height="68.5"/>
+            <size key="intrinsicContentSize" width="140" height="69"/>
         </designable>
         <designable name="jW0-wr-d3R">
             <size key="intrinsicContentSize" width="240" height="40"/>

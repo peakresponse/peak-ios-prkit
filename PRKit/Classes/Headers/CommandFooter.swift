@@ -7,9 +7,16 @@
 
 import UIKit
 
+@objc public protocol CommandFooterDelegate {
+    @objc optional func commandFooterDidUpdateLayout(_ commandFooter: CommandFooter, isOverlapping: Bool)
+}
+
+@IBDesignable
 open class CommandFooter: UIView {
     open var stackView = UIStackView()
     open var layoutConstraints: [NSLayoutConstraint] = []
+
+    @IBOutlet open weak var delegate: CommandFooterDelegate?
 
     override public init(frame: CGRect) {
         super.init(frame: frame)
@@ -60,6 +67,7 @@ open class CommandFooter: UIView {
                     button.size = .small
                 }
             }
+            delegate?.commandFooterDidUpdateLayout?(self, isOverlapping: true)
         } else {
             if UIDevice.current.orientation == .landscapeLeft || UIDevice.current.orientation == .landscapeRight {
                 backgroundColor = .clear
@@ -67,12 +75,14 @@ open class CommandFooter: UIView {
                 stackView.axis = .vertical
                 stackView.distribution = .fillEqually
                 layoutConstraints.append(stackView.widthAnchor.constraint(equalToConstant: (UIScreen.main.bounds.width - 710) / 2 - 20))
+                delegate?.commandFooterDidUpdateLayout?(self, isOverlapping: false)
             } else {
                 backgroundColor = .white
                 addShadow(withOffset: CGSize(width: 4, height: -4), radius: 20, color: .base800, opacity: 0.2)
                 stackView.axis = .horizontal
                 stackView.distribution = .fillProportionally
                 layoutConstraints.append(stackView.leftAnchor.constraint(greaterThanOrEqualTo: leftAnchor, constant: 20))
+                delegate?.commandFooterDidUpdateLayout?(self, isOverlapping: true)
             }
             for view in stackView.arrangedSubviews {
                 if let button = view as? Button {
@@ -80,7 +90,6 @@ open class CommandFooter: UIView {
                 }
             }
         }
-
         NSLayoutConstraint.activate(layoutConstraints)
     }
 
