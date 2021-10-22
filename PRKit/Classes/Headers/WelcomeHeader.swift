@@ -36,7 +36,7 @@ open class WelcomeHeader: UIView {
         maxWidthConstraint.priority = .defaultHigh
         addSubview(view)
         NSLayoutConstraint.activate([
-            view.topAnchor.constraint(equalTo: topAnchor),
+            view.topAnchor.constraint(equalTo: layoutMarginsGuide.topAnchor),
             view.leftAnchor.constraint(greaterThanOrEqualTo: leftAnchor),
             view.centerXAnchor.constraint(equalTo: centerXAnchor),
             view.rightAnchor.constraint(lessThanOrEqualTo: rightAnchor),
