@@ -18,6 +18,12 @@ open class CommandFooter: UIView {
 
     @IBOutlet open weak var delegate: CommandFooterDelegate?
 
+    open var isOverlapping: Bool {
+        return traitCollection.horizontalSizeClass == .compact ||
+               UIDevice.current.orientation == .portrait ||
+               UIDevice.current.orientation == .portraitUpsideDown
+    }
+
     override public init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()

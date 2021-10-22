@@ -40,7 +40,7 @@ open class WelcomeHeader: UIView {
             view.leftAnchor.constraint(greaterThanOrEqualTo: leftAnchor),
             view.centerXAnchor.constraint(equalTo: centerXAnchor),
             view.rightAnchor.constraint(lessThanOrEqualTo: rightAnchor),
-            view.widthAnchor.constraint(lessThanOrEqualToConstant: 954),
+            view.widthAnchor.constraint(lessThanOrEqualToConstant: 934),
             maxWidthConstraint,
             bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
