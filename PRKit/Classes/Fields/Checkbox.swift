@@ -7,14 +7,16 @@
 
 import UIKit
 
-class CheckboxButton: UIButton {
-
+@objc public protocol CheckboxDelegate {
+    @objc optional func checkbox(_ checkbox: Checkbox, didChange isChecked: Bool)
 }
 
 @IBDesignable
 open class Checkbox: UIView {
     open weak var button: UIButton!
     open weak var label: UILabel!
+
+    open weak var delegate: CheckboxDelegate?
 
     @IBInspectable open var isChecked: Bool {
         get { return button.isSelected }
@@ -47,7 +49,7 @@ open class Checkbox: UIView {
     open func commonInit() {
         backgroundColor = .clear
 
-        let button = CheckboxButton(type: .custom)
+        let button = UIButton(type: .custom)
         button.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setBackgroundImage(UIImage.resizableImage(withColor: .white, cornerRadius: 8, borderColor: .base500, borderWidth: 2), for: .normal)
@@ -94,5 +96,6 @@ open class Checkbox: UIView {
 
     @objc func buttonPressed() {
         button.isSelected = !button.isSelected
+        delegate?.checkbox?(self, didChange: button.isSelected)
     }
 }
