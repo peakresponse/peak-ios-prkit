@@ -75,7 +75,13 @@ open class CommandFooter: UIView {
             }
             delegate?.commandFooterDidUpdateLayout?(self, isOverlapping: true)
         } else {
-            if UIDevice.current.orientation == .landscapeLeft || UIDevice.current.orientation == .landscapeRight {
+            var orientation: UIInterfaceOrientation
+            if #available(iOS 13.0, *) {
+                orientation = UIApplication.shared.windows.first?.windowScene?.interfaceOrientation ?? .unknown
+            } else {
+                orientation = UIApplication.shared.statusBarOrientation
+            }
+            if orientation == .landscapeLeft || orientation == .landscapeRight {
                 backgroundColor = .clear
                 removeShadow()
                 stackView.axis = .vertical
