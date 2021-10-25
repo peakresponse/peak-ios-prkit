@@ -36,6 +36,7 @@ open class CommandFooter: UIView {
 
     open func commonInit() {
         stackView.alignment = .fill
+        stackView.distribution = .fillEqually
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.spacing = 20
         super.addSubview(stackView)
@@ -66,7 +67,6 @@ open class CommandFooter: UIView {
             addShadow(withOffset: CGSize(width: 4, height: -4), radius: 20, color: .base800, opacity: 0.2)
 
             stackView.axis = .horizontal
-            stackView.distribution = .fillEqually
             layoutConstraints.append(stackView.leftAnchor.constraint(equalTo: leftAnchor, constant: 20))
             for view in stackView.arrangedSubviews {
                 if let button = view as? Button {
@@ -85,14 +85,12 @@ open class CommandFooter: UIView {
                 backgroundColor = .clear
                 removeShadow()
                 stackView.axis = .vertical
-                stackView.distribution = .fillEqually
                 layoutConstraints.append(stackView.widthAnchor.constraint(equalToConstant: (UIScreen.main.bounds.width - 710) / 2 - 20))
                 delegate?.commandFooterDidUpdateLayout?(self, isOverlapping: false)
             } else {
                 backgroundColor = .white
                 addShadow(withOffset: CGSize(width: 4, height: -4), radius: 20, color: .base800, opacity: 0.2)
                 stackView.axis = .horizontal
-                stackView.distribution = .fillProportionally
                 layoutConstraints.append(stackView.leftAnchor.constraint(greaterThanOrEqualTo: leftAnchor, constant: 20))
                 delegate?.commandFooterDidUpdateLayout?(self, isOverlapping: true)
             }
