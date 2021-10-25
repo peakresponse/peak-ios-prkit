@@ -111,4 +111,17 @@ open class CommandFooter: UIView {
         super.traitCollectionDidChange(previousTraitCollection)
         updateLayout()
     }
+
+    open override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+        if isOverlapping {
+            return super.point(inside: point, with: event)
+        }
+        for subview in subviews {
+            let pt = subview.convert(point, from: self)
+            if subview.point(inside: pt, with: event) {
+                return true
+            }
+        }
+        return false
+    }
 }
