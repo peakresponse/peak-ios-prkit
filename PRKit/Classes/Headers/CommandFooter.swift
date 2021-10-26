@@ -13,6 +13,7 @@ import UIKit
 
 @IBDesignable
 open class CommandFooter: UIView {
+    open weak var activityIndicatorView: UIActivityIndicatorView!
     open var stackView = UIStackView()
     open var layoutConstraints: [NSLayoutConstraint] = []
 
@@ -22,6 +23,19 @@ open class CommandFooter: UIView {
         return traitCollection.horizontalSizeClass == .compact ||
                UIDevice.current.orientation == .portrait ||
                UIDevice.current.orientation == .portraitUpsideDown
+    }
+
+    open var isLoading: Bool {
+        get { activityIndicatorView.isAnimating }
+        set {
+            if newValue {
+                activityIndicatorView.startAnimating()
+                stackView.isHidden = true
+            } else {
+                activityIndicatorView.stopAnimating()
+                stackView.isHidden = false
+            }
+        }
     }
 
     override public init(frame: CGRect) {
@@ -41,6 +55,16 @@ open class CommandFooter: UIView {
         stackView.spacing = 20
         super.addSubview(stackView)
         updateLayout()
+
+        let activityIndicatorView = UIActivityIndicatorView.withLargeStyle()
+        activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
+        activityIndicatorView.hidesWhenStopped = true
+        super.addSubview(activityIndicatorView)
+        NSLayoutConstraint.activate([
+            activityIndicatorView.centerXAnchor.constraint(equalTo: stackView.centerXAnchor),
+            activityIndicatorView.centerYAnchor.constraint(equalTo: stackView.centerYAnchor)
+        ])
+        self.activityIndicatorView = activityIndicatorView
 
         if traitCollection.horizontalSizeClass == .regular {
             UIDevice.current.beginGeneratingDeviceOrientationNotifications()

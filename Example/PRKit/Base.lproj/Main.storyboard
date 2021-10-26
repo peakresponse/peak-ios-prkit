@@ -473,7 +473,7 @@
         <!--Headers-->
         <scene sceneID="TN4-1M-cWi">
             <objects>
-                <viewController id="XnX-u6-GFM" sceneMemberID="viewController">
+                <viewController id="XnX-u6-GFM" customClass="HeadersViewController" customModule="PRKit_Example" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="30E-si-bCG"/>
                         <viewControllerLayoutGuide type="bottom" id="SqT-E0-mjs"/>
@@ -509,6 +509,9 @@
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="Style" value="primary"/>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="primaryPressed" destination="XnX-u6-GFM" eventType="touchUpInside" id="JNX-7E-zIw"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -525,6 +528,9 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Headers" id="pgM-Pp-WZ2"/>
+                    <connections>
+                        <outlet property="commandFooter" destination="V9L-Nz-wav" id="DZv-cd-ZBc"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hRt-gX-fsN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
