@@ -17,6 +17,16 @@ open class WelcomeHeader: UIView {
         set { label.text = newValue }
     }
 
+    open var imageURL: String? {
+        get { return imageView.imageURL }
+        set {
+            imageView.imageURL = newValue
+            if newValue == nil {
+                imageView.image = UIImage(named: "Portrait", in: Bundle(for: type(of: self)), compatibleWith: nil)
+            }
+        }
+    }
+
     override public init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
@@ -49,7 +59,6 @@ open class WelcomeHeader: UIView {
 
         let imageSize: CGFloat = isRegularWidth ? 90 : 32
         let imageView = ImageView()
-        imageView.image = UIImage(named: "Portrait", in: Bundle(for: type(of: self)), compatibleWith: nil)
         imageView.round = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(imageView)
@@ -62,6 +71,7 @@ open class WelcomeHeader: UIView {
             view.bottomAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 16)
         ])
         self.imageView = imageView
+        imageURL = nil
 
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
