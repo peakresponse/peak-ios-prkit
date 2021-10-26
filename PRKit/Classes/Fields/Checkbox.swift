@@ -28,6 +28,8 @@ open class Checkbox: UIView {
         set { label.text = newValue }
     }
 
+    open var value: Any?
+
     override public init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
