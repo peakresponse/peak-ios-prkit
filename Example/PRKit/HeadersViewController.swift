@@ -11,6 +11,12 @@ import PRKit
 
 class HeadersViewController: UIViewController {
     @IBOutlet weak var commandFooter: CommandFooter!
+    @IBOutlet weak var commandHeader: CommandHeader!
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        commandHeader.userLabelText = "Testing"
+    }
 
     @IBAction func primaryPressed() {
         commandFooter.isLoading = true
