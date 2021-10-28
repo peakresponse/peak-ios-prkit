@@ -58,7 +58,7 @@ open class CommandHeader: UIView {
         set { userButton.setTitle(newValue, for: .normal) }
     }
 
-    weak var delegate: CommandHeaderDelegate?
+    @IBOutlet weak var delegate: CommandHeaderDelegate?
 
     override public init(frame: CGRect) {
         super.init(frame: frame)
