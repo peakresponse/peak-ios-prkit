@@ -89,13 +89,16 @@ open class CommandHeader: UIView {
         ])
         self.stackView = stackView
 
-        let userButton = UserButton()
+        let userButton = UserButton(type: .custom)
         userButton.translatesAutoresizingMaskIntoConstraints = false
         userButton.isHidden = isUserHidden
         userButton.setTitleColor(.base500, for: .normal)
         userButton.titleLabel?.font = isCompact ? .body14Bold : .h4SemiBold
         userButton.addTarget(self, action: #selector(userPressed), for: .touchUpInside)
         stackView.addArrangedSubview(userButton)
+        NSLayoutConstraint.activate([
+            userButton.heightAnchor.constraint(equalToConstant: isCompact ? 36 : 48)
+        ])
         self.userButton = userButton
         userImageURL = nil
     }
