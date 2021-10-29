@@ -57,5 +57,6 @@ open class SidebarTableView: UITableView {
         backgroundColor = .base100
         separatorStyle = .none
         rowHeight = 66
+        register(SidebarTableViewCell.self, forCellReuseIdentifier: "SidebarItem")
     }
 }
