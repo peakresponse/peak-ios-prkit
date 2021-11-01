@@ -144,7 +144,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aCL-k2-3Kd" userLabel="Primary Small" customClass="Button" customModule="PRKit">
-                                <rect key="frame" x="20" y="88" width="44" height="34"/>
+                                <rect key="frame" x="20" y="88" width="77" height="42.5"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="Label"/>
                                 <userDefinedRuntimeAttributes>
@@ -153,7 +153,7 @@
                                 </userDefinedRuntimeAttributes>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b6b-xF-Y9q" userLabel="Primary Small Disabled" customClass="Button" customModule="PRKit">
-                                <rect key="frame" x="80" y="88" width="44" height="34"/>
+                                <rect key="frame" x="113" y="88" width="77" height="42.5"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="Label"/>
                                 <userDefinedRuntimeAttributes>
@@ -162,7 +162,7 @@
                                 </userDefinedRuntimeAttributes>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zVG-Zi-WJU" userLabel="Secondary Small" customClass="Button" customModule="PRKit">
-                                <rect key="frame" x="20" y="138" width="44" height="34"/>
+                                <rect key="frame" x="20" y="146.5" width="77" height="42.5"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="Label"/>
                                 <userDefinedRuntimeAttributes>
@@ -171,7 +171,7 @@
                                 </userDefinedRuntimeAttributes>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v4f-RK-WUL" userLabel="Secondary SmallDisabled" customClass="Button" customModule="PRKit">
-                                <rect key="frame" x="80" y="138" width="44" height="34"/>
+                                <rect key="frame" x="113" y="146.5" width="77" height="42.5"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="Label"/>
                                 <userDefinedRuntimeAttributes>
@@ -180,7 +180,7 @@
                                 </userDefinedRuntimeAttributes>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QdN-nI-UqF" userLabel="Tertiary Small" customClass="Button" customModule="PRKit">
-                                <rect key="frame" x="20" y="188" width="44" height="34"/>
+                                <rect key="frame" x="20" y="205" width="77" height="42.5"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="Label"/>
                                 <userDefinedRuntimeAttributes>
@@ -188,7 +188,7 @@
                                 </userDefinedRuntimeAttributes>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="atj-J9-YhT" userLabel="Tertiary Small Disabled" customClass="Button" customModule="PRKit">
-                                <rect key="frame" x="80" y="188" width="44" height="34"/>
+                                <rect key="frame" x="113" y="205" width="77" height="42.5"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="Label"/>
                                 <userDefinedRuntimeAttributes>
@@ -196,7 +196,7 @@
                                 </userDefinedRuntimeAttributes>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C8C-G5-bl9" userLabel="Primary Medium" customClass="Button" customModule="PRKit">
-                                <rect key="frame" x="20" y="238" width="44" height="34"/>
+                                <rect key="frame" x="20" y="263.5" width="116" height="68.5"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="Label"/>
                                 <userDefinedRuntimeAttributes>
@@ -205,7 +205,7 @@
                                 </userDefinedRuntimeAttributes>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jZ5-Um-X0Z" userLabel="Primary Medium Disabled" customClass="Button" customModule="PRKit">
-                                <rect key="frame" x="80" y="238" width="44" height="34"/>
+                                <rect key="frame" x="152" y="263.5" width="116" height="68.5"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="Label"/>
                                 <userDefinedRuntimeAttributes>
@@ -214,7 +214,7 @@
                                 </userDefinedRuntimeAttributes>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uAD-nH-mpg" userLabel="Secondary Medium" customClass="Button" customModule="PRKit">
-                                <rect key="frame" x="20" y="288" width="44" height="34"/>
+                                <rect key="frame" x="20" y="348" width="116" height="68.5"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="Label"/>
                                 <userDefinedRuntimeAttributes>
@@ -223,7 +223,7 @@
                                 </userDefinedRuntimeAttributes>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HyR-fI-M7N" userLabel="Secondary MediumDisabled" customClass="Button" customModule="PRKit">
-                                <rect key="frame" x="80" y="288" width="44" height="34"/>
+                                <rect key="frame" x="152" y="348" width="116" height="68.5"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="Label"/>
                                 <userDefinedRuntimeAttributes>
@@ -232,7 +232,7 @@
                                 </userDefinedRuntimeAttributes>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FS8-OE-DNM" userLabel="Tertiary Medium" customClass="Button" customModule="PRKit">
-                                <rect key="frame" x="20" y="338" width="44" height="34"/>
+                                <rect key="frame" x="20" y="432.5" width="116" height="68.5"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="Label"/>
                                 <userDefinedRuntimeAttributes>
@@ -240,7 +240,7 @@
                                 </userDefinedRuntimeAttributes>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ilr-rg-JZw" userLabel="Tertiary Medium Disabled" customClass="Button" customModule="PRKit">
-                                <rect key="frame" x="80" y="338" width="44" height="34"/>
+                                <rect key="frame" x="152" y="432.5" width="116" height="68.5"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="Label"/>
                                 <userDefinedRuntimeAttributes>
@@ -248,7 +248,7 @@
                                 </userDefinedRuntimeAttributes>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1I8-st-BMR" userLabel="Primary Large" customClass="Button" customModule="PRKit">
-                                <rect key="frame" x="20" y="388" width="44" height="34"/>
+                                <rect key="frame" x="20" y="517" width="145" height="83"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="Label"/>
                                 <userDefinedRuntimeAttributes>
@@ -257,7 +257,7 @@
                                 </userDefinedRuntimeAttributes>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wv2-Hf-YxN" userLabel="Primary Large Disabled" customClass="Button" customModule="PRKit">
-                                <rect key="frame" x="80" y="388" width="44" height="34"/>
+                                <rect key="frame" x="181" y="517" width="145" height="83"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="Label"/>
                                 <userDefinedRuntimeAttributes>
@@ -266,7 +266,7 @@
                                 </userDefinedRuntimeAttributes>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vfy-pw-F0e" userLabel="Secondary Large" customClass="Button" customModule="PRKit">
-                                <rect key="frame" x="20" y="438" width="44" height="34"/>
+                                <rect key="frame" x="20" y="616" width="145" height="83"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="Label"/>
                                 <userDefinedRuntimeAttributes>
@@ -275,7 +275,7 @@
                                 </userDefinedRuntimeAttributes>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BKi-Hz-sby" userLabel="Secondary Large Disabled" customClass="Button" customModule="PRKit">
-                                <rect key="frame" x="80" y="438" width="44" height="34"/>
+                                <rect key="frame" x="181" y="616" width="145" height="83"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="Label"/>
                                 <userDefinedRuntimeAttributes>
@@ -284,7 +284,7 @@
                                 </userDefinedRuntimeAttributes>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B1r-1u-J1E" userLabel="Tertiary Large" customClass="Button" customModule="PRKit">
-                                <rect key="frame" x="20" y="488" width="44" height="34"/>
+                                <rect key="frame" x="20" y="715" width="145" height="83"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="Label"/>
                                 <userDefinedRuntimeAttributes>
@@ -292,7 +292,7 @@
                                 </userDefinedRuntimeAttributes>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JNM-8P-ijA" userLabel="Tertiary Large Disabled" customClass="Button" customModule="PRKit">
-                                <rect key="frame" x="80" y="488" width="44" height="34"/>
+                                <rect key="frame" x="181" y="715" width="145" height="83"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="Label"/>
                                 <userDefinedRuntimeAttributes>
@@ -483,7 +483,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" placeholderIntrinsicWidth="663.5" placeholderIntrinsicHeight="122" translatesAutoresizingMaskIntoConstraints="NO" id="EFh-Xu-yMl" customClass="WelcomeHeader" customModule="PRKit">
-                                <rect key="frame" x="0.0" y="88" width="414" height="122"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="72"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="labelText" value="Welcome Captain John Doe. Testing really long label."/>
@@ -517,7 +517,7 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                             <view contentMode="scaleToFill" placeholderIntrinsicWidth="414" placeholderIntrinsicHeight="60" translatesAutoresizingMaskIntoConstraints="NO" id="iWC-k5-W39" customClass="CommandHeader" customModule="PRKit">
-                                <rect key="frame" x="0.0" y="230" width="414" height="60"/>
+                                <rect key="frame" x="0.0" y="180" width="414" height="60"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="isUserHidden" value="NO"/>
@@ -546,6 +546,58 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hRt-gX-fsN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2318.840579710145" y="3337.5"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="D6I-AZ-bJh">
+            <objects>
+                <navigationController id="RtH-KL-45c" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="vvK-SV-jcX">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="YiS-Uq-bKw" kind="relationship" relationship="rootViewController" id="6AR-5V-9D0"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wS0-iY-MJJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1625" y="4063"/>
+        </scene>
+        <!--Navigation-->
+        <scene sceneID="vqS-4a-pNv">
+            <objects>
+                <viewController id="YiS-Uq-bKw" customClass="NavigationViewController" customModule="PRKit_Example" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="mfN-yq-DTH"/>
+                        <viewControllerLayoutGuide type="bottom" id="4pf-98-Svn"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="A1k-ui-Piq">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" placeholderIntrinsicWidth="374" placeholderIntrinsicHeight="64" translatesAutoresizingMaskIntoConstraints="NO" id="hHj-lI-GEh" customClass="SegmentedControl" customModule="PRKit">
+                                <rect key="frame" x="20" y="88" width="374" height="64"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <connections>
+                                    <action selector="segmentedControlValueChanged:" destination="YiS-Uq-bKw" eventType="touchUpInside" id="UgC-Et-x8w"/>
+                                </connections>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="hHj-lI-GEh" firstAttribute="top" secondItem="mfN-yq-DTH" secondAttribute="bottom" id="777-NN-Gzr"/>
+                            <constraint firstItem="hHj-lI-GEh" firstAttribute="leading" secondItem="A1k-ui-Piq" secondAttribute="leadingMargin" id="IEJ-A5-Y5W"/>
+                            <constraint firstItem="hHj-lI-GEh" firstAttribute="trailing" secondItem="A1k-ui-Piq" secondAttribute="trailingMargin" id="pDu-UT-2Iw"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Navigation" id="Z5e-sj-FVu"/>
+                    <connections>
+                        <outlet property="segmentedControl" destination="hHj-lI-GEh" id="cWl-GF-mre"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UdB-7R-9yF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2319" y="4063"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="SYF-Ju-xpA">
@@ -670,6 +722,26 @@
                                             <segue destination="vj7-Yp-XGI" kind="showDetail" id="NR8-lJ-oVF"/>
                                         </connections>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="OXw-NJ-psn" style="IBUITableViewCellStyleDefault" id="I2y-ya-x3N" customClass="SidebarTableViewCell" customModule="PRKit">
+                                        <rect key="frame" x="0.0" y="218.5" width="414" height="43.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="I2y-ya-x3N" id="e7p-DI-aOP">
+                                            <rect key="frame" x="0.0" y="0.0" width="384.5" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Navigation" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="OXw-NJ-psn">
+                                                    <rect key="frame" x="20" y="0.0" width="356.5" height="43.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="RtH-KL-45c" kind="showDetail" id="IIT-A8-ZfA"/>
+                                        </connections>
+                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                         </sections>
@@ -715,16 +787,16 @@
     </scenes>
     <designables>
         <designable name="1I8-st-BMR">
-            <size key="intrinsicContentSize" width="44" height="34"/>
+            <size key="intrinsicContentSize" width="145" height="83"/>
         </designable>
         <designable name="B1r-1u-J1E">
-            <size key="intrinsicContentSize" width="44" height="34"/>
+            <size key="intrinsicContentSize" width="145" height="83"/>
         </designable>
         <designable name="BKi-Hz-sby">
-            <size key="intrinsicContentSize" width="44" height="34"/>
+            <size key="intrinsicContentSize" width="145" height="83"/>
         </designable>
         <designable name="C8C-G5-bl9">
-            <size key="intrinsicContentSize" width="44" height="34"/>
+            <size key="intrinsicContentSize" width="116" height="68.5"/>
         </designable>
         <designable name="CBl-dn-Vqh">
             <size key="intrinsicContentSize" width="240" height="40"/>
@@ -733,43 +805,46 @@
             <size key="intrinsicContentSize" width="663.5" height="122"/>
         </designable>
         <designable name="FS8-OE-DNM">
-            <size key="intrinsicContentSize" width="44" height="34"/>
+            <size key="intrinsicContentSize" width="116" height="68.5"/>
         </designable>
         <designable name="HyR-fI-M7N">
-            <size key="intrinsicContentSize" width="44" height="34"/>
+            <size key="intrinsicContentSize" width="116" height="68.5"/>
         </designable>
         <designable name="Ilr-rg-JZw">
-            <size key="intrinsicContentSize" width="44" height="34"/>
+            <size key="intrinsicContentSize" width="116" height="68.5"/>
         </designable>
         <designable name="JGV-fz-1Ch">
             <size key="intrinsicContentSize" width="683.5" height="73"/>
         </designable>
         <designable name="JNM-8P-ijA">
-            <size key="intrinsicContentSize" width="44" height="34"/>
+            <size key="intrinsicContentSize" width="145" height="83"/>
         </designable>
         <designable name="O9a-pY-KIg">
-            <size key="intrinsicContentSize" width="87" height="34"/>
+            <size key="intrinsicContentSize" width="174" height="68.5"/>
         </designable>
         <designable name="QdN-nI-UqF">
-            <size key="intrinsicContentSize" width="44" height="34"/>
+            <size key="intrinsicContentSize" width="77" height="42.5"/>
         </designable>
         <designable name="V9L-Nz-wav">
             <size key="intrinsicContentSize" width="414" height="128"/>
         </designable>
         <designable name="Vfy-pw-F0e">
-            <size key="intrinsicContentSize" width="44" height="34"/>
+            <size key="intrinsicContentSize" width="145" height="83"/>
         </designable>
         <designable name="aCL-k2-3Kd">
-            <size key="intrinsicContentSize" width="44" height="34"/>
+            <size key="intrinsicContentSize" width="77" height="42.5"/>
         </designable>
         <designable name="atj-J9-YhT">
-            <size key="intrinsicContentSize" width="44" height="34"/>
+            <size key="intrinsicContentSize" width="77" height="42.5"/>
         </designable>
         <designable name="b6b-xF-Y9q">
-            <size key="intrinsicContentSize" width="44" height="34"/>
+            <size key="intrinsicContentSize" width="77" height="42.5"/>
+        </designable>
+        <designable name="hHj-lI-GEh">
+            <size key="intrinsicContentSize" width="374" height="64"/>
         </designable>
         <designable name="iJC-4p-Gve">
-            <size key="intrinsicContentSize" width="62" height="34"/>
+            <size key="intrinsicContentSize" width="141" height="68.5"/>
         </designable>
         <designable name="iWC-k5-W39">
             <size key="intrinsicContentSize" width="414" height="60"/>
@@ -778,13 +853,13 @@
             <size key="intrinsicContentSize" width="240" height="40"/>
         </designable>
         <designable name="jZ5-Um-X0Z">
-            <size key="intrinsicContentSize" width="44" height="34"/>
+            <size key="intrinsicContentSize" width="116" height="68.5"/>
         </designable>
         <designable name="uAD-nH-mpg">
-            <size key="intrinsicContentSize" width="44" height="34"/>
+            <size key="intrinsicContentSize" width="116" height="68.5"/>
         </designable>
         <designable name="v4f-RK-WUL">
-            <size key="intrinsicContentSize" width="44" height="34"/>
+            <size key="intrinsicContentSize" width="77" height="42.5"/>
         </designable>
         <designable name="vcJ-Ow-yxv">
             <size key="intrinsicContentSize" width="683.5" height="72.5"/>
@@ -796,10 +871,10 @@
             <size key="intrinsicContentSize" width="683.5" height="72.5"/>
         </designable>
         <designable name="wv2-Hf-YxN">
-            <size key="intrinsicContentSize" width="44" height="34"/>
+            <size key="intrinsicContentSize" width="145" height="83"/>
         </designable>
         <designable name="zVG-Zi-WJU">
-            <size key="intrinsicContentSize" width="44" height="34"/>
+            <size key="intrinsicContentSize" width="77" height="42.5"/>
         </designable>
     </designables>
     <resources>
