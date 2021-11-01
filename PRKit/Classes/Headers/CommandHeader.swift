@@ -84,7 +84,7 @@ open class CommandHeader: UIView {
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 12),
             stackView.leftAnchor.constraint(equalTo: leftAnchor, constant: 20),
-            stackView.rightAnchor.constraint(equalTo: rightAnchor, constant: 20),
+            stackView.rightAnchor.constraint(equalTo: rightAnchor, constant: -20),
             bottomAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 12)
         ])
         self.stackView = stackView
