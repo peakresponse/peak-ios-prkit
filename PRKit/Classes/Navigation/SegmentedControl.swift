@@ -97,6 +97,6 @@ open class SegmentedControl: UIControl {
                 button.isSelected = false
             }
         }
-        sendActions(for: .touchUpInside)
+        sendActions(for: .valueChanged)
     }
 }
