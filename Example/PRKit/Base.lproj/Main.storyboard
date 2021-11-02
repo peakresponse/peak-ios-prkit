@@ -89,11 +89,12 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="arX-br-IA9" customClass="TextField" customModule="PRKit">
-                                <rect key="frame" x="20" y="583" width="374" height="72.5"/>
+                                <rect key="frame" x="20" y="583" width="374" height="48.5"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="placeholderText" value="Search"/>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="isLabelHidden" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isSearchIconHidden" value="YES"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>

@@ -31,6 +31,19 @@ private class InternalTextView: UITextView {
 open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
     open weak var textView: UITextView!
     open weak var textViewHeightConstraint: NSLayoutConstraint!
+
+    open weak var _iconView: UIImageView!
+    open var iconView: UIImageView {
+        if _iconView == nil {
+            initIconView()
+        }
+        return _iconView
+    }
+    @IBInspectable open var isSearchIconHidden: Bool {
+        get { return _iconView?.isHidden ?? true }
+        set { iconView.image = UIImage(named: "Search24px", in: Bundle(for: type(of: self)), compatibleWith: nil)}
+    }
+
     open weak var clearButton: UIButton!
 
     @IBInspectable open override var text: String? {
@@ -38,7 +51,7 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
         set { textView.text = newValue}
     }
 
-    private var _placeholderLabel: UILabel!
+    private weak var _placeholderLabel: UILabel!
     open var placeholderLabel: UILabel {
         if _placeholderLabel == nil {
             initPlaceholderLabel()
@@ -119,11 +132,31 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
         _placeholderLabel = placeholderLabel
     }
 
+    private func initIconView() {
+        guard _iconView == nil else { return }
+        let iconView = UIImageView()
+        iconView.translatesAutoresizingMaskIntoConstraints = false
+        iconView.tintColor = .base800
+        iconView.contentMode = .center
+        iconView.isHidden = !(text?.isEmpty ?? true)
+        contentView.addSubview(iconView)
+        NSLayoutConstraint.activate([
+            iconView.widthAnchor.constraint(equalToConstant: 44),
+            iconView.heightAnchor.constraint(equalToConstant: 44),
+            iconView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -6),
+            iconView.centerYAnchor.constraint(equalTo: textView.centerYAnchor)
+        ])
+        _iconView = iconView
+    }
+
     override open func updateStyle() {
         super.updateStyle()
         textView.textColor = isUserInteractionEnabled ? .base800 : .base300
         textViewHeightConstraint.constant = heightForText(textView.text, font: textView.font!, width: textView.frame.width)
-        clearButton.isHidden = (text?.isEmpty ?? true) || !isUserInteractionEnabled
+        let isEmpty = text?.isEmpty ?? true
+        clearButton.isHidden = isEmpty || !isUserInteractionEnabled
+        _iconView?.isHidden = !isEmpty
+        _placeholderLabel?.isHidden = !isEmpty
     }
 
     override open var isFirstResponder: Bool {
@@ -145,6 +178,7 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
         if editedMask.contains(.editedCharacters) {
             let isEmpty = text?.isEmpty ?? true
             _placeholderLabel?.isHidden = !isEmpty
+            _iconView?.isHidden = !isEmpty
             clearButton.isHidden = isEmpty || !isUserInteractionEnabled
         }
     }
