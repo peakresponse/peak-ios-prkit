@@ -13,6 +13,7 @@ class UserButton: UIButton {
         let isCompact = traitCollection.horizontalSizeClass == .compact
         let size = isCompact ? 36 : 48
         imageView?.frame = CGRect(x: 0, y: 0, width: size, height: size)
+        titleLabel?.sizeToFit()
         if var frame = titleLabel?.frame {
             frame.origin.x = CGFloat(size + (isCompact ? 6 : 9))
             titleLabel?.frame = frame
@@ -35,6 +36,10 @@ open class CommandHeader: UIView {
 
     open weak var stackView: UIStackView!
     open weak var userButton: UIButton!
+    open var userImage: UIImage? {
+        get { return userButton.image(for: .normal) }
+        set { userButton.setImage(newValue, for: .normal) }
+    }
     open var userImageURL: String? {
         didSet {
             if let userImageURL = userImageURL {
