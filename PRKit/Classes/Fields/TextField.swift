@@ -29,8 +29,9 @@ private class InternalTextView: UITextView {
 
 @IBDesignable
 open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
-    open var textView: UITextView!
-    open var textViewHeightConstraint: NSLayoutConstraint!
+    open weak var textView: UITextView!
+    open weak var textViewHeightConstraint: NSLayoutConstraint!
+    open weak var clearButton: UIButton!
 
     @IBInspectable open override var text: String? {
         get { return textView.text }
@@ -75,10 +76,7 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
         textView.textStorage.delegate = self
         textView.font = .h4SemiBold
         contentView.addSubview(textView)
-        self.textView = textView
-
-        textViewHeightConstraint = textView.heightAnchor.constraint(equalToConstant: round(textView.font!.lineHeight * 1.2))
-
+        let textViewHeightConstraint = textView.heightAnchor.constraint(equalToConstant: round(textView.font!.lineHeight * 1.2))
         NSLayoutConstraint.activate([
             textView.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 0),
             textView.leftAnchor.constraint(equalTo: label.leftAnchor),
@@ -86,6 +84,23 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
             textViewHeightConstraint,
             contentView.bottomAnchor.constraint(equalTo: textView.bottomAnchor, constant: 8)
         ])
+        self.textView = textView
+        self.textViewHeightConstraint = textViewHeightConstraint
+
+        let clearButton = UIButton(type: .custom)
+        clearButton.translatesAutoresizingMaskIntoConstraints = false
+        clearButton.setImage(UIImage(named: "Exit24px", in: Bundle(for: type(of: self)), compatibleWith: nil), for: .normal)
+        clearButton.imageView?.tintColor = .base800
+        clearButton.isHidden = true
+        clearButton.addTarget(self, action: #selector(clearPressed), for: .touchUpInside)
+        contentView.addSubview(clearButton)
+        NSLayoutConstraint.activate([
+            clearButton.widthAnchor.constraint(equalToConstant: 44),
+            clearButton.heightAnchor.constraint(equalToConstant: 44),
+            clearButton.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -6),
+            clearButton.centerYAnchor.constraint(equalTo: textView.centerYAnchor)
+        ])
+        self.clearButton = clearButton
     }
 
     private func initPlaceholderLabel() {
@@ -108,6 +123,7 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
         super.updateStyle()
         textView.textColor = isUserInteractionEnabled ? .base800 : .base300
         textViewHeightConstraint.constant = heightForText(textView.text, font: textView.font!, width: textView.frame.width)
+        clearButton.isHidden = (text?.isEmpty ?? true) || !isUserInteractionEnabled
     }
 
     override open var isFirstResponder: Bool {
@@ -127,7 +143,9 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
     public func textStorage(_ textStorage: NSTextStorage, didProcessEditing editedMask: NSTextStorage.EditActions,
                      range editedRange: NSRange, changeInLength delta: Int) {
         if editedMask.contains(.editedCharacters) {
-            _placeholderLabel?.isHidden = !(text?.isEmpty ?? true)
+            let isEmpty = text?.isEmpty ?? true
+            _placeholderLabel?.isHidden = !isEmpty
+            clearButton.isHidden = isEmpty || !isUserInteractionEnabled
         }
     }
 

@@ -27,6 +27,22 @@ open class FormField: UIView, Localizable {
     open var statusButtonWidthConstraint: NSLayoutConstraint!
 
     open weak var label: UILabel!
+    open weak var labelHeightConstraint: NSLayoutConstraint!
+    @IBInspectable open var l10nKey: String? {
+        get { return nil }
+        set { label.l10nKey = newValue }
+    }
+    @IBInspectable open var labelText: String? {
+        get { return label.text }
+        set { label.text = newValue }
+    }
+    @IBInspectable open var isLabelHidden: Bool {
+        get { return label.isHidden }
+        set {
+            label.isHidden = newValue
+            labelHeightConstraint.constant = newValue ? 4 : 28
+        }
+    }
 
     private var _errorLabel: UILabel!
     open var errorLabel: UILabel {
@@ -37,16 +53,6 @@ open class FormField: UIView, Localizable {
     }
 
     @IBOutlet open weak var delegate: FormFieldDelegate?
-
-    @IBInspectable open var l10nKey: String? {
-        get { return nil }
-        set { label.l10nKey = newValue }
-    }
-
-    @IBInspectable open var labelText: String? {
-        get { return label.text }
-        set { label.text = newValue }
-    }
 
     @IBInspectable open var attributeKey: String?
     @objc open var text: String?
@@ -106,14 +112,16 @@ open class FormField: UIView, Localizable {
 
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+        let labelHeightConstraint = label.heightAnchor.constraint(equalToConstant: 28)
         contentView.addSubview(label)
         NSLayoutConstraint.activate([
             label.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
             label.leftAnchor.constraint(equalTo: statusButton.rightAnchor, constant: 16),
             label.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -16),
-            label.heightAnchor.constraint(equalToConstant: 28)
+            labelHeightConstraint
         ])
         self.label = label
+        self.labelHeightConstraint = labelHeightConstraint
     }
 
     private func initErrorLabel() {
@@ -186,6 +194,11 @@ open class FormField: UIView, Localizable {
         } else {
             statusButtonWidthConstraint.constant = 8
         }
+    }
+
+    @objc open func clearPressed() {
+        text = nil
+        updateStyle()
     }
 
     @objc open func statusPressed() {
