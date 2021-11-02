@@ -8,7 +8,7 @@
 import UIKit
 
 extension UIActivityIndicatorView {
-    static func withMediumStyle() -> UIActivityIndicatorView {
+    public static func withMediumStyle() -> UIActivityIndicatorView {
         var style: UIActivityIndicatorView.Style
         if #available(iOS 13.0, *) {
             style = .medium
@@ -18,7 +18,7 @@ extension UIActivityIndicatorView {
         return UIActivityIndicatorView(style: style)
     }
 
-    static func withLargeStyle() -> UIActivityIndicatorView {
+    public static func withLargeStyle() -> UIActivityIndicatorView {
         var style: UIActivityIndicatorView.Style
         if #available(iOS 13.0, *) {
             style = .large

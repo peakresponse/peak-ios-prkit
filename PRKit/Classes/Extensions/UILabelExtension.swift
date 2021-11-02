@@ -8,17 +8,17 @@
 import UIKit
 
 extension UILabel: Localizable {
-    @IBInspectable public var l10nKey: String? {
+    @IBInspectable open var l10nKey: String? {
         get { return nil }
         set { text = newValue?.localized }
     }
 
-    @IBInspectable var customFont: String? {
+    @IBInspectable open var customFont: String? {
         get { return nil }
         set { font = UIFont.value(forKey: newValue ?? "") as? UIFont }
     }
 
-    func setBoldPrefixedText(boldFont: UIFont, prefix: String, text: String) {
+    open func setBoldPrefixedText(boldFont: UIFont, prefix: String, text: String) {
         let attributedText = NSMutableAttributedString(string: "\(prefix)\(text)")
         attributedText.addAttribute(.font, value: boldFont, range: NSRange(prefix.startIndex..<prefix.endIndex, in: prefix))
         self.attributedText = attributedText
