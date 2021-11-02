@@ -533,6 +533,7 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="isUserHidden" value="NO"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isSearchHidden" value="NO"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>

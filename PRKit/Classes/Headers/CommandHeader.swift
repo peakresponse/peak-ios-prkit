@@ -27,15 +27,24 @@ class UserButton: UIButton {
 
 @IBDesignable
 open class CommandHeader: UIView {
-    @IBInspectable open var isUserHidden: Bool = true {
-        didSet {
-            userButton.isHidden = isUserHidden
-        }
+    @IBInspectable open var isUserHidden: Bool {
+        get { return _userButton?.isHidden ?? true }
+        set { userButton.isHidden = newValue }
     }
-    @IBInspectable open var isSearchHidden: Bool = true
+    @IBInspectable open var isSearchHidden: Bool {
+        get { return _searchField?.isHidden ?? true }
+        set { searchField.isHidden = newValue }
+    }
 
     open weak var stackView: UIStackView!
-    open weak var userButton: UIButton!
+
+    open weak var _userButton: UIButton!
+    open var userButton: UIButton {
+        if _userButton == nil {
+            initUserButton()
+        }
+        return _userButton
+    }
     open var userImage: UIImage? {
         get { return userButton.image(for: .normal) }
         set { userButton.setImage(newValue, for: .normal) }
@@ -63,6 +72,14 @@ open class CommandHeader: UIView {
         set { userButton.setTitle(newValue, for: .normal) }
     }
 
+    open weak var _searchField: TextField!
+    open var searchField: TextField {
+        if _searchField == nil {
+            initSearchField()
+        }
+        return _searchField
+    }
+
     @IBOutlet weak var delegate: CommandHeaderDelegate?
 
     override public init(frame: CGRect) {
@@ -78,8 +95,6 @@ open class CommandHeader: UIView {
     open func commonInit() {
         backgroundColor = .white
 
-        let isCompact = traitCollection.horizontalSizeClass == .compact
-
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
@@ -93,19 +108,34 @@ open class CommandHeader: UIView {
             bottomAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 12)
         ])
         self.stackView = stackView
+    }
+
+    open func initUserButton() {
+        guard _userButton == nil else { return }
+
+        let isCompact = traitCollection.horizontalSizeClass == .compact
 
         let userButton = UserButton(type: .custom)
         userButton.translatesAutoresizingMaskIntoConstraints = false
-        userButton.isHidden = isUserHidden
         userButton.setTitleColor(.base500, for: .normal)
         userButton.titleLabel?.font = isCompact ? .body14Bold : .h4SemiBold
         userButton.addTarget(self, action: #selector(userPressed), for: .touchUpInside)
-        stackView.addArrangedSubview(userButton)
+        stackView.insertArrangedSubview(userButton, at: 0)
         NSLayoutConstraint.activate([
             userButton.heightAnchor.constraint(equalToConstant: isCompact ? 36 : 48)
         ])
-        self.userButton = userButton
+        _userButton = userButton
         userImageURL = nil
+    }
+
+    open func initSearchField() {
+        guard _searchField == nil else { return }
+
+        let searchField = TextField()
+        searchField.isLabelHidden = true
+        searchField.isSearchIconHidden = false
+        stackView.addArrangedSubview(searchField)
+        _searchField = searchField
     }
 
     @objc func userPressed() {

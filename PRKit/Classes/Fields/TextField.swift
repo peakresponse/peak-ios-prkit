@@ -144,7 +144,7 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
             iconView.widthAnchor.constraint(equalToConstant: 44),
             iconView.heightAnchor.constraint(equalToConstant: 44),
             iconView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -6),
-            iconView.centerYAnchor.constraint(equalTo: textView.centerYAnchor)
+            iconView.centerYAnchor.constraint(equalTo: textView.centerYAnchor, constant: -1)
         ])
         _iconView = iconView
     }
