@@ -199,11 +199,12 @@ open class FormField: UIView, Localizable {
     @objc open func clearPressed() {
         text = nil
         updateStyle()
+        delegate?.formFieldDidChange?(self)
     }
 
     @objc open func statusPressed() {
-        delegate?.formFieldDidConfirmStatus?(self)
         status = .confirmed
         updateStyle()
+        delegate?.formFieldDidConfirmStatus?(self)
     }
 }

@@ -51,6 +51,10 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
         set { textView.text = newValue}
     }
 
+    @IBInspectable open var isDebounced: Bool = false
+    @IBInspectable open var debounceTime: Double = 0.3
+    open var debounceTimer: Timer?
+
     private weak var _placeholderLabel: UILabel!
     open var placeholderLabel: UILabel {
         if _placeholderLabel == nil {
@@ -210,7 +214,15 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
             .paragraphStyle: paragraphStyle,
             .foregroundColor: textView.textColor!
         ])
-        delegate?.formFieldDidChange?(self)
+        if isDebounced {
+            debounceTimer?.invalidate()
+            debounceTimer = Timer.scheduledTimer(withTimeInterval: debounceTime, repeats: false, block: { [weak self] (_) in
+                guard let self = self else { return }
+                self.delegate?.formFieldDidChange?(self)
+            })
+        } else {
+            delegate?.formFieldDidChange?(self)
+        }
     }
 
     public func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {

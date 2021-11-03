@@ -28,7 +28,7 @@
         <!--Inputs-->
         <scene sceneID="so1-AM-8hb">
             <objects>
-                <viewController title="Inputs" id="ipr-zj-hHa" sceneMemberID="viewController">
+                <viewController title="Inputs" id="ipr-zj-hHa" customClass="InputsViewController" customModule="PRKit_Example" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="MqT-dz-7bR"/>
                         <viewControllerLayoutGuide type="bottom" id="QRS-kN-5A6"/>
@@ -95,7 +95,11 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="placeholderText" value="Search"/>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="isLabelHidden" value="YES"/>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="isSearchIconHidden" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isDebounced" value="YES"/>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <outlet property="delegate" destination="ipr-zj-hHa" id="t2f-yY-OMH"/>
+                                </connections>
                             </view>
                         </subviews>
                         <color key="backgroundColor" name="Base100"/>
