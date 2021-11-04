@@ -533,7 +533,7 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                             <view contentMode="scaleToFill" placeholderIntrinsicWidth="414" placeholderIntrinsicHeight="60" translatesAutoresizingMaskIntoConstraints="NO" id="iWC-k5-W39" customClass="CommandHeader" customModule="PRKit">
-                                <rect key="frame" x="0.0" y="180" width="414" height="60"/>
+                                <rect key="frame" x="0.0" y="180" width="414" height="72.5"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="isUserHidden" value="NO"/>

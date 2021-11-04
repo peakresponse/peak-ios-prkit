@@ -16,6 +16,7 @@ class UserButton: UIButton {
         titleLabel?.sizeToFit()
         if var frame = titleLabel?.frame {
             frame.origin.x = CGFloat(size + (isCompact ? 6 : 9))
+            frame.size.width = max(0, min(frame.size.width, self.frame.size.width - frame.origin.x))
             titleLabel?.frame = frame
         }
     }
@@ -120,6 +121,7 @@ open class CommandHeader: UIView {
         userButton.translatesAutoresizingMaskIntoConstraints = false
         userButton.setTitleColor(.base500, for: .normal)
         userButton.titleLabel?.font = isCompact ? .body14Bold : .h4SemiBold
+        userButton.titleLabel?.lineBreakMode = .byTruncatingTail
         userButton.addTarget(self, action: #selector(userPressed), for: .touchUpInside)
         stackView.insertArrangedSubview(userButton, at: 0)
         NSLayoutConstraint.activate([
