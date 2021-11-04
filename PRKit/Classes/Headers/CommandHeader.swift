@@ -81,6 +81,15 @@ open class CommandHeader: UIView {
         return _searchField
     }
 
+    open var leftBarButtonItem: UIBarButtonItem? {
+        didSet { updateLeftBarButtonItem() }
+    }
+    var leftBarButtonView: UIView?
+    open var rightBarButtonItem: UIBarButtonItem? {
+        didSet { updateRightBarButtonItem() }
+    }
+    var rightBarButtonView: UIView?
+
     @IBOutlet weak var delegate: CommandHeaderDelegate?
 
     override public init(frame: CGRect) {
@@ -143,5 +152,52 @@ open class CommandHeader: UIView {
 
     @objc func userPressed() {
         delegate?.commandHeaderDidPressUser?(self)
+    }
+
+    func createButton(from barButtonItem: UIBarButtonItem) -> UIButton {
+        let button = UIButton(type: .custom)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle(barButtonItem.title, for: .normal)
+        button.setImage(barButtonItem.image, for: .normal)
+        if let action = barButtonItem.action {
+            button.addTarget(barButtonItem.target, action: action, for: .touchUpInside)
+        }
+        button.titleLabel?.font = .h3SemiBold
+        button.setTitleColor(barButtonItem.style == .done ? .brandPrimary500 : .base500, for: .normal)
+        return button
+    }
+
+    func updateLeftBarButtonItem() {
+        leftBarButtonView?.removeFromSuperview()
+        if let leftBarButtonItem = leftBarButtonItem {
+            let button = createButton(from: leftBarButtonItem)
+            let view = UIView()
+            view.addSubview(button)
+            NSLayoutConstraint.activate([
+                button.topAnchor.constraint(equalTo: view.topAnchor),
+                button.leftAnchor.constraint(equalTo: view.leftAnchor),
+                button.rightAnchor.constraint(lessThanOrEqualTo: view.rightAnchor),
+                view.bottomAnchor.constraint(equalTo: button.bottomAnchor)
+            ])
+            stackView.insertArrangedSubview(view, at: 0)
+            self.leftBarButtonView = view
+        }
+    }
+
+    func updateRightBarButtonItem() {
+        rightBarButtonView?.removeFromSuperview()
+        if let rightBarButtonItem = rightBarButtonItem {
+            let button = createButton(from: rightBarButtonItem)
+            let view = UIView()
+            view.addSubview(button)
+            NSLayoutConstraint.activate([
+                button.topAnchor.constraint(equalTo: view.topAnchor),
+                button.leftAnchor.constraint(greaterThanOrEqualTo: view.leftAnchor),
+                button.rightAnchor.constraint(equalTo: view.rightAnchor),
+                view.bottomAnchor.constraint(equalTo: button.bottomAnchor)
+            ])
+            stackView.addArrangedSubview(view)
+            self.rightBarButtonView = view
+        }
     }
 }
