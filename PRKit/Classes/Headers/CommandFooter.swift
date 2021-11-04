@@ -99,12 +99,7 @@ open class CommandFooter: UIView {
             }
             delegate?.commandFooterDidUpdateLayout?(self, isOverlapping: true)
         } else {
-            var orientation: UIInterfaceOrientation
-            if #available(iOS 13.0, *) {
-                orientation = UIApplication.shared.windows.first?.windowScene?.interfaceOrientation ?? .unknown
-            } else {
-                orientation = UIApplication.shared.statusBarOrientation
-            }
+            let orientation = UIApplication.interfaceOrientation()
             if orientation == .landscapeLeft || orientation == .landscapeRight {
                 backgroundColor = .clear
                 removeShadow()

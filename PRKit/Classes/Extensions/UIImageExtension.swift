@@ -7,8 +7,8 @@
 
 import UIKit
 
-extension UIImage {
-    open func resizedTo(_ size: CGSize) -> UIImage {
+public extension UIImage {
+    func resizedTo(_ size: CGSize) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(size, false, UIScreen.main.scale)
         draw(in: CGRect(origin: .zero, size: size))
         let resizedImage = UIGraphicsGetImageFromCurrentImageContext()
@@ -16,14 +16,14 @@ extension UIImage {
         return resizedImage!
     }
 
-    open func scaledBy(_ scale: CGFloat) -> UIImage {
+    func scaledBy(_ scale: CGFloat) -> UIImage {
         var size = self.size
         size.width = floor(size.width * scale)
         size.height = floor(size.height * scale)
         return resizedTo(size)
     }
 
-    open func rounded() -> UIImage {
+    func rounded() -> UIImage {
         UIGraphicsBeginImageContextWithOptions(size, false, UIScreen.main.scale)
         let context = UIGraphicsGetCurrentContext()!
         let cornerRadius = min(size.width / 2, size.height / 2)
@@ -37,7 +37,7 @@ extension UIImage {
         return newImage!
     }
 
-    public static func resizableImage(withColor color: UIColor, cornerRadius: CGFloat,
+    static func resizableImage(withColor color: UIColor, cornerRadius: CGFloat,
                                       borderColor: UIColor? = nil, borderWidth: CGFloat? = nil,
                                       corners: UIRectCorner = .allCorners) -> UIImage {
         let size = 2 * cornerRadius + 1

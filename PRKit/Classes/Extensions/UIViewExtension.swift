@@ -7,8 +7,8 @@
 
 import UIKit
 
-extension UIView {
-    open func addOutline(size: CGFloat, color: UIColor, opacity: Float) {
+public extension UIView {
+    func addOutline(size: CGFloat, color: UIColor, opacity: Float) {
         layer.shadowOffset = .zero
         layer.shadowRadius = 0
         layer.shadowColor = color.cgColor
@@ -21,11 +21,11 @@ extension UIView {
         layer.masksToBounds = false
     }
 
-    open func removeOutline() {
+    func removeOutline() {
         removeShadow()
     }
 
-    open func addShadow(withOffset offset: CGSize, radius: CGFloat, color: UIColor, opacity: Float) {
+    func addShadow(withOffset offset: CGSize, radius: CGFloat, color: UIColor, opacity: Float) {
         layer.shadowOffset = offset
         layer.shadowRadius = radius
         layer.shadowColor = color.cgColor
@@ -34,7 +34,7 @@ extension UIView {
         layer.masksToBounds = false
     }
 
-    open func removeShadow() {
+    func removeShadow() {
         layer.shadowOffset = .zero
         layer.shadowRadius = 0
         layer.shadowColor = nil

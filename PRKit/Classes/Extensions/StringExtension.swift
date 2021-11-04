@@ -7,8 +7,8 @@
 
 import Foundation
 
-extension String {
-    public var localized: String {
+public extension String {
+    var localized: String {
         return NSLocalizedString(self, bundle: Bundle(for: type(of: UIApplication.shared.delegate!)), comment: "")
     }
 }
