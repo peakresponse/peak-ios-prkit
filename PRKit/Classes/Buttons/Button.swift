@@ -38,6 +38,16 @@ open class Button: UIButton {
         set { style = ButtonStyle(rawValue: newValue) ?? .tertiary }
     }
 
+    @IBInspectable open var bundleImage: String? {
+        didSet {
+            if let bundleImage = bundleImage {
+                setImage(UIImage(named: bundleImage, in: Bundle(for: type(of: self)), compatibleWith: nil), for: .normal)
+            } else {
+                setImage(nil, for: .normal)
+            }
+        }
+    }
+
     override public init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
@@ -49,12 +59,48 @@ open class Button: UIButton {
     }
 
     private func commonInit() {
+        adjustsImageWhenHighlighted = false
+        adjustsImageWhenDisabled = false
         updateStyle()
     }
 
     override open func awakeFromNib() {
         super.awakeFromNib()
         updateStyle()
+    }
+
+    open override var intrinsicContentSize: CGSize {
+        var size = super.intrinsicContentSize
+        switch self.size {
+        case .small:
+            size.height = UIFont.body14Bold.lineHeight + 26
+        case .medium:
+            size.height = UIFont.h3SemiBold.lineHeight + 40
+        case .large:
+            size.height = UIFont.h2Bold.lineHeight + 40
+        }
+        if image(for: .normal) != nil && title(for: .normal) != nil {
+            size.width += 4
+        }
+        return size
+    }
+
+    open override func imageRect(forContentRect contentRect: CGRect) -> CGRect {
+        var rect = super.imageRect(forContentRect: contentRect)
+        rect.size = image(for: .normal)?.size ?? .zero
+        rect.origin.y = floor((frame.height - rect.height) / 2)
+        if title(for: .normal) != nil {
+            rect.origin.x -= 2
+        }
+        return rect
+    }
+
+    open override func titleRect(forContentRect contentRect: CGRect) -> CGRect {
+        var rect = super.titleRect(forContentRect: contentRect)
+        if image(for: .normal) != nil {
+            rect.origin.x += 2
+        }
+        return rect
     }
 
     private func updateStyle() {
@@ -80,6 +126,7 @@ open class Button: UIButton {
             setTitleAttributes(font: font, color: .white, for: .normal)
             setTitleAttributes(font: font, color: .white, for: .highlighted)
             setTitleAttributes(font: font, color: .white, for: .disabled)
+            tintColor = .white
         case .secondary:
             setBackgroundImage(UIImage.resizableImage(withColor: .white, cornerRadius: 8,
                                                       borderColor: .brandPrimary500, borderWidth: borderWidth), for: .normal)
@@ -92,6 +139,7 @@ open class Button: UIButton {
             setTitleAttributes(font: font, color: .brandPrimary500, for: .normal)
             setTitleAttributes(font: font, color: .brandPrimary600, for: .highlighted)
             setTitleAttributes(font: font, color: .base300, for: .disabled)
+            tintColor = isEnabled ? .brandPrimary500 : .base300
         }
         setContentCompressionResistancePriority(.required, for: .horizontal)
         setContentCompressionResistancePriority(.required, for: .vertical)
