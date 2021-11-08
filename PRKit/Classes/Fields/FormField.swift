@@ -54,7 +54,11 @@ open class FormField: UIView, Localizable {
 
     @IBOutlet open weak var delegate: FormFieldDelegate?
 
+    open weak var source: AnyObject?
+    open weak var target: AnyObject?
+
     @IBInspectable open var attributeKey: String?
+
     @objc open var text: String?
 
     @IBInspectable open var isPlainText: Bool = false {
