@@ -61,6 +61,10 @@ open class FormField: UIView, Localizable {
 
     @objc open var text: String?
 
+    open override var isUserInteractionEnabled: Bool {
+        didSet { updateStyle() }
+    }
+
     @IBInspectable open var isPlainText: Bool = false {
         didSet { updateStyle() }
     }
