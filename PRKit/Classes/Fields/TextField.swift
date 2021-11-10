@@ -155,7 +155,7 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
 
     override open func updateStyle() {
         super.updateStyle()
-        textView.textColor = isUserInteractionEnabled ? .base800 : .base300
+        textView.textColor = .base800
         textViewHeightConstraint.constant = heightForText(textView.text, font: textView.font!, width: textView.frame.width)
         let isEmpty = text?.isEmpty ?? true
         clearButton.isHidden = isEmpty || !isUserInteractionEnabled
