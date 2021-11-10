@@ -28,7 +28,7 @@ private class InternalTextView: UITextView {
 }
 
 @IBDesignable
-open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
+open class TextField: FormField, DateTimeKeyboardDelegate, NSTextStorageDelegate, UITextViewDelegate {
     open weak var textView: UITextView!
     open weak var textViewHeightConstraint: NSLayoutConstraint!
 
@@ -153,6 +153,32 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
         _iconView = iconView
     }
 
+    open override func updateAttributeType() {
+        super.updateAttributeType()
+        switch attributeType {
+        case .datetime:
+            let dateTimeKeyboard = DateTimeKeyboard()
+            dateTimeKeyboard.date = attributeValue as? Date ?? Date()
+            dateTimeKeyboard.delegate = self
+            textView.inputView = dateTimeKeyboard
+        default:
+            textView.inputView = nil
+        }
+    }
+
+    open override func updateAttributeValue() {
+        super.updateAttributeValue()
+        switch attributeType {
+        case .datetime:
+            if let date = attributeValue as? Date, let keyboard = textView.inputView as? DateTimeKeyboard {
+                keyboard.date = date
+                text = date.asDateTimeString()
+            }
+        default:
+            break
+        }
+    }
+
     override open func updateStyle() {
         super.updateStyle()
         textView.textColor = .base800
@@ -173,6 +199,14 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
 
     override open func resignFirstResponder() -> Bool {
         return textView.resignFirstResponder()
+    }
+
+    // MARK: - DateTimeKeyboardDelegate
+
+    public func dateTimeKeyboard(_ keyboard: DateTimeKeyboard, didChange value: Date) {
+        attributeValue = value as AnyObject
+        text = value.asDateTimeString()
+        delegate?.formFieldDidChange?(self)
     }
 
     // MARK: - NSTextStorageDelegate

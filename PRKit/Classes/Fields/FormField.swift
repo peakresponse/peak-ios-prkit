@@ -17,6 +17,10 @@ import UIKit
     @objc optional func formFieldDidConfirmStatus(_ field: FormField)
 }
 
+public enum FormFieldAttributeType: String {
+    case text, integer, decimal, datetime, age, gender
+}
+
 open class FormField: UIView, Localizable {
     open weak var contentView: UIView!
 
@@ -54,12 +58,22 @@ open class FormField: UIView, Localizable {
 
     @IBOutlet open weak var delegate: FormFieldDelegate?
 
+    @objc open var text: String?
+
     open weak var source: AnyObject?
     open weak var target: AnyObject?
 
     @IBInspectable open var attributeKey: String?
-
-    @objc open var text: String?
+    open var attributeType: FormFieldAttributeType = .text {
+        didSet { updateAttributeType() }
+    }
+    @IBInspectable open var AttributeType: String {
+        get { return attributeType.rawValue }
+        set { attributeType = FormFieldAttributeType(rawValue: newValue) ?? .text }
+    }
+    open var attributeValue: AnyObject? {
+        didSet { updateAttributeValue() }
+    }
 
     open override var isUserInteractionEnabled: Bool {
         didSet { updateStyle() }
@@ -157,6 +171,14 @@ open class FormField: UIView, Localizable {
         if isFirstResponder {
             contentView.addOutline(size: 4, color: .brandPrimary200, opacity: 1)
         }
+    }
+
+    open func updateAttributeType() {
+
+    }
+
+    open func updateAttributeValue() {
+
     }
 
     open func updateStyle() {
