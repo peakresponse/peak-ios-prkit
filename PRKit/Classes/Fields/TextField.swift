@@ -49,7 +49,17 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
 
     @IBInspectable open override var text: String? {
         get { return textView.text }
-        set { textView.text = newValue}
+        set {
+            let text = newValue ?? ""
+            let paragraphStyle = NSMutableParagraphStyle()
+            paragraphStyle.lineSpacing = 4
+            textView.attributedText = NSAttributedString(string: text, attributes: [
+                .font: textView.font!,
+                .paragraphStyle: paragraphStyle,
+                .foregroundColor: textView.textColor!
+            ])
+            textViewHeightConstraint.constant = heightForText(text, font: textView.font!, width: textView.frame.width)
+        }
     }
 
     @IBInspectable open var isDebounced: Bool = false
@@ -247,14 +257,7 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
     }
 
     public func textViewDidChange(_ textView: UITextView) {
-        textViewHeightConstraint.constant = heightForText(textView.text, font: textView.font!, width: textView.frame.width)
-        let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.lineSpacing = 4
-        textView.attributedText = NSAttributedString(string: textView.text ?? "", attributes: [
-            .font: textView.font!,
-            .paragraphStyle: paragraphStyle,
-            .foregroundColor: textView.textColor!
-        ])
+        text = textView.text ?? ""
         if isDebounced {
             debounceTimer?.invalidate()
             debounceTimer = Timer.scheduledTimer(withTimeInterval: debounceTime, repeats: false, block: { [weak self] (_) in
