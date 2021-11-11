@@ -10,6 +10,7 @@
 		45C007C62728BD610072FF18 /* HeadersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C007C52728BD610072FF18 /* HeadersViewController.swift */; };
 		45C757D62730939B00386F07 /* NavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C757D52730939B00386F07 /* NavigationViewController.swift */; };
 		45C757D82733541400386F07 /* InputsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C757D72733541400386F07 /* InputsViewController.swift */; };
+		45F7BAEB273C8ED300FBD31F /* KeyboardsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F7BAEA273C8ED300FBD31F /* KeyboardsViewController.swift */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACD81AFB9204008FA782 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* ViewController.swift */; };
 		607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 607FACD91AFB9204008FA782 /* Main.storyboard */; };
@@ -37,6 +38,7 @@
 		45C007C52728BD610072FF18 /* HeadersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadersViewController.swift; sourceTree = "<group>"; };
 		45C757D52730939B00386F07 /* NavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationViewController.swift; sourceTree = "<group>"; };
 		45C757D72733541400386F07 /* InputsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputsViewController.swift; sourceTree = "<group>"; };
+		45F7BAEA273C8ED300FBD31F /* KeyboardsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardsViewController.swift; sourceTree = "<group>"; };
 		607FACD01AFB9204008FA782 /* PRKit_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PRKit_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACD51AFB9204008FA782 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -102,6 +104,7 @@
 				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
 				45C007C52728BD610072FF18 /* HeadersViewController.swift */,
 				45C757D72733541400386F07 /* InputsViewController.swift */,
+				45F7BAEA273C8ED300FBD31F /* KeyboardsViewController.swift */,
 				45C757D52730939B00386F07 /* NavigationViewController.swift */,
 				607FACD71AFB9204008FA782 /* ViewController.swift */,
 				607FACD91AFB9204008FA782 /* Main.storyboard */,
@@ -384,6 +387,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				45C757D62730939B00386F07 /* NavigationViewController.swift in Sources */,
+				45F7BAEB273C8ED300FBD31F /* KeyboardsViewController.swift in Sources */,
 				45C757D82733541400386F07 /* InputsViewController.swift in Sources */,
 				607FACD81AFB9204008FA782 /* ViewController.swift in Sources */,
 				45C007C62728BD610072FF18 /* HeadersViewController.swift in Sources */,

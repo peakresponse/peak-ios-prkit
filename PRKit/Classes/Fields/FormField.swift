@@ -15,10 +15,11 @@ import UIKit
     @objc optional func formFieldShouldReturn(_ field: FormField) -> Bool
     @objc optional func formFieldDidChange(_ field: FormField)
     @objc optional func formFieldDidConfirmStatus(_ field: FormField)
+    @objc optional func formField(_ field: FormField, needsSourceFor pickerKeyboard: PickerKeyboard) -> AnyObject?
 }
 
 public enum FormFieldAttributeType: String {
-    case text, integer, decimal, datetime, age, gender
+    case text, integer, decimal, datetime, age, gender, picker
 }
 
 open class FormField: UIView, Localizable {

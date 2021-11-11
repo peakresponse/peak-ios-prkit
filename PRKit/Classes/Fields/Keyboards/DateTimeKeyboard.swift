@@ -13,7 +13,7 @@ import UIKit
 
 open class DateTimeKeyboard: UIView {
     open weak var datePicker: UIDatePicker!
-    weak var delegate: DateTimeKeyboardDelegate?
+    open weak var delegate: DateTimeKeyboardDelegate?
 
     open var date: Date {
         get { return datePicker.date }

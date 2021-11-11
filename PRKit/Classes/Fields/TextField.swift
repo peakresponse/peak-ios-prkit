@@ -13,6 +13,7 @@ private class InternalTextView: UITextView {
     override func becomeFirstResponder() -> Bool {
         if super.becomeFirstResponder() {
             textField?.updateStyle()
+            inputView?.reloadInputViews()
             return true
         }
         return false
@@ -28,7 +29,7 @@ private class InternalTextView: UITextView {
 }
 
 @IBDesignable
-open class TextField: FormField, DateTimeKeyboardDelegate, NSTextStorageDelegate, UITextViewDelegate {
+open class TextField: FormField, DateTimeKeyboardDelegate, NSTextStorageDelegate, PickerKeyboardDelegate, UITextViewDelegate {
     open weak var textView: UITextView!
     open weak var textViewHeightConstraint: NSLayoutConstraint!
 
@@ -161,6 +162,10 @@ open class TextField: FormField, DateTimeKeyboardDelegate, NSTextStorageDelegate
             dateTimeKeyboard.date = attributeValue as? Date ?? Date()
             dateTimeKeyboard.delegate = self
             textView.inputView = dateTimeKeyboard
+        case .picker:
+            let pickerKeyboard = PickerKeyboard()
+            pickerKeyboard.delegate = self
+            textView.inputView = pickerKeyboard
         default:
             textView.inputView = nil
         }
@@ -174,6 +179,8 @@ open class TextField: FormField, DateTimeKeyboardDelegate, NSTextStorageDelegate
                 keyboard.date = date
                 text = date.asDateTimeString()
             }
+        case .picker:
+            break
         default:
             break
         }
@@ -219,6 +226,18 @@ open class TextField: FormField, DateTimeKeyboardDelegate, NSTextStorageDelegate
             _iconView?.isHidden = !isEmpty
             clearButton.isHidden = isEmpty || !isUserInteractionEnabled
         }
+    }
+
+    // MARK: - PickerKeyboardDelegate
+
+    public func pickerKeyboard(_ keyboard: PickerKeyboard, didSelect rawValue: String, description: String) {
+        attributeValue = rawValue as AnyObject
+        text = description
+        delegate?.formFieldDidChange?(self)
+    }
+
+    public func pickerKeyboardNeedsSource(_ keyboard: PickerKeyboard) -> AnyObject? {
+        return delegate?.formField?(self, needsSourceFor: keyboard)
     }
 
     // MARK: - UITextViewDelegate
