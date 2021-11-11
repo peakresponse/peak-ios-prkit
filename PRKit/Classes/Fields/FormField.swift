@@ -18,11 +18,42 @@ import UIKit
     @objc optional func formField(_ field: FormField, needsSourceFor pickerKeyboard: PickerKeyboard) -> AnyObject?
 }
 
-public enum FormFieldAttributeType: String {
-    case text, integer, decimal, datetime, age, gender, picker
+public enum FormFieldAttributeType {
+    case text, integer, decimal, datetime, age, picker(PickerKeyboardSource? = nil)
+
+    var rawValue: String {
+        return String(describing: self)
+    }
+
+    init?(rawValue: String) {
+        switch rawValue {
+        case "text":
+            self = .text
+        case "integer":
+            self = .integer
+        case "decimal":
+            self = .decimal
+        case "datetime":
+            self = .datetime
+        case "age":
+            self = .age
+        case "picker":
+            self = .picker()
+        default:
+            return nil
+        }
+    }
 }
 
-open class FormField: UIView, Localizable {
+public protocol FormFieldInputView: AnyObject {
+    func setValue(_ value: AnyObject?)
+}
+
+public protocol FormFieldInputViewDelegate: AnyObject {
+    func formFieldInputView(_ inputView: FormFieldInputView, didChange value: AnyObject?)
+}
+
+open class FormField: UIView, Localizable, FormFieldInputViewDelegate {
     open weak var contentView: UIView!
 
     open var status: PredictionStatus = .none {
@@ -229,13 +260,29 @@ open class FormField: UIView, Localizable {
 
     @objc open func clearPressed() {
         text = nil
+        attributeValue = nil
         updateStyle()
         delegate?.formFieldDidChange?(self)
+        switch attributeType {
+        case .datetime:
+            fallthrough
+        case .picker(_):
+            resignFirstResponder()
+        default:
+            break
+        }
     }
 
     @objc open func statusPressed() {
         status = .confirmed
         updateStyle()
         delegate?.formFieldDidConfirmStatus?(self)
+    }
+
+    // MARK: - FormFieldInputViewDelegate
+
+    public func formFieldInputView(_ inputView: FormFieldInputView, didChange value: AnyObject?) {
+        attributeValue = value
+        delegate?.formFieldDidChange?(self)
     }
 }

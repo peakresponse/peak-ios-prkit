@@ -13,7 +13,7 @@ private class InternalTextView: UITextView {
     override func becomeFirstResponder() -> Bool {
         if super.becomeFirstResponder() {
             textField?.updateStyle()
-            inputView?.reloadInputViews()
+            textField?.reloadInputViews()
             return true
         }
         return false
@@ -29,7 +29,7 @@ private class InternalTextView: UITextView {
 }
 
 @IBDesignable
-open class TextField: FormField, DateTimeKeyboardDelegate, NSTextStorageDelegate, PickerKeyboardDelegate, UITextViewDelegate {
+open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
     open weak var textView: UITextView!
     open weak var textViewHeightConstraint: NSLayoutConstraint!
 
@@ -155,34 +155,35 @@ open class TextField: FormField, DateTimeKeyboardDelegate, NSTextStorageDelegate
     }
 
     open override func updateAttributeType() {
-        super.updateAttributeType()
         switch attributeType {
         case .datetime:
-            let dateTimeKeyboard = DateTimeKeyboard()
-            dateTimeKeyboard.date = attributeValue as? Date ?? Date()
+            var dateTimeKeyboard: DateTimeKeyboard! = textView.inputView as? DateTimeKeyboard
+            if dateTimeKeyboard == nil {
+                dateTimeKeyboard = DateTimeKeyboard()
+                textView.inputView = dateTimeKeyboard
+            }
             dateTimeKeyboard.delegate = self
-            textView.inputView = dateTimeKeyboard
-        case .picker:
-            let pickerKeyboard = PickerKeyboard()
+        case .picker(let source):
+            var pickerKeyboard: PickerKeyboard! = textView.inputView as? PickerKeyboard
+            if pickerKeyboard == nil {
+                pickerKeyboard = PickerKeyboard()
+                textView.inputView = pickerKeyboard
+            }
             pickerKeyboard.delegate = self
-            textView.inputView = pickerKeyboard
+            pickerKeyboard.source = source
         default:
             textView.inputView = nil
         }
     }
 
     open override func updateAttributeValue() {
-        super.updateAttributeValue()
         switch attributeType {
         case .datetime:
-            if let date = attributeValue as? Date, let keyboard = textView.inputView as? DateTimeKeyboard {
-                keyboard.date = date
-                text = date.asDateTimeString()
-            }
-        case .picker:
-            break
+            text = (attributeValue as? Date)?.asDateTimeString()
+        case .picker(let source):
+            text = source?.title(for: attributeValue as? String)
         default:
-            break
+            text = attributeValue as? String
         }
     }
 
@@ -208,12 +209,11 @@ open class TextField: FormField, DateTimeKeyboardDelegate, NSTextStorageDelegate
         return textView.resignFirstResponder()
     }
 
-    // MARK: - DateTimeKeyboardDelegate
-
-    public func dateTimeKeyboard(_ keyboard: DateTimeKeyboard, didChange value: Date) {
-        attributeValue = value as AnyObject
-        text = value.asDateTimeString()
-        delegate?.formFieldDidChange?(self)
+    open override func reloadInputViews() {
+        textView.inputView?.reloadInputViews()
+        if let inputView = textView.inputView as? FormFieldInputView {
+            inputView.setValue(attributeValue)
+        }
     }
 
     // MARK: - NSTextStorageDelegate
@@ -226,18 +226,6 @@ open class TextField: FormField, DateTimeKeyboardDelegate, NSTextStorageDelegate
             _iconView?.isHidden = !isEmpty
             clearButton.isHidden = isEmpty || !isUserInteractionEnabled
         }
-    }
-
-    // MARK: - PickerKeyboardDelegate
-
-    public func pickerKeyboard(_ keyboard: PickerKeyboard, didSelect rawValue: String, description: String) {
-        attributeValue = rawValue as AnyObject
-        text = description
-        delegate?.formFieldDidChange?(self)
-    }
-
-    public func pickerKeyboardNeedsSource(_ keyboard: PickerKeyboard) -> AnyObject? {
-        return delegate?.formField?(self, needsSourceFor: keyboard)
     }
 
     // MARK: - UITextViewDelegate

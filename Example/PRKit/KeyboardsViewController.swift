@@ -9,7 +9,7 @@
 import UIKit
 import PRKit
 
-enum PickerTestEnum: String, RawStringRepresentable, CustomStringConvertible, CaseIterable {
+enum PickerTestEnum: String, PickerKeyboardSourceEnum {
     case option1, option2, option3
 
     var description: String {
@@ -28,10 +28,9 @@ class KeyboardsViewController: UIViewController, FormFieldDelegate {
     @IBOutlet weak var dateTimeField: TextField!
     @IBOutlet weak var pickerField: TextField!
 
-    func formField(_ field: FormField, needsSourceFor pickerKeyboard: PickerKeyboard) -> AnyObject? {
-        if field == pickerField {
-            return PickerKeyboardSource<PickerTestEnum>(pickerKeyboard: pickerKeyboard)
-        }
-        return nil
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        pickerField.attributeType = .picker(PickerKeyboardSourceWrapper<PickerTestEnum>())
+        pickerField.attributeValue = "option2" as AnyObject
     }
 }

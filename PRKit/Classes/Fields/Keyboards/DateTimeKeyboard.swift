@@ -7,25 +7,21 @@
 
 import UIKit
 
-@objc public protocol DateTimeKeyboardDelegate {
-    @objc optional func dateTimeKeyboard(_ keyboard: DateTimeKeyboard, didChange value: Date)
-}
-
-open class DateTimeKeyboard: UIView {
+open class DateTimeKeyboard: UIView, FormFieldInputView {
     open weak var datePicker: UIDatePicker!
-    open weak var delegate: DateTimeKeyboardDelegate?
+    open weak var delegate: FormFieldInputViewDelegate?
 
     open var date: Date {
         get { return datePicker.date }
         set { datePicker.date = newValue }
     }
 
-    override public init(frame: CGRect) {
+    public override init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
     }
 
-    required public init?(coder: NSCoder) {
+    public required init?(coder: NSCoder) {
         super.init(coder: coder)
         commonInit()
     }
@@ -50,7 +46,16 @@ open class DateTimeKeyboard: UIView {
         self.datePicker = datePicker
     }
 
+    public func setValue(_ value: AnyObject?) {
+        if let value = value as? Date {
+            date = value
+        } else {
+            date = Date()
+            delegate?.formFieldInputView(self, didChange: date as AnyObject)
+        }
+    }
+
     @objc func dateChanged() {
-        delegate?.dateTimeKeyboard?(self, didChange: date)
+        delegate?.formFieldInputView(self, didChange: date as AnyObject)
     }
 }

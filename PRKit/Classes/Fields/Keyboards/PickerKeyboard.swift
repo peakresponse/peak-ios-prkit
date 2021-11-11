@@ -7,20 +7,30 @@
 
 import UIKit
 
-@objc public protocol PickerKeyboardDelegate {
-    @objc optional func pickerKeyboard(_ keyboard: PickerKeyboard, didSelect rawValue: String, description: String)
-    @objc optional func pickerKeyboardNeedsSource(_ keyboard: PickerKeyboard) -> AnyObject?
-}
-
-public protocol RawStringRepresentable {
+public protocol PickerKeyboardSourceEnum: CaseIterable, CustomStringConvertible {
     var rawValue: String { get }
 }
 
-open class PickerKeyboardSource<T: CaseIterable & RawStringRepresentable>: NSObject, UIPickerViewDelegate, UIPickerViewDataSource {
-    open weak var pickerKeyboard: PickerKeyboard?
+public protocol PickerKeyboardSource: UIPickerViewDelegate, UIPickerViewDataSource {
+    var values: [String] { get }
+    func title(for value: String?) -> String?
+    func value(for row: Int) -> String?
+}
 
-    public init(pickerKeyboard: PickerKeyboard) {
-        self.pickerKeyboard = pickerKeyboard
+open class PickerKeyboardSourceWrapper<T: PickerKeyboardSourceEnum>: NSObject, PickerKeyboardSource {
+    public var values: [String] {
+        return T.allCases.map { $0.rawValue }
+    }
+
+    public func title(for value: String?) -> String? {
+        if let value = value {
+            return T.allCases.first(where: {$0.rawValue == value})?.description
+        }
+        return nil
+    }
+
+    public func value(for row: Int) -> String? {
+        return T.allCases[T.allCases.index(T.allCases.startIndex, offsetBy: row)].rawValue
     }
 
     // MARK: - UIPickerViewDataSource
@@ -38,27 +48,19 @@ open class PickerKeyboardSource<T: CaseIterable & RawStringRepresentable>: NSObj
     public func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return String(describing: T.allCases[T.allCases.index(T.allCases.startIndex, offsetBy: row)])
     }
-
-    public func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        guard let pickerKeyboard = pickerKeyboard else { return }
-        let value = T.allCases[T.allCases.index(T.allCases.startIndex, offsetBy: row)]
-        let description = String(describing: value)
-        pickerKeyboard.delegate?.pickerKeyboard?(pickerKeyboard, didSelect: value.rawValue, description: description)
-    }
 }
 
-open class PickerKeyboard: UIView {
+open class PickerKeyboard: UIView, FormFieldInputView, UIPickerViewDelegate, UIPickerViewDataSource {
     open weak var picker: UIPickerView!
-    open weak var delegate: PickerKeyboardDelegate?
+    open weak var delegate: FormFieldInputViewDelegate?
+    open var source: PickerKeyboardSource?
 
-    var source: AnyObject?
-
-    override public init(frame: CGRect) {
+    public override init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
     }
 
-    required public init?(coder: NSCoder) {
+    public required init?(coder: NSCoder) {
         super.init(coder: coder)
         commonInit()
     }
@@ -68,6 +70,8 @@ open class PickerKeyboard: UIView {
 
         let picker = UIPickerView()
         picker.translatesAutoresizingMaskIntoConstraints = false
+        picker.dataSource = self
+        picker.delegate = self
         addSubview(picker)
         NSLayoutConstraint.activate([
             picker.topAnchor.constraint(equalTo: topAnchor),
@@ -78,17 +82,33 @@ open class PickerKeyboard: UIView {
         self.picker = picker
     }
 
-    open override func reloadInputViews() {
-        if picker.dataSource == nil || picker.delegate == nil {
-            source = delegate?.pickerKeyboardNeedsSource?(self)
-            if let source = source as? UIPickerViewDelegate {
-                picker.delegate = source
-            }
-            if let source = source as? UIPickerViewDataSource {
-                picker.dataSource = source
-            }
+    public func setValue(_ value: AnyObject?) {
+        if let source = source, let value = value as? String, let index = source.values.firstIndex(of: value) {
+            picker.selectRow(index, inComponent: 0, animated: false)
+        } else {
+            picker.selectRow(0, inComponent: 0, animated: false)
+            picker.delegate?.pickerView?(picker, didSelectRow: 0, inComponent: 0)
         }
-        picker.reloadAllComponents()
-        picker.delegate?.pickerView?(picker, didSelectRow: picker.selectedRow(inComponent: 0), inComponent: 0)
+    }
+
+    // MARK: - UIPickerViewDataSource
+
+    public func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return source?.numberOfComponents(in: pickerView) ?? 0
+    }
+
+    public func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return source?.pickerView(pickerView, numberOfRowsInComponent: component) ?? 0
+    }
+
+    // MARK: - UIPickerViewDelegate
+
+    public func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return source?.pickerView?(pickerView, titleForRow: row, forComponent: component)
+    }
+
+    public func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        let value = source?.value(for: row)
+        delegate?.formFieldInputView(self, didChange: value as AnyObject)
     }
 }
