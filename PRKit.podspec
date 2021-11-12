@@ -37,6 +37,7 @@ TODO: Add long description of the pod here.
   # s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'
   s.dependency 'SVGKit', '~> 3.0'
+  s.dependency 'Keyboardy', '~> 0.2'
 
   s.pod_target_xcconfig = { 'LD_RUNPATH_SEARCH_PATHS[sdk=iphonesimulator*]' => '$(inherited) $FRAMEWORK_SEARCH_PATHS' }
 end
