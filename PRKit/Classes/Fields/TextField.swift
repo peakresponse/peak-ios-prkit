@@ -79,9 +79,10 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
         set { placeholderLabel.text = newValue }
     }
 
+    private var _inputAccessoryView: UIView?
     open override var inputAccessoryView: UIView? {
-        get { return textView.inputAccessoryView }
-        set { textView.inputAccessoryView = newValue }
+        get { return _inputAccessoryView }
+        set { _inputAccessoryView = newValue }
     }
 
     open var keyboardType: UIKeyboardType {

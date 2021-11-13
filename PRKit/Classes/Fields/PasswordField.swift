@@ -42,9 +42,10 @@ open class PasswordField: FormField, UITextFieldDelegate {
         set { textField.placeholder = newValue }
     }
 
+    private var _inputAccessoryView: UIView?
     open override var inputAccessoryView: UIView? {
-        get { return textField.inputAccessoryView }
-        set { textField.inputAccessoryView = newValue }
+        get { return _inputAccessoryView }
+        set { _inputAccessoryView = newValue }
     }
 
     override open func commonInit() {
