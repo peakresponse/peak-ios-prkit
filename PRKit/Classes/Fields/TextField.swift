@@ -79,6 +79,11 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
         set { placeholderLabel.text = newValue }
     }
 
+    open override var inputAccessoryView: UIView? {
+        get { return textView.inputAccessoryView }
+        set { textView.inputAccessoryView = newValue }
+    }
+
     private func heightForText(_ text: String, font: UIFont, width: CGFloat) -> CGFloat {
         let text = text as NSString
         let paragraphStyle = NSMutableParagraphStyle()
@@ -207,6 +212,10 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
         _placeholderLabel?.isHidden = !isEmpty
     }
 
+    open override var canBecomeFirstResponder: Bool {
+        return isUserInteractionEnabled && textView.canBecomeFirstResponder
+    }
+
     override open var isFirstResponder: Bool {
         return textView.isFirstResponder
     }
@@ -220,6 +229,7 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
     }
 
     open override func reloadInputViews() {
+        super.reloadInputViews()
         textView.inputView?.reloadInputViews()
         if let inputView = textView.inputView as? FormFieldInputView {
             inputView.setValue(attributeValue)

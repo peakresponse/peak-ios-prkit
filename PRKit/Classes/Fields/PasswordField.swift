@@ -13,6 +13,7 @@ private class InternalTextField: UITextField {
     override func becomeFirstResponder() -> Bool {
         if super.becomeFirstResponder() {
             passwordField?.updateStyle()
+            passwordField?.reloadInputViews()
             return true
         }
         return false
@@ -39,6 +40,11 @@ open class PasswordField: FormField, UITextFieldDelegate {
     @IBInspectable open var placeholderText: String? {
         get { return textField.placeholder }
         set { textField.placeholder = newValue }
+    }
+
+    open override var inputAccessoryView: UIView? {
+        get { return textField.inputAccessoryView }
+        set { textField.inputAccessoryView = newValue }
     }
 
     override open func commonInit() {
@@ -68,6 +74,10 @@ open class PasswordField: FormField, UITextFieldDelegate {
     override open func updateStyle() {
         super.updateStyle()
         textField.textColor = isUserInteractionEnabled ? .base800 : .base300
+    }
+
+    open override var canBecomeFirstResponder: Bool {
+        return isUserInteractionEnabled && textField.canBecomeFirstResponder
     }
 
     override open var isFirstResponder: Bool {

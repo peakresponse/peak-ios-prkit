@@ -30,6 +30,11 @@ class KeyboardsViewController: UIViewController, FormFieldDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        let inputAccessoryView = FormInputAccessoryView(rootView: view)
+        dateTimeField.inputAccessoryView = inputAccessoryView
+        pickerField.inputAccessoryView = inputAccessoryView
+
         pickerField.attributeType = .picker(PickerKeyboardSourceWrapper<PickerTestEnum>())
         pickerField.attributeValue = "option2" as AnyObject
     }

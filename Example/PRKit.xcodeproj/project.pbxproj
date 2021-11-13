@@ -11,6 +11,7 @@
 		45C757D62730939B00386F07 /* NavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C757D52730939B00386F07 /* NavigationViewController.swift */; };
 		45C757D82733541400386F07 /* InputsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C757D72733541400386F07 /* InputsViewController.swift */; };
 		45F7BAEB273C8ED300FBD31F /* KeyboardsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F7BAEA273C8ED300FBD31F /* KeyboardsViewController.swift */; };
+		45F7BAF1273F3E2000FBD31F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 45F7BAF0273F3E2000FBD31F /* Localizable.strings */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACD81AFB9204008FA782 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* ViewController.swift */; };
 		607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 607FACD91AFB9204008FA782 /* Main.storyboard */; };
@@ -39,6 +40,7 @@
 		45C757D52730939B00386F07 /* NavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationViewController.swift; sourceTree = "<group>"; };
 		45C757D72733541400386F07 /* InputsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputsViewController.swift; sourceTree = "<group>"; };
 		45F7BAEA273C8ED300FBD31F /* KeyboardsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardsViewController.swift; sourceTree = "<group>"; };
+		45F7BAF0273F3E2000FBD31F /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		607FACD01AFB9204008FA782 /* PRKit_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PRKit_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACD51AFB9204008FA782 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -120,6 +122,7 @@
 			isa = PBXGroup;
 			children = (
 				607FACD41AFB9204008FA782 /* Info.plist */,
+				45F7BAF0273F3E2000FBD31F /* Localizable.strings */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -263,6 +266,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */,
+				45F7BAF1273F3E2000FBD31F /* Localizable.strings in Resources */,
 				607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */,
 				607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */,
 			);

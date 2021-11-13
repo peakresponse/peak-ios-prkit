@@ -1,0 +1,9 @@
+/* 
+  Localizable.strings
+  PRKit
+
+  Created by Francis Li on 11/12/21.
+  Copyright © 2021 CocoaPods. All rights reserved.
+*/
+
+"Button.done" = "Done";

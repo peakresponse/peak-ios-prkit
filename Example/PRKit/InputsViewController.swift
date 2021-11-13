@@ -13,6 +13,21 @@ class InputsViewController: UIViewController, FormFieldDelegate, KeyboardAwareSc
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var scrollViewBottomConstraint: NSLayoutConstraint!
 
+    @IBOutlet weak var emptyField: TextField!
+    @IBOutlet weak var disabledField: TextField!
+    @IBOutlet weak var passwordField: PasswordField!
+    @IBOutlet weak var errorField: TextField!
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        let inputAccessoryView = FormInputAccessoryView(rootView: view)
+        emptyField.inputAccessoryView = inputAccessoryView
+        disabledField.inputAccessoryView = inputAccessoryView
+        passwordField.inputAccessoryView = inputAccessoryView
+        errorField.inputAccessoryView = inputAccessoryView
+    }
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         registerForKeyboardNotifications(self)

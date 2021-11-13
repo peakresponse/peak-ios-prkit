@@ -258,6 +258,12 @@ open class FormField: UIView, Localizable, FormFieldInputViewDelegate {
         }
     }
 
+    open override func reloadInputViews() {
+        if let inputAccessoryView = inputAccessoryView as? FormInputAccessoryView {
+            inputAccessoryView.currentView = self
+        }
+    }
+
     @objc open func clearPressed() {
         text = nil
         attributeValue = nil
