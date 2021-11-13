@@ -84,6 +84,50 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
         set { textView.inputAccessoryView = newValue }
     }
 
+    open var keyboardType: UIKeyboardType {
+        get { return textView.keyboardType }
+        set {
+            textView.keyboardType = newValue
+            switch newValue {
+            case .emailAddress:
+                autocapitalizationType = .none
+                autocorrectionType = .no
+            default:
+                break
+            }
+        }
+    }
+
+    open var keyboardAppearance: UIKeyboardAppearance {
+        get { return textView.keyboardAppearance }
+        set { textView.keyboardAppearance = newValue }
+    }
+
+    open var returnKeyType: UIReturnKeyType {
+        get { return textView.returnKeyType }
+        set { textView.returnKeyType = newValue }
+    }
+
+    open var textContentType: UITextContentType! {
+        get { return textView.textContentType }
+        set { textView.textContentType = newValue }
+    }
+
+    open var autocapitalizationType: UITextAutocapitalizationType {
+        get { return textView.autocapitalizationType }
+        set { textView.autocapitalizationType = newValue }
+    }
+
+    open var autocorrectionType: UITextAutocorrectionType {
+        get { return textView.autocorrectionType }
+        set { textView.autocorrectionType = newValue }
+    }
+
+    open var spellCheckingType: UITextSpellCheckingType {
+        get { return textView.spellCheckingType }
+        set { textView.spellCheckingType = newValue }
+    }
+
     private func heightForText(_ text: String, font: UIFont, width: CGFloat) -> CGFloat {
         let text = text as NSString
         let paragraphStyle = NSMutableParagraphStyle()
