@@ -33,6 +33,7 @@ class KeyboardsViewController: UIViewController, FormFieldDelegate, KeyboardAwar
     @IBOutlet weak var dateField: TextField!
     @IBOutlet weak var integerField: TextField!
     @IBOutlet weak var decimalField: TextField!
+    @IBOutlet weak var ageField: TextField!
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -54,6 +55,7 @@ class KeyboardsViewController: UIViewController, FormFieldDelegate, KeyboardAwar
         dateField.inputAccessoryView = inputAccessoryView
         integerField.inputAccessoryView = inputAccessoryView
         decimalField.inputAccessoryView = inputAccessoryView
+        ageField.inputAccessoryView = inputAccessoryView
 
         pickerField.attributeType = .picker(PickerKeyboardSourceWrapper<PickerTestEnum>())
         pickerField.attributeValue = "option2" as AnyObject

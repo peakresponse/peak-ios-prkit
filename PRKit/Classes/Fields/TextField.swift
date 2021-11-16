@@ -218,9 +218,20 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
         textView.inputView = nil
         switch attributeType {
         case .integer:
-            keyboardType = .numberPad
+            var integerKeypad: NumberKeypad! = textView.inputView as? NumberKeypad
+            if integerKeypad == nil {
+                integerKeypad = NumberKeypad()
+                textView.inputView = integerKeypad
+            }
+            integerKeypad.delegate = self
+            integerKeypad.isDecimalHidden = true
         case .decimal:
-            keyboardType = .decimalPad
+            var decimalKeypad: NumberKeypad! = textView.inputView as? NumberKeypad
+            if decimalKeypad == nil {
+                decimalKeypad = NumberKeypad()
+                textView.inputView = decimalKeypad
+            }
+            decimalKeypad.delegate = self
         case .date:
             var dateKeyboard: DateKeyboard! = textView.inputView as? DateKeyboard
             if dateKeyboard == nil {
