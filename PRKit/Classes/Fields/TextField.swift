@@ -215,7 +215,12 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
     }
 
     open override func updateAttributeType() {
+        textView.inputView = nil
         switch attributeType {
+        case .integer:
+            keyboardType = .numberPad
+        case .decimal:
+            keyboardType = .decimalPad
         case .date:
             var dateKeyboard: DateKeyboard! = textView.inputView as? DateKeyboard
             if dateKeyboard == nil {
@@ -239,7 +244,7 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
             pickerKeyboard.delegate = self
             pickerKeyboard.source = source
         default:
-            textView.inputView = nil
+            break
         }
     }
 

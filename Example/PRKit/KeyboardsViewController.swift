@@ -24,11 +24,25 @@ enum PickerTestEnum: String, PickerKeyboardSourceEnum {
     }
 }
 
-class KeyboardsViewController: UIViewController, FormFieldDelegate {
+class KeyboardsViewController: UIViewController, FormFieldDelegate, KeyboardAwareScrollViewController {
+    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var scrollViewBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var dateTimeField: TextField!
     @IBOutlet weak var pickerField: TextField!
     @IBOutlet weak var emailField: TextField!
     @IBOutlet weak var dateField: TextField!
+    @IBOutlet weak var integerField: TextField!
+    @IBOutlet weak var decimalField: TextField!
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        registerForKeyboardNotifications(self)
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        unregisterFromKeyboardNotifications()
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,6 +52,8 @@ class KeyboardsViewController: UIViewController, FormFieldDelegate {
         pickerField.inputAccessoryView = inputAccessoryView
         emailField.inputAccessoryView = inputAccessoryView
         dateField.inputAccessoryView = inputAccessoryView
+        integerField.inputAccessoryView = inputAccessoryView
+        decimalField.inputAccessoryView = inputAccessoryView
 
         pickerField.attributeType = .picker(PickerKeyboardSourceWrapper<PickerTestEnum>())
         pickerField.attributeValue = "option2" as AnyObject
