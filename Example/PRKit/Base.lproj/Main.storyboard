@@ -213,6 +213,14 @@
                                     <outlet property="delegate" destination="eyu-sI-ctB" id="Q2Q-vl-kCL"/>
                                 </connections>
                             </view>
+                            <view tag="4" contentMode="scaleToFill" placeholderIntrinsicWidth="374" placeholderIntrinsicHeight="72.5" translatesAutoresizingMaskIntoConstraints="NO" id="eiO-p5-cRS" userLabel="Date Field" customClass="TextField" customModule="PRKit">
+                                <rect key="frame" x="20" y="374" width="374" height="72.5"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="AttributeType" value="date"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="labelText" value="Date"/>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
@@ -220,15 +228,19 @@
                             <constraint firstItem="RN5-yH-PFJ" firstAttribute="trailing" secondItem="rFx-l1-9xA" secondAttribute="trailing" id="Krk-N3-wgX"/>
                             <constraint firstItem="5Ku-QY-bh8" firstAttribute="trailing" secondItem="RN5-yH-PFJ" secondAttribute="trailing" id="MJE-su-SnE"/>
                             <constraint firstAttribute="trailing" secondItem="rFx-l1-9xA" secondAttribute="trailing" constant="20" symbolic="YES" id="Pvg-CG-zJS"/>
+                            <constraint firstItem="eiO-p5-cRS" firstAttribute="trailing" secondItem="5Ku-QY-bh8" secondAttribute="trailing" id="Y9D-7n-rA8"/>
                             <constraint firstItem="RN5-yH-PFJ" firstAttribute="top" secondItem="rFx-l1-9xA" secondAttribute="bottom" constant="20" id="cci-xc-UA2"/>
                             <constraint firstItem="rFx-l1-9xA" firstAttribute="top" secondItem="RQu-RI-4ix" secondAttribute="bottom" constant="8" symbolic="YES" id="ceN-ie-sQe"/>
                             <constraint firstAttribute="leadingMargin" secondItem="rFx-l1-9xA" secondAttribute="leading" id="cpl-3h-N46"/>
                             <constraint firstItem="RN5-yH-PFJ" firstAttribute="leading" secondItem="rFx-l1-9xA" secondAttribute="leading" id="d5a-ad-fLb"/>
+                            <constraint firstItem="eiO-p5-cRS" firstAttribute="top" secondItem="5Ku-QY-bh8" secondAttribute="bottom" constant="20" id="hc4-cH-QhO"/>
                             <constraint firstItem="5Ku-QY-bh8" firstAttribute="leading" secondItem="RN5-yH-PFJ" secondAttribute="leading" id="sX2-rO-Dgb"/>
+                            <constraint firstItem="eiO-p5-cRS" firstAttribute="leading" secondItem="5Ku-QY-bh8" secondAttribute="leading" id="tml-iN-pBg"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Keyboards" id="17X-ii-Zlo"/>
                     <connections>
+                        <outlet property="dateField" destination="eiO-p5-cRS" id="s7e-kf-nD7"/>
                         <outlet property="dateTimeField" destination="rFx-l1-9xA" id="cOO-qm-Iez"/>
                         <outlet property="emailField" destination="5Ku-QY-bh8" id="Aqp-Jm-hMa"/>
                         <outlet property="pickerField" destination="RN5-yH-PFJ" id="y6a-LR-Ee3"/>
@@ -1087,6 +1099,9 @@
         </designable>
         <designable name="e68-l8-04o">
             <size key="intrinsicContentSize" width="105" height="42.70703125"/>
+        </designable>
+        <designable name="eiO-p5-cRS">
+            <size key="intrinsicContentSize" width="374" height="72.5"/>
         </designable>
         <designable name="gaW-Ww-Dma">
             <size key="intrinsicContentSize" width="105" height="42.70703125"/>

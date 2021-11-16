@@ -12,6 +12,8 @@
 		45C757D82733541400386F07 /* InputsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C757D72733541400386F07 /* InputsViewController.swift */; };
 		45F7BAEB273C8ED300FBD31F /* KeyboardsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F7BAEA273C8ED300FBD31F /* KeyboardsViewController.swift */; };
 		45F7BAF1273F3E2000FBD31F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 45F7BAF0273F3E2000FBD31F /* Localizable.strings */; };
+		45FACD542744337300C0AC90 /* DateExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45FACD532744337300C0AC90 /* DateExtensionTests.swift */; };
+		45FACD562744350600C0AC90 /* ISO8601DateFormatterExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45FACD552744350600C0AC90 /* ISO8601DateFormatterExtensionTests.swift */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACD81AFB9204008FA782 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* ViewController.swift */; };
 		607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 607FACD91AFB9204008FA782 /* Main.storyboard */; };
@@ -41,6 +43,8 @@
 		45C757D72733541400386F07 /* InputsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputsViewController.swift; sourceTree = "<group>"; };
 		45F7BAEA273C8ED300FBD31F /* KeyboardsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardsViewController.swift; sourceTree = "<group>"; };
 		45F7BAF0273F3E2000FBD31F /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
+		45FACD532744337300C0AC90 /* DateExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtensionTests.swift; sourceTree = "<group>"; };
+		45FACD552744350600C0AC90 /* ISO8601DateFormatterExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ISO8601DateFormatterExtensionTests.swift; sourceTree = "<group>"; };
 		607FACD01AFB9204008FA782 /* PRKit_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PRKit_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACD51AFB9204008FA782 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -130,6 +134,8 @@
 		607FACE81AFB9204008FA782 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				45FACD532744337300C0AC90 /* DateExtensionTests.swift */,
+				45FACD552744350600C0AC90 /* ISO8601DateFormatterExtensionTests.swift */,
 				607FACEB1AFB9204008FA782 /* Tests.swift */,
 				607FACE91AFB9204008FA782 /* Supporting Files */,
 			);
@@ -405,7 +411,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				45FACD562744350600C0AC90 /* ISO8601DateFormatterExtensionTests.swift in Sources */,
 				607FACEC1AFB9204008FA782 /* Tests.swift in Sources */,
+				45FACD542744337300C0AC90 /* DateExtensionTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

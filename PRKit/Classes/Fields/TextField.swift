@@ -216,6 +216,13 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
 
     open override func updateAttributeType() {
         switch attributeType {
+        case .date:
+            var dateKeyboard: DateKeyboard! = textView.inputView as? DateKeyboard
+            if dateKeyboard == nil {
+                dateKeyboard = DateKeyboard()
+                textView.inputView = dateKeyboard
+            }
+            dateKeyboard.delegate = self
         case .datetime:
             var dateTimeKeyboard: DateTimeKeyboard! = textView.inputView as? DateTimeKeyboard
             if dateTimeKeyboard == nil {
@@ -238,6 +245,8 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
 
     open override func updateAttributeValue() {
         switch attributeType {
+        case .date:
+            text = ISO8601DateFormatter.date(from: attributeValue as? String)?.asDateString()
         case .datetime:
             text = (attributeValue as? Date)?.asDateTimeString()
         case .picker(let source):

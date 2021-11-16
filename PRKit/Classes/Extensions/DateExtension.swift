@@ -20,6 +20,11 @@ public extension Date {
         return ISO8601DateFormatter.string(from: self)!
     }
 
+    func asISO8601DateString() -> String {
+        let dateTimeString = ISO8601DateFormatter.string(from: self)!
+        return String(dateTimeString[dateTimeString.startIndex..<dateTimeString.index(dateTimeString.startIndex, offsetBy: 10)])
+    }
+
     func asLocalizedTime() -> String {
         return DateFormatter.localizedString(from: self, dateStyle: .none, timeStyle: .short)
     }

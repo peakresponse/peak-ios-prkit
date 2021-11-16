@@ -28,6 +28,7 @@ class KeyboardsViewController: UIViewController, FormFieldDelegate {
     @IBOutlet weak var dateTimeField: TextField!
     @IBOutlet weak var pickerField: TextField!
     @IBOutlet weak var emailField: TextField!
+    @IBOutlet weak var dateField: TextField!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,10 +37,13 @@ class KeyboardsViewController: UIViewController, FormFieldDelegate {
         dateTimeField.inputAccessoryView = inputAccessoryView
         pickerField.inputAccessoryView = inputAccessoryView
         emailField.inputAccessoryView = inputAccessoryView
+        dateField.inputAccessoryView = inputAccessoryView
 
         pickerField.attributeType = .picker(PickerKeyboardSourceWrapper<PickerTestEnum>())
         pickerField.attributeValue = "option2" as AnyObject
 
         emailField.keyboardType = .emailAddress
+
+        dateField.attributeValue = "2021-10-31" as AnyObject
     }
 }

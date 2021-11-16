@@ -14,9 +14,20 @@ public extension ISO8601DateFormatter {
         return formatter
     }()
 
+    static let dateOnlyFormatter: ISO8601DateFormatter = {
+        let formatter = ISO8601DateFormatter()
+        formatter.formatOptions = [.withFullDate]
+        formatter.timeZone = TimeZone.current
+        return formatter
+    }()
+
     static func date(from string: Any?) -> Date? {
         if let string = string as? String {
-            return defaultFormatter.date(from: string)
+            if string.count > 10 {
+                return defaultFormatter.date(from: string)
+            } else {
+                return dateOnlyFormatter.date(from: string)
+            }
         }
         return nil
     }
