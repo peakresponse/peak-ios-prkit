@@ -288,15 +288,15 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
             }
             dateTimeKeyboard.delegate = self
             textView.isEditable = false
-        case .age(let source):
-            var ageKeyboard: AgeKeyboard! = textView.inputView as? AgeKeyboard
+        case .integerWithUnit(let source):
+            var ageKeyboard: NumberWithUnitKeypad! = textView.inputView as? NumberWithUnitKeypad
             if ageKeyboard == nil {
-                ageKeyboard = AgeKeyboard()
+                ageKeyboard = NumberWithUnitKeypad()
                 ageKeyboard.textView = textView
                 textView.inputView = ageKeyboard
             }
             ageKeyboard.delegate = self
-            ageKeyboard.ageUnitSource = source
+            ageKeyboard.unitSource = source
         case .picker(let source):
             var pickerKeyboard: PickerKeyboard! = textView.inputView as? PickerKeyboard
             if pickerKeyboard == nil {
@@ -317,7 +317,7 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
             text = ISO8601DateFormatter.date(from: attributeValue as? String)?.asDateString()
         case .datetime:
             text = (attributeValue as? Date)?.asDateTimeString()
-        case .age(let source):
+        case .integerWithUnit(let source):
             if let value = attributeValue as? [String], value.count == 2, let unit = source?.title(for: value[1]) {
                 text = value[0]
                 unitLabel.text = " \(unit)"

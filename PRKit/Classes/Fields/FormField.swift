@@ -19,7 +19,7 @@ import UIKit
 }
 
 public enum FormFieldAttributeType {
-    case text, integer, decimal, date, datetime, age(PickerKeyboardSource? = nil), picker(PickerKeyboardSource? = nil)
+    case text, integer, decimal, date, datetime, integerWithUnit(PickerKeyboardSource? = nil), picker(PickerKeyboardSource? = nil)
 
     var rawValue: String {
         return String(describing: self)
@@ -37,8 +37,8 @@ public enum FormFieldAttributeType {
             self = .date
         case "datetime":
             self = .datetime
-        case "age":
-            self = .age()
+        case "integerWithUnit":
+            self = .integerWithUnit()
         case "picker":
             self = .picker()
         default:
@@ -278,13 +278,7 @@ open class FormField: UIView, Localizable, FormFieldInputViewDelegate {
         attributeValue = nil
         delegate?.formFieldDidChange?(self)
         switch attributeType {
-        case .date:
-            fallthrough
-        case .datetime:
-            fallthrough
-        case .age(_):
-            fallthrough
-        case .picker(_):
+        case .date, .datetime, .integerWithUnit(_), .picker(_):
             resignFirstResponder()
         default:
             reloadInputViews()

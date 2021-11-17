@@ -71,6 +71,6 @@ class KeyboardsViewController: UIViewController, FormFieldDelegate, KeyboardAwar
 
         dateField.attributeValue = "2021-10-31" as AnyObject
 
-        ageField.attributeType = .age(PickerKeyboardSourceWrapper<AgeTestUnits>())
+        ageField.attributeType = .integerWithUnit(PickerKeyboardSourceWrapper<AgeTestUnits>())
     }
 }
