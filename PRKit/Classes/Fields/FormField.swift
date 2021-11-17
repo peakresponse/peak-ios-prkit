@@ -106,7 +106,10 @@ open class FormField: UIView, Localizable, FormFieldInputViewDelegate {
         set { attributeType = FormFieldAttributeType(rawValue: newValue) ?? .text }
     }
     open var attributeValue: AnyObject? {
-        didSet { updateAttributeValue() }
+        didSet {
+            updateAttributeValue()
+            updateStyle()
+        }
     }
 
     open var isEmpty: Bool {
@@ -273,7 +276,6 @@ open class FormField: UIView, Localizable, FormFieldInputViewDelegate {
     @objc open func clearPressed() {
         text = nil
         attributeValue = nil
-        updateStyle()
         delegate?.formFieldDidChange?(self)
         switch attributeType {
         case .date:
@@ -299,7 +301,6 @@ open class FormField: UIView, Localizable, FormFieldInputViewDelegate {
 
     public func formFieldInputView(_ inputView: FormFieldInputView, didChange value: AnyObject?) {
         attributeValue = value
-        updateStyle()
         delegate?.formFieldDidChange?(self)
     }
 }
