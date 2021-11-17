@@ -47,8 +47,10 @@ public enum FormFieldAttributeType {
     }
 }
 
-public protocol FormFieldInputView: AnyObject {
+@objc public protocol FormFieldInputView: AnyObject {
     func setValue(_ value: AnyObject?)
+    @objc optional func accessoryOtherButtonTitle() -> String?
+    @objc optional func accessoryOtherButtonPressed(_ inputAccessoryView: FormInputAccessoryView) -> String?
 }
 
 public protocol FormFieldInputViewDelegate: AnyObject {
@@ -268,6 +270,10 @@ open class FormField: UIView, Localizable, FormFieldInputViewDelegate {
     }
 
     open override func reloadInputViews() {
+        inputView?.reloadInputViews()
+        if let inputView = inputView as? FormFieldInputView {
+            inputView.setValue(attributeValue)
+        }
         if let inputAccessoryView = inputAccessoryView as? FormInputAccessoryView {
             inputAccessoryView.currentView = self
         }

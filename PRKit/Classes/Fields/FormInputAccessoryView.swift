@@ -11,6 +11,7 @@ open class FormInputAccessoryView: UIInputView {
     open weak var nextButton: UIButton!
     open weak var prevButton: UIButton!
     open weak var doneButton: Button!
+    open weak var otherButton: Button!
 
     open weak var rootView: UIView!
     open weak var currentView: UIView? {
@@ -36,17 +37,33 @@ open class FormInputAccessoryView: UIInputView {
         self.frame = newFrame
         autoresizingMask = [.flexibleWidth]
 
+        let row = UIStackView()
+        row.translatesAutoresizingMaskIntoConstraints = false
+        row.axis = .horizontal
+        row.distribution = .fillEqually
+        row.spacing = 6
+        addSubview(row)
+        NSLayoutConstraint.activate([
+            row.leftAnchor.constraint(equalTo: leftAnchor, constant: 20),
+            row.topAnchor.constraint(equalTo: topAnchor),
+            row.rightAnchor.constraint(equalTo: rightAnchor, constant: -20),
+            bottomAnchor.constraint(equalTo: row.bottomAnchor)
+        ])
+
+        let prevNextView = UIView()
+        row.addArrangedSubview(prevNextView)
+
         let prevButton = UIButton(type: .custom)
         prevButton.translatesAutoresizingMaskIntoConstraints = false
         prevButton.setImage(UIImage(named: "ChevronUp40px", in: Bundle(for: type(of: self)), compatibleWith: nil), for: .normal)
         prevButton.tintColor = .base800
         prevButton.addTarget(self, action: #selector(prevPressed), for: .touchUpInside)
-        addSubview(prevButton)
+        prevNextView.addSubview(prevButton)
         NSLayoutConstraint.activate([
             prevButton.widthAnchor.constraint(equalToConstant: 44),
             prevButton.heightAnchor.constraint(equalToConstant: 44),
-            prevButton.topAnchor.constraint(equalTo: topAnchor, constant: 10),
-            prevButton.leftAnchor.constraint(equalTo: leftAnchor, constant: 20)
+            prevButton.topAnchor.constraint(equalTo: prevNextView.topAnchor, constant: 10),
+            prevButton.leftAnchor.constraint(equalTo: prevNextView.leftAnchor)
         ])
         self.prevButton = prevButton
 
@@ -55,26 +72,49 @@ open class FormInputAccessoryView: UIInputView {
         nextButton.setImage(UIImage(named: "ChevronDown40px", in: Bundle(for: type(of: self)), compatibleWith: nil), for: .normal)
         nextButton.tintColor = .base800
         nextButton.addTarget(self, action: #selector(nextPressed), for: .touchUpInside)
-        addSubview(nextButton)
+        prevNextView.addSubview(nextButton)
+        let nextButtonLeftConstraint = nextButton.leftAnchor.constraint(equalTo: prevButton.rightAnchor, constant: 10)
+        nextButtonLeftConstraint.priority = .defaultHigh
         NSLayoutConstraint.activate([
             nextButton.widthAnchor.constraint(equalToConstant: 44),
             nextButton.heightAnchor.constraint(equalToConstant: 44),
             nextButton.topAnchor.constraint(equalTo: prevButton.topAnchor),
-            nextButton.leftAnchor.constraint(equalTo: prevButton.rightAnchor, constant: 20)
+            nextButton.leftAnchor.constraint(greaterThanOrEqualTo: prevButton.rightAnchor),
+            nextButtonLeftConstraint,
+            prevNextView.rightAnchor.constraint(greaterThanOrEqualTo: nextButton.rightAnchor)
         ])
         self.nextButton = nextButton
 
+        let otherButtonView = UIView()
+        row.addArrangedSubview(otherButtonView)
+        let otherButton = Button()
+        otherButton.translatesAutoresizingMaskIntoConstraints = false
+        otherButton.setTitle("Button.done".localized, for: .normal)
+        otherButton.style = .secondary
+        otherButton.size = .small
+        otherButton.addTarget(self, action: #selector(otherPressed), for: .touchUpInside)
+        otherButtonView.addSubview(otherButton)
+        NSLayoutConstraint.activate([
+            otherButton.leftAnchor.constraint(greaterThanOrEqualTo: otherButtonView.leftAnchor),
+            otherButton.rightAnchor.constraint(lessThanOrEqualTo: otherButtonView.rightAnchor),
+            otherButton.centerXAnchor.constraint(equalTo: centerXAnchor),
+            otherButton.centerYAnchor.constraint(equalTo: centerYAnchor)
+        ])
+        self.otherButton = otherButton
+
+        let doneButtonView = UIView()
+        row.addArrangedSubview(doneButtonView)
         let doneButton = Button()
         doneButton.translatesAutoresizingMaskIntoConstraints = false
         doneButton.setTitle("Button.done".localized, for: .normal)
         doneButton.style = .primary
         doneButton.size = .small
         doneButton.addTarget(self, action: #selector(donePressed), for: .touchUpInside)
-        addSubview(doneButton)
+        doneButtonView.addSubview(doneButton)
         NSLayoutConstraint.activate([
-            doneButton.topAnchor.constraint(equalTo: nextButton.topAnchor),
-            doneButton.rightAnchor.constraint(equalTo: rightAnchor, constant: -20),
-            doneButton.centerYAnchor.constraint(equalTo: centerYAnchor)
+            doneButton.rightAnchor.constraint(equalTo: doneButtonView.rightAnchor),
+            doneButton.leftAnchor.constraint(greaterThanOrEqualTo: doneButtonView.leftAnchor),
+            doneButton.centerYAnchor.constraint(equalTo: doneButtonView.centerYAnchor)
         ])
         self.doneButton = doneButton
     }
@@ -103,6 +143,13 @@ open class FormInputAccessoryView: UIInputView {
         traverse(view: rootView)
         prevButton.isEnabled = prevView != nil
         nextButton.isEnabled = nextView != nil
+        otherButton.isHidden = true
+        if let currentView = currentView, let inputView = currentView.inputView as? FormFieldInputView {
+            if let otherTitle = inputView.accessoryOtherButtonTitle?() {
+                otherButton.isHidden = false
+                otherButton.setTitle(otherTitle, for: .normal)
+            }
+        }
     }
 
     @objc func prevPressed() {
@@ -115,5 +162,13 @@ open class FormInputAccessoryView: UIInputView {
 
     @objc func donePressed() {
         _ = currentView?.resignFirstResponder()
+    }
+
+    @objc func otherPressed() {
+        if let currentView = currentView, let inputView = currentView.inputView as? FormFieldInputView {
+            if let otherTitle = inputView.accessoryOtherButtonPressed?(self) {
+                otherButton.setTitle(otherTitle, for: .normal)
+            }
+        }
     }
 }

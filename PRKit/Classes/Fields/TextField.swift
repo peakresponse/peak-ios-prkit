@@ -88,6 +88,11 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
         set { placeholderLabel.text = newValue }
     }
 
+    open override var inputView: UIView? {
+        get { return textView.inputView }
+        set { textView.inputView = newValue }
+    }
+
     private var _inputAccessoryView: UIView?
     open override var inputAccessoryView: UIView? {
         get { return _inputAccessoryView }
@@ -252,7 +257,7 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
     }
 
     open override func updateAttributeType() {
-        textView.inputView = nil
+        inputView = nil
         textView.isEditable = true
         switch attributeType {
         case .integer:
@@ -260,7 +265,7 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
             if integerKeypad == nil {
                 integerKeypad = NumberKeypad()
                 integerKeypad.textView = textView
-                textView.inputView = integerKeypad
+                inputView = integerKeypad
             }
             integerKeypad.delegate = self
             integerKeypad.isDecimalHidden = true
@@ -269,14 +274,15 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
             if decimalKeypad == nil {
                 decimalKeypad = NumberKeypad()
                 decimalKeypad.textView = textView
-                textView.inputView = decimalKeypad
+                inputView = decimalKeypad
             }
             decimalKeypad.delegate = self
+            decimalKeypad.isDecimalHidden = false
         case .date:
             var dateKeyboard: DateKeyboard! = textView.inputView as? DateKeyboard
             if dateKeyboard == nil {
                 dateKeyboard = DateKeyboard()
-                textView.inputView = dateKeyboard
+                inputView = dateKeyboard
             }
             dateKeyboard.delegate = self
             textView.isEditable = false
@@ -284,24 +290,25 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
             var dateTimeKeyboard: DateTimeKeyboard! = textView.inputView as? DateTimeKeyboard
             if dateTimeKeyboard == nil {
                 dateTimeKeyboard = DateTimeKeyboard()
-                textView.inputView = dateTimeKeyboard
+                inputView = dateTimeKeyboard
             }
             dateTimeKeyboard.delegate = self
             textView.isEditable = false
         case .integerWithUnit(let source):
-            var ageKeyboard: NumberWithUnitKeypad! = textView.inputView as? NumberWithUnitKeypad
-            if ageKeyboard == nil {
-                ageKeyboard = NumberWithUnitKeypad()
-                ageKeyboard.textView = textView
-                textView.inputView = ageKeyboard
+            var integerWithUnitKeyboard: NumberWithUnitKeypad! = textView.inputView as? NumberWithUnitKeypad
+            if integerWithUnitKeyboard == nil {
+                integerWithUnitKeyboard = NumberWithUnitKeypad()
+                integerWithUnitKeyboard.textView = textView
+                inputView = integerWithUnitKeyboard
             }
-            ageKeyboard.delegate = self
-            ageKeyboard.unitSource = source
+            integerWithUnitKeyboard.delegate = self
+            integerWithUnitKeyboard.isDecimalHidden = true
+            integerWithUnitKeyboard.unitSource = source
         case .picker(let source):
             var pickerKeyboard: PickerKeyboard! = textView.inputView as? PickerKeyboard
             if pickerKeyboard == nil {
                 pickerKeyboard = PickerKeyboard()
-                textView.inputView = pickerKeyboard
+                inputView = pickerKeyboard
             }
             pickerKeyboard.delegate = self
             pickerKeyboard.source = source
@@ -353,14 +360,6 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
 
     override open func resignFirstResponder() -> Bool {
         return textView.resignFirstResponder()
-    }
-
-    open override func reloadInputViews() {
-        super.reloadInputViews()
-        textView.inputView?.reloadInputViews()
-        if let inputView = textView.inputView as? FormFieldInputView {
-            inputView.setValue(attributeValue)
-        }
     }
 
     open override func clearPressed() {
