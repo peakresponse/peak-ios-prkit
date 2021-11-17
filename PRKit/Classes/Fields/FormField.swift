@@ -18,8 +18,12 @@ import UIKit
     @objc optional func formField(_ field: FormField, needsSourceFor pickerKeyboard: PickerKeyboard) -> AnyObject?
 }
 
-public enum FormFieldAttributeType {
-    case text, integer, decimal, date, datetime, integerWithUnit(PickerKeyboardSource? = nil), picker(PickerKeyboardSource? = nil)
+public enum FormFieldAttributeType: Equatable {
+    case text
+    case integer, integerWithUnit(PickerKeyboardSource? = nil)
+    case decimal, decimalWithUnit(PickerKeyboardSource? = nil)
+    case date, datetime
+    case picker(PickerKeyboardSource? = nil)
 
     var rawValue: String {
         return String(describing: self)
@@ -31,18 +35,43 @@ public enum FormFieldAttributeType {
             self = .text
         case "integer":
             self = .integer
+        case "integerWithUnit":
+            self = .integerWithUnit()
         case "decimal":
             self = .decimal
+        case "decimalWithUnit":
+            self = .decimalWithUnit()
         case "date":
             self = .date
         case "datetime":
             self = .datetime
-        case "integerWithUnit":
-            self = .integerWithUnit()
         case "picker":
             self = .picker()
         default:
             return nil
+        }
+    }
+
+    public static func == (lhs: FormFieldAttributeType, rhs: FormFieldAttributeType) -> Bool {
+        switch (lhs, rhs) {
+        case (.text, .text):
+            return true
+        case (.integer, .integer):
+            return true
+        case (.integerWithUnit, .integerWithUnit):
+            return true
+        case (.decimal, .decimal):
+            return true
+        case (.decimalWithUnit, .decimalWithUnit):
+            return true
+        case (.date, .date):
+            return true
+        case (.datetime, .datetime):
+            return true
+        case (.picker, .picker):
+            return true
+        default:
+            return false
         }
     }
 }
@@ -115,7 +144,7 @@ open class FormField: UIView, Localizable, FormFieldInputViewDelegate {
     }
 
     open var isEmpty: Bool {
-        return (text?.isEmpty ?? true) && ((attributeValue as? String)?.isEmpty ?? true)
+        return (text?.isEmpty ?? true) && ((attributeValue as? String)?.isEmpty ?? (attributeValue == nil))
     }
 
     open override var isUserInteractionEnabled: Bool {
@@ -284,7 +313,7 @@ open class FormField: UIView, Localizable, FormFieldInputViewDelegate {
         attributeValue = nil
         delegate?.formFieldDidChange?(self)
         switch attributeType {
-        case .date, .datetime, .integerWithUnit(_), .picker(_):
+        case .decimalWithUnit(_), .integerWithUnit(_), .date, .datetime, .picker(_):
             resignFirstResponder()
         default:
             reloadInputViews()

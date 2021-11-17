@@ -261,23 +261,28 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
         textView.isEditable = true
         switch attributeType {
         case .integer:
-            var integerKeypad: NumberKeypad! = textView.inputView as? NumberKeypad
-            if integerKeypad == nil {
-                integerKeypad = NumberKeypad()
-                integerKeypad.textView = textView
-                inputView = integerKeypad
-            }
-            integerKeypad.delegate = self
-            integerKeypad.isDecimalHidden = true
+            fallthrough
         case .decimal:
-            var decimalKeypad: NumberKeypad! = textView.inputView as? NumberKeypad
-            if decimalKeypad == nil {
-                decimalKeypad = NumberKeypad()
-                decimalKeypad.textView = textView
-                inputView = decimalKeypad
+            var keypad: NumberKeypad! = textView.inputView as? NumberKeypad
+            if keypad == nil {
+                keypad = NumberKeypad()
+                keypad.textView = textView
+                inputView = keypad
             }
-            decimalKeypad.delegate = self
-            decimalKeypad.isDecimalHidden = false
+            keypad.delegate = self
+            keypad.isDecimalHidden = attributeType == .integer
+        case .integerWithUnit(let source):
+            fallthrough
+        case .decimalWithUnit(let source):
+            var keypadWithUnit: NumberWithUnitKeypad! = textView.inputView as? NumberWithUnitKeypad
+            if keypadWithUnit == nil {
+                keypadWithUnit = NumberWithUnitKeypad()
+                keypadWithUnit.textView = textView
+                inputView = keypadWithUnit
+            }
+            keypadWithUnit.delegate = self
+            keypadWithUnit.isDecimalHidden = attributeType == .integerWithUnit()
+            keypadWithUnit.unitSource = source
         case .date:
             var dateKeyboard: DateKeyboard! = textView.inputView as? DateKeyboard
             if dateKeyboard == nil {
@@ -294,16 +299,6 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
             }
             dateTimeKeyboard.delegate = self
             textView.isEditable = false
-        case .integerWithUnit(let source):
-            var integerWithUnitKeyboard: NumberWithUnitKeypad! = textView.inputView as? NumberWithUnitKeypad
-            if integerWithUnitKeyboard == nil {
-                integerWithUnitKeyboard = NumberWithUnitKeypad()
-                integerWithUnitKeyboard.textView = textView
-                inputView = integerWithUnitKeyboard
-            }
-            integerWithUnitKeyboard.delegate = self
-            integerWithUnitKeyboard.isDecimalHidden = true
-            integerWithUnitKeyboard.unitSource = source
         case .picker(let source):
             var pickerKeyboard: PickerKeyboard! = textView.inputView as? PickerKeyboard
             if pickerKeyboard == nil {
@@ -325,6 +320,8 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
         case .datetime:
             text = (attributeValue as? Date)?.asDateTimeString()
         case .integerWithUnit(let source):
+            fallthrough
+        case .decimalWithUnit(let source):
             if let value = attributeValue as? [String], value.count == 2, let unit = source?.title(for: value[1]) {
                 text = value[0]
                 unitLabel.text = " \(unit)"
