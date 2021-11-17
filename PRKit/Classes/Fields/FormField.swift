@@ -287,7 +287,7 @@ open class FormField: UIView, Localizable, FormFieldInputViewDelegate {
         case .picker(_):
             resignFirstResponder()
         default:
-            break
+            reloadInputViews()
         }
     }
 
