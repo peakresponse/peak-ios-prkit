@@ -113,7 +113,7 @@ open class FormField: UIView, Localizable, FormFieldInputViewDelegate {
     }
 
     open var isEmpty: Bool {
-        return (text?.isEmpty ?? true) && (attributeValue == nil)
+        return (text?.isEmpty ?? true) && ((attributeValue as? String)?.isEmpty ?? true)
     }
 
     open override var isUserInteractionEnabled: Bool {
