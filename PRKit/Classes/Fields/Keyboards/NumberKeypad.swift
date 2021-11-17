@@ -7,7 +7,7 @@
 
 import UIKit
 
-open class NumberKeypad: UIView, FormFieldInputView {
+open class NumberKeypad: UIInputView, FormFieldInputView {
     open weak var rows: UIStackView!
     open var buttons: [Button] = []
 
@@ -21,10 +21,11 @@ open class NumberKeypad: UIView, FormFieldInputView {
 
     open var value: String = ""
 
+    open weak var textView: UITextView!
     open weak var delegate: FormFieldInputViewDelegate?
 
-    public override init(frame: CGRect) {
-        super.init(frame: frame)
+    public init() {
+        super.init(frame: .zero, inputViewStyle: .keyboard)
         commonInit()
     }
 
@@ -35,7 +36,6 @@ open class NumberKeypad: UIView, FormFieldInputView {
 
     open func commonInit() {
         autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        backgroundColor = .base300
 
         let spacing: CGFloat = 6
         let rows = UIStackView()
@@ -54,6 +54,7 @@ open class NumberKeypad: UIView, FormFieldInputView {
             rows.rightAnchor.constraint(lessThanOrEqualTo: rightAnchor, constant: -spacing),
             safeAreaLayoutGuide.bottomAnchor.constraint(greaterThanOrEqualTo: rows.bottomAnchor, constant: spacing)
         ])
+        self.rows = rows
 
         var row: UIStackView!
         for i in 1..<13 {
@@ -65,6 +66,7 @@ open class NumberKeypad: UIView, FormFieldInputView {
                 rows.addArrangedSubview(row)
             }
             let button = Button()
+            button.translatesAutoresizingMaskIntoConstraints = false
             var title: String?
             if i < 10 {
                 title = "\(i)"
@@ -96,27 +98,47 @@ open class NumberKeypad: UIView, FormFieldInputView {
     }
 
     @objc func buttonPressed(_ button: Button) {
-        if button.tag < 10 {
-            if value == "0" {
-                value = ""
+        var range = textView.selectedRange
+        if button.tag == 12 {
+            if value.count == 0 || (range.location == 0 && range.length == 0) {
+                return
             }
-            value = "\(value)\(button.tag)"
-        } else if button.tag == 10 {
-            if value == "" {
-                value = "0"
+            if range.length == 0 {
+                range = NSRange(location: range.location - 1, length: 1)
             }
-            value = "\(value)."
-        } else if button.tag == 11 {
-            if value == "0" {
-                value = ""
+            if textView.delegate?.textView?(textView, shouldChangeTextIn: range, replacementText: "") ?? true {
+                value = (value as NSString).replacingCharacters(in: range, with: "")
             }
-            value = "\(value)0"
-        } else if button.tag == 12 {
-            if value.count > 0 {
-                value = String(value[value.startIndex..<value.index(before: value.endIndex)])
+            range = NSRange(location: range.location, length: 0)
+        } else {
+            var replacementText: String!
+            if button.tag < 10 {
+                if value == "0" {
+                    range = NSRange(location: 0, length: 1)
+                }
+                replacementText = "\(button.tag)"
+            } else if button.tag == 10 {
+                if value == "" {
+                    replacementText = "0."
+                } else {
+                    replacementText = "."
+                }
+            } else if button.tag == 11 {
+                if value == "0" {
+                    return
+                }
+                if value.count > 0, range.location == 0 {
+                    return
+                }
+                replacementText = "0"
             }
+            if textView.delegate?.textView?(textView, shouldChangeTextIn: range, replacementText: replacementText) ?? true {
+                value = (value as NSString).replacingCharacters(in: range, with: replacementText)
+            }
+            range = NSRange(location: range.location + replacementText.count, length: 0)
         }
         decimalButton.isEnabled = !self.value.contains(".")
         delegate?.formFieldInputView(self, didChange: value as AnyObject)
+        textView.selectedRange = range
     }
 }

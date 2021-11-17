@@ -103,6 +103,11 @@ open class Button: UIButton {
         return rect
     }
 
+    open override func setTitle(_ title: String?, for state: UIControl.State) {
+        super.setTitle(title, for: state)
+        updateStyle()
+    }
+
     private func updateStyle() {
         var font: UIFont
         var borderWidth: CGFloat = 3

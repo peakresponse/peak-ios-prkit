@@ -74,6 +74,15 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
         return _placeholderLabel
     }
 
+    private weak var _unitLabel: UILabel!
+    open var unitLabel: UILabel {
+        if _unitLabel == nil {
+            initUnitLabel()
+        }
+        return _unitLabel
+    }
+    open var unitLabelLeftConstraint: NSLayoutConstraint!
+
     @IBInspectable open var placeholderText: String? {
         get { return _placeholderLabel?.text }
         set { placeholderLabel.text = newValue }
@@ -141,6 +150,18 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
         return max(font.lineHeight * 1.2, ceil(rect.height / (font.lineHeight * 1.2)) * font.lineHeight * 1.2)
     }
 
+    private func widthForText(_ text: String, font: UIFont) -> CGFloat {
+        let text = text as NSString
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineSpacing = 4
+        let rect = text.boundingRect(with: CGSize(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude),
+                                     options: .usesLineFragmentOrigin, attributes: [
+                                        .font: font,
+                                        .paragraphStyle: paragraphStyle
+                                     ], context: nil)
+        return rect.width
+    }
+
     override open func commonInit() {
         super.commonInit()
 
@@ -187,7 +208,7 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
         placeholderLabel.translatesAutoresizingMaskIntoConstraints = false
         placeholderLabel.font = textView.font
         placeholderLabel.textColor = .base300
-        placeholderLabel.isHidden = !(text?.isEmpty ?? true)
+        placeholderLabel.isHidden = !isEmpty
         contentView.addSubview(placeholderLabel)
         NSLayoutConstraint.activate([
             placeholderLabel.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 0),
@@ -197,13 +218,29 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
         _placeholderLabel = placeholderLabel
     }
 
+    private func initUnitLabel() {
+        guard _unitLabel == nil else { return }
+        let unitLabel = UILabel()
+        unitLabel.translatesAutoresizingMaskIntoConstraints = false
+        unitLabel.font = textView.font
+        unitLabel.textColor = .base800
+        contentView.addSubview(unitLabel)
+        unitLabelLeftConstraint = unitLabel.leftAnchor.constraint(equalTo: label.leftAnchor)
+        NSLayoutConstraint.activate([
+            unitLabel.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 0),
+            unitLabelLeftConstraint,
+            unitLabel.rightAnchor.constraint(equalTo: label.rightAnchor)
+        ])
+        _unitLabel = unitLabel
+    }
+
     private func initIconView() {
         guard _iconView == nil else { return }
         let iconView = UIImageView()
         iconView.translatesAutoresizingMaskIntoConstraints = false
         iconView.tintColor = .base800
         iconView.contentMode = .center
-        iconView.isHidden = !(text?.isEmpty ?? true)
+        iconView.isHidden = !isEmpty
         contentView.addSubview(iconView)
         NSLayoutConstraint.activate([
             iconView.widthAnchor.constraint(equalToConstant: 44),
@@ -216,11 +253,13 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
 
     open override func updateAttributeType() {
         textView.inputView = nil
+        textView.isEditable = true
         switch attributeType {
         case .integer:
             var integerKeypad: NumberKeypad! = textView.inputView as? NumberKeypad
             if integerKeypad == nil {
                 integerKeypad = NumberKeypad()
+                integerKeypad.textView = textView
                 textView.inputView = integerKeypad
             }
             integerKeypad.delegate = self
@@ -229,6 +268,7 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
             var decimalKeypad: NumberKeypad! = textView.inputView as? NumberKeypad
             if decimalKeypad == nil {
                 decimalKeypad = NumberKeypad()
+                decimalKeypad.textView = textView
                 textView.inputView = decimalKeypad
             }
             decimalKeypad.delegate = self
@@ -239,6 +279,7 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
                 textView.inputView = dateKeyboard
             }
             dateKeyboard.delegate = self
+            textView.isEditable = false
         case .datetime:
             var dateTimeKeyboard: DateTimeKeyboard! = textView.inputView as? DateTimeKeyboard
             if dateTimeKeyboard == nil {
@@ -246,6 +287,16 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
                 textView.inputView = dateTimeKeyboard
             }
             dateTimeKeyboard.delegate = self
+            textView.isEditable = false
+        case .age(let source):
+            var ageKeyboard: AgeKeyboard! = textView.inputView as? AgeKeyboard
+            if ageKeyboard == nil {
+                ageKeyboard = AgeKeyboard()
+                ageKeyboard.textView = textView
+                textView.inputView = ageKeyboard
+            }
+            ageKeyboard.delegate = self
+            ageKeyboard.ageUnitSource = source
         case .picker(let source):
             var pickerKeyboard: PickerKeyboard! = textView.inputView as? PickerKeyboard
             if pickerKeyboard == nil {
@@ -254,6 +305,7 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
             }
             pickerKeyboard.delegate = self
             pickerKeyboard.source = source
+            textView.isEditable = false
         default:
             break
         }
@@ -265,6 +317,12 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
             text = ISO8601DateFormatter.date(from: attributeValue as? String)?.asDateString()
         case .datetime:
             text = (attributeValue as? Date)?.asDateTimeString()
+        case .age(let source):
+            if let value = attributeValue as? [String], value.count == 2, let unit = source?.title(for: value[1]) {
+                text = value[0]
+                unitLabel.text = " \(unit)"
+                unitLabelLeftConstraint.constant = widthForText(text!, font: textView.font!)
+            }
         case .picker(let source):
             text = source?.title(for: attributeValue as? String)
         default:
@@ -276,7 +334,6 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
         super.updateStyle()
         textView.textColor = .base800
         textViewHeightConstraint.constant = heightForText(textView.text, font: textView.font!, width: textView.frame.width)
-        let isEmpty = text?.isEmpty ?? true
         clearButton.isHidden = isEmpty || !isUserInteractionEnabled
         _iconView?.isHidden = !isEmpty
         _placeholderLabel?.isHidden = !isEmpty
@@ -306,12 +363,16 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
         }
     }
 
+    open override func clearPressed() {
+        super.clearPressed()
+        _unitLabel?.text = nil
+    }
+
     // MARK: - NSTextStorageDelegate
 
     public func textStorage(_ textStorage: NSTextStorage, didProcessEditing editedMask: NSTextStorage.EditActions,
                      range editedRange: NSRange, changeInLength delta: Int) {
         if editedMask.contains(.editedCharacters) {
-            let isEmpty = text?.isEmpty ?? true
             _placeholderLabel?.isHidden = !isEmpty
             _iconView?.isHidden = !isEmpty
             clearButton.isHidden = isEmpty || !isUserInteractionEnabled

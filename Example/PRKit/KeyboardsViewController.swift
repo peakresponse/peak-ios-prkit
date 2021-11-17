@@ -24,6 +24,13 @@ enum PickerTestEnum: String, PickerKeyboardSourceEnum {
     }
 }
 
+enum AgeTestUnits: String, PickerKeyboardSourceEnum {
+    case years, months, days
+    var description: String {
+        return rawValue
+    }
+}
+
 class KeyboardsViewController: UIViewController, FormFieldDelegate, KeyboardAwareScrollViewController {
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var scrollViewBottomConstraint: NSLayoutConstraint!
@@ -63,5 +70,7 @@ class KeyboardsViewController: UIViewController, FormFieldDelegate, KeyboardAwar
         emailField.keyboardType = .emailAddress
 
         dateField.attributeValue = "2021-10-31" as AnyObject
+
+        ageField.attributeType = .age(PickerKeyboardSourceWrapper<AgeTestUnits>())
     }
 }

@@ -7,7 +7,7 @@
 
 import UIKit
 
-open class FormInputAccessoryView: UIView {
+open class FormInputAccessoryView: UIInputView {
     open weak var nextButton: UIButton!
     open weak var prevButton: UIButton!
     open weak var doneButton: Button!
@@ -20,7 +20,7 @@ open class FormInputAccessoryView: UIView {
     open weak var prevView: UIView?
 
     public init(rootView: UIView) {
-        super.init(frame: .zero)
+        super.init(frame: .zero, inputViewStyle: .default)
         self.rootView = rootView
         commonInit()
     }
@@ -35,7 +35,6 @@ open class FormInputAccessoryView: UIView {
         newFrame.size.height = 64
         self.frame = newFrame
         autoresizingMask = [.flexibleWidth]
-        backgroundColor = .base300
 
         let prevButton = UIButton(type: .custom)
         prevButton.translatesAutoresizingMaskIntoConstraints = false

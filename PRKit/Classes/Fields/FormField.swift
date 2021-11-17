@@ -19,7 +19,7 @@ import UIKit
 }
 
 public enum FormFieldAttributeType {
-    case text, integer, decimal, date, datetime, age, picker(PickerKeyboardSource? = nil)
+    case text, integer, decimal, date, datetime, age(PickerKeyboardSource? = nil), picker(PickerKeyboardSource? = nil)
 
     var rawValue: String {
         return String(describing: self)
@@ -38,7 +38,7 @@ public enum FormFieldAttributeType {
         case "datetime":
             self = .datetime
         case "age":
-            self = .age
+            self = .age()
         case "picker":
             self = .picker()
         default:
@@ -107,6 +107,10 @@ open class FormField: UIView, Localizable, FormFieldInputViewDelegate {
     }
     open var attributeValue: AnyObject? {
         didSet { updateAttributeValue() }
+    }
+
+    open var isEmpty: Bool {
+        return (text?.isEmpty ?? true) && (attributeValue == nil)
     }
 
     open override var isUserInteractionEnabled: Bool {
@@ -235,7 +239,7 @@ open class FormField: UIView, Localizable, FormFieldInputViewDelegate {
                 contentView.addOutline(size: 4, color: .brandPrimary200, opacity: 1)
             } else {
                 contentView.layer.borderColor = isUserInteractionEnabled ?
-                    (text?.isEmpty ?? true ? UIColor.base500.cgColor : UIColor.brandPrimary300.cgColor) :
+                    (isEmpty ? UIColor.base500.cgColor : UIColor.brandPrimary300.cgColor) :
                     UIColor.base300.cgColor
                 contentView.removeOutline()
             }
@@ -251,7 +255,7 @@ open class FormField: UIView, Localizable, FormFieldInputViewDelegate {
 
         _errorLabel?.isHidden = !hasError
 
-        if status == .none || text?.isEmpty ?? true {
+        if status == .none || isEmpty {
             statusButtonWidthConstraint.constant = 0
         } else if isEditing && status == .unconfirmed {
             statusButtonWidthConstraint.constant = 33
@@ -276,6 +280,8 @@ open class FormField: UIView, Localizable, FormFieldInputViewDelegate {
             fallthrough
         case .datetime:
             fallthrough
+        case .age(_):
+            fallthrough
         case .picker(_):
             resignFirstResponder()
         default:
@@ -293,6 +299,7 @@ open class FormField: UIView, Localizable, FormFieldInputViewDelegate {
 
     public func formFieldInputView(_ inputView: FormFieldInputView, didChange value: AnyObject?) {
         attributeValue = value
+        updateStyle()
         delegate?.formFieldDidChange?(self)
     }
 }
