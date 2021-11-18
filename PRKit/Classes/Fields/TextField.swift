@@ -230,6 +230,7 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
         unitLabel.translatesAutoresizingMaskIntoConstraints = false
         unitLabel.font = textView.font
         unitLabel.textColor = .base500
+        unitLabel.isHidden = isEmpty && !isFirstResponder
         contentView.addSubview(unitLabel)
         unitLabelLeftConstraint = unitLabel.leftAnchor.constraint(equalTo: label.leftAnchor)
         NSLayoutConstraint.activate([
@@ -341,6 +342,7 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
         clearButton.isHidden = isEmpty || !isUserInteractionEnabled
         _iconView?.isHidden = !isEmpty
         _placeholderLabel?.isHidden = !isEmpty
+        _unitLabel?.isHidden = isEmpty && !isFirstResponder
     }
 
     open override var canBecomeFirstResponder: Bool {
@@ -357,11 +359,6 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
 
     override open func resignFirstResponder() -> Bool {
         return textView.resignFirstResponder()
-    }
-
-    open override func clearPressed() {
-        super.clearPressed()
-        _unitLabel?.text = nil
     }
 
     // MARK: - NSTextStorageDelegate
