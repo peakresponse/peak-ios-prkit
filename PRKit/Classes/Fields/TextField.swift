@@ -59,6 +59,7 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
                 .foregroundColor: textView.textColor!
             ])
             textViewHeightConstraint.constant = heightForText(text, font: textView.font!, width: textView.frame.width)
+            unitLabelLeftConstraint?.constant = widthForText(text, font: textView.font!)
         }
     }
 
@@ -228,7 +229,7 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
         let unitLabel = UILabel()
         unitLabel.translatesAutoresizingMaskIntoConstraints = false
         unitLabel.font = textView.font
-        unitLabel.textColor = .base800
+        unitLabel.textColor = .base500
         contentView.addSubview(unitLabel)
         unitLabelLeftConstraint = unitLabel.leftAnchor.constraint(equalTo: label.leftAnchor)
         NSLayoutConstraint.activate([
@@ -323,9 +324,8 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
             fallthrough
         case .decimalWithUnit(let source):
             if let value = attributeValue as? [String], value.count == 2, let unit = source?.title(for: value[1]) {
-                text = value[0]
                 unitLabel.text = " \(unit)"
-                unitLabelLeftConstraint.constant = widthForText(text!, font: textView.font!)
+                text = value[0]
             }
         case .picker(let source):
             text = source?.title(for: attributeValue as? String)

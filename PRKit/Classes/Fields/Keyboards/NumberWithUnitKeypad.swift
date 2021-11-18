@@ -48,6 +48,8 @@ open class NumberWithUnitKeypad: NumberKeypad, UIPickerViewDataSource, UIPickerV
             pickerView(unitPicker, didSelectRow: 0, inComponent: 0)
         }
         textView.selectedRange = NSRange(location: self.value.count, length: 0)
+        unitPicker.isHidden = true
+        rows.isHidden = false
     }
 
     func accessoryOtherButtonTitle() -> String? {
