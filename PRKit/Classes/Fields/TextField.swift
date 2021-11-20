@@ -310,6 +310,15 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
             pickerKeyboard.delegate = self
             pickerKeyboard.source = source
             textView.isEditable = false
+        case .multi(let source):
+            var multiKeyboard: MultiSelectKeyboard! = textView.inputView as? MultiSelectKeyboard
+            if multiKeyboard == nil {
+                multiKeyboard = MultiSelectKeyboard()
+                inputView = multiKeyboard
+            }
+            multiKeyboard.delegate = self
+            multiKeyboard.source = source
+            textView.isEditable = false
         default:
             break
         }
@@ -330,6 +339,8 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
             }
         case .picker(let source):
             text = source?.title(for: attributeValue as? String)
+        case .multi(let source):
+            text = (attributeValue as? [String])?.compactMap({ source?.title(for: $0) }).joined(separator: "\n")
         default:
             text = attributeValue as? String
         }

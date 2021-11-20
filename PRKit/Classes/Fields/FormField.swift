@@ -16,6 +16,7 @@ import UIKit
     @objc optional func formFieldDidChange(_ field: FormField)
     @objc optional func formFieldDidConfirmStatus(_ field: FormField)
     @objc optional func formField(_ field: FormField, needsSourceFor pickerKeyboard: PickerKeyboard) -> AnyObject?
+    @objc optional func formField(_ field: FormField, wantsTopPresent vc: UIViewController)
 }
 
 public enum FormFieldAttributeType: Equatable {
@@ -24,6 +25,7 @@ public enum FormFieldAttributeType: Equatable {
     case decimal, decimalWithUnit(PickerKeyboardSource? = nil)
     case date, datetime
     case picker(PickerKeyboardSource? = nil)
+    case multi(MultiSelectKeyboardSource? = nil)
 
     var rawValue: String {
         return String(describing: self)
@@ -47,6 +49,8 @@ public enum FormFieldAttributeType: Equatable {
             self = .datetime
         case "picker":
             self = .picker()
+        case "multi":
+            self = .multi()
         default:
             return nil
         }
@@ -70,6 +74,8 @@ public enum FormFieldAttributeType: Equatable {
             return true
         case (.picker, .picker):
             return true
+        case (.multi, .multi):
+            return true
         default:
             return false
         }
@@ -84,6 +90,7 @@ public enum FormFieldAttributeType: Equatable {
 
 public protocol FormFieldInputViewDelegate: AnyObject {
     func formFieldInputView(_ inputView: FormFieldInputView, didChange value: AnyObject?)
+    func formFieldInputView(_ inputView: FormFieldInputView, wantsToPresent vc: UIViewController)
 }
 
 open class FormField: UIView, Localizable, FormFieldInputViewDelegate {
@@ -331,5 +338,9 @@ open class FormField: UIView, Localizable, FormFieldInputViewDelegate {
     public func formFieldInputView(_ inputView: FormFieldInputView, didChange value: AnyObject?) {
         attributeValue = value
         delegate?.formFieldDidChange?(self)
+    }
+
+    public func formFieldInputView(_ inputView: FormFieldInputView, wantsToPresent vc: UIViewController) {
+
     }
 }

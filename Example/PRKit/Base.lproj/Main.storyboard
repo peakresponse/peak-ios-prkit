@@ -257,6 +257,17 @@
                                             <outlet property="delegate" destination="eyu-sI-ctB" id="pYM-CH-qaO"/>
                                         </connections>
                                     </view>
+                                    <view tag="8" contentMode="scaleToFill" placeholderIntrinsicWidth="374" placeholderIntrinsicHeight="72.5" translatesAutoresizingMaskIntoConstraints="NO" id="1lj-fV-5N5" userLabel="Multiselect Field" customClass="TextField" customModule="PRKit">
+                                        <rect key="frame" x="20" y="668.5" width="374" height="72.5"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="AttributeType" value="multi"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="labelText" value="Multiselect"/>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <outlet property="delegate" destination="eyu-sI-ctB" id="mGC-ZV-BLW"/>
+                                        </connections>
+                                    </view>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="pRT-XV-e5d" firstAttribute="leading" secondItem="RN5-yH-PFJ" secondAttribute="leading" id="0PC-6b-Xyq"/>
@@ -266,8 +277,9 @@
                                     <constraint firstItem="eiO-p5-cRS" firstAttribute="leading" secondItem="kkl-yR-yal" secondAttribute="leading" constant="20" id="4fp-tI-ISK"/>
                                     <constraint firstItem="RN5-yH-PFJ" firstAttribute="top" secondItem="5Ku-QY-bh8" secondAttribute="bottom" constant="20" id="6tq-jZ-0nZ"/>
                                     <constraint firstItem="rFx-l1-9xA" firstAttribute="trailing" secondItem="eiO-p5-cRS" secondAttribute="trailing" id="8K5-Dr-kVJ"/>
+                                    <constraint firstItem="1lj-fV-5N5" firstAttribute="trailing" secondItem="wRL-tg-g7F" secondAttribute="trailing" id="AWk-Ws-YWs"/>
                                     <constraint firstItem="rFx-l1-9xA" firstAttribute="top" secondItem="eiO-p5-cRS" secondAttribute="bottom" constant="20" id="Ait-eF-Zre"/>
-                                    <constraint firstItem="kkl-yR-yal" firstAttribute="bottom" secondItem="wRL-tg-g7F" secondAttribute="bottom" constant="20" id="Bbu-6d-0Hp"/>
+                                    <constraint firstItem="kkl-yR-yal" firstAttribute="bottom" secondItem="1lj-fV-5N5" secondAttribute="bottom" constant="40" id="Bbu-6d-0Hp"/>
                                     <constraint firstItem="kkl-yR-yal" firstAttribute="trailing" secondItem="eiO-p5-cRS" secondAttribute="trailing" constant="20" id="Bxo-3z-g6F"/>
                                     <constraint firstItem="rFx-l1-9xA" firstAttribute="leading" secondItem="eiO-p5-cRS" secondAttribute="leading" id="DRt-fx-D5g"/>
                                     <constraint firstItem="eiO-p5-cRS" firstAttribute="width" secondItem="IOF-hj-M1j" secondAttribute="width" constant="-40" id="F73-k9-WS8"/>
@@ -276,9 +288,11 @@
                                     <constraint firstItem="wRL-tg-g7F" firstAttribute="top" secondItem="lsk-bE-S2o" secondAttribute="bottom" constant="20" id="RNh-b3-Ss0"/>
                                     <constraint firstItem="5Ku-QY-bh8" firstAttribute="top" secondItem="rFx-l1-9xA" secondAttribute="bottom" constant="20" id="Uql-gz-yLc"/>
                                     <constraint firstItem="eiO-p5-cRS" firstAttribute="top" secondItem="kkl-yR-yal" secondAttribute="top" constant="20" id="YYH-FL-zrs"/>
+                                    <constraint firstItem="1lj-fV-5N5" firstAttribute="top" secondItem="wRL-tg-g7F" secondAttribute="bottom" constant="20" id="YcG-zH-z6c"/>
                                     <constraint firstItem="lsk-bE-S2o" firstAttribute="top" secondItem="pRT-XV-e5d" secondAttribute="bottom" constant="20" id="ZMm-gL-G4U"/>
                                     <constraint firstItem="wRL-tg-g7F" firstAttribute="trailing" secondItem="lsk-bE-S2o" secondAttribute="trailing" id="cTi-7y-Dce"/>
                                     <constraint firstItem="5Ku-QY-bh8" firstAttribute="leading" secondItem="rFx-l1-9xA" secondAttribute="leading" id="cZI-iz-AP6"/>
+                                    <constraint firstItem="1lj-fV-5N5" firstAttribute="leading" secondItem="wRL-tg-g7F" secondAttribute="leading" id="lLI-Ky-4mS"/>
                                     <constraint firstItem="pRT-XV-e5d" firstAttribute="top" secondItem="RN5-yH-PFJ" secondAttribute="bottom" constant="20" id="pPg-g2-VcB"/>
                                     <constraint firstItem="wRL-tg-g7F" firstAttribute="leading" secondItem="lsk-bE-S2o" secondAttribute="leading" id="rW8-dN-1D9"/>
                                     <constraint firstItem="RN5-yH-PFJ" firstAttribute="trailing" secondItem="5Ku-QY-bh8" secondAttribute="trailing" id="vS3-NV-5eT"/>
@@ -303,6 +317,7 @@
                         <outlet property="decimalField" destination="lsk-bE-S2o" id="v7V-39-K48"/>
                         <outlet property="emailField" destination="5Ku-QY-bh8" id="Aqp-Jm-hMa"/>
                         <outlet property="integerField" destination="pRT-XV-e5d" id="8og-Sk-Esl"/>
+                        <outlet property="multiField" destination="1lj-fV-5N5" id="5wh-I8-hNI"/>
                         <outlet property="pickerField" destination="RN5-yH-PFJ" id="y6a-LR-Ee3"/>
                         <outlet property="scrollView" destination="0qr-hl-4jc" id="sQN-CJ-o0b"/>
                         <outlet property="scrollViewBottomConstraint" destination="zKZ-eh-cOf" id="0dr-sF-KXB"/>
@@ -1086,6 +1101,9 @@
     <designables>
         <designable name="1I8-st-BMR">
             <size key="intrinsicContentSize" width="145" height="82.9609375"/>
+        </designable>
+        <designable name="1lj-fV-5N5">
+            <size key="intrinsicContentSize" width="374" height="72.5"/>
         </designable>
         <designable name="3AY-D1-YQ9">
             <size key="intrinsicContentSize" width="105" height="42.70703125"/>

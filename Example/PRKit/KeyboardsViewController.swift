@@ -9,8 +9,8 @@
 import UIKit
 import PRKit
 
-enum PickerTestEnum: String, PickerKeyboardSourceEnum {
-    case option1, option2, option3
+enum PickerTestEnum: String, PickerKeyboardSourceEnum, StringIterable {
+    case option1, option2, option3, option4, option5, option6
 
     var description: String {
         switch self {
@@ -20,6 +20,12 @@ enum PickerTestEnum: String, PickerKeyboardSourceEnum {
             return "Option 2"
         case .option3:
             return "Option 3"
+        case .option4:
+            return "Option 4"
+        case .option5:
+            return "Option 5"
+        case .option6:
+            return "Option 6"
         }
     }
 }
@@ -41,6 +47,7 @@ class KeyboardsViewController: UIViewController, FormFieldDelegate, KeyboardAwar
     @IBOutlet weak var integerField: TextField!
     @IBOutlet weak var decimalField: TextField!
     @IBOutlet weak var ageField: TextField!
+    @IBOutlet weak var multiField: TextField!
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -63,6 +70,7 @@ class KeyboardsViewController: UIViewController, FormFieldDelegate, KeyboardAwar
         integerField.inputAccessoryView = inputAccessoryView
         decimalField.inputAccessoryView = inputAccessoryView
         ageField.inputAccessoryView = inputAccessoryView
+        multiField.inputAccessoryView = inputAccessoryView
 
         pickerField.attributeType = .picker(PickerKeyboardSourceWrapper<PickerTestEnum>())
         pickerField.attributeValue = "option2" as AnyObject
@@ -74,5 +82,7 @@ class KeyboardsViewController: UIViewController, FormFieldDelegate, KeyboardAwar
         integerField.unitLabel.text = " bpm"
 
         ageField.attributeType = .integerWithUnit(PickerKeyboardSourceWrapper<AgeTestUnits>())
+
+        multiField.attributeType = .multi(MultiSelectKeyboardSourceWrapper<PickerTestEnum>())
     }
 }
