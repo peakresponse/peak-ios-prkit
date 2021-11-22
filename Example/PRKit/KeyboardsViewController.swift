@@ -10,7 +10,7 @@ import UIKit
 import PRKit
 
 enum PickerTestEnum: String, PickerKeyboardSourceEnum, StringIterable {
-    case option1, option2, option3, option4, option5, option6
+    case option1, option2, option3, option4, option5, option6, option7, option8
 
     var description: String {
         switch self {
@@ -21,11 +21,15 @@ enum PickerTestEnum: String, PickerKeyboardSourceEnum, StringIterable {
         case .option3:
             return "Option 3"
         case .option4:
-            return "Option 4"
+            return "Option 4 with Long Description to Test Wrapping"
         case .option5:
             return "Option 5"
         case .option6:
             return "Option 6 with Long Description to Test Wrapping"
+        case .option7:
+            return "Option 7 with Long Description to Test Wrapping"
+        case .option8:
+            return "Option 8"
         }
     }
 }

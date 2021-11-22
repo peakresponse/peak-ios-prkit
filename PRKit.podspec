@@ -36,6 +36,7 @@ TODO: Add long description of the pod here.
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'
+  s.dependency 'AlignedCollectionViewFlowLayout'
   s.dependency 'SVGKit', '~> 3.0'
   s.dependency 'Keyboardy', '~> 0.2'
 

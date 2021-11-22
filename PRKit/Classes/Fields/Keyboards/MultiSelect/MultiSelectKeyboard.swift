@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import AlignedCollectionViewFlowLayout
 
 public protocol MultiSelectKeyboardSource: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func title(for value: String?) -> String?
@@ -99,8 +100,9 @@ open class MultiSelectKeyboard: UIInputView, FormFieldInputView, CheckboxDelegat
     open func commonInit() {
         autoresizingMask = [.flexibleWidth, .flexibleHeight]
 
-        let layout = UICollectionViewFlowLayout()
+        let layout = AlignedCollectionViewFlowLayout(horizontalAlignment: .justified, verticalAlignment: .top)
         layout.minimumLineSpacing = 20
+        layout.minimumInteritemSpacing = 20
         layout.sectionInset = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
 
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -117,6 +119,36 @@ open class MultiSelectKeyboard: UIInputView, FormFieldInputView, CheckboxDelegat
             bottomAnchor.constraint(equalTo: collectionView.bottomAnchor)
         ])
         self.collectionView = collectionView
+
+        if traitCollection.horizontalSizeClass == .regular {
+            UIDevice.current.beginGeneratingDeviceOrientationNotifications()
+            NotificationCenter.default.addObserver(self, selector: #selector(orientationChanged),
+                                                   name: UIDevice.orientationDidChangeNotification, object: nil)
+        }
+    }
+
+    deinit {
+        if traitCollection.horizontalSizeClass == .regular {
+            UIDevice.current.endGeneratingDeviceOrientationNotifications()
+        }
+    }
+
+    func updateLayout() {
+        guard traitCollection.horizontalSizeClass == .regular else { return }
+        if let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+            let cols = floor((collectionView.frame.width - 20) / 355)
+            let edgeInset = floor((collectionView.frame.width - cols * 355 + 20) / 2)
+            layout.sectionInset = UIEdgeInsets(top: 20, left: edgeInset, bottom: 20, right: edgeInset)
+        }
+    }
+
+    @objc func orientationChanged() {
+        updateLayout()
+    }
+
+    open override func reloadInputViews() {
+        super.reloadInputViews()
+        updateLayout()
     }
 
     public func setValue(_ value: AnyObject?) {

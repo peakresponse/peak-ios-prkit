@@ -1,4 +1,5 @@
 PODS:
+  - AlignedCollectionViewFlowLayout (1.1.2)
   - CocoaLumberjack (3.7.2):
     - CocoaLumberjack/Core (= 3.7.2)
   - CocoaLumberjack/Core (3.7.2)
@@ -9,6 +10,7 @@ PODS:
     - FBSnapshotTestCase/Core
   - Keyboardy (0.2.7)
   - PRKit (0.1.0):
+    - AlignedCollectionViewFlowLayout
     - Keyboardy (~> 0.2)
     - SVGKit (~> 3.0)
   - SVGKit (3.0.0):
@@ -22,6 +24,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - AlignedCollectionViewFlowLayout
     - CocoaLumberjack
     - FBSnapshotTestCase
     - Keyboardy
@@ -33,10 +36,11 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
+  AlignedCollectionViewFlowLayout: ee2ef451e741ec08f8e0967d828001e2f051c20a
   CocoaLumberjack: b7e05132ff94f6ae4dfa9d5bce9141893a21d9da
   FBSnapshotTestCase: 094f9f314decbabe373b87cc339bea235a63e07a
   Keyboardy: 5fee785baf2bc8fa95896a31d88b5f49488f839e
-  PRKit: ef7cdcdc18d06c28220a99d1f366e9a0fec0ce9f
+  PRKit: fd4bc051e9a9032677b346672be3327dd40a6687
   SVGKit: 1ad7513f8c74d9652f94ed64ddecda1a23864dea
   SwiftLint: 99f82d07b837b942dd563c668de129a03fc3fb52
 
