@@ -7,7 +7,7 @@
 
 import UIKit
 
-public protocol MultiSelectKeyboardSource: UICollectionViewDataSource, UICollectionViewDelegate {
+public protocol MultiSelectKeyboardSource: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func title(for value: String?) -> String?
 }
 
@@ -37,6 +37,9 @@ open class MultiSelectCheckboxCell: UICollectionViewCell {
         self.checkbox = checkbox
     }
 
+    public static func sizeThatFits(_ width: CGFloat, with labelText: String) -> CGSize {
+        return Checkbox.sizeThatFits(width, with: labelText)
+    }
 }
 
 open class MultiSelectKeyboardSourceWrapper<T: StringIterable>: NSObject, MultiSelectKeyboardSource {
@@ -64,10 +67,20 @@ open class MultiSelectKeyboardSourceWrapper<T: StringIterable>: NSObject, MultiS
         }
         return cell
     }
+
+    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,
+                               sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let value = T.allCases[T.allCases.index(T.allCases.startIndex, offsetBy: indexPath.row)]
+        if collectionView.traitCollection.horizontalSizeClass == .regular {
+            return MultiSelectCheckboxCell.sizeThatFits(335, with: value.description)
+        } else {
+            return MultiSelectCheckboxCell.sizeThatFits(collectionView.frame.width - 40, with: value.description)
+        }
+    }
 }
 
 open class MultiSelectKeyboard: UIInputView, FormFieldInputView, CheckboxDelegate,
-                                UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+                                UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     weak var collectionView: UICollectionView!
     weak var delegate: FormFieldInputViewDelegate?
     var source: MultiSelectKeyboardSource?
@@ -162,10 +175,7 @@ open class MultiSelectKeyboard: UIInputView, FormFieldInputView, CheckboxDelegat
 
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,
                                sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if traitCollection.horizontalSizeClass == .regular {
-            return CGSize(width: 335, height: 40)
-        } else {
-            return CGSize(width: frame.width - 40, height: 40)
-        }
+        return source?.collectionView?(collectionView, layout: collectionViewLayout, sizeForItemAt: indexPath) ??
+            CGSize(width: frame.width - 40, height: 40)
     }
 }

@@ -25,7 +25,7 @@ enum PickerTestEnum: String, PickerKeyboardSourceEnum, StringIterable {
         case .option5:
             return "Option 5"
         case .option6:
-            return "Option 6"
+            return "Option 6 with Long Description to Test Wrapping"
         }
     }
 }

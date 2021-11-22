@@ -25,7 +25,15 @@ open class Checkbox: UIView {
 
     @IBInspectable open var labelText: String? {
         get { return label.text }
-        set { label.text = newValue }
+        set {
+            if let newValue = newValue {
+                let paragraphStyle = NSMutableParagraphStyle()
+                paragraphStyle.lineSpacing = 4
+                label.attributedText = NSAttributedString(string: newValue, attributes: [.paragraphStyle: paragraphStyle])
+            } else {
+                label.text = nil
+            }
+        }
     }
 
     open var value: Any?
@@ -73,22 +81,40 @@ open class Checkbox: UIView {
             button.leftAnchor.constraint(equalTo: leftAnchor),
             button.widthAnchor.constraint(equalToConstant: 40),
             button.heightAnchor.constraint(equalToConstant: 40),
-            bottomAnchor.constraint(equalTo: button.bottomAnchor)
+            bottomAnchor.constraint(greaterThanOrEqualTo: button.bottomAnchor)
         ])
         self.button = button
 
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .h4SemiBold
+        label.numberOfLines = 0
         addSubview(label)
         NSLayoutConstraint.activate([
             label.leftAnchor.constraint(equalTo: button.rightAnchor, constant: 8),
-            label.centerYAnchor.constraint(equalTo: centerYAnchor),
-            label.rightAnchor.constraint(equalTo: rightAnchor)
+            label.topAnchor.constraint(equalTo: button.topAnchor, constant: 8),
+            label.rightAnchor.constraint(equalTo: rightAnchor),
+            bottomAnchor.constraint(greaterThanOrEqualTo: label.bottomAnchor)
         ])
         self.label = label
 
         updateUserInteractionState()
+    }
+
+    public static func sizeThatFits(_ width: CGFloat, with labelText: String) -> CGSize {
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineSpacing = 4
+        var labelSize = CGSize(width: width, height: .greatestFiniteMagnitude)
+        labelSize.width -= 48
+        labelSize = (labelText as NSString).boundingRect(with: labelSize,
+                                                         options: [.usesLineFragmentOrigin],
+                                                         attributes: [
+                                                            .font: UIFont.h4SemiBold,
+                                                            .paragraphStyle: paragraphStyle
+                                                         ], context: nil).size
+        labelSize.width = width
+        labelSize.height = max(40, round(labelSize.height) + 8)
+        return labelSize
     }
 
     func updateUserInteractionState() {
