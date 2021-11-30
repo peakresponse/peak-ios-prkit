@@ -25,7 +25,7 @@ public enum FormFieldAttributeType: Equatable {
     case decimal, decimalWithUnit(PickerKeyboardSource? = nil)
     case date, datetime
     case picker(PickerKeyboardSource? = nil)
-    case multi(MultiSelectKeyboardSource? = nil)
+    case multi(KeyboardSource? = nil)
     case custom(FormInputView? = nil)
 
     var rawValue: String {

@@ -8,10 +8,6 @@
 import UIKit
 import AlignedCollectionViewFlowLayout
 
-public protocol MultiSelectKeyboardSource: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-    func title(for value: String?) -> String?
-}
-
 open class MultiSelectCheckboxCell: UICollectionViewCell {
     weak var checkbox: Checkbox!
 
@@ -43,47 +39,10 @@ open class MultiSelectCheckboxCell: UICollectionViewCell {
     }
 }
 
-open class MultiSelectKeyboardSourceWrapper<T: StringIterable>: NSObject, MultiSelectKeyboardSource {
-    public func title(for value: String?) -> String? {
-        if let value = value {
-            return T.allCases.first(where: {$0.rawValue == value})?.description
-        }
-        return nil
-    }
-
-    public func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
-    }
-
-    public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return T.allCases.count
-    }
-
-    public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Checkbox", for: indexPath)
-        if let cell = cell as? MultiSelectCheckboxCell {
-            let value = T.allCases[T.allCases.index(T.allCases.startIndex, offsetBy: indexPath.row)]
-            cell.checkbox.labelText = value.description
-            cell.checkbox.value = value.rawValue
-        }
-        return cell
-    }
-
-    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,
-                               sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let value = T.allCases[T.allCases.index(T.allCases.startIndex, offsetBy: indexPath.row)]
-        if collectionView.traitCollection.horizontalSizeClass == .regular {
-            return MultiSelectCheckboxCell.sizeThatFits(335, with: value.description)
-        } else {
-            return MultiSelectCheckboxCell.sizeThatFits(collectionView.frame.width - 40, with: value.description)
-        }
-    }
-}
-
 open class MultiSelectKeyboard: FormInputView, CheckboxDelegate,
                                 UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     open weak var collectionView: UICollectionView!
-    open var source: MultiSelectKeyboardSource?
+    open var source: KeyboardSource?
     open var values: [String]?
 
     public override init() {
@@ -180,16 +139,18 @@ open class MultiSelectKeyboard: FormInputView, CheckboxDelegate,
     }
 
     public func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return source?.numberOfSections?(in: collectionView) ?? 0
+        return 1
     }
 
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return source?.collectionView(collectionView, numberOfItemsInSection: section) ?? 0
+        return source?.count() ?? 0
     }
 
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = source?.collectionView(collectionView, cellForItemAt: indexPath) ?? UICollectionViewCell()
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Checkbox", for: indexPath)
         if let cell = cell as? MultiSelectCheckboxCell {
+            cell.checkbox.labelText = source?.title(at: indexPath.row)
+            cell.checkbox.value = source?.value(at: indexPath.row)
             cell.checkbox.delegate = self
             if let value = cell.checkbox.value as? String, values?.contains(value) ?? false {
                 cell.checkbox.isChecked = true
@@ -202,7 +163,11 @@ open class MultiSelectKeyboard: FormInputView, CheckboxDelegate,
 
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,
                                sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return source?.collectionView?(collectionView, layout: collectionViewLayout, sizeForItemAt: indexPath) ??
-            CGSize(width: frame.width - 40, height: 40)
+        let title = source?.title(at: indexPath.row) ?? ""
+        if collectionView.traitCollection.horizontalSizeClass == .regular {
+            return MultiSelectCheckboxCell.sizeThatFits(335, with: title)
+        } else {
+            return MultiSelectCheckboxCell.sizeThatFits(collectionView.frame.width - 40, with: title)
+        }
     }
 }

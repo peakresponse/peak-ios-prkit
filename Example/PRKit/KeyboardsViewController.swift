@@ -9,7 +9,7 @@
 import UIKit
 import PRKit
 
-enum PickerTestEnum: String, PickerKeyboardSourceEnum, StringIterable {
+enum PickerTestEnum: String, StringCaseIterable {
     case option1, option2, option3, option4, option5, option6, option7, option8
 
     var description: String {
@@ -34,7 +34,7 @@ enum PickerTestEnum: String, PickerKeyboardSourceEnum, StringIterable {
     }
 }
 
-enum AgeTestUnits: String, PickerKeyboardSourceEnum {
+enum AgeTestUnits: String, StringCaseIterable {
     case years, months, days
     var description: String {
         return rawValue
@@ -87,6 +87,6 @@ class KeyboardsViewController: UIViewController, FormFieldDelegate, KeyboardAwar
 
         ageField.attributeType = .integerWithUnit(PickerKeyboardSourceWrapper<AgeTestUnits>())
 
-        multiField.attributeType = .multi(MultiSelectKeyboardSourceWrapper<PickerTestEnum>())
+        multiField.attributeType = .multi(EnumKeyboardSource<PickerTestEnum>())
     }
 }

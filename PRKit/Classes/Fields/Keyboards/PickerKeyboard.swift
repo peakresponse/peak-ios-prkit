@@ -7,17 +7,13 @@
 
 import UIKit
 
-public protocol PickerKeyboardSourceEnum: CaseIterable, CustomStringConvertible {
-    var rawValue: String { get }
-}
-
 public protocol PickerKeyboardSource: UIPickerViewDelegate, UIPickerViewDataSource {
     var values: [String] { get }
     func title(for value: String?) -> String?
     func value(for row: Int) -> String?
 }
 
-open class PickerKeyboardSourceWrapper<T: PickerKeyboardSourceEnum>: NSObject, PickerKeyboardSource {
+open class PickerKeyboardSourceWrapper<T: StringCaseIterable>: NSObject, PickerKeyboardSource {
     public var values: [String] {
         return T.allCases.map { $0.rawValue }
     }
