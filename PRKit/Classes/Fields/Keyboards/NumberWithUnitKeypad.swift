@@ -11,6 +11,10 @@ open class NumberWithUnitKeypad: NumberKeypad, UIPickerViewDataSource, UIPickerV
     open weak var unitPicker: UIPickerView!
     open var unitSource: PickerKeyboardSource?
 
+    open override var shouldResignAfterClear: Bool {
+        return true
+    }
+
     open override func commonInit() {
         super.commonInit()
 
@@ -32,11 +36,9 @@ open class NumberWithUnitKeypad: NumberKeypad, UIPickerViewDataSource, UIPickerV
     override func buttonPressed(_ button: Button) {
         super.buttonPressed(button)
         if let unitValue = unitSource?.value(for: unitPicker.selectedRow(inComponent: 0)) {
-            delegate?.formFieldInputView(self, didChange: [value, unitValue] as AnyObject)
+            delegate?.formInputView(self, didChange: [value, unitValue] as AnyObject)
         }
     }
-
-    // MARK: - FormFieldInputView
 
     public override func setValue(_ value: AnyObject?) {
         if let source = unitSource, let value = value as? [String], value.count == 2, let index = source.values.firstIndex(of: value[1]) {
@@ -52,16 +54,28 @@ open class NumberWithUnitKeypad: NumberKeypad, UIPickerViewDataSource, UIPickerV
         rows.isHidden = false
     }
 
-    func accessoryOtherButtonTitle() -> String? {
+    open override func text(for value: AnyObject?) -> String? {
+        if let value = value as? [String], value.count == 2 {
+            return value[0]
+        }
+        return nil
+    }
+
+    open override func unitText(for value: AnyObject?) -> String? {
+        if let value = value as? [String], value.count == 2, let unit = unitSource?.title(for: value[1]) {
+            return " \(unit)"
+        }
+        return nil
+    }
+
+    open override var accessoryOtherButtonTitle: String? {
         return unitSource?.pickerView?(unitPicker, titleForRow: unitPicker.selectedRow(inComponent: 0), forComponent: 0)
     }
 
-    func accessoryOtherButtonPressed(_ inputAccessoryView: FormInputAccessoryView) -> String? {
+    open override func accessoryOtherButtonPressed(_ inputAccessoryView: FormInputAccessoryView) -> String? {
         unitPicker.isHidden = !unitPicker.isHidden
         rows.isHidden = !unitPicker.isHidden
-        return unitPicker.isHidden ?
-            unitSource?.pickerView?(unitPicker, titleForRow: unitPicker.selectedRow(inComponent: 0), forComponent: 0) :
-            "123"
+        return unitPicker.isHidden ? accessoryOtherButtonTitle : "123"
     }
 
     // MARK: - UIPickerViewDataSource
@@ -82,7 +96,7 @@ open class NumberWithUnitKeypad: NumberKeypad, UIPickerViewDataSource, UIPickerV
 
     public func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if let unitValue = unitSource?.value(for: row) {
-            delegate?.formFieldInputView(self, didChange: [value, unitValue] as AnyObject)
+            delegate?.formInputView(self, didChange: [value, unitValue] as AnyObject)
         }
     }
 }

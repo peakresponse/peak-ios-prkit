@@ -7,7 +7,7 @@
 
 import UIKit
 
-open class NumberKeypad: UIInputView, FormFieldInputView {
+open class NumberKeypad: FormInputView {
     open weak var rows: UIStackView!
     open var buttons: [Button] = []
 
@@ -21,11 +21,12 @@ open class NumberKeypad: UIInputView, FormFieldInputView {
 
     open var value: String = ""
 
-    open weak var textView: UITextView!
-    open weak var delegate: FormFieldInputViewDelegate?
+    open override var isTextViewEditable: Bool {
+        return true
+    }
 
-    public init() {
-        super.init(frame: .zero, inputViewStyle: .keyboard)
+    public override init() {
+        super.init()
         commonInit()
     }
 
@@ -88,7 +89,7 @@ open class NumberKeypad: UIInputView, FormFieldInputView {
         }
     }
 
-    public func setValue(_ value: AnyObject?) {
+    open override func setValue(_ value: AnyObject?) {
         if let value = value {
             self.value = "\(value)"
             decimalButton.isEnabled = !self.value.contains(".")
@@ -138,7 +139,7 @@ open class NumberKeypad: UIInputView, FormFieldInputView {
             range = NSRange(location: range.location + replacementText.count, length: 0)
         }
         decimalButton.isEnabled = !self.value.contains(".")
-        delegate?.formFieldInputView(self, didChange: value as AnyObject)
+        delegate?.formInputView(self, didChange: value as AnyObject)
         textView.selectedRange = range
     }
 }

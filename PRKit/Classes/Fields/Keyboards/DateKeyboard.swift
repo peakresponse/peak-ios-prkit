@@ -7,17 +7,20 @@
 
 import UIKit
 
-open class DateKeyboard: UIView, FormFieldInputView {
+open class DateKeyboard: FormInputView {
     open weak var datePicker: UIDatePicker!
-    open weak var delegate: FormFieldInputViewDelegate?
 
     open var date: Date {
         get { return datePicker.date }
         set { datePicker.date = newValue }
     }
 
-    public override init(frame: CGRect) {
-        super.init(frame: frame)
+    open override var shouldResignAfterClear: Bool {
+        return true
+    }
+
+    public override init() {
+        super.init()
         commonInit()
     }
 
@@ -46,16 +49,20 @@ open class DateKeyboard: UIView, FormFieldInputView {
         self.datePicker = datePicker
     }
 
-    public func setValue(_ value: AnyObject?) {
+    open override func setValue(_ value: AnyObject?) {
         if let value = value as? String, let date = ISO8601DateFormatter.date(from: value) {
             self.date = date
         } else {
             date = Date()
-            delegate?.formFieldInputView(self, didChange: date.asISO8601DateString() as AnyObject)
+            dateChanged()
         }
     }
 
+    open override func text(for value: AnyObject?) -> String? {
+        return ISO8601DateFormatter.date(from: value as? String)?.asDateString()
+    }
+
     @objc func dateChanged() {
-        delegate?.formFieldInputView(self, didChange: date.asISO8601DateString() as AnyObject)
+        delegate?.formInputView(self, didChange: date.asISO8601DateString() as AnyObject)
     }
 }

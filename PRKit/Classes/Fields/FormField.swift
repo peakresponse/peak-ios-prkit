@@ -26,6 +26,7 @@ public enum FormFieldAttributeType: Equatable {
     case date, datetime
     case picker(PickerKeyboardSource? = nil)
     case multi(MultiSelectKeyboardSource? = nil)
+    case custom(FormInputView? = nil)
 
     var rawValue: String {
         return String(describing: self)
@@ -51,6 +52,8 @@ public enum FormFieldAttributeType: Equatable {
             self = .picker()
         case "multi":
             self = .multi()
+        case "custom":
+            self = .custom()
         default:
             return nil
         }
@@ -76,24 +79,15 @@ public enum FormFieldAttributeType: Equatable {
             return true
         case (.multi, .multi):
             return true
+        case (.custom, .custom):
+            return true
         default:
             return false
         }
     }
 }
 
-@objc public protocol FormFieldInputView: AnyObject {
-    func setValue(_ value: AnyObject?)
-    @objc optional func accessoryOtherButtonTitle() -> String?
-    @objc optional func accessoryOtherButtonPressed(_ inputAccessoryView: FormInputAccessoryView) -> String?
-}
-
-public protocol FormFieldInputViewDelegate: AnyObject {
-    func formFieldInputView(_ inputView: FormFieldInputView, didChange value: AnyObject?)
-    func formFieldInputView(_ inputView: FormFieldInputView, wantsToPresent vc: UIViewController)
-}
-
-open class FormField: UIView, Localizable, FormFieldInputViewDelegate {
+open class FormField: UIView, Localizable, FormInputViewDelegate {
     open weak var contentView: UIView!
 
     open var status: PredictionStatus = .none {
@@ -257,7 +251,11 @@ open class FormField: UIView, Localizable, FormFieldInputViewDelegate {
     }
 
     open func updateAttributeValue() {
-
+        if let inputView = inputView as? FormInputView {
+            text = inputView.text(for: attributeValue)
+        } else {
+            text = attributeValue as? String
+        }
     }
 
     open func updateStyle() {
@@ -307,7 +305,7 @@ open class FormField: UIView, Localizable, FormFieldInputViewDelegate {
 
     open override func reloadInputViews() {
         inputView?.reloadInputViews()
-        if let inputView = inputView as? FormFieldInputView {
+        if let inputView = inputView as? FormInputView {
             inputView.setValue(attributeValue)
         }
         if let inputAccessoryView = inputAccessoryView as? FormInputAccessoryView {
@@ -319,10 +317,9 @@ open class FormField: UIView, Localizable, FormFieldInputViewDelegate {
         text = nil
         attributeValue = nil
         delegate?.formFieldDidChange?(self)
-        switch attributeType {
-        case .decimalWithUnit(_), .integerWithUnit(_), .date, .datetime, .picker(_):
+        if let inputView = inputView as? FormInputView, inputView.shouldResignAfterClear {
             resignFirstResponder()
-        default:
+        } else {
             reloadInputViews()
         }
     }
@@ -333,14 +330,14 @@ open class FormField: UIView, Localizable, FormFieldInputViewDelegate {
         delegate?.formFieldDidConfirmStatus?(self)
     }
 
-    // MARK: - FormFieldInputViewDelegate
+    // MARK: - FormInputViewDelegate
 
-    public func formFieldInputView(_ inputView: FormFieldInputView, didChange value: AnyObject?) {
+    public func formInputView(_ inputView: FormInputView, didChange value: AnyObject?) {
         attributeValue = value
         delegate?.formFieldDidChange?(self)
     }
 
-    public func formFieldInputView(_ inputView: FormFieldInputView, wantsToPresent vc: UIViewController) {
+    public func formInputView(_ inputView: FormInputView, wantsToPresent vc: UIViewController) {
 
     }
 }

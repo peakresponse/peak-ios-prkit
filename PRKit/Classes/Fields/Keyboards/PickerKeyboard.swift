@@ -50,13 +50,16 @@ open class PickerKeyboardSourceWrapper<T: PickerKeyboardSourceEnum>: NSObject, P
     }
 }
 
-open class PickerKeyboard: UIView, FormFieldInputView, UIPickerViewDelegate, UIPickerViewDataSource {
+open class PickerKeyboard: FormInputView, UIPickerViewDelegate, UIPickerViewDataSource {
     open weak var picker: UIPickerView!
-    open weak var delegate: FormFieldInputViewDelegate?
     open var source: PickerKeyboardSource?
 
-    public override init(frame: CGRect) {
-        super.init(frame: frame)
+    open override var shouldResignAfterClear: Bool {
+        return true
+    }
+
+    public override init() {
+        super.init()
         commonInit()
     }
 
@@ -82,13 +85,17 @@ open class PickerKeyboard: UIView, FormFieldInputView, UIPickerViewDelegate, UIP
         self.picker = picker
     }
 
-    public func setValue(_ value: AnyObject?) {
+    open override func setValue(_ value: AnyObject?) {
         if let source = source, let value = value as? String, let index = source.values.firstIndex(of: value) {
             picker.selectRow(index, inComponent: 0, animated: false)
         } else {
             picker.selectRow(0, inComponent: 0, animated: false)
             picker.delegate?.pickerView?(picker, didSelectRow: 0, inComponent: 0)
         }
+    }
+
+    open override func text(for value: AnyObject?) -> String? {
+        return source?.title(for: value as? String)
     }
 
     // MARK: - UIPickerViewDataSource
@@ -109,6 +116,6 @@ open class PickerKeyboard: UIView, FormFieldInputView, UIPickerViewDelegate, UIP
 
     public func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         let value = source?.value(for: row)
-        delegate?.formFieldInputView(self, didChange: value as AnyObject)
+        delegate?.formInputView(self, didChange: value as AnyObject)
     }
 }

@@ -80,15 +80,14 @@ open class MultiSelectKeyboardSourceWrapper<T: StringIterable>: NSObject, MultiS
     }
 }
 
-open class MultiSelectKeyboard: UIInputView, FormFieldInputView, CheckboxDelegate,
+open class MultiSelectKeyboard: FormInputView, CheckboxDelegate,
                                 UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-    weak var collectionView: UICollectionView!
-    weak var delegate: FormFieldInputViewDelegate?
-    var source: MultiSelectKeyboardSource?
-    var values: [String]?
+    open weak var collectionView: UICollectionView!
+    open var source: MultiSelectKeyboardSource?
+    open var values: [String]?
 
-    public init() {
-        super.init(frame: .zero, inputViewStyle: .keyboard)
+    public override init() {
+        super.init()
         commonInit()
     }
 
@@ -151,7 +150,7 @@ open class MultiSelectKeyboard: UIInputView, FormFieldInputView, CheckboxDelegat
         updateLayout()
     }
 
-    public func setValue(_ value: AnyObject?) {
+    open override func setValue(_ value: AnyObject?) {
         if let value = value as? [String] {
             self.values = value
         } else {
@@ -160,13 +159,9 @@ open class MultiSelectKeyboard: UIInputView, FormFieldInputView, CheckboxDelegat
         collectionView.reloadData()
     }
 
-//    public func accessoryOtherButtonTitle() -> String? {
-//        return "Button.search".localized
-//    }
-//
-//    public func accessoryOtherButtonPressed(_ inputAccessoryView: FormInputAccessoryView) -> String? {
-//        return nil
-//    }
+    open override func text(for value: AnyObject?) -> String? {
+        return (value as? [String])?.compactMap({ source?.title(for: $0) }).joined(separator: "\n")
+    }
 
     public func checkbox(_ checkbox: Checkbox, didChange isChecked: Bool) {
         guard let value = checkbox.value as? String else { return }
@@ -181,7 +176,7 @@ open class MultiSelectKeyboard: UIInputView, FormFieldInputView, CheckboxDelegat
                 values = nil
             }
         }
-        delegate?.formFieldInputView(self, didChange: values as AnyObject?)
+        delegate?.formInputView(self, didChange: values as AnyObject?)
     }
 
     public func numberOfSections(in collectionView: UICollectionView) -> Int {

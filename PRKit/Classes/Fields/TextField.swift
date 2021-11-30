@@ -259,90 +259,62 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
     }
 
     open override func updateAttributeType() {
-        inputView = nil
-        textView.isEditable = true
+        var inputView: FormInputView?
         switch attributeType {
         case .integer:
             fallthrough
         case .decimal:
-            var keypad: NumberKeypad! = textView.inputView as? NumberKeypad
-            if keypad == nil {
-                keypad = NumberKeypad()
-                keypad.textView = textView
-                inputView = keypad
+            inputView = textView.inputView as? NumberKeypad
+            if inputView == nil {
+                inputView = NumberKeypad()
             }
-            keypad.delegate = self
-            keypad.isDecimalHidden = attributeType == .integer
+            (inputView as? NumberKeypad)?.isDecimalHidden = attributeType == .integer
         case .integerWithUnit(let source):
             fallthrough
         case .decimalWithUnit(let source):
-            var keypadWithUnit: NumberWithUnitKeypad! = textView.inputView as? NumberWithUnitKeypad
-            if keypadWithUnit == nil {
-                keypadWithUnit = NumberWithUnitKeypad()
-                keypadWithUnit.textView = textView
-                inputView = keypadWithUnit
+            inputView = textView.inputView as? NumberWithUnitKeypad
+            if inputView == nil {
+                inputView = NumberWithUnitKeypad()
             }
-            keypadWithUnit.delegate = self
-            keypadWithUnit.isDecimalHidden = attributeType == .integerWithUnit()
-            keypadWithUnit.unitSource = source
+            (inputView as? NumberWithUnitKeypad)?.isDecimalHidden = attributeType == .integerWithUnit()
+            (inputView as? NumberWithUnitKeypad)?.unitSource = source
         case .date:
-            var dateKeyboard: DateKeyboard! = textView.inputView as? DateKeyboard
-            if dateKeyboard == nil {
-                dateKeyboard = DateKeyboard()
-                inputView = dateKeyboard
+            inputView = textView.inputView as? DateKeyboard
+            if inputView == nil {
+                inputView = DateKeyboard()
             }
-            dateKeyboard.delegate = self
-            textView.isEditable = false
         case .datetime:
-            var dateTimeKeyboard: DateTimeKeyboard! = textView.inputView as? DateTimeKeyboard
-            if dateTimeKeyboard == nil {
-                dateTimeKeyboard = DateTimeKeyboard()
-                inputView = dateTimeKeyboard
+            inputView = textView.inputView as? DateTimeKeyboard
+            if inputView == nil {
+                inputView = DateTimeKeyboard()
             }
-            dateTimeKeyboard.delegate = self
-            textView.isEditable = false
         case .picker(let source):
-            var pickerKeyboard: PickerKeyboard! = textView.inputView as? PickerKeyboard
-            if pickerKeyboard == nil {
-                pickerKeyboard = PickerKeyboard()
-                inputView = pickerKeyboard
+            inputView = textView.inputView as? PickerKeyboard
+            if inputView == nil {
+                inputView = PickerKeyboard()
             }
-            pickerKeyboard.delegate = self
-            pickerKeyboard.source = source
-            textView.isEditable = false
+            (inputView as? PickerKeyboard)?.source = source
         case .multi(let source):
-            var multiKeyboard: MultiSelectKeyboard! = textView.inputView as? MultiSelectKeyboard
-            if multiKeyboard == nil {
-                multiKeyboard = MultiSelectKeyboard()
-                inputView = multiKeyboard
+            inputView = textView.inputView as? MultiSelectKeyboard
+            if inputView == nil {
+                inputView = MultiSelectKeyboard()
             }
-            multiKeyboard.delegate = self
-            multiKeyboard.source = source
-            textView.isEditable = false
+            (inputView as? MultiSelectKeyboard)?.source = source
+        case .custom(inputView):
+            break
         default:
             break
         }
+        inputView?.delegate = self
+        inputView?.textView = textView
+        textView.isEditable = inputView?.isTextViewEditable ?? false
+        self.inputView = inputView
     }
 
     open override func updateAttributeValue() {
-        switch attributeType {
-        case .date:
-            text = ISO8601DateFormatter.date(from: attributeValue as? String)?.asDateString()
-        case .datetime:
-            text = (attributeValue as? Date)?.asDateTimeString()
-        case .integerWithUnit(let source):
-            fallthrough
-        case .decimalWithUnit(let source):
-            if let value = attributeValue as? [String], value.count == 2, let unit = source?.title(for: value[1]) {
-                unitLabel.text = " \(unit)"
-                text = value[0]
-            }
-        case .picker(let source):
-            text = source?.title(for: attributeValue as? String)
-        case .multi(let source):
-            text = (attributeValue as? [String])?.compactMap({ source?.title(for: $0) }).joined(separator: "\n")
-        default:
-            text = attributeValue as? String
+        super.updateAttributeValue()
+        if let inputView = inputView as? FormInputView, let unitText = inputView.unitText(for: attributeValue) {
+            unitLabel.text = unitText
         }
     }
 

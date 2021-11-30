@@ -144,8 +144,8 @@ open class FormInputAccessoryView: UIInputView {
         prevButton.isEnabled = prevView != nil
         nextButton.isEnabled = nextView != nil
         otherButton.isHidden = true
-        if let currentView = currentView, let inputView = currentView.inputView as? FormFieldInputView {
-            if let otherTitle = inputView.accessoryOtherButtonTitle?() {
+        if let currentView = currentView, let inputView = currentView.inputView as? FormInputView {
+            if let otherTitle = inputView.accessoryOtherButtonTitle {
                 otherButton.isHidden = false
                 otherButton.setTitle(otherTitle, for: .normal)
             }
@@ -165,8 +165,8 @@ open class FormInputAccessoryView: UIInputView {
     }
 
     @objc func otherPressed() {
-        if let currentView = currentView, let inputView = currentView.inputView as? FormFieldInputView {
-            if let otherTitle = inputView.accessoryOtherButtonPressed?(self) {
+        if let currentView = currentView, let inputView = currentView.inputView as? FormInputView {
+            if let otherTitle = inputView.accessoryOtherButtonPressed(self) {
                 otherButton.setTitle(otherTitle, for: .normal)
             }
         }
