@@ -25,6 +25,7 @@ public enum FormFieldAttributeType: Equatable {
     case decimal, decimalWithUnit(KeyboardSource? = nil)
     case date, datetime
     case picker(KeyboardSource? = nil)
+    case single(KeyboardSource? = nil)
     case multi(KeyboardSource? = nil)
     case custom(FormInputView? = nil)
 
@@ -50,6 +51,8 @@ public enum FormFieldAttributeType: Equatable {
             self = .datetime
         case "picker":
             self = .picker()
+        case "single":
+            self = .single()
         case "multi":
             self = .multi()
         case "custom":
@@ -76,6 +79,8 @@ public enum FormFieldAttributeType: Equatable {
         case (.datetime, .datetime):
             return true
         case (.picker, .picker):
+            return true
+        case (.single, .single):
             return true
         case (.multi, .multi):
             return true

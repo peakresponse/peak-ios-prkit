@@ -52,6 +52,7 @@ class KeyboardsViewController: UIViewController, FormFieldDelegate, KeyboardAwar
     @IBOutlet weak var decimalField: TextField!
     @IBOutlet weak var ageField: TextField!
     @IBOutlet weak var multiField: TextField!
+    @IBOutlet weak var singleField: TextField!
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -75,6 +76,7 @@ class KeyboardsViewController: UIViewController, FormFieldDelegate, KeyboardAwar
         decimalField.inputAccessoryView = inputAccessoryView
         ageField.inputAccessoryView = inputAccessoryView
         multiField.inputAccessoryView = inputAccessoryView
+        singleField.inputAccessoryView = inputAccessoryView
 
         pickerField.attributeType = .picker(EnumKeyboardSource<PickerTestEnum>())
         pickerField.attributeValue = "option2" as AnyObject
@@ -88,5 +90,6 @@ class KeyboardsViewController: UIViewController, FormFieldDelegate, KeyboardAwar
         ageField.attributeType = .integerWithUnit(EnumKeyboardSource<AgeTestUnits>())
 
         multiField.attributeType = .multi(EnumKeyboardSource<PickerTestEnum>())
+        singleField.attributeType = .single(EnumKeyboardSource<PickerTestEnum>())
     }
 }

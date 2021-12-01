@@ -1,5 +1,5 @@
 //
-//  MultiSelectKeyboard.swift
+//  SelectKeyboard.swift
 //  PRKit
 //
 //  Created by Francis Li on 11/18/21.
@@ -8,7 +8,7 @@
 import UIKit
 import AlignedCollectionViewFlowLayout
 
-open class MultiSelectCheckboxCell: UICollectionViewCell {
+open class SelectCheckboxCell: UICollectionViewCell {
     weak var checkbox: Checkbox!
 
     public override init(frame: CGRect) {
@@ -39,11 +39,12 @@ open class MultiSelectCheckboxCell: UICollectionViewCell {
     }
 }
 
-open class MultiSelectKeyboard: FormInputView, CheckboxDelegate,
-                                UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+open class SelectKeyboard: FormInputView, CheckboxDelegate,
+                           UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     open weak var collectionView: UICollectionView!
     open var source: KeyboardSource?
     open var values: [String]?
+    open var isMultiSelect = false
 
     public override init() {
         super.init()
@@ -68,7 +69,7 @@ open class MultiSelectKeyboard: FormInputView, CheckboxDelegate,
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.dataSource = self
         collectionView.delegate = self
-        collectionView.register(MultiSelectCheckboxCell.self, forCellWithReuseIdentifier: "Checkbox")
+        collectionView.register(SelectCheckboxCell.self, forCellWithReuseIdentifier: "Checkbox")
         addSubview(collectionView)
         NSLayoutConstraint.activate([
             collectionView.topAnchor.constraint(equalTo: topAnchor),
@@ -112,6 +113,8 @@ open class MultiSelectKeyboard: FormInputView, CheckboxDelegate,
     open override func setValue(_ value: AnyObject?) {
         if let value = value as? [String] {
             self.values = value
+        } else if let value = value as? String {
+            self.values = [value]
         } else {
             self.values = nil
         }
@@ -119,23 +122,35 @@ open class MultiSelectKeyboard: FormInputView, CheckboxDelegate,
     }
 
     open override func text(for value: AnyObject?) -> String? {
-        return (value as? [String])?.compactMap({ source?.title(for: $0) }).joined(separator: "\n")
+        if let value = value as? [String] {
+            return value.compactMap({ source?.title(for: $0) }).joined(separator: "\n")
+        }
+        return source?.title(for: value as? String)
     }
 
     public func checkbox(_ checkbox: Checkbox, didChange isChecked: Bool) {
         guard let value = checkbox.value as? String else { return }
         if isChecked {
-            if values == nil {
-                values = []
+            if isMultiSelect {
+                if values == nil {
+                    values = []
+                }
+                values?.append(value)
+            } else {
+                values = [value]
             }
-            values?.append(value)
         } else if let index = values?.firstIndex(of: value) {
             values?.remove(at: index)
             if values?.isEmpty ?? false {
                 values = nil
             }
         }
-        delegate?.formInputView(self, didChange: values as AnyObject?)
+        if isMultiSelect {
+            delegate?.formInputView(self, didChange: values as AnyObject?)
+        } else {
+            collectionView.reloadData()
+            delegate?.formInputView(self, didChange: values?[0] as AnyObject?)
+        }
     }
 
     public func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -148,10 +163,11 @@ open class MultiSelectKeyboard: FormInputView, CheckboxDelegate,
 
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Checkbox", for: indexPath)
-        if let cell = cell as? MultiSelectCheckboxCell {
+        if let cell = cell as? SelectCheckboxCell {
             cell.checkbox.labelText = source?.title(at: indexPath.row)
             cell.checkbox.value = source?.value(at: indexPath.row)
             cell.checkbox.delegate = self
+            cell.checkbox.isRadioButton = !isMultiSelect
             if let value = cell.checkbox.value as? String, values?.contains(value) ?? false {
                 cell.checkbox.isChecked = true
             } else {
@@ -165,9 +181,9 @@ open class MultiSelectKeyboard: FormInputView, CheckboxDelegate,
                                sizeForItemAt indexPath: IndexPath) -> CGSize {
         let title = source?.title(at: indexPath.row) ?? ""
         if collectionView.traitCollection.horizontalSizeClass == .regular {
-            return MultiSelectCheckboxCell.sizeThatFits(335, with: title)
+            return SelectCheckboxCell.sizeThatFits(335, with: title)
         } else {
-            return MultiSelectCheckboxCell.sizeThatFits(collectionView.frame.width - 40, with: title)
+            return SelectCheckboxCell.sizeThatFits(collectionView.frame.width - 40, with: title)
         }
     }
 }

@@ -104,6 +104,23 @@
                                             <outlet property="delegate" destination="ipr-zj-hHa" id="t2f-yY-OMH"/>
                                         </connections>
                                     </view>
+                                    <view contentMode="scaleToFill" placeholderIntrinsicWidth="240" placeholderIntrinsicHeight="40" translatesAutoresizingMaskIntoConstraints="NO" id="y3x-cc-GHZ" customClass="Checkbox" customModule="PRKit">
+                                        <rect key="frame" x="20" y="589.5" width="374" height="40"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="labelText" value="Radio button"/>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isRadioButton" value="YES"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
+                                    <view userInteractionEnabled="NO" contentMode="scaleToFill" placeholderIntrinsicWidth="240" placeholderIntrinsicHeight="40" translatesAutoresizingMaskIntoConstraints="NO" id="spq-dt-YrQ" customClass="Checkbox" customModule="PRKit">
+                                        <rect key="frame" x="20" y="649.5" width="374" height="40"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="labelText" value="Disabled Radio button"/>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isChecked" value="YES"/>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isRadioButton" value="YES"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="vgv-B0-hHD" firstAttribute="top" secondItem="JGV-fz-1Ch" secondAttribute="bottom" constant="20" id="1Sp-rs-ZPB"/>
@@ -113,18 +130,24 @@
                                     <constraint firstItem="jW0-wr-d3R" firstAttribute="trailing" secondItem="CBl-dn-Vqh" secondAttribute="trailing" id="7Pv-K0-FTk"/>
                                     <constraint firstItem="vcJ-Ow-yxv" firstAttribute="trailing" secondItem="vgv-B0-hHD" secondAttribute="trailing" id="9ZG-0T-xDE"/>
                                     <constraint firstItem="vcJ-Ow-yxv" firstAttribute="leading" secondItem="vgv-B0-hHD" secondAttribute="leading" id="Aby-TE-zQ9"/>
+                                    <constraint firstItem="spq-dt-YrQ" firstAttribute="leading" secondItem="y3x-cc-GHZ" secondAttribute="leading" id="B7f-zV-7ZJ"/>
+                                    <constraint firstItem="y3x-cc-GHZ" firstAttribute="top" secondItem="arX-br-IA9" secondAttribute="bottom" constant="20" id="BGB-bL-qXw"/>
+                                    <constraint firstItem="spq-dt-YrQ" firstAttribute="top" secondItem="y3x-cc-GHZ" secondAttribute="bottom" constant="20" id="Cxd-ow-cLd"/>
                                     <constraint firstItem="wVU-M6-xuG" firstAttribute="trailing" secondItem="vxt-c4-Uev" secondAttribute="trailing" constant="20" id="ENs-Ei-A1i"/>
                                     <constraint firstItem="vgv-B0-hHD" firstAttribute="leading" secondItem="JGV-fz-1Ch" secondAttribute="leading" id="EvX-KA-APa"/>
                                     <constraint firstItem="vcJ-Ow-yxv" firstAttribute="top" secondItem="vgv-B0-hHD" secondAttribute="bottom" constant="20" id="FSk-h2-wBD"/>
                                     <constraint firstItem="JGV-fz-1Ch" firstAttribute="leading" secondItem="vxt-c4-Uev" secondAttribute="leading" id="GkN-lQ-rLb"/>
                                     <constraint firstItem="vgv-B0-hHD" firstAttribute="trailing" secondItem="JGV-fz-1Ch" secondAttribute="trailing" id="Hzb-RP-a8g"/>
                                     <constraint firstItem="arX-br-IA9" firstAttribute="trailing" secondItem="jW0-wr-d3R" secondAttribute="trailing" id="IKx-Ne-c1M"/>
+                                    <constraint firstItem="spq-dt-YrQ" firstAttribute="trailing" secondItem="y3x-cc-GHZ" secondAttribute="trailing" id="KeH-4s-hKY"/>
                                     <constraint firstItem="CBl-dn-Vqh" firstAttribute="leading" secondItem="vcJ-Ow-yxv" secondAttribute="leading" id="MF1-C4-N9f"/>
                                     <constraint firstItem="vxt-c4-Uev" firstAttribute="leading" secondItem="fE2-LA-PNf" secondAttribute="leading" constant="20" id="SZe-SZ-GXM"/>
                                     <constraint firstItem="arX-br-IA9" firstAttribute="leading" secondItem="jW0-wr-d3R" secondAttribute="leading" id="ToL-IN-uuZ"/>
                                     <constraint firstItem="arX-br-IA9" firstAttribute="top" secondItem="jW0-wr-d3R" secondAttribute="bottom" constant="20" id="Vdc-G6-FSz"/>
+                                    <constraint firstItem="y3x-cc-GHZ" firstAttribute="trailing" secondItem="arX-br-IA9" secondAttribute="trailing" id="ZOy-sU-OtE"/>
                                     <constraint firstItem="jW0-wr-d3R" firstAttribute="top" secondItem="CBl-dn-Vqh" secondAttribute="bottom" constant="20" id="b3B-sP-AAH"/>
                                     <constraint firstItem="wVU-M6-xuG" firstAttribute="bottom" secondItem="arX-br-IA9" secondAttribute="bottom" constant="20" id="bEC-9Q-0by"/>
+                                    <constraint firstItem="y3x-cc-GHZ" firstAttribute="leading" secondItem="arX-br-IA9" secondAttribute="leading" id="dYq-lY-Yp3"/>
                                     <constraint firstItem="CBl-dn-Vqh" firstAttribute="trailing" secondItem="vcJ-Ow-yxv" secondAttribute="trailing" id="dr8-u4-ME4"/>
                                     <constraint firstItem="CBl-dn-Vqh" firstAttribute="top" secondItem="vcJ-Ow-yxv" secondAttribute="bottom" constant="30" id="qWJ-o2-x30"/>
                                     <constraint firstItem="vxt-c4-Uev" firstAttribute="top" secondItem="wVU-M6-xuG" secondAttribute="top" constant="20" id="rCF-Mv-kXR"/>
@@ -262,10 +285,21 @@
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="AttributeType" value="multi"/>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="labelText" value="Multiselect"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="labelText" value="Multi select"/>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
                                             <outlet property="delegate" destination="eyu-sI-ctB" id="mGC-ZV-BLW"/>
+                                        </connections>
+                                    </view>
+                                    <view tag="9" contentMode="scaleToFill" placeholderIntrinsicWidth="374" placeholderIntrinsicHeight="72.5" translatesAutoresizingMaskIntoConstraints="NO" id="an9-QA-0bQ" userLabel="Single Select Field" customClass="TextField" customModule="PRKit">
+                                        <rect key="frame" x="20" y="761" width="374" height="73"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="AttributeType" value="multi"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="labelText" value="Single select"/>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <outlet property="delegate" destination="eyu-sI-ctB" id="heD-DB-mV5"/>
                                         </connections>
                                     </view>
                                 </subviews>
@@ -279,13 +313,15 @@
                                     <constraint firstItem="rFx-l1-9xA" firstAttribute="trailing" secondItem="eiO-p5-cRS" secondAttribute="trailing" id="8K5-Dr-kVJ"/>
                                     <constraint firstItem="1lj-fV-5N5" firstAttribute="trailing" secondItem="wRL-tg-g7F" secondAttribute="trailing" id="AWk-Ws-YWs"/>
                                     <constraint firstItem="rFx-l1-9xA" firstAttribute="top" secondItem="eiO-p5-cRS" secondAttribute="bottom" constant="20" id="Ait-eF-Zre"/>
-                                    <constraint firstItem="kkl-yR-yal" firstAttribute="bottom" secondItem="1lj-fV-5N5" secondAttribute="bottom" constant="40" id="Bbu-6d-0Hp"/>
+                                    <constraint firstItem="kkl-yR-yal" firstAttribute="bottom" secondItem="an9-QA-0bQ" secondAttribute="bottom" constant="20" id="Bbu-6d-0Hp"/>
                                     <constraint firstItem="kkl-yR-yal" firstAttribute="trailing" secondItem="eiO-p5-cRS" secondAttribute="trailing" constant="20" id="Bxo-3z-g6F"/>
+                                    <constraint firstItem="an9-QA-0bQ" firstAttribute="trailing" secondItem="1lj-fV-5N5" secondAttribute="trailing" id="ClG-3J-QH6"/>
                                     <constraint firstItem="rFx-l1-9xA" firstAttribute="leading" secondItem="eiO-p5-cRS" secondAttribute="leading" id="DRt-fx-D5g"/>
                                     <constraint firstItem="eiO-p5-cRS" firstAttribute="width" secondItem="IOF-hj-M1j" secondAttribute="width" constant="-40" id="F73-k9-WS8"/>
                                     <constraint firstItem="pRT-XV-e5d" firstAttribute="trailing" secondItem="RN5-yH-PFJ" secondAttribute="trailing" id="Ne7-ZO-BFc"/>
                                     <constraint firstItem="5Ku-QY-bh8" firstAttribute="trailing" secondItem="rFx-l1-9xA" secondAttribute="trailing" id="QOv-gR-cXc"/>
                                     <constraint firstItem="wRL-tg-g7F" firstAttribute="top" secondItem="lsk-bE-S2o" secondAttribute="bottom" constant="20" id="RNh-b3-Ss0"/>
+                                    <constraint firstItem="an9-QA-0bQ" firstAttribute="top" secondItem="1lj-fV-5N5" secondAttribute="bottom" constant="20" id="TTF-tO-8LY"/>
                                     <constraint firstItem="5Ku-QY-bh8" firstAttribute="top" secondItem="rFx-l1-9xA" secondAttribute="bottom" constant="20" id="Uql-gz-yLc"/>
                                     <constraint firstItem="eiO-p5-cRS" firstAttribute="top" secondItem="kkl-yR-yal" secondAttribute="top" constant="20" id="YYH-FL-zrs"/>
                                     <constraint firstItem="1lj-fV-5N5" firstAttribute="top" secondItem="wRL-tg-g7F" secondAttribute="bottom" constant="20" id="YcG-zH-z6c"/>
@@ -296,6 +332,7 @@
                                     <constraint firstItem="pRT-XV-e5d" firstAttribute="top" secondItem="RN5-yH-PFJ" secondAttribute="bottom" constant="20" id="pPg-g2-VcB"/>
                                     <constraint firstItem="wRL-tg-g7F" firstAttribute="leading" secondItem="lsk-bE-S2o" secondAttribute="leading" id="rW8-dN-1D9"/>
                                     <constraint firstItem="RN5-yH-PFJ" firstAttribute="trailing" secondItem="5Ku-QY-bh8" secondAttribute="trailing" id="vS3-NV-5eT"/>
+                                    <constraint firstItem="an9-QA-0bQ" firstAttribute="leading" secondItem="1lj-fV-5N5" secondAttribute="leading" id="yuW-t0-rDz"/>
                                 </constraints>
                                 <viewLayoutGuide key="contentLayoutGuide" id="kkl-yR-yal"/>
                                 <viewLayoutGuide key="frameLayoutGuide" id="IOF-hj-M1j"/>
@@ -321,6 +358,7 @@
                         <outlet property="pickerField" destination="RN5-yH-PFJ" id="y6a-LR-Ee3"/>
                         <outlet property="scrollView" destination="0qr-hl-4jc" id="sQN-CJ-o0b"/>
                         <outlet property="scrollViewBottomConstraint" destination="zKZ-eh-cOf" id="0dr-sF-KXB"/>
+                        <outlet property="singleField" destination="an9-QA-0bQ" id="bap-Ny-NXM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xyK-EW-kig" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1171,6 +1209,9 @@
         <designable name="aCL-k2-3Kd">
             <size key="intrinsicContentSize" width="77" height="42.70703125"/>
         </designable>
+        <designable name="an9-QA-0bQ">
+            <size key="intrinsicContentSize" width="374" height="72.5"/>
+        </designable>
         <designable name="atj-J9-YhT">
             <size key="intrinsicContentSize" width="77" height="42.70703125"/>
         </designable>
@@ -1210,6 +1251,9 @@
         <designable name="rFx-l1-9xA">
             <size key="intrinsicContentSize" width="374" height="72.5"/>
         </designable>
+        <designable name="spq-dt-YrQ">
+            <size key="intrinsicContentSize" width="240" height="40"/>
+        </designable>
         <designable name="uAD-nH-mpg">
             <size key="intrinsicContentSize" width="116" height="68.640625"/>
         </designable>
@@ -1230,6 +1274,9 @@
         </designable>
         <designable name="wv2-Hf-YxN">
             <size key="intrinsicContentSize" width="145" height="82.9609375"/>
+        </designable>
+        <designable name="y3x-cc-GHZ">
+            <size key="intrinsicContentSize" width="240" height="40"/>
         </designable>
         <designable name="zVG-Zi-WJU">
             <size key="intrinsicContentSize" width="77" height="42.70703125"/>

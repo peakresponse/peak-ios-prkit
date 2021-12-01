@@ -294,12 +294,15 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
                 inputView = PickerKeyboard()
             }
             (inputView as? PickerKeyboard)?.source = source
+        case .single(let source):
+            fallthrough
         case .multi(let source):
-            inputView = textView.inputView as? MultiSelectKeyboard
+            inputView = textView.inputView as? SelectKeyboard
             if inputView == nil {
-                inputView = MultiSelectKeyboard()
+                inputView = SelectKeyboard()
             }
-            (inputView as? MultiSelectKeyboard)?.source = source
+            (inputView as? SelectKeyboard)?.source = source
+            (inputView as? SelectKeyboard)?.isMultiSelect = attributeType == .multi()
         case .custom(inputView):
             break
         default:
