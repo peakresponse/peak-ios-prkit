@@ -76,7 +76,7 @@ class KeyboardsViewController: UIViewController, FormFieldDelegate, KeyboardAwar
         ageField.inputAccessoryView = inputAccessoryView
         multiField.inputAccessoryView = inputAccessoryView
 
-        pickerField.attributeType = .picker(PickerKeyboardSourceWrapper<PickerTestEnum>())
+        pickerField.attributeType = .picker(EnumKeyboardSource<PickerTestEnum>())
         pickerField.attributeValue = "option2" as AnyObject
 
         emailField.keyboardType = .emailAddress
@@ -85,7 +85,7 @@ class KeyboardsViewController: UIViewController, FormFieldDelegate, KeyboardAwar
 
         integerField.unitLabel.text = " bpm"
 
-        ageField.attributeType = .integerWithUnit(PickerKeyboardSourceWrapper<AgeTestUnits>())
+        ageField.attributeType = .integerWithUnit(EnumKeyboardSource<AgeTestUnits>())
 
         multiField.attributeType = .multi(EnumKeyboardSource<PickerTestEnum>())
     }

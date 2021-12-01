@@ -21,10 +21,10 @@ import UIKit
 
 public enum FormFieldAttributeType: Equatable {
     case text
-    case integer, integerWithUnit(PickerKeyboardSource? = nil)
-    case decimal, decimalWithUnit(PickerKeyboardSource? = nil)
+    case integer, integerWithUnit(KeyboardSource? = nil)
+    case decimal, decimalWithUnit(KeyboardSource? = nil)
     case date, datetime
-    case picker(PickerKeyboardSource? = nil)
+    case picker(KeyboardSource? = nil)
     case multi(KeyboardSource? = nil)
     case custom(FormInputView? = nil)
 

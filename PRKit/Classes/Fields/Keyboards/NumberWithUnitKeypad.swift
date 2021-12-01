@@ -9,7 +9,7 @@ import UIKit
 
 open class NumberWithUnitKeypad: NumberKeypad, UIPickerViewDataSource, UIPickerViewDelegate {
     open weak var unitPicker: UIPickerView!
-    open var unitSource: PickerKeyboardSource?
+    open var unitSource: KeyboardSource?
 
     open override var shouldResignAfterClear: Bool {
         return true
@@ -35,13 +35,13 @@ open class NumberWithUnitKeypad: NumberKeypad, UIPickerViewDataSource, UIPickerV
 
     override func buttonPressed(_ button: Button) {
         super.buttonPressed(button)
-        if let unitValue = unitSource?.value(for: unitPicker.selectedRow(inComponent: 0)) {
+        if let unitValue = unitSource?.value(at: unitPicker.selectedRow(inComponent: 0)) {
             delegate?.formInputView(self, didChange: [value, unitValue] as AnyObject)
         }
     }
 
     public override func setValue(_ value: AnyObject?) {
-        if let source = unitSource, let value = value as? [String], value.count == 2, let index = source.values.firstIndex(of: value[1]) {
+        if let source = unitSource, let value = value as? [String], value.count == 2, let index = source.firstIndex(of: value[1]) {
             self.value = value[0]
             unitPicker.selectRow(index, inComponent: 0, animated: false)
         } else {
@@ -69,7 +69,7 @@ open class NumberWithUnitKeypad: NumberKeypad, UIPickerViewDataSource, UIPickerV
     }
 
     open override var accessoryOtherButtonTitle: String? {
-        return unitSource?.pickerView?(unitPicker, titleForRow: unitPicker.selectedRow(inComponent: 0), forComponent: 0)
+        return unitSource?.title(at: unitPicker.selectedRow(inComponent: 0))
     }
 
     open override func accessoryOtherButtonPressed(_ inputAccessoryView: FormInputAccessoryView) -> String? {
@@ -81,21 +81,21 @@ open class NumberWithUnitKeypad: NumberKeypad, UIPickerViewDataSource, UIPickerV
     // MARK: - UIPickerViewDataSource
 
     public func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return unitSource?.numberOfComponents(in: pickerView) ?? 0
+        return 1
     }
 
     public func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return unitSource?.pickerView(pickerView, numberOfRowsInComponent: component) ?? 0
+        return unitSource?.count() ?? 0
     }
 
     // MARK: - UIPickerViewDelegate
 
     public func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return unitSource?.pickerView?(pickerView, titleForRow: row, forComponent: component)
+        return unitSource?.title(at: row)
     }
 
     public func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        if let unitValue = unitSource?.value(for: row) {
+        if let unitValue = unitSource?.value(at: row) {
             delegate?.formInputView(self, didChange: [value, unitValue] as AnyObject)
         }
     }
