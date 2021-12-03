@@ -9,3 +9,5 @@
 "Button.cancel" = "Cancel";
 "Button.done" = "Done";
 "Button.search" = "Search";
+
+"SearchBar.placeholder" = "Search...";

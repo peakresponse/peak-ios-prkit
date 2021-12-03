@@ -11,8 +11,10 @@ public protocol SearchViewControllerDelegate: AnyObject {
     func searchViewController(_ vc: SearchViewController, didSelect values: [String]?)
 }
 
-open class SearchViewController: UIViewController, CheckboxDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+open class SearchViewController: UIViewController, CheckboxDelegate, FormFieldDelegate,
+                                 UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     open weak var commandHeader: CommandHeader!
+    open weak var searchField: TextField!
     open weak var collectionView: UICollectionView!
     open var source: KeyboardSource?
     open var values: [String]?
@@ -21,6 +23,8 @@ open class SearchViewController: UIViewController, CheckboxDelegate, UICollectio
 
     open override func viewDidLoad() {
         super.viewDidLoad()
+
+        view.backgroundColor = .base100
 
         let commandHeader = CommandHeader()
         commandHeader.translatesAutoresizingMaskIntoConstraints = false
@@ -36,19 +40,35 @@ open class SearchViewController: UIViewController, CheckboxDelegate, UICollectio
         ])
         self.commandHeader = commandHeader
 
+        let searchField = TextField()
+        searchField.translatesAutoresizingMaskIntoConstraints = false
+        searchField.placeholderText = "SearchBar.placeholder".localized
+        searchField.isDebounced = true
+        searchField.isLabelHidden = true
+        searchField.isSearchIconHidden = false
+        searchField.delegate = self
+        view.addSubview(searchField)
+        NSLayoutConstraint.activate([
+            searchField.topAnchor.constraint(equalTo: commandHeader.bottomAnchor, constant: 10),
+            searchField.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20),
+            searchField.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20)
+        ])
+        self.searchField = searchField
+
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 20
         layout.minimumInteritemSpacing = 20
         layout.sectionInset = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
 
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.backgroundColor = .white
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.register(SelectCheckboxCell.self, forCellWithReuseIdentifier: "Checkbox")
         view.addSubview(collectionView)
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: commandHeader.bottomAnchor),
+            collectionView.topAnchor.constraint(equalTo: searchField.bottomAnchor, constant: 10),
             collectionView.leftAnchor.constraint(equalTo: view.leftAnchor),
             collectionView.rightAnchor.constraint(equalTo: view.rightAnchor),
             view.bottomAnchor.constraint(equalTo: collectionView.bottomAnchor)
@@ -56,13 +76,19 @@ open class SearchViewController: UIViewController, CheckboxDelegate, UICollectio
         self.collectionView = collectionView
     }
 
+    open override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        _ = searchField.becomeFirstResponder()
+    }
+
     @objc func cancelPressed() {
+        source?.search(nil)
         dismiss(animated: true, completion: nil)
     }
 
     @objc func donePressed() {
         delegate?.searchViewController(self, didSelect: values)
-        dismiss(animated: true, completion: nil)
+        cancelPressed()
     }
 
     // MARK: - CheckboxDelegate
@@ -89,6 +115,13 @@ open class SearchViewController: UIViewController, CheckboxDelegate, UICollectio
                 values = nil
             }
         }
+        collectionView.reloadData()
+    }
+
+    // MARK: - FormFieldDelegate
+
+    public func formFieldDidChange(_ field: FormField) {
+        source?.search(field.text)
         collectionView.reloadData()
     }
 
