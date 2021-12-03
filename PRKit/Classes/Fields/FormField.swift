@@ -15,8 +15,7 @@ import UIKit
     @objc optional func formFieldShouldReturn(_ field: FormField) -> Bool
     @objc optional func formFieldDidChange(_ field: FormField)
     @objc optional func formFieldDidConfirmStatus(_ field: FormField)
-    @objc optional func formField(_ field: FormField, needsSourceFor pickerKeyboard: PickerKeyboard) -> AnyObject?
-    @objc optional func formField(_ field: FormField, wantsTopPresent vc: UIViewController)
+    @objc optional func formField(_ field: FormField, wantsToPresent vc: UIViewController)
 }
 
 public enum FormFieldAttributeType: Equatable {
@@ -343,6 +342,6 @@ open class FormField: UIView, Localizable, FormInputViewDelegate {
     }
 
     public func formInputView(_ inputView: FormInputView, wantsToPresent vc: UIViewController) {
-
+        delegate?.formField?(self, wantsToPresent: vc)
     }
 }

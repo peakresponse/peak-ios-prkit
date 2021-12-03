@@ -53,6 +53,8 @@ class KeyboardsViewController: UIViewController, FormFieldDelegate, KeyboardAwar
     @IBOutlet weak var ageField: TextField!
     @IBOutlet weak var multiField: TextField!
     @IBOutlet weak var singleField: TextField!
+    @IBOutlet weak var multiSearchField: TextField!
+    @IBOutlet weak var singleSearchField: TextField!
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -77,6 +79,8 @@ class KeyboardsViewController: UIViewController, FormFieldDelegate, KeyboardAwar
         ageField.inputAccessoryView = inputAccessoryView
         multiField.inputAccessoryView = inputAccessoryView
         singleField.inputAccessoryView = inputAccessoryView
+        multiSearchField.inputAccessoryView = inputAccessoryView
+        singleSearchField.inputAccessoryView = inputAccessoryView
 
         pickerField.attributeType = .picker(EnumKeyboardSource<PickerTestEnum>())
         pickerField.attributeValue = "option2" as AnyObject
@@ -91,5 +95,19 @@ class KeyboardsViewController: UIViewController, FormFieldDelegate, KeyboardAwar
 
         multiField.attributeType = .multi(EnumKeyboardSource<PickerTestEnum>())
         singleField.attributeType = .single(EnumKeyboardSource<PickerTestEnum>())
+
+        let multiSearchKeyboard = SearchKeyboard()
+        multiSearchKeyboard.source = EnumKeyboardSource<PickerTestEnum>()
+        multiSearchKeyboard.isMultiSelect = true
+        multiSearchField.attributeType = .custom(multiSearchKeyboard)
+
+        let singleSearchKeyboard = SearchKeyboard()
+        singleSearchKeyboard.source = EnumKeyboardSource<PickerTestEnum>()
+        singleSearchKeyboard.isMultiSelect = false
+        singleSearchField.attributeType = .custom(singleSearchKeyboard)
+    }
+
+    func formField(_ field: FormField, wantsToPresent vc: UIViewController) {
+        present(vc, animated: true, completion: nil)
     }
 }

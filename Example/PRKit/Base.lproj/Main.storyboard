@@ -217,6 +217,9 @@
                                             <userDefinedRuntimeAttribute type="string" keyPath="AttributeType" value="date"/>
                                             <userDefinedRuntimeAttribute type="string" keyPath="labelText" value="Date"/>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <outlet property="delegate" destination="eyu-sI-ctB" id="9eM-0i-A7s"/>
+                                        </connections>
                                     </view>
                                     <view tag="2" contentMode="scaleToFill" placeholderIntrinsicWidth="374" placeholderIntrinsicHeight="72.5" translatesAutoresizingMaskIntoConstraints="NO" id="rFx-l1-9xA" customClass="TextField" customModule="PRKit">
                                         <rect key="frame" x="20" y="112.5" width="374" height="73"/>
@@ -225,6 +228,9 @@
                                             <userDefinedRuntimeAttribute type="string" keyPath="AttributeType" value="datetime"/>
                                             <userDefinedRuntimeAttribute type="string" keyPath="labelText" value="Date &amp; Time"/>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <outlet property="delegate" destination="eyu-sI-ctB" id="NSg-g2-6Rg"/>
+                                        </connections>
                                     </view>
                                     <view tag="3" contentMode="scaleToFill" placeholderIntrinsicWidth="374" placeholderIntrinsicHeight="72.5" translatesAutoresizingMaskIntoConstraints="NO" id="5Ku-QY-bh8" customClass="TextField" customModule="PRKit">
                                         <rect key="frame" x="20" y="205.5" width="374" height="72.5"/>
@@ -302,6 +308,28 @@
                                             <outlet property="delegate" destination="eyu-sI-ctB" id="heD-DB-mV5"/>
                                         </connections>
                                     </view>
+                                    <view tag="10" contentMode="scaleToFill" placeholderIntrinsicWidth="374" placeholderIntrinsicHeight="72.5" translatesAutoresizingMaskIntoConstraints="NO" id="zzq-vE-fXr" userLabel="Search multi select Field" customClass="TextField" customModule="PRKit">
+                                        <rect key="frame" x="20" y="854" width="374" height="72.5"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="AttributeType" value="search"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="labelText" value="Search multi select"/>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <outlet property="delegate" destination="eyu-sI-ctB" id="6Do-t8-SvC"/>
+                                        </connections>
+                                    </view>
+                                    <view tag="11" contentMode="scaleToFill" placeholderIntrinsicWidth="374" placeholderIntrinsicHeight="72.5" translatesAutoresizingMaskIntoConstraints="NO" id="Ssp-Rq-eBz" userLabel="Search single Select Field" customClass="TextField" customModule="PRKit">
+                                        <rect key="frame" x="20" y="946.5" width="374" height="72.5"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="AttributeType" value="search"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="labelText" value="Search single select"/>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <outlet property="delegate" destination="eyu-sI-ctB" id="awd-dv-dPF"/>
+                                        </connections>
+                                    </view>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="pRT-XV-e5d" firstAttribute="leading" secondItem="RN5-yH-PFJ" secondAttribute="leading" id="0PC-6b-Xyq"/>
@@ -309,15 +337,19 @@
                                     <constraint firstItem="RN5-yH-PFJ" firstAttribute="leading" secondItem="5Ku-QY-bh8" secondAttribute="leading" id="2LH-lK-PlX"/>
                                     <constraint firstItem="lsk-bE-S2o" firstAttribute="leading" secondItem="pRT-XV-e5d" secondAttribute="leading" id="3vb-Bl-gWw"/>
                                     <constraint firstItem="eiO-p5-cRS" firstAttribute="leading" secondItem="kkl-yR-yal" secondAttribute="leading" constant="20" id="4fp-tI-ISK"/>
+                                    <constraint firstItem="Ssp-Rq-eBz" firstAttribute="trailing" secondItem="zzq-vE-fXr" secondAttribute="trailing" id="5Wb-fT-hvD"/>
                                     <constraint firstItem="RN5-yH-PFJ" firstAttribute="top" secondItem="5Ku-QY-bh8" secondAttribute="bottom" constant="20" id="6tq-jZ-0nZ"/>
                                     <constraint firstItem="rFx-l1-9xA" firstAttribute="trailing" secondItem="eiO-p5-cRS" secondAttribute="trailing" id="8K5-Dr-kVJ"/>
                                     <constraint firstItem="1lj-fV-5N5" firstAttribute="trailing" secondItem="wRL-tg-g7F" secondAttribute="trailing" id="AWk-Ws-YWs"/>
                                     <constraint firstItem="rFx-l1-9xA" firstAttribute="top" secondItem="eiO-p5-cRS" secondAttribute="bottom" constant="20" id="Ait-eF-Zre"/>
-                                    <constraint firstItem="kkl-yR-yal" firstAttribute="bottom" secondItem="an9-QA-0bQ" secondAttribute="bottom" constant="20" id="Bbu-6d-0Hp"/>
+                                    <constraint firstItem="kkl-yR-yal" firstAttribute="bottom" secondItem="Ssp-Rq-eBz" secondAttribute="bottom" constant="40" id="Bbu-6d-0Hp"/>
                                     <constraint firstItem="kkl-yR-yal" firstAttribute="trailing" secondItem="eiO-p5-cRS" secondAttribute="trailing" constant="20" id="Bxo-3z-g6F"/>
+                                    <constraint firstItem="zzq-vE-fXr" firstAttribute="leading" secondItem="an9-QA-0bQ" secondAttribute="leading" id="CBp-hY-hrA"/>
                                     <constraint firstItem="an9-QA-0bQ" firstAttribute="trailing" secondItem="1lj-fV-5N5" secondAttribute="trailing" id="ClG-3J-QH6"/>
+                                    <constraint firstItem="Ssp-Rq-eBz" firstAttribute="top" secondItem="zzq-vE-fXr" secondAttribute="bottom" constant="20" id="CsZ-Hn-Hvh"/>
                                     <constraint firstItem="rFx-l1-9xA" firstAttribute="leading" secondItem="eiO-p5-cRS" secondAttribute="leading" id="DRt-fx-D5g"/>
                                     <constraint firstItem="eiO-p5-cRS" firstAttribute="width" secondItem="IOF-hj-M1j" secondAttribute="width" constant="-40" id="F73-k9-WS8"/>
+                                    <constraint firstItem="Ssp-Rq-eBz" firstAttribute="leading" secondItem="zzq-vE-fXr" secondAttribute="leading" id="Luj-LI-X7E"/>
                                     <constraint firstItem="pRT-XV-e5d" firstAttribute="trailing" secondItem="RN5-yH-PFJ" secondAttribute="trailing" id="Ne7-ZO-BFc"/>
                                     <constraint firstItem="5Ku-QY-bh8" firstAttribute="trailing" secondItem="rFx-l1-9xA" secondAttribute="trailing" id="QOv-gR-cXc"/>
                                     <constraint firstItem="wRL-tg-g7F" firstAttribute="top" secondItem="lsk-bE-S2o" secondAttribute="bottom" constant="20" id="RNh-b3-Ss0"/>
@@ -326,10 +358,12 @@
                                     <constraint firstItem="eiO-p5-cRS" firstAttribute="top" secondItem="kkl-yR-yal" secondAttribute="top" constant="20" id="YYH-FL-zrs"/>
                                     <constraint firstItem="1lj-fV-5N5" firstAttribute="top" secondItem="wRL-tg-g7F" secondAttribute="bottom" constant="20" id="YcG-zH-z6c"/>
                                     <constraint firstItem="lsk-bE-S2o" firstAttribute="top" secondItem="pRT-XV-e5d" secondAttribute="bottom" constant="20" id="ZMm-gL-G4U"/>
+                                    <constraint firstItem="zzq-vE-fXr" firstAttribute="top" secondItem="an9-QA-0bQ" secondAttribute="bottom" constant="20" id="c7N-IU-O17"/>
                                     <constraint firstItem="wRL-tg-g7F" firstAttribute="trailing" secondItem="lsk-bE-S2o" secondAttribute="trailing" id="cTi-7y-Dce"/>
                                     <constraint firstItem="5Ku-QY-bh8" firstAttribute="leading" secondItem="rFx-l1-9xA" secondAttribute="leading" id="cZI-iz-AP6"/>
                                     <constraint firstItem="1lj-fV-5N5" firstAttribute="leading" secondItem="wRL-tg-g7F" secondAttribute="leading" id="lLI-Ky-4mS"/>
                                     <constraint firstItem="pRT-XV-e5d" firstAttribute="top" secondItem="RN5-yH-PFJ" secondAttribute="bottom" constant="20" id="pPg-g2-VcB"/>
+                                    <constraint firstItem="zzq-vE-fXr" firstAttribute="trailing" secondItem="an9-QA-0bQ" secondAttribute="trailing" id="r4L-IA-4UK"/>
                                     <constraint firstItem="wRL-tg-g7F" firstAttribute="leading" secondItem="lsk-bE-S2o" secondAttribute="leading" id="rW8-dN-1D9"/>
                                     <constraint firstItem="RN5-yH-PFJ" firstAttribute="trailing" secondItem="5Ku-QY-bh8" secondAttribute="trailing" id="vS3-NV-5eT"/>
                                     <constraint firstItem="an9-QA-0bQ" firstAttribute="leading" secondItem="1lj-fV-5N5" secondAttribute="leading" id="yuW-t0-rDz"/>
@@ -355,10 +389,12 @@
                         <outlet property="emailField" destination="5Ku-QY-bh8" id="Aqp-Jm-hMa"/>
                         <outlet property="integerField" destination="pRT-XV-e5d" id="8og-Sk-Esl"/>
                         <outlet property="multiField" destination="1lj-fV-5N5" id="5wh-I8-hNI"/>
+                        <outlet property="multiSearchField" destination="zzq-vE-fXr" id="KT1-qo-7XF"/>
                         <outlet property="pickerField" destination="RN5-yH-PFJ" id="y6a-LR-Ee3"/>
                         <outlet property="scrollView" destination="0qr-hl-4jc" id="sQN-CJ-o0b"/>
                         <outlet property="scrollViewBottomConstraint" destination="zKZ-eh-cOf" id="0dr-sF-KXB"/>
                         <outlet property="singleField" destination="an9-QA-0bQ" id="bap-Ny-NXM"/>
+                        <outlet property="singleSearchField" destination="Ssp-Rq-eBz" id="q2S-4g-coc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xyK-EW-kig" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1197,6 +1233,9 @@
         <designable name="RN5-yH-PFJ">
             <size key="intrinsicContentSize" width="374" height="72.5"/>
         </designable>
+        <designable name="Ssp-Rq-eBz">
+            <size key="intrinsicContentSize" width="374" height="72.5"/>
+        </designable>
         <designable name="V9L-Nz-wav">
             <size key="intrinsicContentSize" width="414" height="128"/>
         </designable>
@@ -1280,6 +1319,9 @@
         </designable>
         <designable name="zVG-Zi-WJU">
             <size key="intrinsicContentSize" width="77" height="42.70703125"/>
+        </designable>
+        <designable name="zzq-vE-fXr">
+            <size key="intrinsicContentSize" width="374" height="72.5"/>
         </designable>
     </designables>
     <resources>

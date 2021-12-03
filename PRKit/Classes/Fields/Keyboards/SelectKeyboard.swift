@@ -128,6 +128,8 @@ open class SelectKeyboard: FormInputView, CheckboxDelegate,
         return source?.title(for: value as? String)
     }
 
+    // MARK: - CheckboxDelegate
+
     public func checkbox(_ checkbox: Checkbox, didChange isChecked: Bool) {
         guard let value = checkbox.value as? String else { return }
         if isChecked {
@@ -153,6 +155,8 @@ open class SelectKeyboard: FormInputView, CheckboxDelegate,
         }
     }
 
+    // MARK: - UICollectionViewDataSource
+
     public func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
@@ -176,6 +180,8 @@ open class SelectKeyboard: FormInputView, CheckboxDelegate,
         }
         return cell
     }
+
+    // MARK: - UICollectionViewDelegate
 
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,
                                sizeForItemAt indexPath: IndexPath) -> CGSize {

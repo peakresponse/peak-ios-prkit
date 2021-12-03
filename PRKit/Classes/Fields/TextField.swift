@@ -303,8 +303,8 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
             }
             (inputView as? SelectKeyboard)?.source = source
             (inputView as? SelectKeyboard)?.isMultiSelect = attributeType == .multi()
-        case .custom(inputView):
-            break
+        case .custom(let newInputView):
+            inputView = newInputView
         default:
             break
         }
