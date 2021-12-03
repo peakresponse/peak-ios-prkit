@@ -42,6 +42,16 @@ open class SearchKeyboardFooterView: UICollectionReusableView {
 }
 
 open class SearchKeyboard: SelectKeyboard, SearchViewControllerDelegate {
+    public init(source: KeyboardSource, isMultiSelect: Bool) {
+        super.init()
+        self.source = source
+        self.isMultiSelect = isMultiSelect
+    }
+
+    public required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+
     open override func commonInit() {
         super.commonInit()
 

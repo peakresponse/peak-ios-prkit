@@ -96,15 +96,9 @@ class KeyboardsViewController: UIViewController, FormFieldDelegate, KeyboardAwar
         multiField.attributeType = .multi(EnumKeyboardSource<PickerTestEnum>())
         singleField.attributeType = .single(EnumKeyboardSource<PickerTestEnum>())
 
-        let multiSearchKeyboard = SearchKeyboard()
-        multiSearchKeyboard.source = EnumKeyboardSource<PickerTestEnum>()
-        multiSearchKeyboard.isMultiSelect = true
-        multiSearchField.attributeType = .custom(multiSearchKeyboard)
+        multiSearchField.attributeType = .custom(SearchKeyboard(source: EnumKeyboardSource<PickerTestEnum>(), isMultiSelect: true))
 
-        let singleSearchKeyboard = SearchKeyboard()
-        singleSearchKeyboard.source = EnumKeyboardSource<PickerTestEnum>()
-        singleSearchKeyboard.isMultiSelect = false
-        singleSearchField.attributeType = .custom(singleSearchKeyboard)
+        singleSearchField.attributeType = .custom(SearchKeyboard(source: EnumKeyboardSource<PickerTestEnum>(), isMultiSelect: false))
     }
 
     func formField(_ field: FormField, wantsToPresent vc: UIViewController) {
