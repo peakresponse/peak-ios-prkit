@@ -9,7 +9,8 @@ import UIKit
 import AlignedCollectionViewFlowLayout
 
 open class SelectCheckboxCell: UICollectionViewCell {
-    weak var checkbox: Checkbox!
+    open weak var checkbox: Checkbox!
+    open var isLayoutCalculated = false
 
     public override init(frame: CGRect) {
         super.init(frame: frame)
@@ -37,6 +38,24 @@ open class SelectCheckboxCell: UICollectionViewCell {
     public static func sizeThatFits(_ width: CGFloat, with labelText: String) -> CGSize {
         return Checkbox.sizeThatFits(width, with: labelText)
     }
+
+    open override func prepareForReuse() {
+        super.prepareForReuse()
+        isLayoutCalculated = false
+    }
+
+    open override func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
+        if !isLayoutCalculated {
+            let title = checkbox.labelText ?? ""
+            if traitCollection.horizontalSizeClass == .regular {
+                layoutAttributes.size = SelectCheckboxCell.sizeThatFits(335, with: title)
+            } else {
+                layoutAttributes.size = SelectCheckboxCell.sizeThatFits((superview?.frame.width ?? 320) - 40, with: title)
+            }
+            isLayoutCalculated = true
+        }
+        return layoutAttributes
+    }
 }
 
 open class SelectKeyboard: FormInputView, CheckboxDelegate,
@@ -60,6 +79,7 @@ open class SelectKeyboard: FormInputView, CheckboxDelegate,
         autoresizingMask = [.flexibleWidth, .flexibleHeight]
 
         let layout = AlignedCollectionViewFlowLayout(horizontalAlignment: .justified, verticalAlignment: .top)
+        layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
         layout.minimumLineSpacing = 20
         layout.minimumInteritemSpacing = 20
         layout.sectionInset = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
@@ -179,17 +199,5 @@ open class SelectKeyboard: FormInputView, CheckboxDelegate,
             }
         }
         return cell
-    }
-
-    // MARK: - UICollectionViewDelegate
-
-    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,
-                               sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let title = source?.title(at: indexPath.row) ?? ""
-        if collectionView.traitCollection.horizontalSizeClass == .regular {
-            return SelectCheckboxCell.sizeThatFits(335, with: title)
-        } else {
-            return SelectCheckboxCell.sizeThatFits(collectionView.frame.width - 40, with: title)
-        }
     }
 }

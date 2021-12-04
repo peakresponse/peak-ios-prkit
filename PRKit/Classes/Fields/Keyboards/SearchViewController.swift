@@ -56,6 +56,7 @@ open class SearchViewController: UIViewController, CheckboxDelegate, FormFieldDe
         self.searchField = searchField
 
         let layout = UICollectionViewFlowLayout()
+        layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
         layout.minimumLineSpacing = 20
         layout.minimumInteritemSpacing = 20
         layout.sectionInset = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
@@ -149,17 +150,5 @@ open class SearchViewController: UIViewController, CheckboxDelegate, FormFieldDe
             }
         }
         return cell
-    }
-
-    // MARK: - UICollectionViewDelegate
-
-    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,
-                               sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let title = source?.title(at: indexPath.row) ?? ""
-        if collectionView.traitCollection.horizontalSizeClass == .regular {
-            return SelectCheckboxCell.sizeThatFits(min(335, floor(collectionView.frame.width - 60) / 2), with: title)
-        } else {
-            return SelectCheckboxCell.sizeThatFits(collectionView.frame.width - 40, with: title)
-        }
     }
 }
