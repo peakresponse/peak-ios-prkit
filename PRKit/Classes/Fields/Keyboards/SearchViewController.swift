@@ -94,7 +94,7 @@ open class SearchViewController: UIViewController, CheckboxDelegate, FormFieldDe
 
     // MARK: - CheckboxDelegate
 
-    public func checkbox(_ checkbox: Checkbox, didChange isChecked: Bool) {
+    open func checkbox(_ checkbox: Checkbox, didChange isChecked: Bool) {
         guard let value = checkbox.value as? String else { return }
         if isMultiSelect {
             if isChecked {
@@ -121,22 +121,22 @@ open class SearchViewController: UIViewController, CheckboxDelegate, FormFieldDe
 
     // MARK: - FormFieldDelegate
 
-    public func formFieldDidChange(_ field: FormField) {
+    open func formFieldDidChange(_ field: FormField) {
         source?.search(field.text)
         collectionView.reloadData()
     }
 
     // MARK: - UICollectionViewDataSource
 
-    public func numberOfSections(in collectionView: UICollectionView) -> Int {
+    open func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
 
-    public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    open func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return source?.count() ?? 0
     }
 
-    public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    open func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Checkbox", for: indexPath)
         if let cell = cell as? SelectCheckboxCell {
             cell.checkbox.value = source?.value(at: indexPath.row)
