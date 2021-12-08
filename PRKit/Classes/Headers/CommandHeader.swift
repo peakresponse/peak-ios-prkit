@@ -162,6 +162,7 @@ open class CommandHeader: UIView {
         if let action = barButtonItem.action {
             button.addTarget(barButtonItem.target, action: action, for: .touchUpInside)
         }
+        button.tintColor = barButtonItem.style == .done ? .brandPrimary500 : .base500
         button.titleLabel?.font = .h3SemiBold
         button.setTitleColor(barButtonItem.style == .done ? .brandPrimary500 : .base500, for: .normal)
         return button
