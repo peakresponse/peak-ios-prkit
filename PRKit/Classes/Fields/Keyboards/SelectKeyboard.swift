@@ -188,8 +188,8 @@ open class SelectKeyboard: FormInputView, CheckboxDelegate,
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Checkbox", for: indexPath)
         if let cell = cell as? SelectCheckboxCell {
-            cell.checkbox.labelText = source?.title(at: indexPath.row)
             cell.checkbox.value = source?.value(at: indexPath.row)
+            cell.checkbox.labelText = text(for: cell.checkbox.value as AnyObject?)
             cell.checkbox.delegate = self
             cell.checkbox.isRadioButton = !isMultiSelect
             if let value = cell.checkbox.value as? String, values?.contains(value) ?? false {
