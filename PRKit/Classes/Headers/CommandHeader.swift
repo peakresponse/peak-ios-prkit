@@ -38,6 +38,7 @@ open class CommandHeader: UIView {
     }
 
     open weak var stackView: UIStackView!
+    open weak var stackViewLeftConstraint: NSLayoutConstraint!
 
     open weak var _userButton: UIButton!
     open var userButton: UIButton {
@@ -112,13 +113,15 @@ open class CommandHeader: UIView {
         stackView.distribution = .fillEqually
         stackView.spacing = 20
         addSubview(stackView)
+        let stackViewLeftConstraint = stackView.leftAnchor.constraint(equalTo: leftAnchor, constant: 20)
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 12),
-            stackView.leftAnchor.constraint(equalTo: leftAnchor, constant: 20),
+            stackViewLeftConstraint,
             stackView.rightAnchor.constraint(equalTo: rightAnchor, constant: -20),
             bottomAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 12)
         ])
         self.stackView = stackView
+        self.stackViewLeftConstraint = stackViewLeftConstraint
     }
 
     open func initUserButton() {
@@ -181,7 +184,10 @@ open class CommandHeader: UIView {
                 view.bottomAnchor.constraint(equalTo: button.bottomAnchor)
             ])
             stackView.insertArrangedSubview(view, at: 0)
-            self.leftBarButtonView = view
+            leftBarButtonView = view
+            if leftBarButtonItem.image != nil {
+                stackViewLeftConstraint.constant = 0
+            }
         }
     }
 

@@ -13,6 +13,7 @@ class HeadersViewController: UIViewController {
     @IBOutlet weak var commandFooter: CommandFooter!
     @IBOutlet weak var commandHeader: CommandHeader!
     @IBOutlet weak var itemCommandHeader: CommandHeader!
+    @IBOutlet weak var backCommandHeader: CommandHeader!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,6 +21,10 @@ class HeadersViewController: UIViewController {
 
         itemCommandHeader.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: nil, action: nil)
         itemCommandHeader.rightBarButtonItem = UIBarButtonItem(title: "Save & Exit", style: .done, target: nil, action: nil)
+
+        let backItem = UIBarButtonItem(title: "Back", style: .plain, target: nil, action: nil)
+        backItem.image = UIImage(named: "ChevronLeft40px", in: PRKitBundle.instance, compatibleWith: nil)
+        backCommandHeader.leftBarButtonItem = backItem
     }
 
     @IBAction func primaryPressed() {

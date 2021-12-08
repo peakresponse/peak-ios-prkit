@@ -886,25 +886,33 @@
                                 <rect key="frame" x="0.0" y="272.5" width="414" height="56"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
+                            <view contentMode="scaleToFill" placeholderIntrinsicWidth="414" placeholderIntrinsicHeight="56" translatesAutoresizingMaskIntoConstraints="NO" id="XEx-fp-ynv" userLabel="Back Command Header" customClass="CommandHeader" customModule="PRKit">
+                                <rect key="frame" x="0.0" y="348.5" width="414" height="56"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" name="Base100"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="V9L-Nz-wav" secondAttribute="trailing" id="20t-ZA-QRf"/>
                             <constraint firstItem="EFh-Xu-yMl" firstAttribute="trailing" secondItem="Iwy-8u-HRk" secondAttribute="trailing" id="4Ij-Jx-chH"/>
+                            <constraint firstItem="XEx-fp-ynv" firstAttribute="top" secondItem="MG3-o5-OhM" secondAttribute="bottom" constant="20" id="79o-6Y-OoO"/>
                             <constraint firstItem="EFh-Xu-yMl" firstAttribute="leading" secondItem="Iwy-8u-HRk" secondAttribute="leading" id="8MF-p0-3Fn"/>
                             <constraint firstItem="MG3-o5-OhM" firstAttribute="top" secondItem="iWC-k5-W39" secondAttribute="bottom" constant="20" id="9kN-40-vME"/>
                             <constraint firstItem="MG3-o5-OhM" firstAttribute="trailing" secondItem="Iwy-8u-HRk" secondAttribute="trailing" id="HeA-yL-qCo"/>
+                            <constraint firstAttribute="trailing" secondItem="XEx-fp-ynv" secondAttribute="trailing" id="MRL-zL-owu"/>
                             <constraint firstItem="MG3-o5-OhM" firstAttribute="leading" secondItem="Iwy-8u-HRk" secondAttribute="leading" id="SOa-sZ-4CT"/>
                             <constraint firstItem="EFh-Xu-yMl" firstAttribute="top" secondItem="30E-si-bCG" secondAttribute="bottom" id="UA2-dh-IPe"/>
                             <constraint firstItem="iWC-k5-W39" firstAttribute="top" secondItem="EFh-Xu-yMl" secondAttribute="bottom" constant="20" id="bSr-Wb-nZ9"/>
                             <constraint firstItem="V9L-Nz-wav" firstAttribute="leading" secondItem="Iwy-8u-HRk" secondAttribute="leading" id="fPE-CW-tRK"/>
                             <constraint firstAttribute="trailing" secondItem="iWC-k5-W39" secondAttribute="trailing" id="j3o-Oo-oPx"/>
                             <constraint firstItem="iWC-k5-W39" firstAttribute="leading" secondItem="Iwy-8u-HRk" secondAttribute="leading" id="oFk-BI-IcN"/>
+                            <constraint firstItem="XEx-fp-ynv" firstAttribute="leading" secondItem="Iwy-8u-HRk" secondAttribute="leading" id="olm-Xf-gzR"/>
                             <constraint firstAttribute="bottom" secondItem="V9L-Nz-wav" secondAttribute="bottom" id="w4Y-pa-zcJ"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Headers" id="pgM-Pp-WZ2"/>
                     <connections>
+                        <outlet property="backCommandHeader" destination="XEx-fp-ynv" id="SEo-Ur-QzS"/>
                         <outlet property="commandFooter" destination="V9L-Nz-wav" id="DZv-cd-ZBc"/>
                         <outlet property="commandHeader" destination="iWC-k5-W39" id="l3S-8c-ycR"/>
                         <outlet property="itemCommandHeader" destination="MG3-o5-OhM" id="pBN-0m-7lB"/>
@@ -1241,6 +1249,9 @@
         </designable>
         <designable name="Vfy-pw-F0e">
             <size key="intrinsicContentSize" width="145" height="82.9609375"/>
+        </designable>
+        <designable name="XEx-fp-ynv">
+            <size key="intrinsicContentSize" width="414" height="56"/>
         </designable>
         <designable name="Za0-dO-Ar0">
             <size key="intrinsicContentSize" width="105" height="42.70703125"/>
