@@ -184,10 +184,8 @@ open class CommandHeader: UIView {
                 view.bottomAnchor.constraint(equalTo: button.bottomAnchor)
             ])
             stackView.insertArrangedSubview(view, at: 0)
+            stackViewLeftConstraint.constant = leftBarButtonItem.image != nil ? 0 : 20
             leftBarButtonView = view
-            if leftBarButtonItem.image != nil {
-                stackViewLeftConstraint.constant = 0
-            }
         }
     }
 
