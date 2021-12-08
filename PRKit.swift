@@ -7,5 +7,5 @@
 
 import Foundation
 
-class PRKit {
+public class PRKit {
 }
