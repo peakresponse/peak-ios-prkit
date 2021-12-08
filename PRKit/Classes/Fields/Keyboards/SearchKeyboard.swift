@@ -88,7 +88,7 @@ open class SearchKeyboard: SelectKeyboard, SearchViewControllerDelegate {
         if let cell = cell as? SelectCheckboxCell {
             let value = values?[indexPath.row]
             cell.checkbox.value = value
-            cell.checkbox.labelText = source?.title(for: value)
+            cell.checkbox.labelText = text(for: value as AnyObject?)
             cell.checkbox.delegate = self
             cell.checkbox.isRadioButton = !isMultiSelect
             cell.checkbox.isChecked = true
