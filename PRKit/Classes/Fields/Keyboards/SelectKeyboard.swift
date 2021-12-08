@@ -48,7 +48,11 @@ open class SelectCheckboxCell: UICollectionViewCell {
         if !isLayoutCalculated {
             let title = checkbox.labelText ?? ""
             if traitCollection.horizontalSizeClass == .regular {
-                layoutAttributes.size = SelectCheckboxCell.sizeThatFits(335, with: title)
+                var minWidth: CGFloat = 335
+                if let width = superview?.frame.width {
+                    minWidth = floor((width - 60) / 2)
+                }
+                layoutAttributes.size = SelectCheckboxCell.sizeThatFits(min(335, minWidth), with: title)
             } else {
                 layoutAttributes.size = SelectCheckboxCell.sizeThatFits((superview?.frame.width ?? 320) - 40, with: title)
             }
