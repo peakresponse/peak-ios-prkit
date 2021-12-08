@@ -41,7 +41,7 @@ open class Button: UIButton {
     @IBInspectable open var bundleImage: String? {
         didSet {
             if let bundleImage = bundleImage {
-                setImage(UIImage(named: bundleImage, in: Bundle(for: type(of: self)), compatibleWith: nil), for: .normal)
+                setImage(UIImage(named: bundleImage, in: PRKitBundle.instance, compatibleWith: nil), for: .normal)
             } else {
                 setImage(nil, for: .normal)
             }

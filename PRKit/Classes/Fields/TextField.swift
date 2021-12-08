@@ -42,7 +42,7 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
     }
     @IBInspectable open var isSearchIconHidden: Bool {
         get { return _iconView?.isHidden ?? true }
-        set { iconView.image = UIImage(named: "Search24px", in: Bundle(for: type(of: self)), compatibleWith: nil)}
+        set { iconView.image = UIImage(named: "Search24px", in: PRKitBundle.instance, compatibleWith: nil)}
     }
 
     open weak var clearButton: UIButton!
@@ -194,7 +194,7 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
 
         let clearButton = UIButton(type: .custom)
         clearButton.translatesAutoresizingMaskIntoConstraints = false
-        clearButton.setImage(UIImage(named: "Exit24px", in: Bundle(for: type(of: self)), compatibleWith: nil), for: .normal)
+        clearButton.setImage(UIImage(named: "Exit24px", in: PRKitBundle.instance, compatibleWith: nil), for: .normal)
         clearButton.imageView?.tintColor = .base800
         clearButton.isHidden = true
         clearButton.addTarget(self, action: #selector(clearPressed), for: .touchUpInside)

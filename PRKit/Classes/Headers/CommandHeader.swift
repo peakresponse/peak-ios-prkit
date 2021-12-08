@@ -64,7 +64,7 @@ open class CommandHeader: UIView {
                     }
                 }
             } else {
-                userButton.setImage(UIImage(named: "Portrait", in: Bundle(for: type(of: self)), compatibleWith: nil), for: .normal)
+                userButton.setImage(UIImage(named: "Portrait", in: PRKitBundle.instance, compatibleWith: nil), for: .normal)
             }
         }
     }

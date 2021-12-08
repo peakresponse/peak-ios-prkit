@@ -79,18 +79,18 @@ open class LogoView: UIView {
         case .full:
             switch variant {
             case .dark:
-                imageView.image = SVGKImage(named: "logo.full.dark.svg", in: Bundle(for: type(of: self)))
+                imageView.image = SVGKImage(named: "logo.full.dark.svg", in: PRKitBundle.instance)
             case .light:
-                imageView.image = SVGKImage(named: "logo.full.light.svg", in: Bundle(for: type(of: self)))
+                imageView.image = SVGKImage(named: "logo.full.light.svg", in: PRKitBundle.instance)
             case .white:
-                imageView.image = SVGKImage(named: "logo.full.white.svg", in: Bundle(for: type(of: self)))
+                imageView.image = SVGKImage(named: "logo.full.white.svg", in: PRKitBundle.instance)
             }
         case .square:
             switch variant {
             case .dark:
-                imageView.image = SVGKImage(named: "logo.square.dark.svg", in: Bundle(for: type(of: self)))
+                imageView.image = SVGKImage(named: "logo.square.dark.svg", in: PRKitBundle.instance)
             case .light:
-                imageView.image = SVGKImage(named: "logo.square.light.svg", in: Bundle(for: type(of: self)))
+                imageView.image = SVGKImage(named: "logo.square.light.svg", in: PRKitBundle.instance)
             case .white:
                 imageView.image = nil
             }

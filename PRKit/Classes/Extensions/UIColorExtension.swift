@@ -7,14 +7,11 @@
 
 import UIKit
 
-private class UIColorExtension {
-}
-
 public extension UIColor {
     // Helper for retrieving colors from the Assets xcassets bundle- providing an explicit Bundle
     // reference ensures this works in other contexts- including Interface Builder IBDesignable execution
     private static func named(_ name: String) -> UIColor {
-        return UIColor(named: name, in: Bundle(for: UIColorExtension.self), compatibleWith: nil)!
+        return UIColor(named: name, in: PRKitBundle.instance, compatibleWith: nil)!
     }
 
     static var base100: UIColor {

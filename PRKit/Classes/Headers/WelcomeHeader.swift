@@ -22,7 +22,7 @@ open class WelcomeHeader: UIView {
         set {
             imageView.imageURL = newValue
             if newValue == nil {
-                imageView.image = UIImage(named: "Portrait", in: Bundle(for: type(of: self)), compatibleWith: nil)
+                imageView.image = UIImage(named: "Portrait", in: PRKitBundle.instance, compatibleWith: nil)
             }
         }
     }

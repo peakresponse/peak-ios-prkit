@@ -77,7 +77,7 @@ open class NumberKeypad: FormInputView {
                 title = "0"
             } else if i == 12 {
                 title = nil
-                button.setImage(UIImage(named: "Delete40px", in: Bundle(for: type(of: self)), compatibleWith: nil), for: .normal)
+                button.setImage(UIImage(named: "Delete40px", in: PRKitBundle.instance, compatibleWith: nil), for: .normal)
             }
             button.setTitle(title, for: .normal)
             button.size = .medium
