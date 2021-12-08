@@ -143,7 +143,7 @@ open class SelectKeyboard: FormInputView, CheckboxDelegate,
 
     open override func text(for value: AnyObject?) -> String? {
         if let value = value as? [String] {
-            return value.compactMap({ source?.title(for: $0) }).joined(separator: "\n")
+            return value.compactMap({ text(for: $0 as AnyObject) }).joined(separator: "\n")
         }
         return source?.title(for: value as? String)
     }
