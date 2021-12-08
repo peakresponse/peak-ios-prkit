@@ -85,11 +85,11 @@ open class CommandHeader: UIView {
     open var leftBarButtonItem: UIBarButtonItem? {
         didSet { updateLeftBarButtonItem() }
     }
-    var leftBarButtonView: UIView?
+    open var leftBarButtonView: UIView?
     open var rightBarButtonItem: UIBarButtonItem? {
         didSet { updateRightBarButtonItem() }
     }
-    var rightBarButtonView: UIView?
+    open var rightBarButtonView: UIView?
 
     @IBOutlet weak var delegate: CommandHeaderDelegate?
 
