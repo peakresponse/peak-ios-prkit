@@ -55,6 +55,7 @@ class KeyboardsViewController: UIViewController, FormFieldDelegate, KeyboardAwar
     @IBOutlet weak var singleField: TextField!
     @IBOutlet weak var multiSearchField: TextField!
     @IBOutlet weak var singleSearchField: TextField!
+    @IBOutlet weak var comboField: TextField!
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -81,6 +82,7 @@ class KeyboardsViewController: UIViewController, FormFieldDelegate, KeyboardAwar
         singleField.inputAccessoryView = inputAccessoryView
         multiSearchField.inputAccessoryView = inputAccessoryView
         singleSearchField.inputAccessoryView = inputAccessoryView
+        comboField.inputAccessoryView = inputAccessoryView
 
         pickerField.attributeType = .picker(EnumKeyboardSource<PickerTestEnum>())
         pickerField.attributeValue = "option2" as AnyObject
@@ -99,6 +101,17 @@ class KeyboardsViewController: UIViewController, FormFieldDelegate, KeyboardAwar
         multiSearchField.attributeType = .custom(SearchKeyboard(source: EnumKeyboardSource<PickerTestEnum>(), isMultiSelect: true))
 
         singleSearchField.attributeType = .custom(SearchKeyboard(source: EnumKeyboardSource<PickerTestEnum>(), isMultiSelect: false))
+
+        let searchKeyboard = SearchKeyboard(source: EnumKeyboardSource<PickerTestEnum>(), isMultiSelect: false)
+        let pickerKeyboard = PickerKeyboard()
+        pickerKeyboard.source = EnumKeyboardSource<PickerTestEnum>()
+        comboField.attributeType = .custom(ComboKeyboard(keyboards: [
+            searchKeyboard,
+            pickerKeyboard
+        ], titles: [
+            "Search",
+            "Picker"
+        ]))
     }
 
     func formField(_ field: FormField, wantsToPresent vc: UIViewController) {

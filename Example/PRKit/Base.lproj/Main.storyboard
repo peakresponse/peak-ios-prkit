@@ -330,6 +330,17 @@
                                             <outlet property="delegate" destination="eyu-sI-ctB" id="awd-dv-dPF"/>
                                         </connections>
                                     </view>
+                                    <view tag="12" contentMode="scaleToFill" placeholderIntrinsicWidth="374" placeholderIntrinsicHeight="72.5" translatesAutoresizingMaskIntoConstraints="NO" id="Q1B-QG-FNU" userLabel="Combo Field" customClass="TextField" customModule="PRKit">
+                                        <rect key="frame" x="20" y="1039" width="374" height="72.5"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="AttributeType" value="search"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="labelText" value="Combo"/>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <outlet property="delegate" destination="eyu-sI-ctB" id="y61-5s-c9e"/>
+                                        </connections>
+                                    </view>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="pRT-XV-e5d" firstAttribute="leading" secondItem="RN5-yH-PFJ" secondAttribute="leading" id="0PC-6b-Xyq"/>
@@ -342,7 +353,7 @@
                                     <constraint firstItem="rFx-l1-9xA" firstAttribute="trailing" secondItem="eiO-p5-cRS" secondAttribute="trailing" id="8K5-Dr-kVJ"/>
                                     <constraint firstItem="1lj-fV-5N5" firstAttribute="trailing" secondItem="wRL-tg-g7F" secondAttribute="trailing" id="AWk-Ws-YWs"/>
                                     <constraint firstItem="rFx-l1-9xA" firstAttribute="top" secondItem="eiO-p5-cRS" secondAttribute="bottom" constant="20" id="Ait-eF-Zre"/>
-                                    <constraint firstItem="kkl-yR-yal" firstAttribute="bottom" secondItem="Ssp-Rq-eBz" secondAttribute="bottom" constant="40" id="Bbu-6d-0Hp"/>
+                                    <constraint firstItem="kkl-yR-yal" firstAttribute="bottom" secondItem="Q1B-QG-FNU" secondAttribute="bottom" constant="40" id="Bbu-6d-0Hp"/>
                                     <constraint firstItem="kkl-yR-yal" firstAttribute="trailing" secondItem="eiO-p5-cRS" secondAttribute="trailing" constant="20" id="Bxo-3z-g6F"/>
                                     <constraint firstItem="zzq-vE-fXr" firstAttribute="leading" secondItem="an9-QA-0bQ" secondAttribute="leading" id="CBp-hY-hrA"/>
                                     <constraint firstItem="an9-QA-0bQ" firstAttribute="trailing" secondItem="1lj-fV-5N5" secondAttribute="trailing" id="ClG-3J-QH6"/>
@@ -361,11 +372,14 @@
                                     <constraint firstItem="zzq-vE-fXr" firstAttribute="top" secondItem="an9-QA-0bQ" secondAttribute="bottom" constant="20" id="c7N-IU-O17"/>
                                     <constraint firstItem="wRL-tg-g7F" firstAttribute="trailing" secondItem="lsk-bE-S2o" secondAttribute="trailing" id="cTi-7y-Dce"/>
                                     <constraint firstItem="5Ku-QY-bh8" firstAttribute="leading" secondItem="rFx-l1-9xA" secondAttribute="leading" id="cZI-iz-AP6"/>
+                                    <constraint firstItem="Q1B-QG-FNU" firstAttribute="top" secondItem="Ssp-Rq-eBz" secondAttribute="bottom" constant="20" id="gYU-xp-CLJ"/>
                                     <constraint firstItem="1lj-fV-5N5" firstAttribute="leading" secondItem="wRL-tg-g7F" secondAttribute="leading" id="lLI-Ky-4mS"/>
                                     <constraint firstItem="pRT-XV-e5d" firstAttribute="top" secondItem="RN5-yH-PFJ" secondAttribute="bottom" constant="20" id="pPg-g2-VcB"/>
                                     <constraint firstItem="zzq-vE-fXr" firstAttribute="trailing" secondItem="an9-QA-0bQ" secondAttribute="trailing" id="r4L-IA-4UK"/>
                                     <constraint firstItem="wRL-tg-g7F" firstAttribute="leading" secondItem="lsk-bE-S2o" secondAttribute="leading" id="rW8-dN-1D9"/>
+                                    <constraint firstItem="Q1B-QG-FNU" firstAttribute="leading" secondItem="Ssp-Rq-eBz" secondAttribute="leading" id="t0i-iU-eEB"/>
                                     <constraint firstItem="RN5-yH-PFJ" firstAttribute="trailing" secondItem="5Ku-QY-bh8" secondAttribute="trailing" id="vS3-NV-5eT"/>
+                                    <constraint firstItem="Q1B-QG-FNU" firstAttribute="trailing" secondItem="Ssp-Rq-eBz" secondAttribute="trailing" id="vVm-kD-IDb"/>
                                     <constraint firstItem="an9-QA-0bQ" firstAttribute="leading" secondItem="1lj-fV-5N5" secondAttribute="leading" id="yuW-t0-rDz"/>
                                 </constraints>
                                 <viewLayoutGuide key="contentLayoutGuide" id="kkl-yR-yal"/>
@@ -383,6 +397,7 @@
                     <navigationItem key="navigationItem" title="Keyboards" id="17X-ii-Zlo"/>
                     <connections>
                         <outlet property="ageField" destination="wRL-tg-g7F" id="pXZ-kj-EYo"/>
+                        <outlet property="comboField" destination="Q1B-QG-FNU" id="DxF-Y1-yGd"/>
                         <outlet property="dateField" destination="eiO-p5-cRS" id="s7e-kf-nD7"/>
                         <outlet property="dateTimeField" destination="rFx-l1-9xA" id="cOO-qm-Iez"/>
                         <outlet property="decimalField" destination="lsk-bE-S2o" id="v7V-39-K48"/>
@@ -1234,6 +1249,9 @@
         </designable>
         <designable name="O9a-pY-KIg">
             <size key="intrinsicContentSize" width="174" height="68.640625"/>
+        </designable>
+        <designable name="Q1B-QG-FNU">
+            <size key="intrinsicContentSize" width="374" height="72.5"/>
         </designable>
         <designable name="QdN-nI-UqF">
             <size key="intrinsicContentSize" width="77" height="42.70703125"/>
