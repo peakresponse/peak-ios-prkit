@@ -55,7 +55,7 @@ open class ComboKeyboard: FormInputView, FormInputViewDelegate {
     }
 
     open override func text(for value: AnyObject?) -> String? {
-        if let values = value as? [AnyObject] {
+        if let values = value as? [AnyObject?] {
             return values.enumerated().compactMap { keyboards[$0].text(for: $1) }.joined(separator: " ")
         }
         return nil
