@@ -42,7 +42,7 @@ open class SearchKeyboardFooterView: UICollectionReusableView {
 }
 
 open class SearchKeyboard: SelectKeyboard, SearchViewControllerDelegate {
-    public init(source: KeyboardSource, isMultiSelect: Bool) {
+    public init(source: KeyboardSource?, isMultiSelect: Bool) {
         super.init()
         self.source = source
         self.isMultiSelect = isMultiSelect
