@@ -38,7 +38,7 @@ open class EnumKeyboardSource<T: StringCaseIterable>: NSObject, KeyboardSource {
     }
 
     open func search(_ query: String?) {
-        if let query = query, !query.isEmpty {
+        if let query = query?.trimmingCharacters(in: .whitespacesAndNewlines), !query.isEmpty {
             filtered = T.allCases.filter { $0.description.localizedLowercase.contains(query.localizedLowercase) }
         } else {
             filtered = nil
