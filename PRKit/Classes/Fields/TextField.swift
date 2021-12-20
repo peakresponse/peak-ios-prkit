@@ -310,7 +310,7 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
         }
         inputView?.delegate = self
         inputView?.textView = textView
-        textView.isEditable = inputView?.isTextViewEditable ?? false
+        textView.isEditable = inputView?.isTextViewEditable ?? true
         self.inputView = inputView
     }
 
