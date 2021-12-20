@@ -62,7 +62,7 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
             unitLabelLeftConstraint?.constant = widthForText(text, font: textView.font!)
         }
     }
-
+    @IBInspectable open var isMultiline: Bool = false
     @IBInspectable open var isDebounced: Bool = false
     @IBInspectable open var debounceTime: Double = 0.3
     open var debounceTimer: Timer?
@@ -390,7 +390,13 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
     }
 
     public func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        if text == "\n" && !(delegate?.formFieldShouldReturn?(self) ?? true) {
+        if text == "\n" {
+            if !(delegate?.formFieldShouldReturn?(self) ?? true) {
+                return false
+            } else if isMultiline {
+                return true
+            }
+            _ = resignFirstResponder()
             return false
         }
         return true
