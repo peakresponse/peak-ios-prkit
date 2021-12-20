@@ -91,6 +91,11 @@ open class Checkbox: UIView {
         ])
         self.label = label
 
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(buttonPressed))
+        tapRecognizer.numberOfTapsRequired = 1
+        label.addGestureRecognizer(tapRecognizer)
+        label.isUserInteractionEnabled = true
+
         setImages()
         updateUserInteractionState()
     }
