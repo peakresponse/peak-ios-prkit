@@ -15,6 +15,7 @@ open class SearchViewController: UIViewController, CheckboxDelegate, FormFieldDe
                                  UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     open weak var commandHeader: CommandHeader!
     open weak var searchField: TextField!
+    open var isSearchFieldFocusedOnOpen = true
     open weak var collectionView: UICollectionView!
     open var scrollView: UIScrollView! {
         return collectionView
@@ -89,7 +90,9 @@ open class SearchViewController: UIViewController, CheckboxDelegate, FormFieldDe
 
     open override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        _ = searchField.becomeFirstResponder()
+        if isSearchFieldFocusedOnOpen {
+            _ = searchField.becomeFirstResponder()
+        }
     }
 
     open override func viewWillDisappear(_ animated: Bool) {
