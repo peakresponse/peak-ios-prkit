@@ -10,7 +10,7 @@ import AlignedCollectionViewFlowLayout
 
 open class SelectCheckboxCell: UICollectionViewCell {
     open weak var checkbox: Checkbox!
-    open var isLayoutCalculated = false
+    open var calculatedSize: CGSize?
 
     public override init(frame: CGRect) {
         super.init(frame: frame)
@@ -41,23 +41,23 @@ open class SelectCheckboxCell: UICollectionViewCell {
 
     open override func prepareForReuse() {
         super.prepareForReuse()
-        isLayoutCalculated = false
+        calculatedSize = nil
     }
 
     open override func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
-        if !isLayoutCalculated {
+        if calculatedSize == nil {
             let title = checkbox.labelText ?? ""
             if traitCollection.horizontalSizeClass == .regular {
                 var minWidth: CGFloat = 335
                 if let width = superview?.frame.width {
                     minWidth = floor((width - 60) / 2)
                 }
-                layoutAttributes.size = SelectCheckboxCell.sizeThatFits(min(335, minWidth), with: title)
+                calculatedSize = SelectCheckboxCell.sizeThatFits(min(335, minWidth), with: title)
             } else {
-                layoutAttributes.size = SelectCheckboxCell.sizeThatFits((superview?.frame.width ?? 320) - 40, with: title)
+                calculatedSize = SelectCheckboxCell.sizeThatFits((superview?.frame.width ?? 320) - 40, with: title)
             }
-            isLayoutCalculated = true
         }
+        layoutAttributes.size = calculatedSize ?? .zero
         return layoutAttributes
     }
 }

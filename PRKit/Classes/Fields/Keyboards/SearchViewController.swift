@@ -11,11 +11,15 @@ public protocol SearchViewControllerDelegate: AnyObject {
     func searchViewController(_ vc: SearchViewController, didSelect values: [String]?)
 }
 
-open class SearchViewController: UIViewController, CheckboxDelegate, FormFieldDelegate,
+open class SearchViewController: UIViewController, CheckboxDelegate, FormFieldDelegate, KeyboardAwareScrollViewController,
                                  UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     open weak var commandHeader: CommandHeader!
     open weak var searchField: TextField!
     open weak var collectionView: UICollectionView!
+    open var scrollView: UIScrollView! {
+        return collectionView
+    }
+    open var scrollViewBottomConstraint: NSLayoutConstraint!
     open var source: KeyboardSource?
     open var values: [String]?
     open var isMultiSelect: Bool = false
@@ -68,18 +72,29 @@ open class SearchViewController: UIViewController, CheckboxDelegate, FormFieldDe
         collectionView.delegate = self
         collectionView.register(SelectCheckboxCell.self, forCellWithReuseIdentifier: "Checkbox")
         view.addSubview(collectionView)
+        scrollViewBottomConstraint = collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         NSLayoutConstraint.activate([
             collectionView.topAnchor.constraint(equalTo: searchField.bottomAnchor, constant: 10),
             collectionView.leftAnchor.constraint(equalTo: view.leftAnchor),
             collectionView.rightAnchor.constraint(equalTo: view.rightAnchor),
-            view.bottomAnchor.constraint(equalTo: collectionView.bottomAnchor)
+            scrollViewBottomConstraint
         ])
         self.collectionView = collectionView
+    }
+
+    open override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        registerForKeyboardNotifications(self)
     }
 
     open override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         _ = searchField.becomeFirstResponder()
+    }
+
+    open override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        unregisterFromKeyboardNotifications()
     }
 
     @objc func cancelPressed() {

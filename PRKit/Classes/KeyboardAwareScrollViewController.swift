@@ -9,9 +9,9 @@ import UIKit
 import Keyboardy
 
 public protocol KeyboardAwareScrollViewController: KeyboardStateDelegate {
-    var view: UIView! { get set }
-    var scrollView: UIScrollView! { get set }
-    var scrollViewBottomConstraint: NSLayoutConstraint! { get set }
+    var view: UIView! { get }
+    var scrollView: UIScrollView! { get }
+    var scrollViewBottomConstraint: NSLayoutConstraint! { get }
 }
 
 extension KeyboardAwareScrollViewController {
