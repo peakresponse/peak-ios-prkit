@@ -185,7 +185,7 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
         NSLayoutConstraint.activate([
             textView.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 0),
             textView.leftAnchor.constraint(equalTo: label.leftAnchor),
-            textView.rightAnchor.constraint(equalTo: label.rightAnchor),
+            textView.rightAnchor.constraint(equalTo: label.rightAnchor, constant: -44),
             textViewHeightConstraint,
             contentView.bottomAnchor.constraint(equalTo: textView.bottomAnchor, constant: 8)
         ])
