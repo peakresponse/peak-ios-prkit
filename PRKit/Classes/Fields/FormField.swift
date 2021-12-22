@@ -131,6 +131,7 @@ open class FormField: UIView, Localizable, FormInputViewDelegate {
     @objc open var text: String?
 
     open weak var source: AnyObject?
+    open var sourceIndex: Int?
     open weak var target: AnyObject?
 
     @IBInspectable open var attributeKey: String?
