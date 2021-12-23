@@ -378,6 +378,7 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
 
     public func textViewDidChange(_ textView: UITextView) {
         text = textView.text ?? ""
+        attributeValue = text as AnyObject?
         if isDebounced {
             debounceTimer?.invalidate()
             debounceTimer = Timer.scheduledTimer(withTimeInterval: debounceTime, repeats: false, block: { [weak self] (_) in
