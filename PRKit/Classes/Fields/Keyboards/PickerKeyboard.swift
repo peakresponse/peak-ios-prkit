@@ -25,6 +25,11 @@ open class PickerKeyboard: FormInputView, UIPickerViewDelegate, UIPickerViewData
         commonInit()
     }
 
+    public convenience init(source: KeyboardSource) {
+        self.init()
+        self.source = source
+    }
+
     open func commonInit() {
         autoresizingMask = [.flexibleWidth, .flexibleHeight]
 
@@ -44,10 +49,9 @@ open class PickerKeyboard: FormInputView, UIPickerViewDelegate, UIPickerViewData
 
     open override func setValue(_ value: AnyObject?) {
         if let source = source, let value = value as? String, let index = source.firstIndex(of: value) {
-            picker.selectRow(index, inComponent: 0, animated: false)
+            picker.selectRow(index + 1, inComponent: 0, animated: false)
         } else {
             picker.selectRow(0, inComponent: 0, animated: false)
-            picker.delegate?.pickerView?(picker, didSelectRow: 0, inComponent: 0)
         }
     }
 
@@ -62,17 +66,23 @@ open class PickerKeyboard: FormInputView, UIPickerViewDelegate, UIPickerViewData
     }
 
     public func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return source?.count() ?? 0
+        return (source?.count() ?? 0) + 1
     }
 
     // MARK: - UIPickerViewDelegate
 
     public func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return source?.title(at: row)
+        if row == 0 {
+            return ""
+        }
+        return source?.title(at: row - 1)
     }
 
     public func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        let value = source?.value(at: row)
-        delegate?.formInputView(self, didChange: value as AnyObject)
+        var value: AnyObject?
+        if row > 0 {
+            value = source?.value(at: row - 1) as AnyObject
+        }
+        delegate?.formInputView(self, didChange: value)
     }
 }
