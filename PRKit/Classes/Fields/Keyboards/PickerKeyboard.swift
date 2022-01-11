@@ -11,10 +11,6 @@ open class PickerKeyboard: FormInputView, UIPickerViewDelegate, UIPickerViewData
     open weak var picker: UIPickerView!
     open var source: KeyboardSource?
 
-    open override var shouldResignAfterClear: Bool {
-        return true
-    }
-
     public override init() {
         super.init()
         commonInit()
