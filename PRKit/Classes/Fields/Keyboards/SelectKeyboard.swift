@@ -79,6 +79,12 @@ open class SelectKeyboard: FormInputView, CheckboxDelegate,
         commonInit()
     }
 
+    public convenience init(source: KeyboardSource, isMultiSelect: Bool = false) {
+        self.init()
+        self.source = source
+        self.isMultiSelect = isMultiSelect
+    }
+
     open func commonInit() {
         autoresizingMask = [.flexibleWidth, .flexibleHeight]
 
