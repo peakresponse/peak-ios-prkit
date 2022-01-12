@@ -318,6 +318,7 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
         super.updateAttributeValue()
         if let inputView = inputView as? FormInputView, let unitText = inputView.unitText(for: attributeValue) {
             unitLabel.text = unitText
+            unitLabelLeftConstraint?.constant = widthForText(text ?? "", font: textView.font!)
         }
     }
 

@@ -94,6 +94,7 @@ class KeyboardsViewController: UIViewController, FormFieldDelegate, KeyboardAwar
         integerField.unitLabel.text = " bpm"
 
         ageField.attributeType = .integerWithUnit(EnumKeyboardSource<AgeTestUnits>())
+        ageField.attributeValue = ["23", "years"] as AnyObject
 
         multiField.attributeType = .multi(EnumKeyboardSource<PickerTestEnum>())
         singleField.attributeType = .single(EnumKeyboardSource<PickerTestEnum>())
