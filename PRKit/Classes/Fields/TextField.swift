@@ -272,12 +272,12 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
         case .integerWithUnit(let source):
             fallthrough
         case .decimalWithUnit(let source):
-            inputView = textView.inputView as? NumberWithUnitKeypad
+            inputView = textView.inputView as? NumberAndUnitKeypad
             if inputView == nil {
-                inputView = NumberWithUnitKeypad()
+                inputView = NumberAndUnitKeypad()
             }
-            (inputView as? NumberWithUnitKeypad)?.isDecimalHidden = attributeType == .integerWithUnit()
-            (inputView as? NumberWithUnitKeypad)?.unitSource = source
+            (inputView as? NumberAndUnitKeypad)?.isDecimalHidden = attributeType == .integerWithUnit()
+            (inputView as? NumberAndUnitKeypad)?.unitSource = source
         case .date:
             inputView = textView.inputView as? DateKeyboard
             if inputView == nil {
@@ -316,8 +316,8 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
 
     open override func updateAttributeValue() {
         super.updateAttributeValue()
-        if let inputView = inputView as? FormInputView, let unitText = inputView.unitText(for: attributeValue) {
-            unitLabel.text = unitText
+        if let inputView = inputView as? FormInputView {
+            unitLabel.text = inputView.unitText(for: attributeValue)
             unitLabelLeftConstraint?.constant = widthForText(text ?? "", font: textView.font!)
         }
     }
