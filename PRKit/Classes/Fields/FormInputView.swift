@@ -8,7 +8,7 @@
 import UIKit
 
 @objc public protocol FormInputViewDelegate: AnyObject {
-    func formInputView(_ inputView: FormInputView, didChange value: AnyObject?)
+    func formInputView(_ inputView: FormInputView, didChange value: NSObject?)
     func formInputView(_ inputView: FormInputView, wantsToPresent vc: UIViewController)
 }
 
@@ -29,15 +29,15 @@ open class FormInputView: UIInputView {
         super.init(coder: coder)
     }
 
-    open func setValue(_ value: AnyObject?) {
+    open func setValue(_ value: NSObject?) {
 
     }
 
-    open func text(for value: AnyObject?) -> String? {
+    open func text(for value: NSObject?) -> String? {
         return value as? String
     }
 
-    open func unitText(for value: AnyObject?) -> String? {
+    open func unitText(for value: NSObject?) -> String? {
         return nil
     }
 

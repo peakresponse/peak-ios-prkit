@@ -69,15 +69,19 @@ open class SearchKeyboard: SelectKeyboard, SearchViewControllerDelegate {
         delegate?.formInputView(self, wantsToPresent: vc)
     }
 
-    public func searchViewController(_ vc: SearchViewController, didSelect values: [String]?) {
+    // MARK: - SearchViewControllerDelegate
+
+    public func searchViewController(_ vc: SearchViewController, didSelect values: [NSObject]?) {
         self.values = values
         collectionView.reloadData()
         if isMultiSelect {
-            delegate?.formInputView(self, didChange: values as AnyObject?)
+            delegate?.formInputView(self, didChange: values as NSObject?)
         } else {
-            delegate?.formInputView(self, didChange: values?[0] as AnyObject?)
+            delegate?.formInputView(self, didChange: values?[0])
         }
     }
+
+    // MARK: - UICollectionViewDataSourcer
 
     public override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return values?.count ?? 0
@@ -88,7 +92,7 @@ open class SearchKeyboard: SelectKeyboard, SearchViewControllerDelegate {
         if let cell = cell as? SelectCheckboxCell {
             let value = values?[indexPath.row]
             cell.checkbox.value = value
-            cell.checkbox.labelText = text(for: value as AnyObject?)
+            cell.checkbox.labelText = text(for: value)
             cell.checkbox.delegate = self
             cell.checkbox.isRadioButton = !isMultiSelect
             cell.checkbox.isChecked = true

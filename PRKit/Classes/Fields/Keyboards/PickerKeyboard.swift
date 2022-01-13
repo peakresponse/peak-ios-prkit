@@ -43,16 +43,16 @@ open class PickerKeyboard: FormInputView, UIPickerViewDelegate, UIPickerViewData
         self.picker = picker
     }
 
-    open override func setValue(_ value: AnyObject?) {
-        if let source = source, let value = value as? String, let index = source.firstIndex(of: value) {
+    open override func setValue(_ value: NSObject?) {
+        if let source = source, let value = value, let index = source.firstIndex(of: value) {
             picker.selectRow(index + 1, inComponent: 0, animated: false)
         } else {
             picker.selectRow(0, inComponent: 0, animated: false)
         }
     }
 
-    open override func text(for value: AnyObject?) -> String? {
-        return source?.title(for: value as? String)
+    open override func text(for value: NSObject?) -> String? {
+        return source?.title(for: value)
     }
 
     // MARK: - UIPickerViewDataSource
@@ -75,9 +75,9 @@ open class PickerKeyboard: FormInputView, UIPickerViewDelegate, UIPickerViewData
     }
 
     public func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        var value: AnyObject?
+        var value: NSObject?
         if row > 0 {
-            value = source?.value(at: row - 1) as AnyObject
+            value = source?.value(at: row - 1)
         }
         delegate?.formInputView(self, didChange: value)
     }

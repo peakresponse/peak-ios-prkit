@@ -85,16 +85,16 @@ class KeyboardsViewController: UIViewController, FormFieldDelegate, KeyboardAwar
         comboField.inputAccessoryView = inputAccessoryView
 
         pickerField.attributeType = .picker(EnumKeyboardSource<PickerTestEnum>())
-        pickerField.attributeValue = "option2" as AnyObject
+        pickerField.attributeValue = "option2" as NSObject
 
         emailField.keyboardType = .emailAddress
 
-        dateField.attributeValue = "2021-10-31" as AnyObject
+        dateField.attributeValue = "2021-10-31" as NSObject
 
         integerField.unitLabel.text = " bpm"
 
         ageField.attributeType = .integerWithUnit(EnumKeyboardSource<AgeTestUnits>())
-        ageField.attributeValue = ["23", "years"] as AnyObject
+        ageField.attributeValue = ["23", "years"] as NSObject
 
         multiField.attributeType = .multi(EnumKeyboardSource<PickerTestEnum>())
         singleField.attributeType = .single(EnumKeyboardSource<PickerTestEnum>())

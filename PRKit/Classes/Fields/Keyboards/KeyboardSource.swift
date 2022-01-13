@@ -10,11 +10,11 @@ import UIKit
 public protocol KeyboardSource: AnyObject {
     var name: String { get }
     func count() -> Int
-    func firstIndex(of value: String) -> Int?
+    func firstIndex(of value: NSObject) -> Int?
     func search(_ query: String?)
-    func title(for value: String?) -> String?
+    func title(for value: NSObject?) -> String?
     func title(at index: Int) -> String?
-    func value(at index: Int) -> String?
+    func value(at index: Int) -> NSObject?
 }
 
 open class EnumKeyboardSource<T: StringCaseIterable>: NSObject, KeyboardSource {
@@ -30,7 +30,8 @@ open class EnumKeyboardSource<T: StringCaseIterable>: NSObject, KeyboardSource {
         return T.allCases.count
     }
 
-    open func firstIndex(of value: String) -> Int? {
+    open func firstIndex(of value: NSObject) -> Int? {
+        guard let value = value as? String else { return nil }
         if let filtered = filtered {
             return filtered.map { $0.rawValue }.firstIndex(of: value)
         }
@@ -45,8 +46,8 @@ open class EnumKeyboardSource<T: StringCaseIterable>: NSObject, KeyboardSource {
         }
     }
 
-    open func title(for value: String?) -> String? {
-        if let value = value {
+    open func title(for value: NSObject?) -> String? {
+        if let value = value as? String {
             return T.allCases.first(where: {$0.rawValue == value})?.description
         }
         return nil
@@ -59,10 +60,10 @@ open class EnumKeyboardSource<T: StringCaseIterable>: NSObject, KeyboardSource {
         return T.allCases[T.allCases.index(T.allCases.startIndex, offsetBy: index)].description
     }
 
-    open func value(at index: Int) -> String? {
+    open func value(at index: Int) -> NSObject? {
         if let filtered = filtered {
-            return filtered[filtered.index(filtered.startIndex, offsetBy: index)].rawValue
+            return filtered[filtered.index(filtered.startIndex, offsetBy: index)].rawValue as NSObject
         }
-        return T.allCases[T.allCases.index(T.allCases.startIndex, offsetBy: index)].rawValue
+        return T.allCases[T.allCases.index(T.allCases.startIndex, offsetBy: index)].rawValue as NSObject
     }
 }

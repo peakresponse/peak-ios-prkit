@@ -130,9 +130,9 @@ open class FormField: UIView, Localizable, FormInputViewDelegate {
 
     @objc open var text: String?
 
-    open weak var source: AnyObject?
+    open weak var source: NSObject?
     open var sourceIndex: Int?
-    open weak var target: AnyObject?
+    open weak var target: NSObject?
 
     @IBInspectable open var attributeKey: String?
     open var attributeType: FormFieldAttributeType = .text {
@@ -142,7 +142,7 @@ open class FormField: UIView, Localizable, FormInputViewDelegate {
         get { return attributeType.rawValue }
         set { attributeType = FormFieldAttributeType(rawValue: newValue) ?? .text }
     }
-    open var attributeValue: AnyObject? {
+    open var attributeValue: NSObject? {
         didSet {
             updateAttributeValue()
             updateStyle()
@@ -337,7 +337,7 @@ open class FormField: UIView, Localizable, FormInputViewDelegate {
 
     // MARK: - FormInputViewDelegate
 
-    public func formInputView(_ inputView: FormInputView, didChange value: AnyObject?) {
+    public func formInputView(_ inputView: FormInputView, didChange value: NSObject?) {
         attributeValue = value
         delegate?.formFieldDidChange?(self)
     }

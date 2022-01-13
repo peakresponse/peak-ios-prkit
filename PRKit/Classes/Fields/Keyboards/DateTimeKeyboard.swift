@@ -49,7 +49,7 @@ open class DateTimeKeyboard: FormInputView {
         self.datePicker = datePicker
     }
 
-    open override func setValue(_ value: AnyObject?) {
+    open override func setValue(_ value: NSObject?) {
         if let value = value as? Date {
             date = value
         } else {
@@ -58,11 +58,11 @@ open class DateTimeKeyboard: FormInputView {
         }
     }
 
-    open override func text(for value: AnyObject?) -> String? {
+    open override func text(for value: NSObject?) -> String? {
         return (value as? Date)?.asDateTimeString()
     }
 
     @objc func dateChanged() {
-        delegate?.formInputView(self, didChange: date as AnyObject)
+        delegate?.formInputView(self, didChange: date as NSObject?)
     }
 }

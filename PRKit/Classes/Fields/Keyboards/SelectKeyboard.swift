@@ -66,7 +66,7 @@ open class SelectKeyboard: FormInputView, CheckboxDelegate,
                            UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     open weak var collectionView: UICollectionView!
     open var source: KeyboardSource?
-    open var values: [String]?
+    open var values: [NSObject]?
     open var isMultiSelect = false
 
     public override init() {
@@ -140,10 +140,10 @@ open class SelectKeyboard: FormInputView, CheckboxDelegate,
         updateLayout()
     }
 
-    open override func setValue(_ value: AnyObject?) {
-        if let value = value as? [String] {
+    open override func setValue(_ value: NSObject?) {
+        if let value = value as? [NSObject] {
             self.values = value
-        } else if let value = value as? String {
+        } else if let value = value {
             self.values = [value]
         } else {
             self.values = nil
@@ -151,17 +151,17 @@ open class SelectKeyboard: FormInputView, CheckboxDelegate,
         collectionView.reloadData()
     }
 
-    open override func text(for value: AnyObject?) -> String? {
-        if let value = value as? [String] {
-            return value.compactMap({ text(for: $0 as AnyObject) }).joined(separator: "\n")
+    open override func text(for value: NSObject?) -> String? {
+        if let value = value as? [NSObject] {
+            return value.compactMap({ text(for: $0) }).joined(separator: "\n")
         }
-        return source?.title(for: value as? String)
+        return source?.title(for: value)
     }
 
     // MARK: - CheckboxDelegate
 
     public func checkbox(_ checkbox: Checkbox, didChange isChecked: Bool) {
-        guard let value = checkbox.value as? String else { return }
+        guard let value = checkbox.value else { return }
         if isChecked {
             if isMultiSelect {
                 if values == nil {
@@ -178,10 +178,10 @@ open class SelectKeyboard: FormInputView, CheckboxDelegate,
             }
         }
         if isMultiSelect {
-            delegate?.formInputView(self, didChange: values as AnyObject?)
+            delegate?.formInputView(self, didChange: values as NSObject?)
         } else {
             collectionView.reloadData()
-            delegate?.formInputView(self, didChange: values?[0] as AnyObject?)
+            delegate?.formInputView(self, didChange: values?[0])
         }
     }
 
@@ -199,10 +199,10 @@ open class SelectKeyboard: FormInputView, CheckboxDelegate,
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Checkbox", for: indexPath)
         if let cell = cell as? SelectCheckboxCell {
             cell.checkbox.value = source?.value(at: indexPath.row)
-            cell.checkbox.labelText = text(for: cell.checkbox.value as AnyObject?)
+            cell.checkbox.labelText = text(for: cell.checkbox.value)
             cell.checkbox.delegate = self
             cell.checkbox.isRadioButton = !isMultiSelect
-            if let value = cell.checkbox.value as? String, values?.contains(value) ?? false {
+            if let value = cell.checkbox.value, values?.contains(value) ?? false {
                 cell.checkbox.isChecked = true
             } else {
                 cell.checkbox.isChecked = false

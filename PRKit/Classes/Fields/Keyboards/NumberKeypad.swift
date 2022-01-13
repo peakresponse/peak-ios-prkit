@@ -89,7 +89,7 @@ open class NumberKeypad: FormInputView {
         }
     }
 
-    open override func setValue(_ value: AnyObject?) {
+    open override func setValue(_ value: NSObject?) {
         if let value = value {
             self.value = "\(value)"
             decimalButton.isEnabled = !self.value.contains(".")
@@ -139,7 +139,7 @@ open class NumberKeypad: FormInputView {
             range = NSRange(location: range.location + replacementText.count, length: 0)
         }
         decimalButton.isEnabled = !self.value.contains(".")
-        delegate?.formInputView(self, didChange: value as AnyObject)
+        delegate?.formInputView(self, didChange: value as NSObject?)
         textView.selectedRange = range
     }
 }

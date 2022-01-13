@@ -8,7 +8,7 @@
 import UIKit
 
 public protocol SearchViewControllerDelegate: AnyObject {
-    func searchViewController(_ vc: SearchViewController, didSelect values: [String]?)
+    func searchViewController(_ vc: SearchViewController, didSelect values: [NSObject]?)
 }
 
 open class SearchViewController: UIViewController, CheckboxDelegate, FormFieldDelegate, KeyboardAwareScrollViewController,
@@ -22,7 +22,7 @@ open class SearchViewController: UIViewController, CheckboxDelegate, FormFieldDe
     }
     open var scrollViewBottomConstraint: NSLayoutConstraint!
     open var source: KeyboardSource?
-    open var values: [String]?
+    open var values: [NSObject]?
     open var isMultiSelect: Bool = false
     open weak var delegate: SearchViewControllerDelegate?
 
@@ -113,7 +113,7 @@ open class SearchViewController: UIViewController, CheckboxDelegate, FormFieldDe
     // MARK: - CheckboxDelegate
 
     open func checkbox(_ checkbox: Checkbox, didChange isChecked: Bool) {
-        guard let value = checkbox.value as? String else { return }
+        guard let value = checkbox.value else { return }
         if isMultiSelect {
             if isChecked {
                 if !(values?.contains(value) ?? false) {
@@ -157,11 +157,11 @@ open class SearchViewController: UIViewController, CheckboxDelegate, FormFieldDe
     open func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Checkbox", for: indexPath)
         if let cell = cell as? SelectCheckboxCell {
-            cell.checkbox.value = source?.value(at: indexPath.row)
+            cell.checkbox.value = source?.value(at: indexPath.row) as NSObject?
             cell.checkbox.labelText = source?.title(at: indexPath.row)
             cell.checkbox.delegate = self
             cell.checkbox.isRadioButton = !isMultiSelect
-            if let value = cell.checkbox.value as? String, values?.contains(value) ?? false {
+            if let value = cell.checkbox.value, values?.contains(value) ?? false {
                 cell.checkbox.isChecked = true
             } else {
                 cell.checkbox.isChecked = false

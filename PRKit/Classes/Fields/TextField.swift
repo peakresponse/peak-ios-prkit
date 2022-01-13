@@ -233,10 +233,11 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
         unitLabel.isHidden = isEmpty && !isFirstResponder
         contentView.addSubview(unitLabel)
         unitLabelLeftConstraint = unitLabel.leftAnchor.constraint(equalTo: label.leftAnchor)
+        unitLabelLeftConstraint.priority = .defaultLow
         NSLayoutConstraint.activate([
             unitLabel.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 0),
             unitLabelLeftConstraint,
-            unitLabel.rightAnchor.constraint(equalTo: label.rightAnchor)
+            unitLabel.rightAnchor.constraint(lessThanOrEqualTo: label.rightAnchor)
         ])
         _unitLabel = unitLabel
     }
@@ -379,7 +380,7 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
 
     public func textViewDidChange(_ textView: UITextView) {
         text = textView.text ?? ""
-        attributeValue = text as AnyObject?
+        attributeValue = text as NSObject?
         if isDebounced {
             debounceTimer?.invalidate()
             debounceTimer = Timer.scheduledTimer(withTimeInterval: debounceTime, repeats: false, block: { [weak self] (_) in

@@ -11,7 +11,7 @@ open class ComboKeyboard: FormInputView, FormInputViewDelegate {
     open var keyboards: [FormInputView] = []
     open var titles: [String] = []
     open var currentIndex = 0
-    open var values: [AnyObject?] = []
+    open var values: [NSObject?] = []
 
     public init(keyboards: [FormInputView], titles: [String]) {
         self.keyboards = keyboards
@@ -43,19 +43,19 @@ open class ComboKeyboard: FormInputView, FormInputViewDelegate {
         keyboards[0].isHidden = false
     }
 
-    open override func setValue(_ value: AnyObject?) {
-        if let values = value as? [AnyObject?] {
+    open override func setValue(_ value: NSObject?) {
+        if let values = value as? [NSObject?] {
             self.values = values
         } else {
-            values = [AnyObject?](repeating: nil, count: keyboards.count)
+            values = [NSObject?](repeating: nil, count: keyboards.count)
         }
         for (i, value) in values.enumerated() {
             keyboards[i].setValue(value)
         }
     }
 
-    open override func text(for value: AnyObject?) -> String? {
-        if let values = value as? [AnyObject?] {
+    open override func text(for value: NSObject?) -> String? {
+        if let values = value as? [NSObject?] {
             return values.enumerated().compactMap { keyboards[$0].text(for: $1) }.joined(separator: " ")
         }
         return nil
@@ -78,10 +78,10 @@ open class ComboKeyboard: FormInputView, FormInputViewDelegate {
 
     // MARK: - FormInputViewDelegate
 
-    open func formInputView(_ inputView: FormInputView, didChange value: AnyObject?) {
+    open func formInputView(_ inputView: FormInputView, didChange value: NSObject?) {
         if let index = keyboards.firstIndex(of: inputView) {
             values[index] = value
-            delegate?.formInputView(self, didChange: values as AnyObject)
+            delegate?.formInputView(self, didChange: values as NSObject?)
         }
     }
 
