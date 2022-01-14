@@ -83,6 +83,11 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
         return _unitLabel
     }
     open var unitLabelLeftConstraint: NSLayoutConstraint!
+    @IBInspectable open var unitText: String? {
+        didSet {
+            unitLabel.text = unitText
+        }
+    }
 
     @IBInspectable open var placeholderText: String? {
         get { return _placeholderLabel?.text }
@@ -318,7 +323,7 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
     open override func updateAttributeValue() {
         super.updateAttributeValue()
         if let inputView = inputView as? FormInputView {
-            unitLabel.text = inputView.unitText(for: attributeValue)
+            unitLabel.text = inputView.unitText(for: attributeValue) ?? unitText
             unitLabelLeftConstraint?.constant = widthForText(text ?? "", font: textView.font!)
         }
     }

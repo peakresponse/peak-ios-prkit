@@ -91,7 +91,7 @@ class KeyboardsViewController: UIViewController, FormFieldDelegate, KeyboardAwar
 
         dateField.attributeValue = "2021-10-31" as NSObject
 
-        integerField.unitLabel.text = " bpm"
+        integerField.unitText = " bpm"
 
         ageField.attributeType = .integerWithUnit(EnumKeyboardSource<AgeTestUnits>())
         ageField.attributeValue = ["23", "years"] as NSObject
