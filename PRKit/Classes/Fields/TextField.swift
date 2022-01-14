@@ -12,6 +12,7 @@ private class InternalTextView: UITextView {
 
     override func becomeFirstResponder() -> Bool {
         if super.becomeFirstResponder() {
+            selectedRange = NSRange(location: text.count, length: 0)
             textField?.updateStyle()
             textField?.reloadInputViews()
             return true
