@@ -134,7 +134,17 @@ open class SearchViewController: UIViewController, CheckboxDelegate, FormFieldDe
                 values = nil
             }
         }
-        collectionView.reloadData()
+        if !isMultiSelect {
+            for indexPath in collectionView.indexPathsForVisibleItems {
+                if let cell = collectionView.cellForItem(at: indexPath) as? SelectCheckboxCell {
+                    if let value = cell.checkbox.value, values?.contains(value) ?? false {
+                        cell.checkbox.isChecked = true
+                    } else {
+                        cell.checkbox.isChecked = false
+                    }
+                }
+            }
+        }
     }
 
     // MARK: - FormFieldDelegate

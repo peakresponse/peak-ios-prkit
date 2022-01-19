@@ -180,7 +180,15 @@ open class SelectKeyboard: FormInputView, CheckboxDelegate,
         if isMultiSelect {
             delegate?.formInputView(self, didChange: values as NSObject?)
         } else {
-            collectionView.reloadData()
+            for indexPath in collectionView.indexPathsForVisibleItems {
+                if let cell = collectionView.cellForItem(at: indexPath) as? SelectCheckboxCell {
+                    if let value = cell.checkbox.value, values?.contains(value) ?? false {
+                        cell.checkbox.isChecked = true
+                    } else {
+                        cell.checkbox.isChecked = false
+                    }
+                }
+            }
             delegate?.formInputView(self, didChange: values?[0])
         }
     }
