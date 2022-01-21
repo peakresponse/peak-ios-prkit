@@ -130,9 +130,9 @@ open class FormField: UIView, Localizable, FormInputViewDelegate {
 
     @objc open var text: String?
 
-    open weak var source: NSObject?
+    open var source: NSObject?
     open var sourceIndex: Int?
-    open weak var target: NSObject?
+    open var target: NSObject?
 
     @IBInspectable open var attributeKey: String?
     open var attributeType: FormFieldAttributeType = .text {
