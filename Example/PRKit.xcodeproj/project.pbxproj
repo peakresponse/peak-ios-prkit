@@ -35,9 +35,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		1222CE4649960C5582A2586D /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		14C491D9EDE018F4D44DD69F /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		2F77A8A78F718C65C8C575A5 /* Pods-PRKit_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PRKit_Tests.debug.xcconfig"; path = "Target Support Files/Pods-PRKit_Tests/Pods-PRKit_Tests.debug.xcconfig"; sourceTree = "<group>"; };
+		456F04F627A89C09000CEE42 /* LICENSE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = LICENSE.md; path = ../LICENSE.md; sourceTree = "<group>"; };
 		45C007C52728BD610072FF18 /* HeadersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadersViewController.swift; sourceTree = "<group>"; };
 		45C757D52730939B00386F07 /* NavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationViewController.swift; sourceTree = "<group>"; };
 		45C757D72733541400386F07 /* InputsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputsViewController.swift; sourceTree = "<group>"; };
@@ -155,7 +155,7 @@
 			children = (
 				FDD5E83F9CE758B2638B533B /* PRKit.podspec */,
 				14C491D9EDE018F4D44DD69F /* README.md */,
-				1222CE4649960C5582A2586D /* LICENSE */,
+				456F04F627A89C09000CEE42 /* LICENSE.md */,
 			);
 			name = "Podspec Metadata";
 			sourceTree = "<group>";

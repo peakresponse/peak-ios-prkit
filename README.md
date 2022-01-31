@@ -1,10 +1,5 @@
 # PRKit
 
-[![CI Status](https://img.shields.io/travis/Francis Li/PRKit.svg?style=flat)](https://travis-ci.org/Francis Li/PRKit)
-[![Version](https://img.shields.io/cocoapods/v/PRKit.svg?style=flat)](https://cocoapods.org/pods/PRKit)
-[![License](https://img.shields.io/cocoapods/l/PRKit.svg?style=flat)](https://cocoapods.org/pods/PRKit)
-[![Platform](https://img.shields.io/cocoapods/p/PRKit.svg?style=flat)](https://cocoapods.org/pods/PRKit)
-
 ## Example
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
@@ -22,8 +17,23 @@ pod 'PRKit'
 
 ## Author
 
-Francis Li, mail@francisli.com
+Francis Li, francis@peakresponse.net
 
 ## License
 
-PRKit is available under the GNU Lesser General Public License license, Version 3. See the LICENSE file for more info.
+PRKit  
+Copyright (C) 2022 Peak Response Inc.
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA

@@ -40,7 +40,7 @@ SPEC CHECKSUMS:
   CocoaLumberjack: b7e05132ff94f6ae4dfa9d5bce9141893a21d9da
   FBSnapshotTestCase: 094f9f314decbabe373b87cc339bea235a63e07a
   Keyboardy: 5fee785baf2bc8fa95896a31d88b5f49488f839e
-  PRKit: fd4bc051e9a9032677b346672be3327dd40a6687
+  PRKit: ba036dd225e79200d99b7de1dcf6651e60579b9b
   SVGKit: 1ad7513f8c74d9652f94ed64ddecda1a23864dea
   SwiftLint: 99f82d07b837b942dd563c668de129a03fc3fb52
 
