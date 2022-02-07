@@ -150,7 +150,15 @@ open class FormField: UIView, Localizable, FormInputViewDelegate {
     }
 
     open var isEmpty: Bool {
-        return (text?.isEmpty ?? true) && ((attributeValue as? String)?.isEmpty ?? (attributeValue == nil))
+        if (text?.isEmpty ?? true) && ((attributeValue as? String)?.isEmpty ?? (attributeValue == nil)) {
+            return true
+        }
+        if let attributeValues = attributeValue as? [NSObject] {
+            return attributeValues.reduce(into: true) { (partialResult, value) in
+                partialResult = partialResult && ((value as? String)?.isEmpty ?? (value == NSNull()))
+            }
+        }
+        return false
     }
 
     open override var isUserInteractionEnabled: Bool {
