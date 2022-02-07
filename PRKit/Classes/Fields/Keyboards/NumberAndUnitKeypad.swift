@@ -46,7 +46,7 @@ class NumberAndUnitKeypad: ComboKeyboard {
             if values.count == 1 {
                 values.append(unitSource?.value(at: 0))
             }
-            if values[1] == nil {
+            if (values[1] as? String)?.isEmpty ?? (values[1] == nil) {
                 values[1] = unitSource?.value(at: 0)
             }
             self.values = values
