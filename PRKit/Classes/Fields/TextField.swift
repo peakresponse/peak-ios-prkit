@@ -59,8 +59,7 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
                 .paragraphStyle: paragraphStyle,
                 .foregroundColor: textView.textColor!
             ])
-            textViewHeightConstraint.constant = heightForText(text, font: textView.font!, width: textView.frame.width)
-            unitLabelLeftConstraint?.constant = widthForText(text, font: textView.font!)
+            updateStyle()
         }
     }
     @IBInspectable open var isMultiline: Bool = false
@@ -333,6 +332,7 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
         super.updateStyle()
         textView.textColor = .base800
         textViewHeightConstraint.constant = heightForText(textView.text, font: textView.font!, width: textView.frame.width)
+        unitLabelLeftConstraint?.constant = widthForText(textView.text, font: textView.font!)
         clearButton.isHidden = isEmpty || !isUserInteractionEnabled
         _iconView?.isHidden = !isEmpty
         _placeholderLabel?.isHidden = !isEmpty

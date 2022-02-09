@@ -14,7 +14,7 @@ import UIKit
     @objc optional func formFieldDidEndEditing(_ field: FormField)
     @objc optional func formFieldShouldReturn(_ field: FormField) -> Bool
     @objc optional func formFieldDidChange(_ field: FormField)
-    @objc optional func formFieldDidConfirmStatus(_ field: FormField)
+    @objc optional func formFieldDidPressStatus(_ field: FormField)
     @objc optional func formField(_ field: FormField, wantsToPresent vc: UIViewController)
 }
 
@@ -97,6 +97,10 @@ open class FormField: UIView, Localizable, FormInputViewDelegate {
     open var status: PredictionStatus = .none {
         didSet { updateStyle() }
     }
+    @IBInspectable open var Status: String? {
+        get { status.rawValue }
+        set { status = PredictionStatus(rawValue: newValue ?? "") ?? .none }
+    }
     open weak var statusButton: UIButton!
     open var statusButtonWidthConstraint: NSLayoutConstraint!
 
@@ -128,7 +132,11 @@ open class FormField: UIView, Localizable, FormInputViewDelegate {
 
     @IBOutlet open weak var delegate: FormFieldDelegate?
 
-    @objc open var text: String?
+    @objc open var text: String? {
+        didSet {
+            updateStyle()
+        }
+    }
 
     open var source: NSObject?
     open var sourceIndex: Int?
@@ -145,7 +153,6 @@ open class FormField: UIView, Localizable, FormInputViewDelegate {
     open var attributeValue: NSObject? {
         didSet {
             updateAttributeValue()
-            updateStyle()
         }
     }
 
@@ -300,19 +307,19 @@ open class FormField: UIView, Localizable, FormInputViewDelegate {
         label.font = .h4SemiBold
         label.textColor = hasError ? .brandSecondary500 : (isFirstResponder ? .brandPrimary500 : .base500)
 
-        statusButton.backgroundColor = .middlePeakBlue
-        statusButton.backgroundColor = status == .unconfirmed ? UIColor.orangeAccent.withAlphaComponent(0.3) : UIColor.middlePeakBlue
-        statusButton.isUserInteractionEnabled = isEditing && status == .unconfirmed
-        statusButton.setImage(isEditing && status == .unconfirmed ? UIImage(named: "Unconfirmed") : nil, for: .normal)
-
         _errorLabel?.isHidden = !hasError
 
-        if status == .none || isEmpty {
-            statusButtonWidthConstraint.constant = 0
-        } else if isEditing && status == .unconfirmed {
-            statusButtonWidthConstraint.constant = 33
+        statusButton.backgroundColor = .brandPrimary300
+        statusButton.isUserInteractionEnabled = isEditing && status == .unconfirmed
+        if isEditing && status != .none {
+            statusButton.setImage(UIImage.image(withColor: .brandPrimary500, cornerRadius: 16,
+                                                iconImage: UIImage(named: "Voice24px", in: PRKitBundle.instance, compatibleWith: nil),
+                                                iconTintColor: .white),
+                                  for: .normal)
+            statusButtonWidthConstraint.constant = 46
         } else {
-            statusButtonWidthConstraint.constant = 8
+            statusButton.setImage(nil, for: .normal)
+            statusButtonWidthConstraint.constant = 0
         }
     }
 
@@ -329,6 +336,7 @@ open class FormField: UIView, Localizable, FormInputViewDelegate {
     @objc open func clearPressed() {
         text = nil
         attributeValue = nil
+        status = .none
         delegate?.formFieldDidChange?(self)
         if let inputView = inputView as? FormInputView, inputView.shouldResignAfterClear {
             resignFirstResponder()
@@ -338,9 +346,7 @@ open class FormField: UIView, Localizable, FormInputViewDelegate {
     }
 
     @objc open func statusPressed() {
-        status = .confirmed
-        updateStyle()
-        delegate?.formFieldDidConfirmStatus?(self)
+        delegate?.formFieldDidPressStatus?(self)
     }
 
     // MARK: - FormInputViewDelegate
