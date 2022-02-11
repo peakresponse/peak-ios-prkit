@@ -95,7 +95,7 @@ open class FormField: UIView, Localizable, FormInputViewDelegate {
     open weak var contentView: UIView!
 
     open var status: PredictionStatus = .none {
-        didSet { updateStyle() }
+        didSet { if status != oldValue { updateStyle() } }
     }
     @IBInspectable open var Status: String? {
         get { status.rawValue }
@@ -312,10 +312,12 @@ open class FormField: UIView, Localizable, FormInputViewDelegate {
         statusButton.backgroundColor = .brandPrimary300
         statusButton.isUserInteractionEnabled = isEditing && status == .unconfirmed
         if isEditing && status != .none {
-            statusButton.setImage(UIImage.image(withColor: .brandPrimary500, cornerRadius: 16,
-                                                iconImage: UIImage(named: "Voice24px", in: PRKitBundle.instance, compatibleWith: nil),
-                                                iconTintColor: .white),
-                                  for: .normal)
+            if statusButton.image(for: .normal) == nil {
+                statusButton.setImage(UIImage.image(withColor: .brandPrimary500, cornerRadius: 16,
+                                                    iconImage: UIImage(named: "Voice24px", in: PRKitBundle.instance, compatibleWith: nil),
+                                                    iconTintColor: .white),
+                                      for: .normal)
+            }
             statusButtonWidthConstraint.constant = 46
         } else {
             statusButton.setImage(nil, for: .normal)
