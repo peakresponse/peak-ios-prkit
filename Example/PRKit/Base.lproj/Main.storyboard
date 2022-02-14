@@ -48,13 +48,14 @@
                                             <userDefinedRuntimeAttribute type="string" keyPath="placeholderText" value="Sample Input"/>
                                         </userDefinedRuntimeAttributes>
                                     </view>
-                                    <view userInteractionEnabled="NO" tag="2" contentMode="scaleToFill" placeholderIntrinsicWidth="683.5" placeholderIntrinsicHeight="73" translatesAutoresizingMaskIntoConstraints="NO" id="JGV-fz-1Ch" userLabel="Disabled Field" customClass="TextField" customModule="PRKit">
+                                    <view tag="2" contentMode="scaleToFill" placeholderIntrinsicWidth="683.5" placeholderIntrinsicHeight="73" translatesAutoresizingMaskIntoConstraints="NO" id="JGV-fz-1Ch" userLabel="Disabled Field" customClass="TextField" customModule="PRKit">
                                         <rect key="frame" x="20" y="112.5" width="374" height="73"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="labelText" value="Disabled Field"/>
                                             <userDefinedRuntimeAttribute type="string" keyPath="text" value="Input"/>
                                             <userDefinedRuntimeAttribute type="string" keyPath="placeholderText" value="Sample Input"/>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isEnabled" value="NO"/>
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <view tag="3" contentMode="scaleToFill" placeholderIntrinsicWidth="683.5" placeholderIntrinsicHeight="73" translatesAutoresizingMaskIntoConstraints="NO" id="vgv-B0-hHD" customClass="PasswordField" customModule="PRKit">
@@ -83,12 +84,13 @@
                                             <userDefinedRuntimeAttribute type="string" keyPath="labelText" value="Checkbox"/>
                                         </userDefinedRuntimeAttributes>
                                     </view>
-                                    <view userInteractionEnabled="NO" contentMode="scaleToFill" placeholderIntrinsicWidth="240" placeholderIntrinsicHeight="40" translatesAutoresizingMaskIntoConstraints="NO" id="jW0-wr-d3R" customClass="Checkbox" customModule="PRKit">
+                                    <view contentMode="scaleToFill" placeholderIntrinsicWidth="240" placeholderIntrinsicHeight="40" translatesAutoresizingMaskIntoConstraints="NO" id="jW0-wr-d3R" customClass="Checkbox" customModule="PRKit">
                                         <rect key="frame" x="20" y="461" width="374" height="40"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="labelText" value="Disabled Checkbox"/>
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="isChecked" value="YES"/>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isEnabled" value="NO"/>
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <view contentMode="scaleToFill" placeholderIntrinsicWidth="374" placeholderIntrinsicHeight="40" translatesAutoresizingMaskIntoConstraints="NO" id="arX-br-IA9" customClass="TextField" customModule="PRKit">
@@ -112,13 +114,14 @@
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="isRadioButton" value="YES"/>
                                         </userDefinedRuntimeAttributes>
                                     </view>
-                                    <view userInteractionEnabled="NO" contentMode="scaleToFill" placeholderIntrinsicWidth="240" placeholderIntrinsicHeight="40" translatesAutoresizingMaskIntoConstraints="NO" id="spq-dt-YrQ" customClass="Checkbox" customModule="PRKit">
+                                    <view contentMode="scaleToFill" placeholderIntrinsicWidth="240" placeholderIntrinsicHeight="40" translatesAutoresizingMaskIntoConstraints="NO" id="spq-dt-YrQ" customClass="Checkbox" customModule="PRKit">
                                         <rect key="frame" x="20" y="641" width="374" height="40"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="labelText" value="Disabled Radio button"/>
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="isChecked" value="YES"/>
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="isRadioButton" value="YES"/>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isEnabled" value="NO"/>
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <view tag="1" contentMode="scaleToFill" placeholderIntrinsicWidth="683.5" placeholderIntrinsicHeight="72.5" translatesAutoresizingMaskIntoConstraints="NO" id="qra-dW-nLk" customClass="TextField" customModule="PRKit">
@@ -129,6 +132,7 @@
                                             <userDefinedRuntimeAttribute type="string" keyPath="placeholderText" value="Sample Input"/>
                                             <userDefinedRuntimeAttribute type="string" keyPath="Status" value="UNCONFIRMED"/>
                                             <userDefinedRuntimeAttribute type="string" keyPath="text" value="Prediction status"/>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isEnabled" value="NO"/>
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                 </subviews>
@@ -186,6 +190,7 @@
                         <outlet property="passwordField" destination="vgv-B0-hHD" id="BQ8-9i-MZl"/>
                         <outlet property="scrollView" destination="9oV-f3-XvB" id="n4W-lZ-qGX"/>
                         <outlet property="scrollViewBottomConstraint" destination="HEh-OK-GPu" id="Nch-0S-KFH"/>
+                        <outlet property="statusField" destination="qra-dW-nLk" id="UQX-HB-hlp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mGf-W1-tWC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

@@ -17,6 +17,7 @@ class InputsViewController: UIViewController, FormFieldDelegate, KeyboardAwareSc
     @IBOutlet weak var disabledField: TextField!
     @IBOutlet weak var passwordField: PasswordField!
     @IBOutlet weak var errorField: TextField!
+    @IBOutlet weak var statusField: TextField!
 
     override func viewDidLoad() {
         super.viewDidLoad()

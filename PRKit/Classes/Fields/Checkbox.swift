@@ -54,10 +54,9 @@ open class Checkbox: UIView {
         commonInit()
     }
 
-    override open var isUserInteractionEnabled: Bool {
-        get { return super.isUserInteractionEnabled }
-        set {
-            super.isUserInteractionEnabled = newValue
+    @IBInspectable open var isEnabled: Bool = true {
+        didSet {
+            isUserInteractionEnabled = isEnabled
             updateUserInteractionState()
         }
     }
@@ -133,8 +132,8 @@ open class Checkbox: UIView {
     }
 
     func updateUserInteractionState() {
-        button.isEnabled = isUserInteractionEnabled
-        label.textColor = isUserInteractionEnabled ? .base800 : .base300
+        button.isEnabled = isEnabled
+        label.textColor = isEnabled ? .base800 : .base300
     }
 
     @objc func buttonPressed() {

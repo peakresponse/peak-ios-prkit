@@ -92,6 +92,7 @@ public enum FormFieldAttributeType: Equatable {
 }
 
 open class FormField: UIView, Localizable, FormInputViewDelegate {
+    open weak var borderedView: UIView!
     open weak var contentView: UIView!
 
     open var status: PredictionStatus = .none {
@@ -168,15 +169,18 @@ open class FormField: UIView, Localizable, FormInputViewDelegate {
         return false
     }
 
-    open override var isUserInteractionEnabled: Bool {
-        didSet { updateStyle() }
-    }
-
     @IBInspectable open var isPlainText: Bool = false {
         didSet { updateStyle() }
     }
 
     @IBInspectable open var isEditing: Bool = true
+
+    @IBInspectable open var isEnabled: Bool = true {
+        didSet {
+            contentView.isUserInteractionEnabled = isEnabled
+            updateStyle()
+        }
+    }
 
     @IBInspectable open var hasError: Bool = false {
         didSet { updateStyle() }
@@ -201,29 +205,40 @@ open class FormField: UIView, Localizable, FormInputViewDelegate {
     open func commonInit() {
         backgroundColor = .clear
 
-        let contentView = UIView()
-        contentView.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(contentView)
+        let borderedView = UIView()
+        borderedView.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(borderedView)
         NSLayoutConstraint.activate([
-            contentView.topAnchor.constraint(equalTo: topAnchor),
-            contentView.leftAnchor.constraint(equalTo: leftAnchor),
-            rightAnchor.constraint(equalTo: contentView.rightAnchor),
-            bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+            borderedView.topAnchor.constraint(equalTo: topAnchor),
+            borderedView.leftAnchor.constraint(equalTo: leftAnchor),
+            rightAnchor.constraint(equalTo: borderedView.rightAnchor),
+            bottomAnchor.constraint(equalTo: borderedView.bottomAnchor)
         ])
-        self.contentView = contentView
+        self.borderedView = borderedView
 
         let statusButton = UIButton()
         statusButton.translatesAutoresizingMaskIntoConstraints = false
         statusButton.addTarget(self, action: #selector(statusPressed), for: .touchUpInside)
-        contentView.addSubview(statusButton)
-        statusButtonWidthConstraint = statusButton.widthAnchor.constraint(equalToConstant: 8)
+        borderedView.addSubview(statusButton)
+        statusButtonWidthConstraint = statusButton.widthAnchor.constraint(equalToConstant: 0)
         NSLayoutConstraint.activate([
-            statusButton.topAnchor.constraint(equalTo: contentView.topAnchor),
-            statusButton.leftAnchor.constraint(equalTo: contentView.leftAnchor),
-            statusButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            statusButton.topAnchor.constraint(equalTo: borderedView.topAnchor),
+            statusButton.leftAnchor.constraint(equalTo: borderedView.leftAnchor),
+            statusButton.bottomAnchor.constraint(equalTo: borderedView.bottomAnchor),
             statusButtonWidthConstraint
         ])
         self.statusButton = statusButton
+
+        let contentView = UIView()
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        borderedView.addSubview(contentView)
+        NSLayoutConstraint.activate([
+            contentView.topAnchor.constraint(equalTo: borderedView.topAnchor),
+            contentView.leftAnchor.constraint(equalTo: statusButton.rightAnchor),
+            contentView.rightAnchor.constraint(equalTo: borderedView.rightAnchor),
+            borderedView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+        ])
+        self.contentView = contentView
 
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -231,7 +246,7 @@ open class FormField: UIView, Localizable, FormInputViewDelegate {
         contentView.addSubview(label)
         NSLayoutConstraint.activate([
             label.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
-            label.leftAnchor.constraint(equalTo: statusButton.rightAnchor, constant: 16),
+            label.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 16),
             label.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -16),
             labelHeightConstraint
         ])
@@ -251,10 +266,10 @@ open class FormField: UIView, Localizable, FormInputViewDelegate {
         let bottomConstraint = bottomAnchor.constraint(equalTo: _errorLabel.bottomAnchor)
         bottomConstraint.priority = .defaultHigh
         NSLayoutConstraint.activate([
-            _errorLabel.topAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 4),
+            _errorLabel.topAnchor.constraint(equalTo: borderedView.bottomAnchor, constant: 4),
             _errorLabel.heightAnchor.constraint(equalToConstant: 18),
-            _errorLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 16),
-            _errorLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -16),
+            _errorLabel.leftAnchor.constraint(equalTo: borderedView.leftAnchor, constant: 16),
+            _errorLabel.rightAnchor.constraint(equalTo: borderedView.rightAnchor, constant: -16),
             bottomConstraint
         ])
     }
@@ -262,7 +277,7 @@ open class FormField: UIView, Localizable, FormInputViewDelegate {
     override open func layoutSubviews() {
         super.layoutSubviews()
         if isFirstResponder {
-            contentView.addOutline(size: 4, color: .brandPrimary200, opacity: 1)
+            borderedView.addOutline(size: 4, color: .brandPrimary200, opacity: 1)
         }
     }
 
@@ -280,27 +295,27 @@ open class FormField: UIView, Localizable, FormInputViewDelegate {
 
     open func updateStyle() {
         if isPlainText {
-            contentView.backgroundColor = .clear
-            contentView.layer.borderWidth = 0
+            borderedView.backgroundColor = .clear
+            borderedView.layer.borderWidth = 0
         } else {
-            contentView.backgroundColor = .white
-            contentView.layer.borderWidth = 2
-            contentView.layer.cornerRadius = 8
+            borderedView.backgroundColor = .white
+            borderedView.layer.borderWidth = 2
+            borderedView.layer.cornerRadius = 8
             if hasError {
-                contentView.layer.borderColor = UIColor.brandSecondary500.cgColor
+                borderedView.layer.borderColor = UIColor.brandSecondary500.cgColor
                 if isFirstResponder {
-                    contentView.addOutline(size: 4, color: .brandSecondary400, opacity: 1)
+                    borderedView.addOutline(size: 4, color: .brandSecondary400, opacity: 1)
                 } else {
-                    contentView.removeOutline()
+                    borderedView.removeOutline()
                 }
             } else if isFirstResponder {
-                contentView.layer.borderColor = UIColor.brandPrimary500.cgColor
-                contentView.addOutline(size: 4, color: .brandPrimary200, opacity: 1)
+                borderedView.layer.borderColor = UIColor.brandPrimary500.cgColor
+                borderedView.addOutline(size: 4, color: .brandPrimary200, opacity: 1)
             } else {
-                contentView.layer.borderColor = isUserInteractionEnabled ?
+                borderedView.layer.borderColor = isEnabled ?
                     (isEmpty ? UIColor.base500.cgColor : UIColor.brandPrimary300.cgColor) :
                     UIColor.base300.cgColor
-                contentView.removeOutline()
+                borderedView.removeOutline()
             }
         }
 
@@ -310,8 +325,7 @@ open class FormField: UIView, Localizable, FormInputViewDelegate {
         _errorLabel?.isHidden = !hasError
 
         statusButton.backgroundColor = .brandPrimary300
-        statusButton.isUserInteractionEnabled = isEditing && status == .unconfirmed
-        if isEditing && status != .none {
+        if status != .none {
             if statusButton.image(for: .normal) == nil {
                 statusButton.setImage(UIImage.image(withColor: .brandPrimary500, cornerRadius: 16,
                                                     iconImage: UIImage(named: "Voice24px", in: PRKitBundle.instance, compatibleWith: nil),

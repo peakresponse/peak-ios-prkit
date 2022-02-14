@@ -333,14 +333,14 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
         textView.textColor = .base800
         textViewHeightConstraint.constant = heightForText(textView.text, font: textView.font!, width: textView.frame.width)
         unitLabelLeftConstraint?.constant = widthForText(textView.text, font: textView.font!)
-        clearButton.isHidden = isEmpty || !isUserInteractionEnabled
+        clearButton.isHidden = isEmpty || !isEnabled
         _iconView?.isHidden = !isEmpty
         _placeholderLabel?.isHidden = !isEmpty
         _unitLabel?.isHidden = isEmpty && !isFirstResponder
     }
 
     open override var canBecomeFirstResponder: Bool {
-        return isUserInteractionEnabled && textView.canBecomeFirstResponder
+        return isEnabled && textView.canBecomeFirstResponder
     }
 
     override open var isFirstResponder: Bool {
@@ -362,7 +362,7 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
         if editedMask.contains(.editedCharacters) {
             _placeholderLabel?.isHidden = !isEmpty
             _iconView?.isHidden = !isEmpty
-            clearButton.isHidden = isEmpty || !isUserInteractionEnabled
+            clearButton.isHidden = isEmpty || !isEnabled
         }
     }
 

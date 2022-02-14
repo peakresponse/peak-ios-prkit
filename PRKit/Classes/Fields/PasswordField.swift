@@ -74,11 +74,11 @@ open class PasswordField: FormField, UITextFieldDelegate {
 
     override open func updateStyle() {
         super.updateStyle()
-        textField.textColor = isUserInteractionEnabled ? .base800 : .base300
+        textField.textColor = isEnabled ? .base800 : .base300
     }
 
     open override var canBecomeFirstResponder: Bool {
-        return isUserInteractionEnabled && textField.canBecomeFirstResponder
+        return isEnabled && textField.canBecomeFirstResponder
     }
 
     override open var isFirstResponder: Bool {
