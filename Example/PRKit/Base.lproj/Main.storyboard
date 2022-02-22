@@ -474,7 +474,7 @@
                                 </userDefinedRuntimeAttributes>
                             </button>
                             <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BFk-se-bRa" customClass="Chip" customModule="PRKit">
-                                <rect key="frame" x="84" y="98" width="109" height="26"/>
+                                <rect key="frame" x="84" y="98" width="105" height="26"/>
                                 <color key="tintColor" name="Base500"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="10:03 AM">
@@ -499,7 +499,7 @@
                                 </userDefinedRuntimeAttributes>
                             </button>
                             <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0wF-bs-tzN" customClass="Chip" customModule="PRKit">
-                                <rect key="frame" x="118" y="144" width="98" height="32"/>
+                                <rect key="frame" x="118" y="144" width="94" height="32"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="Medium">
@@ -512,11 +512,23 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="bundleImage" value="Exit24px"/>
                                 </userDefinedRuntimeAttributes>
                             </button>
+                            <view contentMode="scaleToFill" placeholderIntrinsicWidth="374" placeholderIntrinsicHeight="128" translatesAutoresizingMaskIntoConstraints="NO" id="Fau-OE-Kps" customClass="RecordingField" customModule="PRKit">
+                                <rect key="frame" x="20" y="196" width="374" height="128"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="titleText" value="Recording 1"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="durationText" value="00:33"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="text" value="This is a test of putting transcript text into the field."/>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="Fau-OE-Kps" firstAttribute="trailing" secondItem="z9U-rR-Eso" secondAttribute="trailing" constant="-20" id="5Nb-gQ-qJB"/>
                             <constraint firstItem="LcK-pL-nrb" firstAttribute="top" secondItem="PB7-HI-sG9" secondAttribute="bottom" constant="20" id="CXS-lY-AT1"/>
+                            <constraint firstItem="Fau-OE-Kps" firstAttribute="top" secondItem="LcK-pL-nrb" secondAttribute="bottom" constant="20" id="LMv-aN-1kl"/>
                             <constraint firstItem="0wF-bs-tzN" firstAttribute="leading" secondItem="LcK-pL-nrb" secondAttribute="trailing" constant="10" id="LiU-Wy-ipO"/>
+                            <constraint firstItem="Fau-OE-Kps" firstAttribute="leading" secondItem="z9U-rR-Eso" secondAttribute="leading" constant="20" id="O1U-Bh-4Ek"/>
                             <constraint firstItem="0wF-bs-tzN" firstAttribute="top" secondItem="LcK-pL-nrb" secondAttribute="top" id="YRJ-bE-wna"/>
                             <constraint firstItem="PB7-HI-sG9" firstAttribute="top" secondItem="x5C-n2-Xs5" secondAttribute="bottom" constant="10" id="c0q-zv-bvF"/>
                             <constraint firstItem="PB7-HI-sG9" firstAttribute="leading" secondItem="z9U-rR-Eso" secondAttribute="leading" constant="20" id="qzq-X2-6KA"/>
@@ -1342,7 +1354,7 @@
     </scenes>
     <designables>
         <designable name="0wF-bs-tzN">
-            <size key="intrinsicContentSize" width="98" height="32"/>
+            <size key="intrinsicContentSize" width="94" height="32"/>
         </designable>
         <designable name="1I8-st-BMR">
             <size key="intrinsicContentSize" width="145" height="82.9609375"/>
@@ -1363,7 +1375,7 @@
             <size key="intrinsicContentSize" width="145" height="82.9609375"/>
         </designable>
         <designable name="BFk-se-bRa">
-            <size key="intrinsicContentSize" width="109" height="26"/>
+            <size key="intrinsicContentSize" width="105" height="26"/>
         </designable>
         <designable name="BKi-Hz-sby">
             <size key="intrinsicContentSize" width="145" height="82.9609375"/>
@@ -1379,6 +1391,9 @@
         </designable>
         <designable name="FS8-OE-DNM">
             <size key="intrinsicContentSize" width="116" height="68.640625"/>
+        </designable>
+        <designable name="Fau-OE-Kps">
+            <size key="intrinsicContentSize" width="374" height="128"/>
         </designable>
         <designable name="FgZ-lS-lBv">
             <size key="intrinsicContentSize" width="105" height="42.70703125"/>
