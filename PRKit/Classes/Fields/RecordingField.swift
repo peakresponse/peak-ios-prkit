@@ -7,6 +7,10 @@
 
 import UIKit
 
+@objc public protocol RecordingFieldDelegate: AnyObject {
+    func recordingField(_ field: RecordingField, didPressPlayButton button: UIButton)
+}
+
 @IBDesignable
 open class RecordingField: UIView {
     open weak var playButton: UIButton!
@@ -14,6 +18,12 @@ open class RecordingField: UIView {
     open weak var durationLabel: UILabel!
     open weak var dateTimeChip: Chip!
     open weak var textLabel: UILabel!
+
+    @IBOutlet open weak var delegate: RecordingFieldDelegate?
+
+    open var source: NSObject?
+    open var target: NSObject?
+    @IBInspectable open var attributeKey: String?
 
     @IBInspectable open var titleText: String? {
         get { return titleLabel.text }
@@ -31,7 +41,7 @@ open class RecordingField: UIView {
     }
 
     open func setDate(_ date: Date) {
-
+        dateTimeChip.setTitle(date.asTimeString(), for: .normal)
     }
 
     override public init(frame: CGRect) {
@@ -50,9 +60,12 @@ open class RecordingField: UIView {
         layer.borderColor = UIColor.brandPrimary300.cgColor
 
         let playButton = UIButton()
+        playButton.addTarget(self, action: #selector(playPressed), for: .touchUpInside)
         playButton.tintColor = .brandPrimary500
-        playButton.setImage(UIImage(named: "RecordPlay40px", in: PRKitBundle.instance, compatibleWith: nil), for: .normal)
-        playButton.setImage(UIImage(named: "RecordStop40px", in: PRKitBundle.instance, compatibleWith: nil), for: .selected)
+        playButton.setImage(PRKitBundle.image(named: "RecordPlay40px"), for: .normal)
+        playButton.setImage(PRKitBundle.image(named: "RecordStop40px"), for: .selected)
+        playButton.setImage(PRKitBundle.image(named: "RecordStop40px")?.tinted(with: .brandPrimary700).withRenderingMode(.alwaysOriginal),
+                            for: [.selected, .highlighted])
         playButton.translatesAutoresizingMaskIntoConstraints = false
         addSubview(playButton)
         NSLayoutConstraint.activate([
@@ -66,6 +79,7 @@ open class RecordingField: UIView {
         let dateTimeChip = Chip()
         dateTimeChip.size = .small
         dateTimeChip.tintColor = .base500
+        dateTimeChip.setTitleColor(.base800, for: .normal)
         dateTimeChip.setImage(UIImage(named: "Clock24px", in: PRKitBundle.instance, compatibleWith: nil), for: .normal)
         dateTimeChip.translatesAutoresizingMaskIntoConstraints = false
         dateTimeChip.setContentHuggingPriority(.defaultHigh, for: .horizontal)
@@ -114,5 +128,9 @@ open class RecordingField: UIView {
             bottomAnchor.constraint(greaterThanOrEqualTo: playButton.bottomAnchor, constant: 16)
         ])
         self.textLabel = textLabel
+    }
+
+    @objc func playPressed() {
+        delegate?.recordingField(self, didPressPlayButton: playButton)
     }
 }

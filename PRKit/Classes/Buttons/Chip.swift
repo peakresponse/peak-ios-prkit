@@ -99,6 +99,7 @@ open class Chip: UIButton {
         }
         return rect
     }
+
     open func updateStyle() {
         var cornerRadius: CGFloat
         var font: UIFont
@@ -116,6 +117,11 @@ open class Chip: UIButton {
         setBackgroundImage(UIImage.resizableImage(withColor: color, cornerRadius: cornerRadius), for: .normal)
         setBackgroundImage(UIImage.resizableImage(withColor: color, cornerRadius: cornerRadius), for: .disabled)
         setTitleAttributes(font: font, color: titleColor(for: .normal) ?? .base800, for: .normal)
+    }
+
+    open override func setTitle(_ title: String?, for state: UIControl.State) {
+        super.setTitle(title, for: state)
+        updateStyle()
     }
 
     private func setTitleAttributes(font: UIFont, color: UIColor, for state: UIControl.State) {

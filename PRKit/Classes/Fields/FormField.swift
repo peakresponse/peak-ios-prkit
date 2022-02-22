@@ -140,7 +140,6 @@ open class FormField: UIView, Localizable, FormInputViewDelegate {
     }
 
     open var source: NSObject?
-    open var sourceIndex: Int?
     open var target: NSObject?
 
     @IBInspectable open var attributeKey: String?

@@ -8,6 +8,17 @@
 import UIKit
 
 public extension UIImage {
+    func tinted(with color: UIColor) -> UIImage {
+        if #available(iOS 13.0, *) {
+            return withTintColor(color)
+        }
+        defer { UIGraphicsEndImageContext() }
+        UIGraphicsBeginImageContextWithOptions(self.size, false, self.scale)
+        color.set()
+        withRenderingMode(.alwaysTemplate).draw(in: CGRect(origin: .zero, size: self.size))
+        return UIGraphicsGetImageFromCurrentImageContext() ?? self
+    }
+
     func resizedTo(_ size: CGSize) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(size, false, UIScreen.main.scale)
         draw(in: CGRect(origin: .zero, size: size))

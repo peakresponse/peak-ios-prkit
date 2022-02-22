@@ -22,13 +22,13 @@ public extension DateFormatter {
 
     static let dateTimeFormatter: DateFormatter = {
         let formatter = DateFormatter()
-        formatter.dateFormat = "MMM d, y - h:mma"
+        formatter.dateFormat = "MMM d, y - h:mm a"
         return formatter
     }()
 
     static let timeFormatter: DateFormatter = {
         let formatter = DateFormatter()
-        formatter.dateFormat = "h:mma"
+        formatter.dateFormat = "h:mm a"
         return formatter
     }()
 }
