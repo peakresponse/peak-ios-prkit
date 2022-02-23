@@ -57,7 +57,7 @@ open class RecordingField: UIView {
     open func commonInit() {
         layer.cornerRadius = 8
         layer.borderWidth = 2
-        layer.borderColor = UIColor.brandPrimary300.cgColor
+        layer.borderColor = UIColor.base300.cgColor
 
         let playButton = UIButton()
         playButton.addTarget(self, action: #selector(playPressed), for: .touchUpInside)
