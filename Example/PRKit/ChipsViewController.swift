@@ -21,6 +21,14 @@ class ChipsViewController: UIViewController, RecordingFieldDelegate {
     // MARK: - RecordingFieldDelegate
 
     func recordingField(_ field: RecordingField, didPressPlayButton button: UIButton) {
-        button.isSelected = !button.isSelected
+        if field.isPlaying {
+            field.isPlaying = false
+        } else {
+            field.isPlaying = true
+            field.isActivityIndicatorAnimating = true
+            DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                field.isActivityIndicatorAnimating = false
+            }
+        }
     }
 }

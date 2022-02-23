@@ -14,6 +14,7 @@ import UIKit
 @IBDesignable
 open class RecordingField: UIView {
     open weak var playButton: UIButton!
+    open weak var activityIndicatorView: UIActivityIndicatorView!
     open weak var titleLabel: UILabel!
     open weak var durationLabel: UILabel!
     open weak var dateTimeChip: Chip!
@@ -42,6 +43,24 @@ open class RecordingField: UIView {
 
     open func setDate(_ date: Date) {
         dateTimeChip.setTitle(date.asTimeString(), for: .normal)
+    }
+
+    open var isPlaying: Bool {
+        get { return playButton.isSelected }
+        set { playButton.isSelected = newValue }
+    }
+
+    open var isActivityIndicatorAnimating: Bool {
+        get { return activityIndicatorView.isAnimating }
+        set {
+            if newValue {
+                activityIndicatorView.startAnimating()
+                playButton.alpha = 0
+            } else {
+                activityIndicatorView.stopAnimating()
+                playButton.alpha = 1
+            }
+        }
     }
 
     override public init(frame: CGRect) {
@@ -75,6 +94,16 @@ open class RecordingField: UIView {
             playButton.heightAnchor.constraint(equalToConstant: 40)
         ])
         self.playButton = playButton
+
+        let activityIndicatorView = UIActivityIndicatorView.withMediumStyle()
+        activityIndicatorView.hidesWhenStopped = true
+        activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(activityIndicatorView)
+        NSLayoutConstraint.activate([
+            activityIndicatorView.centerXAnchor.constraint(equalTo: playButton.centerXAnchor),
+            activityIndicatorView.centerYAnchor.constraint(equalTo: playButton.centerYAnchor)
+        ])
+        self.activityIndicatorView = activityIndicatorView
 
         let dateTimeChip = Chip()
         dateTimeChip.size = .small
