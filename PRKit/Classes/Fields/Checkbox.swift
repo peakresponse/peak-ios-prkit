@@ -23,6 +23,10 @@ open class Checkbox: UIView {
         set { button.isSelected = newValue }
     }
 
+    @IBInspectable open var l10nKey: String? {
+        didSet { labelText = l10nKey?.localized }
+    }
+
     @IBInspectable open var labelText: String? {
         get { return label.text }
         set {
