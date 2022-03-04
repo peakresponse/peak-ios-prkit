@@ -16,7 +16,7 @@ open class Checkbox: UIView {
     open weak var button: UIButton!
     open weak var label: UILabel!
 
-    open weak var delegate: CheckboxDelegate?
+    @IBOutlet open weak var delegate: CheckboxDelegate?
 
     @IBInspectable open var isChecked: Bool {
         get { return button.isSelected }
