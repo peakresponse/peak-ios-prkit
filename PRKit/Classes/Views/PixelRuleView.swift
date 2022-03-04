@@ -8,19 +8,19 @@
 import UIKit
 
 @IBDesignable
-class PixelRuleView: UIView {
-    @IBInspectable var lineColor: UIColor = .base300
-    @IBInspectable var top: Bool = false
-    @IBInspectable var right: Bool = false
-    @IBInspectable var bottom: Bool = true
-    @IBInspectable var left: Bool = false
+open class PixelRuleView: UIView {
+    @IBInspectable open var lineColor: UIColor = .base300
+    @IBInspectable open var top: Bool = false
+    @IBInspectable open var right: Bool = false
+    @IBInspectable open var bottom: Bool = true
+    @IBInspectable open var left: Bool = false
 
-    override init(frame: CGRect) {
+    override public init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
     }
 
-    required init?(coder: NSCoder) {
+    required public init?(coder: NSCoder) {
         super.init(coder: coder)
         commonInit()
     }
@@ -29,7 +29,7 @@ class PixelRuleView: UIView {
         backgroundColor = .clear
     }
 
-    override func draw(_ rect: CGRect) {
+    open override func draw(_ rect: CGRect) {
         // https://stackoverflow.com/questions/27385929/swift-uiview-draw-1-pixel-width-line
         let size = frame.size
         let scale = UIScreen.main.scale
