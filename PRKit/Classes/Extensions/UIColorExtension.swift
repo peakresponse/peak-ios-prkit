@@ -74,6 +74,56 @@ public extension UIColor {
         return UIColor.named("BrandSecondary800")
     }
 
+    static var triageMinimalLight: UIColor {
+        return UIColor.named("TriageMinimalLight")
+    }
+
+    static var triageMinimalMedium: UIColor {
+        return UIColor.named("TriageMinimalMedium")
+    }
+
+    static var triageImmediateLight: UIColor {
+        return UIColor.named("TriageImmediateLight")
+    }
+
+    static var triageImmediateMedium: UIColor {
+        return UIColor.named("TriageImmediateMedium")
+    }
+
+    static var triageDelayedLight: UIColor {
+        return UIColor.named("TriageDelayedLight")
+    }
+
+    static var triageDelayedMedium: UIColor {
+        return UIColor.named("TriageDelayedMedium")
+    }
+
+    static var triageExpectantLight: UIColor {
+        return UIColor.named("TriageExpectantLight")
+    }
+
+    static var triageExpectantMedium: UIColor {
+        return UIColor.named("TriageExpectantMedium")
+    }
+
+    static var triageDeadLight: UIColor {
+        return UIColor.named("TriageDeadLight")
+    }
+
+    static var triageDeadMedium: UIColor {
+        return UIColor.named("TriageDeadMedium")
+    }
+
+    static var triageTransportedLight: UIColor {
+        return UIColor.named("TriageTransportedLight")
+    }
+
+    static var triageTransportedMedium: UIColor {
+        return UIColor.named("TriageTransportedMedium")
+    }
+
+    // deprecated legacy colors -------------------
+
     static var immediateRed: UIColor {
         return UIColor.named("ImmediateRed")
     }
@@ -153,8 +203,6 @@ public extension UIColor {
     static var lightGreyBlue: UIColor {
         return UIColor.named("LightGreyBlue")
     }
-
-    // deprecated legacy colors -------------------
 
     static var backgroundBlueGray: UIColor {
         return UIColor(r: 229, g: 236, b: 239)
