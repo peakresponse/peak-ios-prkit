@@ -92,9 +92,11 @@ open class CommandFooter: UIView {
 
             stackView.axis = .horizontal
             layoutConstraints.append(stackView.leftAnchor.constraint(equalTo: leftAnchor, constant: 20))
-            for view in stackView.arrangedSubviews {
-                if let button = view as? Button {
-                    button.size = .small
+            if stackView.arrangedSubviews.count > 1 {
+                for view in stackView.arrangedSubviews {
+                    if let button = view as? Button {
+                        button.size = .small
+                    }
                 }
             }
             delegate?.commandFooterDidUpdateLayout?(self, isOverlapping: true)
