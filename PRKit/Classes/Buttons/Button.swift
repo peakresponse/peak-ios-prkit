@@ -61,7 +61,6 @@ open class Button: UIButton {
     }
 
     private func commonInit() {
-        titleLabel?.numberOfLines = 0
         adjustsImageWhenHighlighted = false
         adjustsImageWhenDisabled = false
         updateStyle()
@@ -121,10 +120,12 @@ open class Button: UIButton {
                                                                                           ],
                                                                                           context: nil).height + titleEdgeInsets.bottom
                 }
+                titleLabel?.numberOfLines = 0
                 titleLabel?.textAlignment = .center
             } else {
                 // no longer need vertical layout to fit
                 isLayoutVertical = false
+                titleLabel?.numberOfLines = 1
                 titleLabel?.textAlignment = .left
             }
         }
