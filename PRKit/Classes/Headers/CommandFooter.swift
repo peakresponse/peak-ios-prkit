@@ -106,7 +106,8 @@ open class CommandFooter: UIView {
                 backgroundColor = .clear
                 removeShadow()
                 stackView.axis = .vertical
-                layoutConstraints.append(stackView.widthAnchor.constraint(equalToConstant: (UIScreen.main.bounds.width - 710) / 2 - 20))
+                let width = floor((max(UIScreen.main.bounds.width, UIScreen.main.bounds.height) - 710) / 2 - 20)
+                layoutConstraints.append(stackView.widthAnchor.constraint(equalToConstant: width))
                 delegate?.commandFooterDidUpdateLayout?(self, isOverlapping: false)
             } else {
                 backgroundColor = .white
