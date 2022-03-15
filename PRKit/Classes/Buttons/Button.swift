@@ -48,7 +48,19 @@ open class Button: UIButton {
         }
     }
 
-    open var isLayoutVertical = false
+    open var isLayoutVertical = false {
+        didSet {
+            if isLayoutVertical {
+                titleLabel?.lineBreakMode = .byWordWrapping
+                titleLabel?.numberOfLines = 0
+                titleLabel?.textAlignment = .center
+            } else {
+                titleLabel?.lineBreakMode = .byTruncatingMiddle
+                titleLabel?.numberOfLines = 1
+                titleLabel?.textAlignment = .left
+            }
+        }
+    }
 
     override public init(frame: CGRect) {
         super.init(frame: frame)
@@ -73,13 +85,21 @@ open class Button: UIButton {
 
     open override func layoutSubviews() {
         super.layoutSubviews()
-        if !isLayoutVertical && frame.width < intrinsicContentSize.width {
+        let horizontalIntrinsicContentSize = intrinsicContentSizeForLayout(false)
+        if !isLayoutVertical && frame.width < horizontalIntrinsicContentSize.width {
             isLayoutVertical = true
+            setNeedsLayout()
+        } else if isLayoutVertical && frame.width > horizontalIntrinsicContentSize.width {
+            isLayoutVertical = false
             setNeedsLayout()
         }
     }
 
     open override var intrinsicContentSize: CGSize {
+        return intrinsicContentSizeForLayout(isLayoutVertical)
+    }
+
+    open func intrinsicContentSizeForLayout(_ isLayoutVertical: Bool) -> CGSize {
         var size = super.intrinsicContentSize
         var font: UIFont
         switch self.size {
@@ -99,34 +119,29 @@ open class Button: UIButton {
             size.width += 4
         }
         if isLayoutVertical {
-            if frame.width < size.width {
-                // recalculate using frame.width and dynamic height
-                size.width = frame.width
-                size.height = contentEdgeInsets.top + contentEdgeInsets.bottom
-                if let image = image {
-                    size.height += imageEdgeInsets.top + image.size.height + imageEdgeInsets.bottom
+            // recalculate using frame.width and dynamic height
+            size.width = frame.width
+            size.height = contentEdgeInsets.top + contentEdgeInsets.bottom
+            if let image = image {
+                size.height += imageEdgeInsets.top + image.size.height + imageEdgeInsets.bottom
+            }
+            if let title = title {
+                if image != nil {
+                    size.height += 4
                 }
-                if let title = title {
-                    if image != nil {
-                        size.height += 4
-                    }
-                    let bounds = CGSize(width: frame.width - contentEdgeInsets.left - contentEdgeInsets.right -
-                                        titleEdgeInsets.left - titleEdgeInsets.right,
-                                        height: .greatestFiniteMagnitude)
-                    size.height += titleEdgeInsets.top + (title as NSString).boundingRect(with: bounds,
-                                                                                          options: [.usesLineFragmentOrigin],
-                                                                                          attributes: [
-                                                                                             .font: font
-                                                                                          ],
-                                                                                          context: nil).height + titleEdgeInsets.bottom
-                }
-                titleLabel?.numberOfLines = 0
-                titleLabel?.textAlignment = .center
-            } else {
-                // no longer need vertical layout to fit
-                isLayoutVertical = false
-                titleLabel?.numberOfLines = 1
-                titleLabel?.textAlignment = .left
+                let bounds = CGSize(width: frame.width - contentEdgeInsets.left - contentEdgeInsets.right -
+                                    titleEdgeInsets.left - titleEdgeInsets.right,
+                                    height: .greatestFiniteMagnitude)
+                let paragraphStyle = NSMutableParagraphStyle()
+                paragraphStyle.lineBreakMode = .byWordWrapping
+                size.height += titleEdgeInsets.top + (title as NSString).boundingRect(with: bounds,
+                                                                                      options: [.usesLineFragmentOrigin],
+                                                                                      attributes: [
+                                                                                         .font: font,
+                                                                                         .paragraphStyle: paragraphStyle
+                                                                                      ],
+                                                                                      context: nil).height + titleEdgeInsets.bottom
+                size.height = round(size.height)
             }
         }
         return size
