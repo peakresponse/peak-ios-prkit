@@ -48,6 +48,8 @@ open class Button: UIButton {
         }
     }
 
+    open var isLayoutVertical = false
+
     override public init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
@@ -59,6 +61,7 @@ open class Button: UIButton {
     }
 
     private func commonInit() {
+        titleLabel?.numberOfLines = 0
         adjustsImageWhenHighlighted = false
         adjustsImageWhenDisabled = false
         updateStyle()
@@ -69,18 +72,61 @@ open class Button: UIButton {
         updateStyle()
     }
 
+    open override func layoutSubviews() {
+        super.layoutSubviews()
+        if !isLayoutVertical && frame.width < intrinsicContentSize.width {
+            isLayoutVertical = true
+            setNeedsLayout()
+        }
+    }
+
     open override var intrinsicContentSize: CGSize {
         var size = super.intrinsicContentSize
+        var font: UIFont
         switch self.size {
         case .small:
-            size.height = UIFont.body14Bold.lineHeight + 26
+            font = .body14Bold
+            size.height = font.lineHeight + 26
         case .medium:
-            size.height = UIFont.h3SemiBold.lineHeight + 40
+            font = .h3SemiBold
+            size.height = font.lineHeight + 40
         case .large:
-            size.height = UIFont.h2Bold.lineHeight + 40
+            font = .h2Bold
+            size.height = font.lineHeight + 40
         }
-        if image(for: .normal) != nil && title(for: .normal) != nil {
+        let image = self.image(for: .normal)
+        let title = self.title(for: .normal)
+        if image != nil && title != nil {
             size.width += 4
+        }
+        if isLayoutVertical {
+            if frame.width < size.width {
+                // recalculate using frame.width and dynamic height
+                size.width = frame.width
+                size.height = contentEdgeInsets.top + contentEdgeInsets.bottom
+                if let image = image {
+                    size.height += imageEdgeInsets.top + image.size.height + imageEdgeInsets.bottom
+                }
+                if let title = title {
+                    if image != nil {
+                        size.height += 4
+                    }
+                    let bounds = CGSize(width: frame.width - contentEdgeInsets.left - contentEdgeInsets.right -
+                                        titleEdgeInsets.left - titleEdgeInsets.right,
+                                        height: .greatestFiniteMagnitude)
+                    size.height += titleEdgeInsets.top + (title as NSString).boundingRect(with: bounds,
+                                                                                          options: [.usesLineFragmentOrigin],
+                                                                                          attributes: [
+                                                                                             .font: font
+                                                                                          ],
+                                                                                          context: nil).height + titleEdgeInsets.bottom
+                }
+                titleLabel?.textAlignment = .center
+            } else {
+                // no longer need vertical layout to fit
+                isLayoutVertical = false
+                titleLabel?.textAlignment = .left
+            }
         }
         return size
     }
@@ -88,17 +134,34 @@ open class Button: UIButton {
     open override func imageRect(forContentRect contentRect: CGRect) -> CGRect {
         var rect = super.imageRect(forContentRect: contentRect)
         rect.size = image(for: .normal)?.size ?? .zero
-        rect.origin.y = floor((frame.height - rect.height) / 2)
-        if title(for: .normal) != nil {
-            rect.origin.x -= 2
+        if isLayoutVertical {
+            rect.origin.x = contentRect.origin.x +
+                            floor((contentRect.width - imageEdgeInsets.left - imageEdgeInsets.right - rect.width) / 2)
+            rect.origin.y = contentRect.origin.y + imageEdgeInsets.top
+        } else {
+            rect.origin.y = floor((frame.height - rect.height) / 2)
+            if title(for: .normal) != nil {
+                rect.origin.x -= 2
+            }
         }
         return rect
     }
 
     open override func titleRect(forContentRect contentRect: CGRect) -> CGRect {
         var rect = super.titleRect(forContentRect: contentRect)
-        if image(for: .normal) != nil {
-            rect.origin.x += 2
+        let image = self.image(for: .normal)
+        if isLayoutVertical {
+            if let image = image {
+                rect.origin.x = contentRect.origin.x + titleEdgeInsets.left
+                rect.origin.y = contentRect.origin.y + imageEdgeInsets.top + image.size.height + imageEdgeInsets.bottom +
+                                titleEdgeInsets.top + 4
+                rect.size.width = contentRect.width
+                rect.size.height = contentRect.height - rect.origin.y + contentRect.origin.y
+            }
+        } else {
+            if image != nil {
+                rect.origin.x += 2
+            }
         }
         return rect
     }
