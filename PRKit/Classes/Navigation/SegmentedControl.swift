@@ -15,6 +15,10 @@ open class SegmentedControl: UIControl {
         stackView.arrangedSubviews.firstIndex(where: { ($0 as? UIButton)?.isSelected ?? false }) ?? -1
     }
 
+    open var segmentsCount: Int {
+        return stackView.arrangedSubviews.count
+    }
+
     override public init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
@@ -48,20 +52,10 @@ open class SegmentedControl: UIControl {
     }
 
     open func addSegment(title: String) {
-        var corners: UIRectCorner = .allCorners
-        if stackView.arrangedSubviews.count > 0 {
-            corners = [.topLeft, .bottomLeft]
-            if let button = stackView.arrangedSubviews[0] as? UIButton {
-                setBackgroundImages(for: button, corners: corners)
-            }
-            corners = []
-            for button in stackView.arrangedSubviews[1..<stackView.arrangedSubviews.count] {
-                if let button = button as? UIButton {
-                    setBackgroundImages(for: button, corners: corners)
-                }
-            }
-            corners = [.topRight, .bottomRight]
-        }
+        insertSegment(title: title, at: stackView.arrangedSubviews.count)
+    }
+
+    open func insertSegment(title: String, at index: Int) {
         let button = UIButton(type: .custom)
         button.titleLabel?.font = .h4SemiBold
         button.setTitle(title, for: .normal)
@@ -70,11 +64,41 @@ open class SegmentedControl: UIControl {
         button.setTitleColor(.white, for: .selected)
         button.setTitleColor(.base100, for: [.selected, .highlighted])
         button.addTarget(self, action: #selector(buttonPressed(_:)), for: .touchUpInside)
-        button.tag = stackView.arrangedSubviews.count
-        setBackgroundImages(for: button, corners: corners)
-        stackView.addArrangedSubview(button)
+        stackView.insertArrangedSubview(button, at: index)
         if stackView.arrangedSubviews.count == 1 {
             button.isSelected = true
+        }
+        updateCorners()
+    }
+
+    open func removeSegment(at index: Int) {
+        guard index < stackView.arrangedSubviews.count else { return }
+        stackView.arrangedSubviews[index].removeFromSuperview()
+        if stackView.arrangedSubviews.count == 1 {
+            if let button = stackView.arrangedSubviews[0] as? UIButton {
+                button.isSelected = true
+            }
+        }
+        updateCorners()
+    }
+
+    open func updateCorners() {
+        guard stackView.arrangedSubviews.count > 0 else { return }
+        var corners: UIRectCorner = stackView.arrangedSubviews.count > 1 ? [.topLeft, .bottomLeft] : .allCorners
+        if let button = stackView.arrangedSubviews[0] as? UIButton {
+            setBackgroundImages(for: button, corners: corners)
+        }
+        if stackView.arrangedSubviews.count > 1 {
+            corners = []
+            for button in stackView.arrangedSubviews[1..<(stackView.arrangedSubviews.count - 1)] {
+                if let button = button as? UIButton {
+                    setBackgroundImages(for: button, corners: corners)
+                }
+            }
+            corners = [.topRight, .bottomRight]
+            if let button = stackView.arrangedSubviews.last as? UIButton {
+                setBackgroundImages(for: button, corners: corners)
+            }
         }
     }
 
