@@ -87,8 +87,11 @@ open class Button: UIButton {
         super.layoutSubviews()
         let horizontalIntrinsicContentSize = intrinsicContentSizeForLayout(false)
         if !isLayoutVertical && frame.width < horizontalIntrinsicContentSize.width {
-            isLayoutVertical = true
-            setNeedsLayout()
+            // only re-layout to vertical if there's an icon or the text has multiple words that can wrap
+            if image(for: .normal) != nil || title(for: .normal)?.contains(" ") ?? false {
+                isLayoutVertical = true
+                setNeedsLayout()
+            }
         } else if isLayoutVertical && frame.width > horizontalIntrinsicContentSize.width {
             isLayoutVertical = false
             setNeedsLayout()
