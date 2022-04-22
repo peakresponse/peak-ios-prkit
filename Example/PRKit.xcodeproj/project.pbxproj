@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		45120AE327C58BED00F0F4AF /* ChipsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45120AE227C58BED00F0F4AF /* ChipsViewController.swift */; };
+		45467C6728135300003F7DEC /* ButtonsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45467C6628135300003F7DEC /* ButtonsViewController.swift */; };
 		45C007C62728BD610072FF18 /* HeadersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C007C52728BD610072FF18 /* HeadersViewController.swift */; };
 		45C757D62730939B00386F07 /* NavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C757D52730939B00386F07 /* NavigationViewController.swift */; };
 		45C757D82733541400386F07 /* InputsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C757D72733541400386F07 /* InputsViewController.swift */; };
@@ -39,6 +40,7 @@
 		14C491D9EDE018F4D44DD69F /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		2F77A8A78F718C65C8C575A5 /* Pods-PRKit_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PRKit_Tests.debug.xcconfig"; path = "Target Support Files/Pods-PRKit_Tests/Pods-PRKit_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		45120AE227C58BED00F0F4AF /* ChipsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChipsViewController.swift; sourceTree = "<group>"; };
+		45467C6628135300003F7DEC /* ButtonsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonsViewController.swift; sourceTree = "<group>"; };
 		456F04F627A89C09000CEE42 /* LICENSE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = LICENSE.md; path = ../LICENSE.md; sourceTree = "<group>"; };
 		45C007C52728BD610072FF18 /* HeadersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadersViewController.swift; sourceTree = "<group>"; };
 		45C757D52730939B00386F07 /* NavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationViewController.swift; sourceTree = "<group>"; };
@@ -110,6 +112,7 @@
 			isa = PBXGroup;
 			children = (
 				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
+				45467C6628135300003F7DEC /* ButtonsViewController.swift */,
 				45120AE227C58BED00F0F4AF /* ChipsViewController.swift */,
 				45C007C52728BD610072FF18 /* HeadersViewController.swift */,
 				45C757D72733541400386F07 /* InputsViewController.swift */,
@@ -407,6 +410,7 @@
 				45F7BAEB273C8ED300FBD31F /* KeyboardsViewController.swift in Sources */,
 				45C757D82733541400386F07 /* InputsViewController.swift in Sources */,
 				607FACD81AFB9204008FA782 /* ViewController.swift in Sources */,
+				45467C6728135300003F7DEC /* ButtonsViewController.swift in Sources */,
 				45C007C62728BD610072FF18 /* HeadersViewController.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
 				45120AE327C58BED00F0F4AF /* ChipsViewController.swift in Sources */,

@@ -12,7 +12,7 @@ public enum ButtonSize: String {
 }
 
 public enum ButtonStyle: String {
-    case primary, secondary, tertiary, danger
+    case primary, secondary, tertiary, destructive, destructiveSecondary, destructiveTertiary
 }
 
 @IBDesignable
@@ -227,13 +227,23 @@ open class Button: UIButton {
             setTitleAttributes(font: font, color: .brandPrimary600, for: .highlighted)
             setTitleAttributes(font: font, color: .base300, for: .disabled)
             tintColor = isEnabled ? .brandPrimary500 : .base300
-        case .danger:
+        case .destructive:
+            setBackgroundImage(UIImage.resizableImage(withColor: .triageImmediateMedium, cornerRadius: 8), for: .normal)
+            setBackgroundImage(UIImage.resizableImage(withColor: .triageImmediateDark, cornerRadius: 8), for: .highlighted)
+            setBackgroundImage(UIImage.resizableImage(withColor: .triageImmediateLight, cornerRadius: 8), for: .disabled)
+            setTitleAttributes(font: font, color: .white, for: .normal)
+            setTitleAttributes(font: font, color: .white, for: .highlighted)
+            setTitleAttributes(font: font, color: .white, for: .disabled)
+            tintColor = .white
+        case .destructiveSecondary:
             setBackgroundImage(UIImage.resizableImage(withColor: .white, cornerRadius: 8,
                                                       borderColor: .triageImmediateMedium, borderWidth: borderWidth), for: .normal)
             setBackgroundImage(UIImage.resizableImage(withColor: .triageImmediateLight, cornerRadius: 8,
                                                       borderColor: .triageImmediateMedium, borderWidth: borderWidth), for: .highlighted)
             setBackgroundImage(UIImage.resizableImage(withColor: .white, cornerRadius: 8,
                                                       borderColor: .triageImmediateLight, borderWidth: borderWidth), for: .disabled)
+            fallthrough
+        case .destructiveTertiary:
             setTitleAttributes(font: font, color: .triageImmediateMedium, for: .normal)
             setTitleAttributes(font: font, color: .triageImmediateMedium, for: .highlighted)
             setTitleAttributes(font: font, color: .triageImmediateLight, for: .disabled)

@@ -90,6 +90,10 @@ public extension UIColor {
         return UIColor.named("TriageImmediateMedium")
     }
 
+    static var triageImmediateDark: UIColor {
+        return UIColor.named("TriageImmediateDark")
+    }
+
     static var triageDelayedLight: UIColor {
         return UIColor.named("TriageDelayedLight")
     }

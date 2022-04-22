@@ -94,7 +94,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <view contentMode="scaleToFill" placeholderIntrinsicWidth="374" placeholderIntrinsicHeight="40" translatesAutoresizingMaskIntoConstraints="NO" id="arX-br-IA9" customClass="TextField" customModule="PRKit">
-                                        <rect key="frame" x="20" y="521" width="374" height="40"/>
+                                        <rect key="frame" x="20" y="521" width="374" height="48.5"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="placeholderText" value="Search"/>
@@ -107,7 +107,7 @@
                                         </connections>
                                     </view>
                                     <view contentMode="scaleToFill" placeholderIntrinsicWidth="240" placeholderIntrinsicHeight="40" translatesAutoresizingMaskIntoConstraints="NO" id="y3x-cc-GHZ" customClass="Checkbox" customModule="PRKit">
-                                        <rect key="frame" x="20" y="581" width="374" height="40"/>
+                                        <rect key="frame" x="20" y="589.5" width="374" height="40"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="labelText" value="Radio button"/>
@@ -115,7 +115,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <view contentMode="scaleToFill" placeholderIntrinsicWidth="240" placeholderIntrinsicHeight="40" translatesAutoresizingMaskIntoConstraints="NO" id="spq-dt-YrQ" customClass="Checkbox" customModule="PRKit">
-                                        <rect key="frame" x="20" y="641" width="374" height="40"/>
+                                        <rect key="frame" x="20" y="649.5" width="374" height="40"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="labelText" value="Disabled Radio button"/>
@@ -125,7 +125,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <view tag="1" contentMode="scaleToFill" placeholderIntrinsicWidth="683.5" placeholderIntrinsicHeight="72.5" translatesAutoresizingMaskIntoConstraints="NO" id="qra-dW-nLk" customClass="TextField" customModule="PRKit">
-                                        <rect key="frame" x="20" y="701" width="374" height="72.5"/>
+                                        <rect key="frame" x="20" y="709.5" width="374" height="72.5"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="labelText" value="Empty Field"/>
@@ -632,7 +632,7 @@
         <!--Buttons-->
         <scene sceneID="Oht-ji-Sz1">
             <objects>
-                <viewController title="Buttons" id="hYy-H2-TVc" sceneMemberID="viewController">
+                <viewController title="Buttons" id="hYy-H2-TVc" customClass="ButtonsViewController" customModule="PRKit_Example" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="XgC-YR-MwM"/>
                         <viewControllerLayoutGuide type="bottom" id="dLL-rA-cvc"/>
@@ -644,11 +644,14 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aCL-k2-3Kd" userLabel="Primary Small" customClass="Button" customModule="PRKit">
                                 <rect key="frame" x="20" y="88" width="77" height="42.5"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <state key="normal" title="Label"/>
+                                <state key="normal" title="Show"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="Style" value="primary"/>
                                     <userDefinedRuntimeAttribute type="string" keyPath="Size" value="small"/>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="buttonPressed" destination="hYy-H2-TVc" eventType="touchUpInside" id="Lsc-Ra-0Gc"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b6b-xF-Y9q" userLabel="Primary Small Disabled" customClass="Button" customModule="PRKit">
                                 <rect key="frame" x="113" y="88" width="77" height="42.5"/>
@@ -660,7 +663,7 @@
                                 </userDefinedRuntimeAttributes>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gaW-Ww-Dma" userLabel="Primary Small Icon" customClass="Button" customModule="PRKit">
-                                <rect key="frame" x="210" y="88" width="105" height="42.5"/>
+                                <rect key="frame" x="210" y="88" width="44" height="138"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="Label"/>
                                 <userDefinedRuntimeAttributes>
@@ -670,7 +673,7 @@
                                 </userDefinedRuntimeAttributes>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3AY-D1-YQ9" userLabel="Primary Small Icon Disabled" customClass="Button" customModule="PRKit">
-                                <rect key="frame" x="335" y="88" width="105" height="42.5"/>
+                                <rect key="frame" x="274" y="88" width="44" height="138"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="Label"/>
                                 <userDefinedRuntimeAttributes>
@@ -698,7 +701,7 @@
                                 </userDefinedRuntimeAttributes>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Za0-dO-Ar0" userLabel="Secondary Small Icon" customClass="Button" customModule="PRKit">
-                                <rect key="frame" x="210" y="146.5" width="105" height="43"/>
+                                <rect key="frame" x="210" y="146.5" width="44" height="138"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="Label"/>
                                 <userDefinedRuntimeAttributes>
@@ -708,7 +711,7 @@
                                 </userDefinedRuntimeAttributes>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FgZ-lS-lBv" userLabel="Secondary Small Icon Disabled" customClass="Button" customModule="PRKit">
-                                <rect key="frame" x="335" y="146.5" width="105" height="43"/>
+                                <rect key="frame" x="274" y="146.5" width="44" height="138"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="Label"/>
                                 <userDefinedRuntimeAttributes>
@@ -734,7 +737,7 @@
                                 </userDefinedRuntimeAttributes>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e68-l8-04o" userLabel="Tertiary Small Icon" customClass="Button" customModule="PRKit">
-                                <rect key="frame" x="210" y="205.5" width="105" height="42.5"/>
+                                <rect key="frame" x="210" y="205.5" width="44" height="138"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="Label"/>
                                 <userDefinedRuntimeAttributes>
@@ -744,7 +747,7 @@
                                 </userDefinedRuntimeAttributes>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Xx-Cv-hKi" userLabel="Tertiary Small Icon Disabled" customClass="Button" customModule="PRKit">
-                                <rect key="frame" x="335" y="205.5" width="105" height="42.5"/>
+                                <rect key="frame" x="274" y="205.5" width="44" height="138"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="Label"/>
                                 <userDefinedRuntimeAttributes>
@@ -772,7 +775,7 @@
                                 </userDefinedRuntimeAttributes>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Ok-E1-JG7" userLabel="Primary Medium Wrapped" customClass="Button" customModule="PRKit">
-                                <rect key="frame" x="284" y="264" width="150" height="68.5"/>
+                                <rect key="frame" x="284" y="264" width="150" height="154"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="150" id="fKP-SY-BTt"/>
                                 </constraints>
@@ -876,7 +879,7 @@
                                 <state key="normal" title="Label"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="Size" value="large"/>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="Style" value="danger"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="Style" value="destructiveSecondary"/>
                                 </userDefinedRuntimeAttributes>
                             </button>
                         </subviews>
@@ -1189,14 +1192,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" placeholderIntrinsicWidth="374" placeholderIntrinsicHeight="64" translatesAutoresizingMaskIntoConstraints="NO" id="hHj-lI-GEh" customClass="SegmentedControl" customModule="PRKit">
-                                <rect key="frame" x="20" y="88" width="374" height="64"/>
+                                <rect key="frame" x="20" y="88" width="374" height="56"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <connections>
                                     <action selector="segmentedControlValueChanged:" destination="YiS-Uq-bKw" eventType="valueChanged" id="73D-Tw-f4h"/>
                                 </connections>
                             </view>
                             <view contentMode="scaleToFill" placeholderIntrinsicWidth="414" placeholderIntrinsicHeight="128" translatesAutoresizingMaskIntoConstraints="NO" id="aVi-mP-xVo" customClass="CustomTabBar" customModule="PRKit">
-                                <rect key="frame" x="0.0" y="768" width="414" height="128"/>
+                                <rect key="frame" x="0.0" y="715" width="414" height="181"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="buttonTitle" value="Scan Patient"/>
@@ -1456,19 +1459,19 @@
             <size key="intrinsicContentSize" width="145" height="82.9609375"/>
         </designable>
         <designable name="1Ok-E1-JG7">
-            <size key="intrinsicContentSize" width="268" height="68.640625"/>
+            <size key="intrinsicContentSize" width="150" height="154"/>
         </designable>
         <designable name="1lj-fV-5N5">
             <size key="intrinsicContentSize" width="374" height="72.5"/>
         </designable>
         <designable name="3AY-D1-YQ9">
-            <size key="intrinsicContentSize" width="105" height="42.70703125"/>
+            <size key="intrinsicContentSize" width="44" height="138"/>
         </designable>
         <designable name="5Ku-QY-bh8">
             <size key="intrinsicContentSize" width="374" height="72.5"/>
         </designable>
         <designable name="9Xx-Cv-hKi">
-            <size key="intrinsicContentSize" width="105" height="42.70703125"/>
+            <size key="intrinsicContentSize" width="44" height="138"/>
         </designable>
         <designable name="B1r-1u-J1E">
             <size key="intrinsicContentSize" width="145" height="82.9609375"/>
@@ -1495,7 +1498,7 @@
             <size key="intrinsicContentSize" width="374" height="128"/>
         </designable>
         <designable name="FgZ-lS-lBv">
-            <size key="intrinsicContentSize" width="105" height="42.70703125"/>
+            <size key="intrinsicContentSize" width="44" height="138"/>
         </designable>
         <designable name="HyR-fI-M7N">
             <size key="intrinsicContentSize" width="116" height="68.640625"/>
@@ -1543,7 +1546,7 @@
             <size key="intrinsicContentSize" width="414" height="56"/>
         </designable>
         <designable name="Za0-dO-Ar0">
-            <size key="intrinsicContentSize" width="105" height="42.70703125"/>
+            <size key="intrinsicContentSize" width="44" height="138"/>
         </designable>
         <designable name="aCL-k2-3Kd">
             <size key="intrinsicContentSize" width="77" height="42.70703125"/>
@@ -1564,13 +1567,13 @@
             <size key="intrinsicContentSize" width="77" height="42.70703125"/>
         </designable>
         <designable name="e68-l8-04o">
-            <size key="intrinsicContentSize" width="105" height="42.70703125"/>
+            <size key="intrinsicContentSize" width="44" height="138"/>
         </designable>
         <designable name="eiO-p5-cRS">
             <size key="intrinsicContentSize" width="374" height="72.5"/>
         </designable>
         <designable name="gaW-Ww-Dma">
-            <size key="intrinsicContentSize" width="105" height="42.70703125"/>
+            <size key="intrinsicContentSize" width="44" height="138"/>
         </designable>
         <designable name="hHj-lI-GEh">
             <size key="intrinsicContentSize" width="374" height="64"/>
