@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="pLw-Kb-tnX">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="pLw-Kb-tnX">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -94,7 +94,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <view contentMode="scaleToFill" placeholderIntrinsicWidth="374" placeholderIntrinsicHeight="40" translatesAutoresizingMaskIntoConstraints="NO" id="arX-br-IA9" customClass="TextField" customModule="PRKit">
-                                        <rect key="frame" x="20" y="521" width="374" height="48.5"/>
+                                        <rect key="frame" x="20" y="521" width="374" height="40"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="placeholderText" value="Search"/>
@@ -107,7 +107,7 @@
                                         </connections>
                                     </view>
                                     <view contentMode="scaleToFill" placeholderIntrinsicWidth="240" placeholderIntrinsicHeight="40" translatesAutoresizingMaskIntoConstraints="NO" id="y3x-cc-GHZ" customClass="Checkbox" customModule="PRKit">
-                                        <rect key="frame" x="20" y="589.5" width="374" height="40"/>
+                                        <rect key="frame" x="20" y="581" width="374" height="40"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="labelText" value="Radio button"/>
@@ -115,7 +115,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <view contentMode="scaleToFill" placeholderIntrinsicWidth="240" placeholderIntrinsicHeight="40" translatesAutoresizingMaskIntoConstraints="NO" id="spq-dt-YrQ" customClass="Checkbox" customModule="PRKit">
-                                        <rect key="frame" x="20" y="649.5" width="374" height="40"/>
+                                        <rect key="frame" x="20" y="641" width="374" height="40"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="labelText" value="Disabled Radio button"/>
@@ -125,7 +125,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <view tag="1" contentMode="scaleToFill" placeholderIntrinsicWidth="683.5" placeholderIntrinsicHeight="72.5" translatesAutoresizingMaskIntoConstraints="NO" id="qra-dW-nLk" customClass="TextField" customModule="PRKit">
-                                        <rect key="frame" x="20" y="709.5" width="374" height="72.5"/>
+                                        <rect key="frame" x="20" y="701" width="374" height="72.5"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="labelText" value="Empty Field"/>
@@ -772,7 +772,7 @@
                                 </userDefinedRuntimeAttributes>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Ok-E1-JG7" userLabel="Primary Medium Wrapped" customClass="Button" customModule="PRKit">
-                                <rect key="frame" x="284" y="264" width="150" height="69"/>
+                                <rect key="frame" x="284" y="264" width="150" height="68.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="150" id="fKP-SY-BTt"/>
                                 </constraints>
@@ -870,12 +870,22 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="Size" value="large"/>
                                 </userDefinedRuntimeAttributes>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sqh-W7-75M" userLabel="Danger Large" customClass="Button" customModule="PRKit">
+                                <rect key="frame" x="20" y="819" width="145" height="83"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="Label"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="Size" value="large"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="Style" value="danger"/>
+                                </userDefinedRuntimeAttributes>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" name="Base100"/>
                         <constraints>
                             <constraint firstItem="1Ok-E1-JG7" firstAttribute="top" secondItem="jZ5-Um-X0Z" secondAttribute="top" id="0ct-Tw-yxP"/>
                             <constraint firstItem="1Ok-E1-JG7" firstAttribute="leading" secondItem="jZ5-Um-X0Z" secondAttribute="trailing" constant="16" id="1uv-ah-fAY"/>
                             <constraint firstItem="B1r-1u-J1E" firstAttribute="top" secondItem="Vfy-pw-F0e" secondAttribute="bottom" constant="16" id="20E-0f-RDf"/>
+                            <constraint firstItem="sqh-W7-75M" firstAttribute="top" secondItem="B1r-1u-J1E" secondAttribute="bottom" constant="20" id="26h-z3-ZW9"/>
                             <constraint firstItem="atj-J9-YhT" firstAttribute="leading" secondItem="QdN-nI-UqF" secondAttribute="trailing" constant="16" id="2ZH-dd-QMs"/>
                             <constraint firstItem="FgZ-lS-lBv" firstAttribute="top" secondItem="Za0-dO-Ar0" secondAttribute="top" id="3p7-Fb-2MJ"/>
                             <constraint firstItem="uAD-nH-mpg" firstAttribute="leading" secondItem="C8C-G5-bl9" secondAttribute="leading" id="492-HX-DfC"/>
@@ -918,6 +928,7 @@
                             <constraint firstItem="v4f-RK-WUL" firstAttribute="leading" secondItem="zVG-Zi-WJU" secondAttribute="trailing" constant="16" id="d6e-Cz-VCa"/>
                             <constraint firstItem="QdN-nI-UqF" firstAttribute="leading" secondItem="zVG-Zi-WJU" secondAttribute="leading" id="fOf-FS-CEx"/>
                             <constraint firstItem="FgZ-lS-lBv" firstAttribute="leading" secondItem="Za0-dO-Ar0" secondAttribute="trailing" constant="20" id="fQf-t1-Pcm"/>
+                            <constraint firstItem="sqh-W7-75M" firstAttribute="leading" secondItem="B1r-1u-J1E" secondAttribute="leading" id="ff3-hJ-HI0"/>
                             <constraint firstItem="HyR-fI-M7N" firstAttribute="top" secondItem="uAD-nH-mpg" secondAttribute="top" id="gNf-Ug-bt7"/>
                             <constraint firstItem="atj-J9-YhT" firstAttribute="top" secondItem="QdN-nI-UqF" secondAttribute="top" id="gqR-sS-Fkf"/>
                             <constraint firstItem="B1r-1u-J1E" firstAttribute="leading" secondItem="Vfy-pw-F0e" secondAttribute="leading" id="iii-TE-3yx"/>
@@ -1185,7 +1196,7 @@
                                 </connections>
                             </view>
                             <view contentMode="scaleToFill" placeholderIntrinsicWidth="414" placeholderIntrinsicHeight="128" translatesAutoresizingMaskIntoConstraints="NO" id="aVi-mP-xVo" customClass="CustomTabBar" customModule="PRKit">
-                                <rect key="frame" x="0.0" y="715" width="414" height="181"/>
+                                <rect key="frame" x="0.0" y="768" width="414" height="128"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="buttonTitle" value="Scan Patient"/>
@@ -1590,6 +1601,9 @@
         </designable>
         <designable name="spq-dt-YrQ">
             <size key="intrinsicContentSize" width="240" height="40"/>
+        </designable>
+        <designable name="sqh-W7-75M">
+            <size key="intrinsicContentSize" width="145" height="82.9609375"/>
         </designable>
         <designable name="uAD-nH-mpg">
             <size key="intrinsicContentSize" width="116" height="68.640625"/>
