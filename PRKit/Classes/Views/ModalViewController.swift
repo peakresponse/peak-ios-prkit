@@ -11,11 +11,13 @@ typealias AlertHandler = @convention(block) (UIAlertAction) -> Void
 
 open class ModalViewController: UIViewController {
     open weak var backdropView: UIView!
+    open weak var tapRecognizer: UITapGestureRecognizer!
     open weak var contentView: UIView!
     open weak var cancelButton: UIButton!
     open weak var messageLabel: UILabel!
     open weak var buttonStackView: UIStackView!
     open var actions: [UIAlertAction] = []
+    open var isDismissedOnAction = true
 
     open var messageText: String? {
         didSet { messageLabel?.text = messageText }
@@ -53,6 +55,7 @@ open class ModalViewController: UIViewController {
         let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(cancelPressed))
         backdropView.addGestureRecognizer(tapRecognizer)
         self.backdropView = backdropView
+        self.tapRecognizer = tapRecognizer
 
         let contentView = UIView()
         contentView.translatesAutoresizingMaskIntoConstraints = false
@@ -144,7 +147,29 @@ open class ModalViewController: UIViewController {
         let action = actions[button.tag]
         if let block = action.value(forKey: "handler") {
             let handler = unsafeBitCast(block as AnyObject, to: AlertHandler.self)
-            dismiss(animated: true) {
+            if isDismissedOnAction {
+                dismiss(animated: true) {
+                    handler(action)
+                }
+            } else {
+                // hide all the buttons
+                cancelButton.alpha = 0
+                for view in buttonStackView.arrangedSubviews {
+                    if let button = view as? PRKit.Button {
+                        button.alpha = 0
+                    }
+                }
+                tapRecognizer.isEnabled = false
+                // put an activity spinner over the selected button
+                let activityIndicatorView = UIActivityIndicatorView.withLargeStyle()
+                activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
+                activityIndicatorView.tintColor = .base800
+                view.addSubview(activityIndicatorView)
+                NSLayoutConstraint.activate([
+                    activityIndicatorView.centerXAnchor.constraint(equalTo: button.centerXAnchor),
+                    activityIndicatorView.centerYAnchor.constraint(equalTo: button.centerYAnchor)
+                ])
+                activityIndicatorView.startAnimating()
                 handler(action)
             }
         } else {
