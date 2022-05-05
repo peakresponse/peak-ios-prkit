@@ -12,7 +12,7 @@ public enum ButtonSize: String {
 }
 
 public enum ButtonStyle: String {
-    case primary, secondary, tertiary, destructive, destructiveSecondary, destructiveTertiary
+    case primary, secondary, tertiary, destructive, destructiveSecondary, destructiveTertiary, warning
 }
 
 @IBDesignable
@@ -248,6 +248,14 @@ open class Button: UIButton {
             setTitleAttributes(font: font, color: .triageImmediateMedium, for: .highlighted)
             setTitleAttributes(font: font, color: .triageImmediateLight, for: .disabled)
             tintColor = isEnabled ? .triageImmediateMedium : .triageImmediateLight
+        case .warning:
+            setBackgroundImage(UIImage.resizableImage(withColor: .brandSecondary500, cornerRadius: 8), for: .normal)
+            setBackgroundImage(UIImage.resizableImage(withColor: .brandSecondary800, cornerRadius: 8), for: .highlighted)
+            setBackgroundImage(UIImage.resizableImage(withColor: .brandSecondary400, cornerRadius: 8), for: .disabled)
+            setTitleAttributes(font: font, color: .white, for: .normal)
+            setTitleAttributes(font: font, color: .white, for: .highlighted)
+            setTitleAttributes(font: font, color: .white, for: .disabled)
+            tintColor = .white
         }
         setContentCompressionResistancePriority(.required, for: .horizontal)
         setContentCompressionResistancePriority(.required, for: .vertical)
