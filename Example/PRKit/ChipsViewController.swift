@@ -18,6 +18,10 @@ class ChipsViewController: UIViewController, RecordingFieldDelegate {
         recordingField.setDate(Date())
     }
 
+    @IBAction func counterValueChanged(_ sender: CounterControl) {
+        print("!!!", sender.count)
+    }
+
     // MARK: - RecordingFieldDelegate
 
     func recordingField(_ field: RecordingField, didPressPlayButton button: UIButton) {
