@@ -10,11 +10,15 @@ import UIKit
 @IBDesignable
 open class CounterControl: UIControl {
     open weak var decrButton: UIButton!
+    open weak var decrButtonWidthConstraint: NSLayoutConstraint!
     open weak var incrButton: UIButton!
+    open weak var incrButtonWidthConstraint: NSLayoutConstraint!
     open weak var topBorder: UIView!
     open weak var label: UILabel!
     open weak var countLabel: UILabel!
+    open weak var countLabelTopConstraint: NSLayoutConstraint!
     open weak var bottomBorder: UIView!
+    open weak var bottomBorderTopConstraint: NSLayoutConstraint!
 
     @IBInspectable open var color: UIColor = .base500 {
         didSet { updateColor() }
@@ -27,6 +31,14 @@ open class CounterControl: UIControl {
 
     @IBInspectable open var l10nKey: String? {
         didSet { labelText = l10nKey?.localized }
+    }
+
+    open override var isEnabled: Bool {
+        get { return super.isEnabled }
+        set {
+            super.isEnabled = newValue
+            updateState()
+        }
     }
 
     @IBInspectable open var min: Int = 0
@@ -61,14 +73,18 @@ open class CounterControl: UIControl {
         decrButton.setImage(UIImage(named: "Minus40px", in: PRKitBundle.instance, compatibleWith: nil), for: .normal)
         decrButton.tintColor = .white
         decrButton.addTarget(self, action: #selector(decrPressed), for: .touchUpInside)
+        decrButton.titleLabel?.font = .h4SemiBold
+        decrButton.setTitleColor(.white, for: .normal)
         addSubview(decrButton)
+        let decrButtonWidthConstraint = decrButton.widthAnchor.constraint(equalToConstant: 85)
         NSLayoutConstraint.activate([
             decrButton.leftAnchor.constraint(equalTo: leftAnchor),
             decrButton.topAnchor.constraint(equalTo: topAnchor),
             decrButton.bottomAnchor.constraint(equalTo: bottomAnchor),
-            decrButton.widthAnchor.constraint(equalToConstant: 85)
+            decrButtonWidthConstraint
         ])
         self.decrButton = decrButton
+        self.decrButtonWidthConstraint = decrButtonWidthConstraint
 
         let incrButton = UIButton(type: .custom)
         incrButton.translatesAutoresizingMaskIntoConstraints = false
@@ -76,13 +92,15 @@ open class CounterControl: UIControl {
         incrButton.tintColor = .white
         incrButton.addTarget(self, action: #selector(incrPressed), for: .touchUpInside)
         addSubview(incrButton)
+        let incrButtonWidthConstraint = incrButton.widthAnchor.constraint(equalToConstant: 85)
         NSLayoutConstraint.activate([
             incrButton.rightAnchor.constraint(equalTo: rightAnchor),
             incrButton.topAnchor.constraint(equalTo: topAnchor),
             incrButton.bottomAnchor.constraint(equalTo: bottomAnchor),
-            incrButton.widthAnchor.constraint(equalToConstant: 85)
+            incrButtonWidthConstraint
         ])
         self.incrButton = incrButton
+        self.incrButtonWidthConstraint = incrButtonWidthConstraint
 
         let topBorder = UIView()
         topBorder.translatesAutoresizingMaskIntoConstraints = false
@@ -113,24 +131,28 @@ open class CounterControl: UIControl {
         countLabel.font = .h1Bold
         countLabel.textAlignment = .center
         addSubview(countLabel)
+        let countLabelTopConstraint = countLabel.topAnchor.constraint(equalTo: label.bottomAnchor)
         NSLayoutConstraint.activate([
             countLabel.leftAnchor.constraint(equalTo: decrButton.rightAnchor),
-            countLabel.topAnchor.constraint(equalTo: label.bottomAnchor),
+            countLabelTopConstraint,
             countLabel.rightAnchor.constraint(equalTo: incrButton.leftAnchor)
         ])
         self.countLabel = countLabel
+        self.countLabelTopConstraint = countLabelTopConstraint
 
         let bottomBorder = UIView()
         bottomBorder.translatesAutoresizingMaskIntoConstraints = false
         addSubview(bottomBorder)
+        let bottomBorderTopConstraint = bottomBorder.topAnchor.constraint(equalTo: countLabel.bottomAnchor)
         NSLayoutConstraint.activate([
             bottomBorder.leftAnchor.constraint(equalTo: decrButton.rightAnchor),
-            bottomBorder.topAnchor.constraint(equalTo: countLabel.bottomAnchor),
+            bottomBorderTopConstraint,
             bottomBorder.rightAnchor.constraint(equalTo: incrButton.leftAnchor),
             bottomBorder.heightAnchor.constraint(equalToConstant: 4),
             bottomAnchor.constraint(equalTo: bottomBorder.bottomAnchor)
         ])
         self.bottomBorder = bottomBorder
+        self.bottomBorderTopConstraint = bottomBorderTopConstraint
 
         updateColor()
     }
@@ -141,6 +163,33 @@ open class CounterControl: UIControl {
         topBorder.backgroundColor = color
         label.textColor = color
         bottomBorder.backgroundColor = color
+        layer.borderColor = color.cgColor
+    }
+
+    open func updateState() {
+        if isEnabled {
+            decrButton.setImage(UIImage(named: "Minus40px", in: PRKitBundle.instance, compatibleWith: nil), for: .normal)
+            decrButton.setTitle(nil, for: .normal)
+            decrButtonWidthConstraint.constant = 85
+            incrButtonWidthConstraint.constant = 85
+            topBorder.alpha = 1
+            label.alpha = 1
+            bottomBorder.alpha = 1
+            countLabelTopConstraint.constant = 0
+            bottomBorderTopConstraint.constant = 0
+            layer.borderWidth = 0
+        } else {
+            decrButton.setImage(nil, for: .normal)
+            decrButton.setTitle(label.text, for: .normal)
+            decrButtonWidthConstraint.constant = floor(frame.width / 2)
+            incrButtonWidthConstraint.constant = 0
+            topBorder.alpha = 0
+            label.alpha = 0
+            bottomBorder.alpha = 0
+            countLabelTopConstraint.constant = -12
+            bottomBorderTopConstraint.constant = 12
+            layer.borderWidth = 4
+        }
     }
 
     open func sendValueChanged() {

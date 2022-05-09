@@ -11,11 +11,13 @@ import PRKit
 
 class ChipsViewController: UIViewController, RecordingFieldDelegate {
     @IBOutlet weak var recordingField: RecordingField!
+    @IBOutlet weak var disabledCounterConrol: CounterControl!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         recordingField.setDate(Date())
+        disabledCounterConrol.isEnabled = false
     }
 
     @IBAction func counterValueChanged(_ sender: CounterControl) {
