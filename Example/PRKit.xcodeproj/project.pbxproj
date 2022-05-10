@@ -12,6 +12,9 @@
 		45C007C62728BD610072FF18 /* HeadersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C007C52728BD610072FF18 /* HeadersViewController.swift */; };
 		45C757D62730939B00386F07 /* NavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C757D52730939B00386F07 /* NavigationViewController.swift */; };
 		45C757D82733541400386F07 /* InputsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C757D72733541400386F07 /* InputsViewController.swift */; };
+		45E12163282AF14000D8DDBE /* Barlow-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 45E12160282AF14000D8DDBE /* Barlow-Bold.ttf */; };
+		45E12164282AF14000D8DDBE /* Barlow-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 45E12161282AF14000D8DDBE /* Barlow-Regular.ttf */; };
+		45E12165282AF14000D8DDBE /* Barlow-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 45E12162282AF14000D8DDBE /* Barlow-SemiBold.ttf */; };
 		45F7BAEB273C8ED300FBD31F /* KeyboardsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F7BAEA273C8ED300FBD31F /* KeyboardsViewController.swift */; };
 		45F7BAF1273F3E2000FBD31F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 45F7BAF0273F3E2000FBD31F /* Localizable.strings */; };
 		45FACD542744337300C0AC90 /* DateExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45FACD532744337300C0AC90 /* DateExtensionTests.swift */; };
@@ -45,6 +48,9 @@
 		45C007C52728BD610072FF18 /* HeadersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadersViewController.swift; sourceTree = "<group>"; };
 		45C757D52730939B00386F07 /* NavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationViewController.swift; sourceTree = "<group>"; };
 		45C757D72733541400386F07 /* InputsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputsViewController.swift; sourceTree = "<group>"; };
+		45E12160282AF14000D8DDBE /* Barlow-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Barlow-Bold.ttf"; sourceTree = "<group>"; };
+		45E12161282AF14000D8DDBE /* Barlow-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Barlow-Regular.ttf"; sourceTree = "<group>"; };
+		45E12162282AF14000D8DDBE /* Barlow-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Barlow-SemiBold.ttf"; sourceTree = "<group>"; };
 		45F7BAEA273C8ED300FBD31F /* KeyboardsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardsViewController.swift; sourceTree = "<group>"; };
 		45F7BAF0273F3E2000FBD31F /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		45FACD532744337300C0AC90 /* DateExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtensionTests.swift; sourceTree = "<group>"; };
@@ -87,6 +93,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		45E1215F282AF11D00D8DDBE /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				45E12160282AF14000D8DDBE /* Barlow-Bold.ttf */,
+				45E12161282AF14000D8DDBE /* Barlow-Regular.ttf */,
+				45E12162282AF14000D8DDBE /* Barlow-SemiBold.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
 		607FACC71AFB9204008FA782 = {
 			isa = PBXGroup;
 			children = (
@@ -131,6 +147,7 @@
 		607FACD31AFB9204008FA782 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				45E1215F282AF11D00D8DDBE /* Fonts */,
 				607FACD41AFB9204008FA782 /* Info.plist */,
 				45F7BAF0273F3E2000FBD31F /* Localizable.strings */,
 			);
@@ -278,8 +295,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */,
+				45E12163282AF14000D8DDBE /* Barlow-Bold.ttf in Resources */,
 				45F7BAF1273F3E2000FBD31F /* Localizable.strings in Resources */,
 				607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */,
+				45E12164282AF14000D8DDBE /* Barlow-Regular.ttf in Resources */,
+				45E12165282AF14000D8DDBE /* Barlow-SemiBold.ttf in Resources */,
 				607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
