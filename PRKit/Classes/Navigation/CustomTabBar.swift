@@ -11,6 +11,54 @@ import UIKit
     func customTabBar(_ tabBar: CustomTabBar, didPress button: UIButton)
 }
 
+open class CustomTabBarButton: UIButton {
+    open weak var item: UITabBarItem? {
+        didSet {
+            setImage(item?.image, for: .normal)
+            setImage(item?.selectedImage, for: .highlighted)
+            setImage(item?.selectedImage, for: .selected)
+            setImage(item?.selectedImage, for: [.highlighted, .selected])
+            setTitle(item?.title, for: .normal)
+        }
+    }
+
+    public override init(frame: CGRect) {
+        super.init(frame: frame)
+        commonInit()
+    }
+
+    public convenience init() {
+        self.init(type: .custom)
+        commonInit()
+    }
+
+    public required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        commonInit()
+    }
+
+    func commonInit() {
+        tintColor = .base500
+        titleLabel?.font = .body14Bold
+        titleLabel?.textAlignment = .center
+        setTitleColor(.base500, for: .normal)
+        setTitleColor(.base800, for: .highlighted)
+        setTitleColor(.base800, for: .selected)
+        setTitleColor(.base800, for: [.highlighted, .selected])
+    }
+
+    open override func imageRect(forContentRect contentRect: CGRect) -> CGRect {
+        let imageRect = super.imageRect(forContentRect: contentRect)
+        return CGRect(x: floor((contentRect.width - imageRect.width) / 2), y: 10, width: imageRect.width, height: imageRect.height)
+    }
+
+    open override func titleRect(forContentRect contentRect: CGRect) -> CGRect {
+        let titleRect = super.titleRect(forContentRect: contentRect)
+        let imageRect = self.imageRect(forContentRect: contentRect)
+        return CGRect(x: 0, y: imageRect.maxY + 8, width: contentRect.width, height: titleRect.height)
+    }
+}
+
 @IBDesignable
 open class CustomTabBar: UIView {
     open weak var bottomImageView: UIImageView!
@@ -146,19 +194,9 @@ open class CustomTabBar: UIView {
         guard let items = items else { return }
         for (i, item) in items.enumerated() {
             let stackView = i < 2 ? leftStackView : rightStackView
-            let button = UIButton(type: .custom)
+            let button = CustomTabBarButton()
             button.tag = i
-            button.setImage(item.image, for: .normal)
-            button.setImage(item.selectedImage, for: .highlighted)
-            button.setImage(item.selectedImage, for: .selected)
-            button.setImage(item.selectedImage, for: [.highlighted, .selected])
-            button.tintColor = .base500
-            button.setTitle(item.title, for: .normal)
-            button.setTitleColor(.base500, for: .normal)
-            button.setTitleColor(.base800, for: .highlighted)
-            button.setTitleColor(.base800, for: .selected)
-            button.setTitleColor(.base800, for: [.highlighted, .selected])
-            button.titleLabel?.font = .body14Bold
+            button.item = item
             button.addTarget(self, action: #selector(itemPressed(_:)), for: .touchUpInside)
             stackView?.addArrangedSubview(button)
         }
