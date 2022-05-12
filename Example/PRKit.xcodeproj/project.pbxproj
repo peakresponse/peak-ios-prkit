@@ -135,9 +135,9 @@
 				45F7BAEA273C8ED300FBD31F /* KeyboardsViewController.swift */,
 				45C757D52730939B00386F07 /* NavigationViewController.swift */,
 				607FACD71AFB9204008FA782 /* ViewController.swift */,
+				607FACDE1AFB9204008FA782 /* LaunchScreen.xib */,
 				607FACD91AFB9204008FA782 /* Main.storyboard */,
 				607FACDC1AFB9204008FA782 /* Images.xcassets */,
-				607FACDE1AFB9204008FA782 /* LaunchScreen.xib */,
 				607FACD31AFB9204008FA782 /* Supporting Files */,
 			);
 			name = "Example for PRKit";

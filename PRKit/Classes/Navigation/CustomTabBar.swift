@@ -21,6 +21,17 @@ open class CustomTabBar: UIView {
     open weak var leftStackView: UIStackView!
     open weak var rightStackView: UIStackView!
 
+    open var items: [UITabBarItem]? {
+        didSet {
+            updateItems()
+        }
+    }
+    open var selectedItem: UITabBarItem? {
+        didSet {
+            selectItem()
+        }
+    }
+
     open weak var delegate: CustomTabBarDelegate?
 
     @IBInspectable open var buttonTitle: String? {
@@ -57,7 +68,7 @@ open class CustomTabBar: UIView {
         let bottomView = UIView()
         bottomView.backgroundColor = .white
         bottomView.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(bottomView)
+        insertSubview(bottomView, belowSubview: contentView)
         NSLayoutConstraint.activate([
             bottomView.topAnchor.constraint(equalTo: contentView.topAnchor),
             bottomView.leftAnchor.constraint(equalTo: leftAnchor),
@@ -69,7 +80,7 @@ open class CustomTabBar: UIView {
         let bottomImageView = UIImageView()
         bottomImageView.translatesAutoresizingMaskIntoConstraints = false
         bottomImageView.image = UIImage(named: "CustomTabBarBackground", in: PRKitBundle.instance, compatibleWith: nil)
-        addSubview(bottomImageView)
+        insertSubview(bottomImageView, belowSubview: contentView)
         NSLayoutConstraint.activate([
             topAnchor.constraint(equalTo: bottomImageView.topAnchor),
             bottomImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
@@ -107,6 +118,73 @@ open class CustomTabBar: UIView {
             buttonLabel.heightAnchor.constraint(lessThanOrEqualTo: button.heightAnchor)
         ])
         self.buttonLabel = buttonLabel
+
+        let leftStackView = UIStackView()
+        leftStackView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(leftStackView)
+        NSLayoutConstraint.activate([
+            leftStackView.leftAnchor.constraint(equalTo: contentView.leftAnchor),
+            leftStackView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            leftStackView.rightAnchor.constraint(equalTo: button.leftAnchor),
+            leftStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+        ])
+        self.leftStackView = leftStackView
+
+        let rightStackView = UIStackView()
+        rightStackView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(rightStackView)
+        NSLayoutConstraint.activate([
+            rightStackView.leftAnchor.constraint(equalTo: button.rightAnchor),
+            rightStackView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            rightStackView.rightAnchor.constraint(equalTo: contentView.rightAnchor),
+            rightStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+        ])
+        self.rightStackView = rightStackView
+    }
+
+    open func updateItems() {
+        guard let items = items else { return }
+        for (i, item) in items.enumerated() {
+            let stackView = i < 2 ? leftStackView : rightStackView
+            let button = UIButton(type: .custom)
+            button.tag = i
+            button.setImage(item.image, for: .normal)
+            button.setImage(item.selectedImage, for: .highlighted)
+            button.setImage(item.selectedImage, for: .selected)
+            button.setImage(item.selectedImage, for: [.highlighted, .selected])
+            button.tintColor = .base500
+            button.setTitle(item.title, for: .normal)
+            button.setTitleColor(.base500, for: .normal)
+            button.setTitleColor(.base800, for: .highlighted)
+            button.setTitleColor(.base800, for: .selected)
+            button.setTitleColor(.base800, for: [.highlighted, .selected])
+            button.titleLabel?.font = .body14Bold
+            button.addTarget(self, action: #selector(itemPressed(_:)), for: .touchUpInside)
+            stackView?.addArrangedSubview(button)
+        }
+    }
+
+    open func selectItem() {
+        guard let items = items else { return }
+        var index = -1
+        if let selectedItem = selectedItem {
+            index = items.firstIndex(of: selectedItem) ?? -1
+        }
+        for stackView in [leftStackView, rightStackView] {
+            if let stackView = stackView {
+                for view in stackView.arrangedSubviews {
+                    if let view = view as? UIButton {
+                        view.isSelected = view.tag == index
+                        view.tintColor = view.isSelected ? .base800 : .base500
+                    }
+                }
+            }
+        }
+    }
+
+    @objc open func itemPressed(_ sender: UIButton) {
+        guard let items = items else { return }
+        selectedItem = items[sender.tag]
     }
 
     @objc open func buttonPressed() {

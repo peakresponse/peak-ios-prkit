@@ -12,6 +12,11 @@ import PRKit
 class NavigationViewController: UIViewController {
     @IBOutlet weak var segmentedControl: SegmentedControl!
 
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        tabBarItem.image = UIImage(named: "Dashboard", in: PRKitBundle.instance, compatibleWith: nil)
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         segmentedControl.addSegment(title: "Segment 1")
