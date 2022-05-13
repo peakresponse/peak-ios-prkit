@@ -143,6 +143,13 @@ open class FormInputAccessoryView: UIInputView {
         traverse(view: rootView)
         prevButton.isEnabled = prevView != nil
         nextButton.isEnabled = nextView != nil
+        if !prevButton.isEnabled && !nextButton.isEnabled {
+            prevButton.isHidden = true
+            nextButton.isHidden = true
+        } else {
+            prevButton.isHidden = false
+            nextButton.isHidden = false
+        }
         otherButton.isHidden = true
         if let currentView = currentView, let inputView = currentView.inputView as? FormInputView {
             if let otherTitle = inputView.accessoryOtherButtonTitle {
