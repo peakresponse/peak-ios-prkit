@@ -47,6 +47,9 @@
                                             <userDefinedRuntimeAttribute type="string" keyPath="labelText" value="Empty Field"/>
                                             <userDefinedRuntimeAttribute type="string" keyPath="placeholderText" value="Sample Input"/>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <outlet property="delegate" destination="ipr-zj-hHa" id="ZtX-c4-ijG"/>
+                                        </connections>
                                     </view>
                                     <view tag="2" contentMode="scaleToFill" placeholderIntrinsicWidth="683.5" placeholderIntrinsicHeight="73" translatesAutoresizingMaskIntoConstraints="NO" id="JGV-fz-1Ch" userLabel="Disabled Field" customClass="TextField" customModule="PRKit">
                                         <rect key="frame" x="20" y="113" width="374" height="72.5"/>

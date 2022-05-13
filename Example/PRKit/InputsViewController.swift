@@ -24,6 +24,7 @@ class InputsViewController: UIViewController, FormFieldDelegate, KeyboardAwareSc
 
         let inputAccessoryView = FormInputAccessoryView(rootView: view)
         emptyField.inputAccessoryView = inputAccessoryView
+        emptyField.inputAccessoryViewOtherButtonTitle = "Test"
         disabledField.inputAccessoryView = inputAccessoryView
         passwordField.inputAccessoryView = inputAccessoryView
         errorField.inputAccessoryView = inputAccessoryView
@@ -43,5 +44,9 @@ class InputsViewController: UIViewController, FormFieldDelegate, KeyboardAwareSc
 
     func formFieldDidChange(_ field: FormField) {
         print(field.text ?? "")
+    }
+
+    func formFieldDidPressOther(_ field: FormField) {
+        print("other pressed")
     }
 }
