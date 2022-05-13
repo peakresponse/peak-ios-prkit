@@ -49,11 +49,11 @@ open class CustomTabBarController: UITabBarController, CustomTabBarDelegate {
 
     // MARK: - TabBarDelegate
 
-    public func customTabBar(_ tabBar: CustomTabBar, didSelect index: Int) {
+    open func customTabBar(_ tabBar: CustomTabBar, didSelect index: Int) {
         selectedIndex = index
     }
 
-    public func customTabBar(_ tabBar: CustomTabBar, didPress button: UIButton) {
+    open func customTabBar(_ tabBar: CustomTabBar, didPress button: UIButton) {
 
     }
 }
