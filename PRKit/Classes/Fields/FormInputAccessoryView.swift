@@ -152,16 +152,12 @@ open class FormInputAccessoryView: UIInputView {
         }
         otherButton.isHidden = true
         if let currentView = currentView {
-            if let inputView = currentView.inputView as? FormInputView {
-                if let otherTitle = inputView.accessoryOtherButtonTitle {
-                    otherButton.isHidden = false
-                    otherButton.setTitle(otherTitle, for: .normal)
-                }
-            } else if let formField = currentView as? FormField {
-                if let otherTitle = formField.inputAccessoryViewOtherButtonTitle {
-                    otherButton.isHidden = false
-                    otherButton.setTitle(otherTitle, for: .normal)
-                }
+            if let formField = currentView as? FormField, let otherTitle = formField.inputAccessoryViewOtherButtonTitle {
+                otherButton.isHidden = false
+                otherButton.setTitle(otherTitle, for: .normal)
+            } else if let inputView = currentView.inputView as? FormInputView, let otherTitle = inputView.accessoryOtherButtonTitle {
+                otherButton.isHidden = false
+                otherButton.setTitle(otherTitle, for: .normal)
             }
         }
     }
@@ -180,12 +176,12 @@ open class FormInputAccessoryView: UIInputView {
 
     @objc func otherPressed() {
         if let currentView = currentView {
-            if let inputView = currentView.inputView as? FormInputView {
+            if let formField = currentView as? FormField, formField.inputAccessoryViewOtherButtonTitle != nil {
+                formField.delegate?.formFieldDidPressOther?(formField)
+            } else if let inputView = currentView.inputView as? FormInputView {
                 if let otherTitle = inputView.accessoryOtherButtonPressed(self) {
                     otherButton.setTitle(otherTitle, for: .normal)
                 }
-            } else if let formField = currentView as? FormField {
-                formField.delegate?.formFieldDidPressOther?(formField)
             }
         }
     }
