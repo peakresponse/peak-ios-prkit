@@ -49,16 +49,11 @@ open class CustomTabBarController: UITabBarController, CustomTabBarDelegate {
 
     // MARK: - TabBarDelegate
 
+    public func customTabBar(_ tabBar: CustomTabBar, didSelect index: Int) {
+        selectedIndex = index
+    }
+
     public func customTabBar(_ tabBar: CustomTabBar, didPress button: UIButton) {
-//
-//    }
-//    func customTabBar(_ tabBar: TabBar, didSelectItem item: UITabBarItem) {
-//        if let index = tabBar.items?.firstIndex(of: item) {
-//            if let item = item as? TabBarItem, let identifier = item.segueIdentifier {
-//                performSegue(withIdentifier: identifier, sender: self)
-//            } else {
-//                selectedIndex = index
-//            }
-//        }
+
     }
 }

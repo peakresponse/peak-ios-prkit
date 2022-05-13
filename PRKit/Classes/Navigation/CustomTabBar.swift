@@ -9,6 +9,7 @@ import UIKit
 
 @objc public protocol CustomTabBarDelegate: AnyObject {
     func customTabBar(_ tabBar: CustomTabBar, didPress button: UIButton)
+    func customTabBar(_ tabBar: CustomTabBar, didSelect index: Int)
 }
 
 open class CustomTabBarButton: UIButton {
@@ -169,6 +170,7 @@ open class CustomTabBar: UIView {
 
         let leftStackView = UIStackView()
         leftStackView.translatesAutoresizingMaskIntoConstraints = false
+        leftStackView.distribution = .fillEqually
         contentView.addSubview(leftStackView)
         NSLayoutConstraint.activate([
             leftStackView.leftAnchor.constraint(equalTo: contentView.leftAnchor),
@@ -180,6 +182,7 @@ open class CustomTabBar: UIView {
 
         let rightStackView = UIStackView()
         rightStackView.translatesAutoresizingMaskIntoConstraints = false
+        rightStackView.distribution = .fillEqually
         contentView.addSubview(rightStackView)
         NSLayoutConstraint.activate([
             rightStackView.leftAnchor.constraint(equalTo: button.rightAnchor),
@@ -223,6 +226,7 @@ open class CustomTabBar: UIView {
     @objc open func itemPressed(_ sender: UIButton) {
         guard let items = items else { return }
         selectedItem = items[sender.tag]
+        delegate?.customTabBar(self, didSelect: sender.tag)
     }
 
     @objc open func buttonPressed() {

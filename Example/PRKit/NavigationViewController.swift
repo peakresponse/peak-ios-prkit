@@ -9,6 +9,13 @@
 import UIKit
 import PRKit
 
+class SecondNavigationViewController: UIViewController {
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        tabBarItem.image = UIImage(named: "Patient", in: PRKitBundle.instance, compatibleWith: nil)
+    }
+}
+
 class NavigationViewController: UIViewController {
     @IBOutlet weak var segmentedControl: SegmentedControl!
 

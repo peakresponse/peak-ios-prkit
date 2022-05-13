@@ -1253,6 +1253,25 @@
             </objects>
             <point key="canvasLocation" x="3097" y="4063"/>
         </scene>
+        <!--Patients-->
+        <scene sceneID="mLk-xE-yiD">
+            <objects>
+                <viewController id="DXt-nW-JiG" customClass="SecondNavigationViewController" customModule="PRKit_Example" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ekB-xq-EyC"/>
+                        <viewControllerLayoutGuide type="bottom" id="9yO-b3-2hR"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ucZ-Tu-Y5n">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Patients" id="S5X-eD-EFM"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XJK-BT-mkk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3830" y="4063"/>
+        </scene>
         <!--Custom Tab Bar Controller-->
         <scene sceneID="6Lh-UC-JIJ">
             <objects>
@@ -1266,6 +1285,7 @@
                     </tabBar>
                     <connections>
                         <segue destination="YiS-Uq-bKw" kind="relationship" relationship="viewControllers" id="KDu-vu-FJ7"/>
+                        <segue destination="DXt-nW-JiG" kind="relationship" relationship="viewControllers" id="LxV-Aw-soQ"/>
                     </connections>
                 </tabBarController>
             </objects>
