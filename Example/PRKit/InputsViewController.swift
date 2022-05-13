@@ -24,7 +24,7 @@ class InputsViewController: UIViewController, FormFieldDelegate, KeyboardAwareSc
 
         let inputAccessoryView = FormInputAccessoryView(rootView: view)
         emptyField.inputAccessoryView = inputAccessoryView
-        emptyField.inputAccessoryViewOtherButtonTitle = "Test"
+        emptyField.inputAccessoryViewOtherButtonTitle = "Open Tag"
         disabledField.inputAccessoryView = inputAccessoryView
         passwordField.inputAccessoryView = inputAccessoryView
         errorField.inputAccessoryView = inputAccessoryView

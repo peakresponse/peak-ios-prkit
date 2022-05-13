@@ -92,6 +92,7 @@ open class FormInputAccessoryView: UIInputView {
         otherButton.setTitle("Button.done".localized, for: .normal)
         otherButton.style = .secondary
         otherButton.size = .small
+        otherButton.isLayoutVerticalAllowed = false
         otherButton.addTarget(self, action: #selector(otherPressed), for: .touchUpInside)
         otherButtonView.addSubview(otherButton)
         NSLayoutConstraint.activate([

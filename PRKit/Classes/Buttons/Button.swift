@@ -48,6 +48,7 @@ open class Button: UIButton {
         }
     }
 
+    open var isLayoutVerticalAllowed = true
     open var isLayoutVertical = false {
         didSet {
             if isLayoutVertical {
@@ -75,6 +76,7 @@ open class Button: UIButton {
     private func commonInit() {
         adjustsImageWhenHighlighted = false
         adjustsImageWhenDisabled = false
+        isLayoutVertical = false
         updateStyle()
     }
 
@@ -88,7 +90,7 @@ open class Button: UIButton {
         let horizontalIntrinsicContentSize = intrinsicContentSizeForLayout(false)
         if !isLayoutVertical && frame.width < horizontalIntrinsicContentSize.width {
             // only re-layout to vertical if there's an icon or the text has multiple words that can wrap
-            if image(for: .normal) != nil || title(for: .normal)?.contains(" ") ?? false {
+            if isLayoutVerticalAllowed && (image(for: .normal) != nil || title(for: .normal)?.contains(" ") ?? false) {
                 isLayoutVertical = true
                 setNeedsLayout()
             }
