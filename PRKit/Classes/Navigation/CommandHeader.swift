@@ -82,11 +82,11 @@ open class CommandHeader: UIView {
         return _searchField
     }
 
-    open var leftBarButtonItem: UIBarButtonItem? {
+    @IBOutlet open var leftBarButtonItem: UIBarButtonItem? {
         didSet { updateLeftBarButtonItem() }
     }
     open var leftBarButtonView: UIView?
-    open var rightBarButtonItem: UIBarButtonItem? {
+    @IBOutlet open var rightBarButtonItem: UIBarButtonItem? {
         didSet { updateRightBarButtonItem() }
     }
     open var rightBarButtonView: UIView?
