@@ -19,7 +19,7 @@ open class CustomTabBarButton: UIButton {
             setImage(item?.selectedImage, for: .highlighted)
             setImage(item?.selectedImage, for: .selected)
             setImage(item?.selectedImage, for: [.highlighted, .selected])
-            setTitle(item?.title, for: .normal)
+            setTitle("\(item?.title ?? "")\n", for: .normal)
         }
     }
 
@@ -41,7 +41,9 @@ open class CustomTabBarButton: UIButton {
     func commonInit() {
         tintColor = .base500
         titleLabel?.font = .body14Bold
+        titleLabel?.numberOfLines = 2
         titleLabel?.textAlignment = .center
+        titleLabel?.lineBreakMode = .byClipping
         setTitleColor(.base500, for: .normal)
         setTitleColor(.base800, for: .highlighted)
         setTitleColor(.base800, for: .selected)
