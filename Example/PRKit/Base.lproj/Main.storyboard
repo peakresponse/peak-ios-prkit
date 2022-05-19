@@ -568,7 +568,7 @@
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="left" value="NO"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uuT-Sb-v9D" customClass="PixelRuleView" customModule="PRKit">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uuT-Sb-v9D" userLabel="Bottom Pixel Rule View" customClass="PixelRuleView" customModule="PRKit">
                                 <rect key="frame" x="20" y="419" width="374" height="1"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
@@ -581,11 +581,15 @@
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="left" value="NO"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HoR-qK-Dxq" customClass="PriorityControl" customModule="PRKit">
+                                <rect key="frame" x="20" y="440" width="374" height="43"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
                             <view contentMode="scaleToFill" placeholderIntrinsicWidth="375" placeholderIntrinsicHeight="85" translatesAutoresizingMaskIntoConstraints="NO" id="gKh-zn-v66" customClass="CounterControl" customModule="PRKit">
-                                <rect key="frame" x="20" y="440" width="375" height="90"/>
+                                <rect key="frame" x="20" y="503" width="374" height="90"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="375" id="WX4-s6-p5O"/>
+                                    <constraint firstAttribute="width" relation="lessThanOrEqual" constant="375" id="WX4-s6-p5O"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="labelText" value="Approx # Patients"/>
@@ -599,10 +603,10 @@
                                 </connections>
                             </view>
                             <view contentMode="scaleToFill" placeholderIntrinsicWidth="375" placeholderIntrinsicHeight="85" translatesAutoresizingMaskIntoConstraints="NO" id="QnE-mf-Hju" userLabel="Disabled Counter Control" customClass="CounterControl" customModule="PRKit">
-                                <rect key="frame" x="20" y="550" width="375" height="90"/>
+                                <rect key="frame" x="20" y="613" width="374" height="90"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="375" id="3WL-Y8-J1o"/>
+                                    <constraint firstAttribute="width" relation="lessThanOrEqual" constant="375" id="3WL-Y8-J1o"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="labelText" value="Approx # Patients"/>
@@ -618,7 +622,7 @@
                             <constraint firstItem="db3-Ji-8wc" firstAttribute="trailing" secondItem="Fau-OE-Kps" secondAttribute="trailing" id="1jb-QI-1Xs"/>
                             <constraint firstItem="Fau-OE-Kps" firstAttribute="trailing" secondItem="z9U-rR-Eso" secondAttribute="trailing" constant="-20" id="5Nb-gQ-qJB"/>
                             <constraint firstItem="Ukc-Gu-ARA" firstAttribute="leading" secondItem="db3-Ji-8wc" secondAttribute="leading" id="7wJ-Zv-M66"/>
-                            <constraint firstItem="gKh-zn-v66" firstAttribute="top" secondItem="uuT-Sb-v9D" secondAttribute="bottom" constant="20" id="99t-lk-n21"/>
+                            <constraint firstItem="gKh-zn-v66" firstAttribute="top" secondItem="HoR-qK-Dxq" secondAttribute="bottom" constant="20" id="99t-lk-n21"/>
                             <constraint firstItem="LcK-pL-nrb" firstAttribute="top" secondItem="PB7-HI-sG9" secondAttribute="bottom" constant="20" id="CXS-lY-AT1"/>
                             <constraint firstItem="uuT-Sb-v9D" firstAttribute="leading" secondItem="db3-Ji-8wc" secondAttribute="leading" id="DoM-4V-n9d"/>
                             <constraint firstItem="uuT-Sb-v9D" firstAttribute="trailing" secondItem="db3-Ji-8wc" secondAttribute="trailing" id="GZV-23-JwK"/>
@@ -630,12 +634,16 @@
                             <constraint firstItem="QnE-mf-Hju" firstAttribute="leading" secondItem="gKh-zn-v66" secondAttribute="leading" id="VOe-Ki-sQd"/>
                             <constraint firstItem="0wF-bs-tzN" firstAttribute="top" secondItem="LcK-pL-nrb" secondAttribute="top" id="YRJ-bE-wna"/>
                             <constraint firstItem="PB7-HI-sG9" firstAttribute="top" secondItem="x5C-n2-Xs5" secondAttribute="bottom" constant="10" id="c0q-zv-bvF"/>
+                            <constraint firstItem="HoR-qK-Dxq" firstAttribute="top" secondItem="uuT-Sb-v9D" secondAttribute="bottom" constant="20" id="cJO-aP-hzE"/>
+                            <constraint firstItem="gKh-zn-v66" firstAttribute="trailing" secondItem="uuT-Sb-v9D" secondAttribute="trailing" id="cce-Ww-KeC"/>
+                            <constraint firstItem="HoR-qK-Dxq" firstAttribute="leading" secondItem="QnE-mf-Hju" secondAttribute="leading" id="de5-qS-6uZ"/>
                             <constraint firstItem="uuT-Sb-v9D" firstAttribute="top" secondItem="Ukc-Gu-ARA" secondAttribute="bottom" constant="10" id="eb5-BC-OZN"/>
                             <constraint firstItem="k6x-WD-duy" firstAttribute="trailing" secondItem="db3-Ji-8wc" secondAttribute="trailing" id="ga0-cg-49a"/>
                             <constraint firstItem="gKh-zn-v66" firstAttribute="leading" secondItem="uuT-Sb-v9D" secondAttribute="leading" id="gpy-9t-pDe"/>
                             <constraint firstItem="k6x-WD-duy" firstAttribute="top" secondItem="db3-Ji-8wc" secondAttribute="bottom" constant="10" id="hlL-Qf-qVA"/>
                             <constraint firstItem="QnE-mf-Hju" firstAttribute="top" secondItem="gKh-zn-v66" secondAttribute="bottom" constant="20" id="phV-wZ-egL"/>
                             <constraint firstItem="PB7-HI-sG9" firstAttribute="leading" secondItem="z9U-rR-Eso" secondAttribute="leading" constant="20" id="qzq-X2-6KA"/>
+                            <constraint firstItem="HoR-qK-Dxq" firstAttribute="trailing" secondItem="QnE-mf-Hju" secondAttribute="trailing" id="s4V-Nh-7N0"/>
                             <constraint firstItem="db3-Ji-8wc" firstAttribute="leading" secondItem="Fau-OE-Kps" secondAttribute="leading" id="uic-kH-0YU"/>
                             <constraint firstItem="BFk-se-bRa" firstAttribute="leading" secondItem="PB7-HI-sG9" secondAttribute="trailing" constant="10" id="v84-76-EFQ"/>
                             <constraint firstItem="Ukc-Gu-ARA" firstAttribute="top" secondItem="db3-Ji-8wc" secondAttribute="bottom" constant="10" id="wCc-x0-CeV"/>
@@ -1278,7 +1286,6 @@
         <!--Custom Tab Bar Controller-->
         <scene sceneID="6Lh-UC-JIJ">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="psv-FH-dTA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <tabBarController id="ASh-eu-KMT" customClass="CustomTabBarController" customModule="PRKit" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="WMR-uh-bwp"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="CCX-Fn-tDy" customClass="CustomTabBarPlaceholder" customModule="PRKit">
@@ -1291,6 +1298,7 @@
                         <segue destination="DXt-nW-JiG" kind="relationship" relationship="viewControllers" id="LxV-Aw-soQ"/>
                     </connections>
                 </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="psv-FH-dTA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2372" y="4063"/>
         </scene>

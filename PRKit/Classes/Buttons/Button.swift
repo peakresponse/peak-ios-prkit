@@ -209,20 +209,20 @@ open class Button: UIButton {
         }
         switch style {
         case .primary:
-            setBackgroundImage(UIImage.resizableImage(withColor: .brandPrimary500, cornerRadius: 8), for: .normal)
-            setBackgroundImage(UIImage.resizableImage(withColor: .brandPrimary600, cornerRadius: 8), for: .highlighted)
-            setBackgroundImage(UIImage.resizableImage(withColor: .base300, cornerRadius: 8), for: .disabled)
+            setBackgroundImage(.resizableImage(withColor: .brandPrimary500, cornerRadius: 8), for: .normal)
+            setBackgroundImage(.resizableImage(withColor: .brandPrimary600, cornerRadius: 8), for: .highlighted)
+            setBackgroundImage(.resizableImage(withColor: .base300, cornerRadius: 8), for: .disabled)
             setTitleAttributes(font: font, color: .white, for: .normal)
             setTitleAttributes(font: font, color: .white, for: .highlighted)
             setTitleAttributes(font: font, color: .white, for: .disabled)
             tintColor = .white
         case .secondary:
-            setBackgroundImage(UIImage.resizableImage(withColor: .white, cornerRadius: 8,
-                                                      borderColor: .brandPrimary500, borderWidth: borderWidth), for: .normal)
-            setBackgroundImage(UIImage.resizableImage(withColor: .brandPrimary100, cornerRadius: 8,
-                                                      borderColor: .brandPrimary600, borderWidth: borderWidth), for: .highlighted)
-            setBackgroundImage(UIImage.resizableImage(withColor: .white, cornerRadius: 8,
-                                                      borderColor: .base300, borderWidth: borderWidth), for: .disabled)
+            setBackgroundImage(.resizableImage(withColor: .white, cornerRadius: 8,
+                                               borderColor: .brandPrimary500, borderWidth: borderWidth), for: .normal)
+            setBackgroundImage(.resizableImage(withColor: .brandPrimary100, cornerRadius: 8,
+                                               borderColor: .brandPrimary600, borderWidth: borderWidth), for: .highlighted)
+            setBackgroundImage(.resizableImage(withColor: .white, cornerRadius: 8,
+                                               borderColor: .base300, borderWidth: borderWidth), for: .disabled)
             fallthrough
         case .tertiary:
             setTitleAttributes(font: font, color: .brandPrimary500, for: .normal)
@@ -230,20 +230,20 @@ open class Button: UIButton {
             setTitleAttributes(font: font, color: .base300, for: .disabled)
             tintColor = isEnabled ? .brandPrimary500 : .base300
         case .destructive:
-            setBackgroundImage(UIImage.resizableImage(withColor: .triageImmediateMedium, cornerRadius: 8), for: .normal)
-            setBackgroundImage(UIImage.resizableImage(withColor: .triageImmediateDark, cornerRadius: 8), for: .highlighted)
-            setBackgroundImage(UIImage.resizableImage(withColor: .triageImmediateLight, cornerRadius: 8), for: .disabled)
+            setBackgroundImage(.resizableImage(withColor: .triageImmediateMedium, cornerRadius: 8), for: .normal)
+            setBackgroundImage(.resizableImage(withColor: .triageImmediateDark, cornerRadius: 8), for: .highlighted)
+            setBackgroundImage(.resizableImage(withColor: .triageImmediateLight, cornerRadius: 8), for: .disabled)
             setTitleAttributes(font: font, color: .white, for: .normal)
             setTitleAttributes(font: font, color: .white, for: .highlighted)
             setTitleAttributes(font: font, color: .white, for: .disabled)
             tintColor = .white
         case .destructiveSecondary:
-            setBackgroundImage(UIImage.resizableImage(withColor: .white, cornerRadius: 8,
-                                                      borderColor: .triageImmediateMedium, borderWidth: borderWidth), for: .normal)
-            setBackgroundImage(UIImage.resizableImage(withColor: .triageImmediateLight, cornerRadius: 8,
-                                                      borderColor: .triageImmediateMedium, borderWidth: borderWidth), for: .highlighted)
-            setBackgroundImage(UIImage.resizableImage(withColor: .white, cornerRadius: 8,
-                                                      borderColor: .triageImmediateLight, borderWidth: borderWidth), for: .disabled)
+            setBackgroundImage(.resizableImage(withColor: .white, cornerRadius: 8,
+                                               borderColor: .triageImmediateMedium, borderWidth: borderWidth), for: .normal)
+            setBackgroundImage(.resizableImage(withColor: .triageImmediateLight, cornerRadius: 8,
+                                               borderColor: .triageImmediateMedium, borderWidth: borderWidth), for: .highlighted)
+            setBackgroundImage(.resizableImage(withColor: .white, cornerRadius: 8,
+                                               borderColor: .triageImmediateLight, borderWidth: borderWidth), for: .disabled)
             fallthrough
         case .destructiveTertiary:
             setTitleAttributes(font: font, color: .triageImmediateMedium, for: .normal)
@@ -251,9 +251,9 @@ open class Button: UIButton {
             setTitleAttributes(font: font, color: .triageImmediateLight, for: .disabled)
             tintColor = isEnabled ? .triageImmediateMedium : .triageImmediateLight
         case .warning:
-            setBackgroundImage(UIImage.resizableImage(withColor: .brandSecondary500, cornerRadius: 8), for: .normal)
-            setBackgroundImage(UIImage.resizableImage(withColor: .brandSecondary800, cornerRadius: 8), for: .highlighted)
-            setBackgroundImage(UIImage.resizableImage(withColor: .brandSecondary400, cornerRadius: 8), for: .disabled)
+            setBackgroundImage(.resizableImage(withColor: .brandSecondary500, cornerRadius: 8), for: .normal)
+            setBackgroundImage(.resizableImage(withColor: .brandSecondary800, cornerRadius: 8), for: .highlighted)
+            setBackgroundImage(.resizableImage(withColor: .brandSecondary400, cornerRadius: 8), for: .disabled)
             setTitleAttributes(font: font, color: .white, for: .normal)
             setTitleAttributes(font: font, color: .white, for: .highlighted)
             setTitleAttributes(font: font, color: .white, for: .disabled)
@@ -263,7 +263,7 @@ open class Button: UIButton {
         setContentCompressionResistancePriority(.required, for: .vertical)
     }
 
-    private func setTitleAttributes(font: UIFont, color: UIColor, for state: UIControl.State) {
+    func setTitleAttributes(font: UIFont, color: UIColor, for state: UIControl.State) {
         setAttributedTitle(NSAttributedString(string: title(for: state) ?? "", attributes: [
             .font: font,
             .foregroundColor: color

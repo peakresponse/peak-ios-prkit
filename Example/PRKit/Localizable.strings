@@ -9,5 +9,12 @@
 "Button.cancel" = "Cancel";
 "Button.done" = "Done";
 "Button.search" = "Search";
+"Button.updateStatus" = "Update Status";
+
+"Priority.0" = "Immediate";
+"Priority.1" = "Delayed";
+"Priority.2" = "Minimal";
+"Priority.3" = "Expectant";
+"Priority.4" = "Dead";
 
 "SearchBar.placeholder" = "Search...";
