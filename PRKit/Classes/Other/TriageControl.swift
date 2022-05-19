@@ -8,7 +8,7 @@
 import UIKit
 
 @IBDesignable
-class TriageControl: UIControl {
+open class TriageControl: UIControl {
     open weak var stackView: UIStackView!
     open weak var currentView: UIView!
     open weak var updateButton: Button!
