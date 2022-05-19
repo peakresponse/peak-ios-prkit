@@ -1,5 +1,5 @@
 //
-//  PriorityControl.swift
+//  TriageControl.swift
 //  PRKit
 //
 //  Created by Francis Li on 5/19/22.
@@ -8,7 +8,7 @@
 import UIKit
 
 @IBDesignable
-class PriorityControl: UIControl {
+class TriageControl: UIControl {
     open weak var stackView: UIStackView!
     open weak var currentView: UIView!
     open weak var updateButton: Button!
@@ -17,7 +17,7 @@ class PriorityControl: UIControl {
     open var priorityButtons: [Button] = []
     open weak var cancelButton: Button!
 
-    open var priority: Priority? {
+    open var priority: TriagePriority? {
         didSet { updatePriority() }
     }
 
@@ -85,7 +85,7 @@ class PriorityControl: UIControl {
         self.editingStackView = editingStackView
 
         var row: UIStackView!
-        for (i, priority) in Priority.allCases.enumerated() {
+        for (i, priority) in TriagePriority.allCases.enumerated() {
             if i % 3 == 0 {
                 row = UIStackView()
                 row.axis = .horizontal
@@ -93,6 +93,8 @@ class PriorityControl: UIControl {
                 row.distribution = .fillEqually
                 row.spacing = 8
                 editingStackView.addArrangedSubview(row)
+            } else if i == 5 {
+                break
             }
             let button = Button()
             button.tag = priority.rawValue
@@ -154,7 +156,7 @@ class PriorityControl: UIControl {
                 button.isSelected = false
             }
             sender.isSelected = true
-            priority = Priority(rawValue: sender.tag)
+            priority = TriagePriority(rawValue: sender.tag)
             sendActions(for: .valueChanged)
         } else {
             togglePressed()
