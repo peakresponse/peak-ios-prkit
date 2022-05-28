@@ -93,7 +93,7 @@ open class TriageControl: UIControl {
                 row.distribution = .fillEqually
                 row.spacing = 8
                 editingStackView.addArrangedSubview(row)
-            } else if i == 5 {
+            } else if i >= 5 {
                 break
             }
             let button = Button()
@@ -130,7 +130,7 @@ open class TriageControl: UIControl {
     }
 
     open func updatePriority() {
-        if let priority = priority {
+        if let priority = priority, priority != .unknown {
             currentChip.color = priority.color
             currentChip.setTitleColor(priority.labelColor, for: .normal)
             currentChip.setTitle(priority.description, for: .normal)

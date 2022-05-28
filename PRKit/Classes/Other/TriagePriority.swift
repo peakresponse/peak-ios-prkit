@@ -13,7 +13,8 @@ let TriageColors: [UIColor] = [
     .triageMinimalMedium,
     .triageExpectantMedium,
     .triageDeadMedium,
-    .triageTransportedMedium
+    .triageTransportedMedium,
+    .base500
 ]
 
 let TriageColorsLightened: [UIColor] = [
@@ -22,10 +23,12 @@ let TriageColorsLightened: [UIColor] = [
     .triageMinimalLight,
     .triageExpectantLight,
     .triageDeadLight,
-    .triageTransportedLight
+    .triageTransportedLight,
+    .base300
 ]
 
 let TriageLabelColors: [UIColor] = [
+    .white,
     .white,
     .white,
     .white,
@@ -41,6 +44,7 @@ public enum TriagePriority: Int, CustomStringConvertible, CaseIterable {
     case expectant
     case dead
     case transported
+    case unknown
 
     public var description: String {
         return "TriagePriority.\(rawValue)".localized
