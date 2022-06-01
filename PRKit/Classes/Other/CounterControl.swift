@@ -192,6 +192,11 @@ open class CounterControl: UIControl {
         }
     }
 
+    open override func layoutSubviews() {
+        super.layoutSubviews()
+        updateState()
+    }
+
     open func sendValueChanged() {
         if isDebounced {
             debounceTimer?.invalidate()
