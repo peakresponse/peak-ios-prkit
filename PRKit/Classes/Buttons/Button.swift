@@ -48,7 +48,7 @@ open class Button: UIButton {
         }
     }
 
-    open var isLayoutVerticalAllowed = true
+    @IBInspectable open var isLayoutVerticalAllowed: Bool = true
     open var isLayoutVertical = false {
         didSet {
             if isLayoutVertical {

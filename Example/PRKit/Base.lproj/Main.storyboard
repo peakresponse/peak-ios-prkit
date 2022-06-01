@@ -466,7 +466,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PB7-HI-sG9" customClass="Chip" customModule="PRKit">
-                                <rect key="frame" x="20" y="98" width="56" height="26"/>
+                                <rect key="frame" x="20" y="98" width="52" height="26"/>
                                 <color key="tintColor" name="Base500"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="Small">
@@ -477,7 +477,7 @@
                                 </userDefinedRuntimeAttributes>
                             </button>
                             <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BFk-se-bRa" customClass="Chip" customModule="PRKit">
-                                <rect key="frame" x="86" y="98" width="99" height="26"/>
+                                <rect key="frame" x="82" y="98" width="90" height="26"/>
                                 <color key="tintColor" name="Base500"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="10:03 AM">
@@ -489,7 +489,7 @@
                                 </userDefinedRuntimeAttributes>
                             </button>
                             <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LcK-pL-nrb" customClass="Chip" customModule="PRKit">
-                                <rect key="frame" x="20" y="144" width="126" height="36"/>
+                                <rect key="frame" x="20" y="144" width="122" height="36"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="Immediate">
@@ -502,7 +502,7 @@
                                 </userDefinedRuntimeAttributes>
                             </button>
                             <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0wF-bs-tzN" customClass="Chip" customModule="PRKit">
-                                <rect key="frame" x="156" y="144" width="127" height="36"/>
+                                <rect key="frame" x="152" y="144" width="121" height="36"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="Medium">
@@ -581,12 +581,12 @@
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="left" value="NO"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HoR-qK-Dxq" customClass="TriageControl" customModule="PRKit">
-                                <rect key="frame" x="20" y="440" width="374" height="43"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HoR-qK-Dxq" customClass="TriageControl" customModule="PRKit">
+                                <rect key="frame" x="20" y="440" width="374" height="93.5"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
-                            <view contentMode="scaleToFill" ambiguous="YES" placeholderIntrinsicWidth="375" placeholderIntrinsicHeight="85" translatesAutoresizingMaskIntoConstraints="NO" id="gKh-zn-v66" customClass="CounterControl" customModule="PRKit">
-                                <rect key="frame" x="20" y="503" width="374" height="90"/>
+                            <view contentMode="scaleToFill" placeholderIntrinsicWidth="375" placeholderIntrinsicHeight="85" translatesAutoresizingMaskIntoConstraints="NO" id="gKh-zn-v66" customClass="CounterControl" customModule="PRKit">
+                                <rect key="frame" x="20" y="553.5" width="374" height="90"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="lessThanOrEqual" constant="375" id="WX4-s6-p5O"/>
@@ -602,8 +602,8 @@
                                     <action selector="counterValueChanged:" destination="zxa-MG-ex6" eventType="valueChanged" id="5NL-fD-ZF8"/>
                                 </connections>
                             </view>
-                            <view contentMode="scaleToFill" ambiguous="YES" placeholderIntrinsicWidth="375" placeholderIntrinsicHeight="85" translatesAutoresizingMaskIntoConstraints="NO" id="QnE-mf-Hju" userLabel="Disabled Counter Control" customClass="CounterControl" customModule="PRKit">
-                                <rect key="frame" x="20" y="613" width="374" height="90"/>
+                            <view contentMode="scaleToFill" placeholderIntrinsicWidth="375" placeholderIntrinsicHeight="85" translatesAutoresizingMaskIntoConstraints="NO" id="QnE-mf-Hju" userLabel="Disabled Counter Control" customClass="CounterControl" customModule="PRKit">
+                                <rect key="frame" x="20" y="663.5" width="374" height="90"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="lessThanOrEqual" constant="375" id="3WL-Y8-J1o"/>
@@ -1530,7 +1530,7 @@
     </scenes>
     <designables>
         <designable name="0wF-bs-tzN">
-            <size key="intrinsicContentSize" width="127" height="36"/>
+            <size key="intrinsicContentSize" width="121" height="36"/>
         </designable>
         <designable name="1I8-st-BMR">
             <size key="intrinsicContentSize" width="144" height="83.200000000000003"/>
@@ -1554,7 +1554,7 @@
             <size key="intrinsicContentSize" width="144" height="83.200000000000003"/>
         </designable>
         <designable name="BFk-se-bRa">
-            <size key="intrinsicContentSize" width="99" height="26"/>
+            <size key="intrinsicContentSize" width="90" height="26"/>
         </designable>
         <designable name="BKi-Hz-sby">
             <size key="intrinsicContentSize" width="144" height="83.200000000000003"/>
@@ -1593,7 +1593,7 @@
             <size key="intrinsicContentSize" width="144" height="83.200000000000003"/>
         </designable>
         <designable name="LcK-pL-nrb">
-            <size key="intrinsicContentSize" width="126" height="36"/>
+            <size key="intrinsicContentSize" width="122" height="36"/>
         </designable>
         <designable name="MG3-o5-OhM">
             <size key="intrinsicContentSize" width="414" height="56"/>
@@ -1602,7 +1602,7 @@
             <size key="intrinsicContentSize" width="170" height="68.799999999999997"/>
         </designable>
         <designable name="PB7-HI-sG9">
-            <size key="intrinsicContentSize" width="56" height="26"/>
+            <size key="intrinsicContentSize" width="52" height="26"/>
         </designable>
         <designable name="Q1B-QG-FNU">
             <size key="intrinsicContentSize" width="374" height="72.5"/>
