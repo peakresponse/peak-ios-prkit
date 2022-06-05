@@ -44,7 +44,7 @@ let TriageMapMarkerImages: [UIImage?] = [
     UIImage(named: "Expectant", in: PRKitBundle.instance, compatibleWith: nil),
     UIImage(named: "Dead", in: PRKitBundle.instance, compatibleWith: nil),
     nil,
-    UIImage(named: "Unknown", in: PRKitBundle.instance, compatibleWith: nil),
+    UIImage(named: "Unknown", in: PRKitBundle.instance, compatibleWith: nil)
 ]
 
 public enum TriagePriority: Int, CustomStringConvertible, CaseIterable {
@@ -75,7 +75,7 @@ public enum TriagePriority: Int, CustomStringConvertible, CaseIterable {
     public var lightenedColor: UIColor {
         return TriageColorsLightened[rawValue]
     }
-    
+
     public var mapMarkerImage: UIImage? {
         return TriageMapMarkerImages[rawValue]
     }
