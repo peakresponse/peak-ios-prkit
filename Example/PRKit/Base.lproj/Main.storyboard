@@ -138,6 +138,21 @@
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="isEnabled" value="NO"/>
                                         </userDefinedRuntimeAttributes>
                                     </view>
+                                    <view contentMode="scaleToFill" placeholderIntrinsicWidth="374" placeholderIntrinsicHeight="70" translatesAutoresizingMaskIntoConstraints="NO" id="qC5-6K-NwV" customClass="SignatureField" customModule="PRKit">
+                                        <rect key="frame" x="20" y="793.5" width="374" height="70"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="ipr-zj-hHa" id="9AZ-I0-KvA"/>
+                                        </connections>
+                                    </view>
+                                    <view contentMode="scaleToFill" placeholderIntrinsicWidth="374" placeholderIntrinsicHeight="80" translatesAutoresizingMaskIntoConstraints="NO" id="S3I-MJ-FQx" customClass="CellField" customModule="PRKit">
+                                        <rect key="frame" x="20" y="883.5" width="374" height="80"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="text" value="Patient Refusal Against Medical Advice"/>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isLabelHidden" value="YES"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="vgv-B0-hHD" firstAttribute="top" secondItem="JGV-fz-1Ch" secondAttribute="bottom" constant="20" id="1Sp-rs-ZPB"/>
@@ -150,6 +165,7 @@
                                     <constraint firstItem="spq-dt-YrQ" firstAttribute="leading" secondItem="y3x-cc-GHZ" secondAttribute="leading" id="B7f-zV-7ZJ"/>
                                     <constraint firstItem="y3x-cc-GHZ" firstAttribute="top" secondItem="arX-br-IA9" secondAttribute="bottom" constant="20" id="BGB-bL-qXw"/>
                                     <constraint firstItem="spq-dt-YrQ" firstAttribute="top" secondItem="y3x-cc-GHZ" secondAttribute="bottom" constant="20" id="Cxd-ow-cLd"/>
+                                    <constraint firstItem="qC5-6K-NwV" firstAttribute="trailing" secondItem="qra-dW-nLk" secondAttribute="trailing" id="EBF-Ve-G0n"/>
                                     <constraint firstItem="wVU-M6-xuG" firstAttribute="trailing" secondItem="vxt-c4-Uev" secondAttribute="trailing" constant="20" id="ENs-Ei-A1i"/>
                                     <constraint firstItem="vgv-B0-hHD" firstAttribute="leading" secondItem="JGV-fz-1Ch" secondAttribute="leading" id="EvX-KA-APa"/>
                                     <constraint firstItem="vcJ-Ow-yxv" firstAttribute="top" secondItem="vgv-B0-hHD" secondAttribute="bottom" constant="20" id="FSk-h2-wBD"/>
@@ -160,18 +176,23 @@
                                     <constraint firstItem="CBl-dn-Vqh" firstAttribute="leading" secondItem="vcJ-Ow-yxv" secondAttribute="leading" id="MF1-C4-N9f"/>
                                     <constraint firstItem="vxt-c4-Uev" firstAttribute="leading" secondItem="fE2-LA-PNf" secondAttribute="leading" constant="20" id="SZe-SZ-GXM"/>
                                     <constraint firstItem="arX-br-IA9" firstAttribute="leading" secondItem="jW0-wr-d3R" secondAttribute="leading" id="ToL-IN-uuZ"/>
+                                    <constraint firstItem="S3I-MJ-FQx" firstAttribute="top" secondItem="qC5-6K-NwV" secondAttribute="bottom" constant="20" id="UjQ-A8-z5p"/>
                                     <constraint firstItem="arX-br-IA9" firstAttribute="top" secondItem="jW0-wr-d3R" secondAttribute="bottom" constant="20" id="Vdc-G6-FSz"/>
                                     <constraint firstItem="qra-dW-nLk" firstAttribute="leading" secondItem="spq-dt-YrQ" secondAttribute="leading" id="YJE-Dp-kqi"/>
                                     <constraint firstItem="y3x-cc-GHZ" firstAttribute="trailing" secondItem="arX-br-IA9" secondAttribute="trailing" id="ZOy-sU-OtE"/>
                                     <constraint firstItem="jW0-wr-d3R" firstAttribute="top" secondItem="CBl-dn-Vqh" secondAttribute="bottom" constant="20" id="b3B-sP-AAH"/>
-                                    <constraint firstItem="wVU-M6-xuG" firstAttribute="bottom" secondItem="qra-dW-nLk" secondAttribute="bottom" constant="20" id="bEC-9Q-0by"/>
+                                    <constraint firstItem="wVU-M6-xuG" firstAttribute="bottom" secondItem="S3I-MJ-FQx" secondAttribute="bottom" constant="20" id="bEC-9Q-0by"/>
+                                    <constraint firstItem="S3I-MJ-FQx" firstAttribute="leading" secondItem="qC5-6K-NwV" secondAttribute="leading" id="bsq-Ba-flM"/>
                                     <constraint firstItem="y3x-cc-GHZ" firstAttribute="leading" secondItem="arX-br-IA9" secondAttribute="leading" id="dYq-lY-Yp3"/>
                                     <constraint firstItem="CBl-dn-Vqh" firstAttribute="trailing" secondItem="vcJ-Ow-yxv" secondAttribute="trailing" id="dr8-u4-ME4"/>
                                     <constraint firstItem="qra-dW-nLk" firstAttribute="top" secondItem="spq-dt-YrQ" secondAttribute="bottom" constant="20" id="h15-cD-ikQ"/>
+                                    <constraint firstItem="qC5-6K-NwV" firstAttribute="top" secondItem="qra-dW-nLk" secondAttribute="bottom" constant="20" id="hwP-S9-5iO"/>
+                                    <constraint firstItem="S3I-MJ-FQx" firstAttribute="trailing" secondItem="qC5-6K-NwV" secondAttribute="trailing" id="p8F-NB-sNT"/>
                                     <constraint firstItem="CBl-dn-Vqh" firstAttribute="top" secondItem="vcJ-Ow-yxv" secondAttribute="bottom" constant="30" id="qWJ-o2-x30"/>
                                     <constraint firstItem="vxt-c4-Uev" firstAttribute="top" secondItem="wVU-M6-xuG" secondAttribute="top" constant="20" id="rCF-Mv-kXR"/>
                                     <constraint firstItem="qra-dW-nLk" firstAttribute="trailing" secondItem="spq-dt-YrQ" secondAttribute="trailing" id="rPF-Ye-qll"/>
                                     <constraint firstItem="jW0-wr-d3R" firstAttribute="leading" secondItem="CBl-dn-Vqh" secondAttribute="leading" id="ulT-WH-l1k"/>
+                                    <constraint firstItem="qC5-6K-NwV" firstAttribute="leading" secondItem="qra-dW-nLk" secondAttribute="leading" id="xXt-kL-fUy"/>
                                 </constraints>
                                 <viewLayoutGuide key="contentLayoutGuide" id="wVU-M6-xuG"/>
                                 <viewLayoutGuide key="frameLayoutGuide" id="fE2-LA-PNf"/>
@@ -586,7 +607,7 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                             <view contentMode="scaleToFill" ambiguous="YES" placeholderIntrinsicWidth="375" placeholderIntrinsicHeight="85" translatesAutoresizingMaskIntoConstraints="NO" id="gKh-zn-v66" customClass="CounterControl" customModule="PRKit">
-                                <rect key="frame" x="20" y="553.5" width="374" height="90"/>
+                                <rect key="frame" x="20" y="553.5" width="374" height="89.5"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="lessThanOrEqual" constant="375" id="WX4-s6-p5O"/>
@@ -603,7 +624,7 @@
                                 </connections>
                             </view>
                             <view contentMode="scaleToFill" ambiguous="YES" placeholderIntrinsicWidth="375" placeholderIntrinsicHeight="85" translatesAutoresizingMaskIntoConstraints="NO" id="QnE-mf-Hju" userLabel="Disabled Counter Control" customClass="CounterControl" customModule="PRKit">
-                                <rect key="frame" x="20" y="663.5" width="374" height="90"/>
+                                <rect key="frame" x="20" y="663" width="374" height="89.5"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="lessThanOrEqual" constant="375" id="3WL-Y8-J1o"/>
@@ -1616,6 +1637,9 @@
         <designable name="RN5-yH-PFJ">
             <size key="intrinsicContentSize" width="374" height="72.5"/>
         </designable>
+        <designable name="S3I-MJ-FQx">
+            <size key="intrinsicContentSize" width="374" height="80"/>
+        </designable>
         <designable name="Ssp-Rq-eBz">
             <size key="intrinsicContentSize" width="374" height="72.5"/>
         </designable>
@@ -1678,6 +1702,9 @@
         </designable>
         <designable name="pRT-XV-e5d">
             <size key="intrinsicContentSize" width="374" height="72.5"/>
+        </designable>
+        <designable name="qC5-6K-NwV">
+            <size key="intrinsicContentSize" width="374" height="70"/>
         </designable>
         <designable name="qra-dW-nLk">
             <size key="intrinsicContentSize" width="683.5" height="72.5"/>

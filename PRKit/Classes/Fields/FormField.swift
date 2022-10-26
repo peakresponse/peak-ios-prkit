@@ -14,6 +14,7 @@ import UIKit
     @objc optional func formFieldDidEndEditing(_ field: FormField)
     @objc optional func formFieldShouldReturn(_ field: FormField) -> Bool
     @objc optional func formFieldDidChange(_ field: FormField)
+    @objc optional func formFieldDidPress(_ field: FormField)
     @objc optional func formFieldDidPressOther(_ field: FormField)
     @objc optional func formFieldDidPressStatus(_ field: FormField)
     @objc optional func formField(_ field: FormField, wantsToPresent vc: UIViewController)

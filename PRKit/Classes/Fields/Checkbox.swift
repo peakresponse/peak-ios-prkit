@@ -46,6 +46,7 @@ open class Checkbox: UIView {
     open var cornerRadius: CGFloat { return isRadioButton ? 19 : 8 }
     open var innerCornerRadius: CGFloat { return isRadioButton ? 12 : 4 }
 
+    @IBInspectable open var attributeKey: String?
     open var value: NSObject?
 
     override public init(frame: CGRect) {

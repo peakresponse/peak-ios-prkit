@@ -49,4 +49,8 @@ class InputsViewController: UIViewController, FormFieldDelegate, KeyboardAwareSc
     func formFieldDidPressOther(_ field: FormField) {
         print("other pressed")
     }
+
+    func formField(_ field: FormField, wantsToPresent vc: UIViewController) {
+        present(vc, animated: true)
+    }
 }

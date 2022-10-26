@@ -30,6 +30,7 @@ TODO: Add long description of the pod here.
   s.dependency 'AlignedCollectionViewFlowLayout'
   s.dependency 'SVGKit', '~> 3.0'
   s.dependency 'Keyboardy', '~> 0.2'
+  s.dependency 'SwiftSignatureView', '~> 3.2.0'
 
   s.pod_target_xcconfig = { 'LD_RUNPATH_SEARCH_PATHS[sdk=iphonesimulator*]' => '$(inherited) $FRAMEWORK_SEARCH_PATHS' }
 end

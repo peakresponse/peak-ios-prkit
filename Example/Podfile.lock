@@ -13,9 +13,11 @@ PODS:
     - AlignedCollectionViewFlowLayout
     - Keyboardy (~> 0.2)
     - SVGKit (~> 3.0)
+    - SwiftSignatureView (~> 3.2.0)
   - SVGKit (3.0.0):
     - CocoaLumberjack (~> 3.0)
   - SwiftLint (0.43.1)
+  - SwiftSignatureView (3.2.0)
 
 DEPENDENCIES:
   - FBSnapshotTestCase (~> 2.1.4)
@@ -30,6 +32,7 @@ SPEC REPOS:
     - Keyboardy
     - SVGKit
     - SwiftLint
+    - SwiftSignatureView
 
 EXTERNAL SOURCES:
   PRKit:
@@ -40,9 +43,10 @@ SPEC CHECKSUMS:
   CocoaLumberjack: b7e05132ff94f6ae4dfa9d5bce9141893a21d9da
   FBSnapshotTestCase: 094f9f314decbabe373b87cc339bea235a63e07a
   Keyboardy: 5fee785baf2bc8fa95896a31d88b5f49488f839e
-  PRKit: ba036dd225e79200d99b7de1dcf6651e60579b9b
+  PRKit: 9613c3bdb81b0fc71fd4da6307f7c90f75f79e20
   SVGKit: 1ad7513f8c74d9652f94ed64ddecda1a23864dea
   SwiftLint: 99f82d07b837b942dd563c668de129a03fc3fb52
+  SwiftSignatureView: cd8cca297cc2ca6a6c174da22fb908c33d03d3c0
 
 PODFILE CHECKSUM: a4000f7ac62d42bea381b015e5ecb0a400ed3af9
 

@@ -123,7 +123,7 @@ open class FormInputAccessoryView: UIInputView {
     open func traverse(view: UIView) {
         guard let currentView = currentView, currentView.tag > 0 else { return }
         if view.tag > 0 {
-            if view.canBecomeFirstResponder {
+            if !view.isHidden && view.canBecomeFirstResponder {
                 if view.tag > (prevView?.tag ?? 0) && view.tag < currentView.tag {
                     prevView = view
                 }
