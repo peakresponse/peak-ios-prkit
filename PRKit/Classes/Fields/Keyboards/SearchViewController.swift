@@ -66,7 +66,11 @@ open class SearchViewController: UIViewController, CheckboxDelegate, FormFieldDe
         layout.minimumInteritemSpacing = 20
         layout.sectionInset = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
 
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(refreshPressed), for: .valueChanged)
+
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.refreshControl = refreshControl
         collectionView.backgroundColor = .white
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.dataSource = self
@@ -100,8 +104,13 @@ open class SearchViewController: UIViewController, CheckboxDelegate, FormFieldDe
         unregisterFromKeyboardNotifications()
     }
 
+    @objc func refreshPressed() {
+        collectionView.reloadData()
+        collectionView.refreshControl?.endRefreshing()
+    }
+
     @objc func cancelPressed() {
-        source?.search(nil)
+        source?.search(nil, callback: nil)
         dismiss(animated: true, completion: nil)
     }
 
@@ -150,7 +159,14 @@ open class SearchViewController: UIViewController, CheckboxDelegate, FormFieldDe
     // MARK: - FormFieldDelegate
 
     open func formFieldDidChange(_ field: FormField) {
-        source?.search(field.text)
+        collectionView.refreshControl?.beginRefreshing()
+        source?.search(field.text, callback: { [weak self] (didLoad) in
+            guard let self = self else { return }
+            self.collectionView.refreshControl?.endRefreshing()
+            if didLoad {
+                self.collectionView.reloadData()
+            }
+        })
         collectionView.reloadData()
     }
 

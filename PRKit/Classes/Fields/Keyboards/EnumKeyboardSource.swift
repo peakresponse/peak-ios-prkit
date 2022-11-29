@@ -28,12 +28,13 @@ open class EnumKeyboardSource<T: StringCaseIterable>: NSObject, KeyboardSource {
         return T.allCases.map { $0.rawValue }.firstIndex(of: value)
     }
 
-    open func search(_ query: String?) {
+    open func search(_ query: String?, callback: ((Bool) -> Void)? = nil) {
         if let query = query?.trimmingCharacters(in: .whitespacesAndNewlines), !query.isEmpty {
             filtered = T.allCases.filter { $0.description.localizedLowercase.contains(query.localizedLowercase) }
         } else {
             filtered = nil
         }
+        callback?(false)
     }
 
     open func title(for value: NSObject?) -> String? {

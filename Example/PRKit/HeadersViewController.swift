@@ -25,6 +25,14 @@ class HeadersViewController: UIViewController {
         let backItem = UIBarButtonItem(title: "Back", style: .plain, target: nil, action: nil)
         backItem.image = UIImage(named: "ChevronLeft40px", in: PRKitBundle.instance, compatibleWith: nil)
         backCommandHeader.leftBarButtonItem = backItem
+
+        backCommandHeader.centerBarButtonItem = UIBarButtonItem(title: "Center", style: .plain, target: nil, action: nil)
+
+        let spinner = UIActivityIndicatorView.withMediumStyle()
+        spinner.color = .base500
+        spinner.startAnimating()
+        let spinnerItem = UIBarButtonItem(customView: spinner)
+        backCommandHeader.rightBarButtonItem = spinnerItem
     }
 
     @IBAction func primaryPressed() {

@@ -11,6 +11,11 @@ private class InternalTextView: UITextView {
     weak var textField: TextField?
 
     override func becomeFirstResponder() -> Bool {
+        if !isEditable, let textField = textField {
+            if !(textField.delegate?.formFieldShouldBeginEditing?(textField) ?? true) {
+                return false
+            }
+        }
         if super.becomeFirstResponder() {
             selectedRange = NSRange(location: text.count, length: 0)
             textField?.updateStyle()

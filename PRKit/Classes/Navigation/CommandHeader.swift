@@ -86,6 +86,10 @@ open class CommandHeader: UIView {
         didSet { updateLeftBarButtonItem() }
     }
     open var leftBarButtonView: UIView?
+    @IBOutlet open var centerBarButtonItem: UIBarButtonItem? {
+        didSet { updateCenterBarButtonItem() }
+    }
+    open var centerBarButtonView: UIView?
     @IBOutlet open var rightBarButtonItem: UIBarButtonItem? {
         didSet { updateRightBarButtonItem() }
     }
@@ -157,7 +161,11 @@ open class CommandHeader: UIView {
         delegate?.commandHeaderDidPressUser?(self)
     }
 
-    func createButton(from barButtonItem: UIBarButtonItem) -> UIButton {
+    func createView(from barButtonItem: UIBarButtonItem) -> UIView {
+        if let customView = barButtonItem.customView {
+            customView.translatesAutoresizingMaskIntoConstraints = false
+            return customView
+        }
         let button = UIButton(type: .custom)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle(barButtonItem.title, for: .normal)
@@ -174,14 +182,14 @@ open class CommandHeader: UIView {
     func updateLeftBarButtonItem() {
         leftBarButtonView?.removeFromSuperview()
         if let leftBarButtonItem = leftBarButtonItem {
-            let button = createButton(from: leftBarButtonItem)
+            let subview = createView(from: leftBarButtonItem)
             let view = UIView()
-            view.addSubview(button)
+            view.addSubview(subview)
             NSLayoutConstraint.activate([
-                button.topAnchor.constraint(equalTo: view.topAnchor),
-                button.leftAnchor.constraint(equalTo: view.leftAnchor),
-                button.rightAnchor.constraint(lessThanOrEqualTo: view.rightAnchor),
-                view.bottomAnchor.constraint(equalTo: button.bottomAnchor)
+                subview.topAnchor.constraint(equalTo: view.topAnchor),
+                subview.leftAnchor.constraint(equalTo: view.leftAnchor),
+                subview.rightAnchor.constraint(lessThanOrEqualTo: view.rightAnchor),
+                view.bottomAnchor.constraint(equalTo: subview.bottomAnchor)
             ])
             stackView.insertArrangedSubview(view, at: 0)
             stackViewLeftConstraint.constant = leftBarButtonItem.image != nil ? 0 : 20
@@ -189,17 +197,35 @@ open class CommandHeader: UIView {
         }
     }
 
+    func updateCenterBarButtonItem() {
+        centerBarButtonView?.removeFromSuperview()
+        if let centerBarButtonItem = centerBarButtonItem {
+            let subview = createView(from: centerBarButtonItem)
+            let view = UIView()
+            view.addSubview(subview)
+            NSLayoutConstraint.activate([
+                subview.topAnchor.constraint(equalTo: view.topAnchor),
+                subview.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+                subview.leftAnchor.constraint(greaterThanOrEqualTo: view.leftAnchor),
+                subview.rightAnchor.constraint(lessThanOrEqualTo: view.rightAnchor),
+                view.bottomAnchor.constraint(equalTo: subview.bottomAnchor)
+            ])
+            stackView.insertArrangedSubview(view, at: 1)
+            centerBarButtonView = view
+        }
+    }
+
     func updateRightBarButtonItem() {
         rightBarButtonView?.removeFromSuperview()
         if let rightBarButtonItem = rightBarButtonItem {
-            let button = createButton(from: rightBarButtonItem)
             let view = UIView()
-            view.addSubview(button)
+            let subview = createView(from: rightBarButtonItem)
+            view.addSubview(subview)
             NSLayoutConstraint.activate([
-                button.topAnchor.constraint(equalTo: view.topAnchor),
-                button.leftAnchor.constraint(greaterThanOrEqualTo: view.leftAnchor),
-                button.rightAnchor.constraint(equalTo: view.rightAnchor),
-                view.bottomAnchor.constraint(equalTo: button.bottomAnchor)
+                subview.topAnchor.constraint(equalTo: view.topAnchor),
+                subview.leftAnchor.constraint(greaterThanOrEqualTo: view.leftAnchor),
+                subview.rightAnchor.constraint(equalTo: view.rightAnchor),
+                view.bottomAnchor.constraint(equalTo: subview.bottomAnchor)
             ])
             stackView.addArrangedSubview(view)
             self.rightBarButtonView = view
