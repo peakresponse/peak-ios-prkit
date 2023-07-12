@@ -168,15 +168,21 @@ open class CounterControl: UIControl {
 
     open func updateState() {
         if isEnabled {
-            decrButton.setImage(UIImage(named: "Minus40px", in: PRKitBundle.instance, compatibleWith: nil), for: .normal)
-            incrButton.setImage(UIImage(named: "Plus40px", in: PRKitBundle.instance, compatibleWith: nil), for: .normal)
+            decrButtonWidthConstraint.constant = 85
+            incrButtonWidthConstraint.constant = 85
             decrButton.isUserInteractionEnabled = true
             incrButton.isUserInteractionEnabled = true
+            topBorder.alpha = 1
+            bottomBorder.alpha = 1
+            layer.borderWidth = 0
         } else {
-            decrButton.setImage(nil, for: .normal)
-            incrButton.setImage(nil, for: .normal)
+            decrButtonWidthConstraint.constant = 0
+            incrButtonWidthConstraint.constant = 0
             decrButton.isUserInteractionEnabled = false
             incrButton.isUserInteractionEnabled = false
+            topBorder.alpha = 0
+            bottomBorder.alpha = 0
+            layer.borderWidth = 4
         }
     }
 
