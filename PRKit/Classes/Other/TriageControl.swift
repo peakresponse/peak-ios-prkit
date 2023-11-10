@@ -101,10 +101,14 @@ open class TriageControl: UIControl {
             button.size = .small
             button.style = .secondary
             button.setTitle(priority.description, for: .normal)
-            button.setTitleAttributes(font: .body14Bold, color: .base800, for: .normal)
-            button.setTitleAttributes(font: .body14Bold, color: priority.labelColor, for: .highlighted)
-            button.setTitleAttributes(font: .body14Bold, color: priority.labelColor, for: .selected)
-            button.setTitleAttributes(font: .body14Bold, color: priority.labelColor, for: [.selected, .highlighted])
+            button.setTitleColor(.base800, for: .normal)
+            button.setTitleColor(priority.labelColor, for: .highlighted)
+            button.setTitleColor(priority.labelColor, for: .selected)
+            button.setTitleColor(priority.labelColor, for: [.selected, .highlighted])
+//            button.setTitleAttributes(font: .body14Bold, color: .base800, for: .normal)
+//            button.setTitleAttributes(font: .body14Bold, color: priority.labelColor, for: .highlighted)
+//            button.setTitleAttributes(font: .body14Bold, color: priority.labelColor, for: .selected)
+//            button.setTitleAttributes(font: .body14Bold, color: priority.labelColor, for: [.selected, .highlighted])
             button.setBackgroundImage(.resizableImage(withColor: priority.lightenedColor, cornerRadius: 8,
                                                       borderColor: priority.color, borderWidth: 2), for: .normal)
             button.setBackgroundImage(.resizableImage(withColor: priority.color, cornerRadius: 8,

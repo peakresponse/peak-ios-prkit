@@ -19,7 +19,7 @@ public enum ButtonStyle: String {
 open class Button: UIButton {
     @IBInspectable open var l10nKey: String? {
         get { return nil }
-        set { setTitle(newValue?.localized, for: .normal); updateStyle() }
+        set { setTitle(newValue?.localized, for: .normal) }
     }
 
     open var size: ButtonSize = .medium {
@@ -76,6 +76,8 @@ open class Button: UIButton {
     private func commonInit() {
         adjustsImageWhenHighlighted = false
         adjustsImageWhenDisabled = false
+        setContentCompressionResistancePriority(.required, for: .horizontal)
+        setContentCompressionResistancePriority(.required, for: .vertical)
         isLayoutVertical = false
         updateStyle()
     }
@@ -105,18 +107,13 @@ open class Button: UIButton {
     }
 
     open func intrinsicContentSizeForLayout(_ isLayoutVertical: Bool) -> CGSize {
+        let titleFont = titleLabel?.font ?? .h3SemiBold
         var size = super.intrinsicContentSize
-        var font: UIFont
         switch self.size {
         case .small:
-            font = .body14Bold
-            size.height = font.lineHeight + 26
-        case .medium:
-            font = .h3SemiBold
-            size.height = font.lineHeight + 40
-        case .large:
-            font = .h2Bold
-            size.height = font.lineHeight + 40
+            size.height = titleFont.lineHeight + 26
+        case .medium, .large:
+            size.height = titleFont.lineHeight + 40
         }
         let image = self.image(for: .normal)
         let title = self.title(for: .normal)
@@ -142,7 +139,7 @@ open class Button: UIButton {
                 size.height += titleEdgeInsets.top + (title as NSString).boundingRect(with: bounds,
                                                                                       options: [.usesLineFragmentOrigin],
                                                                                       attributes: [
-                                                                                         .font: font,
+                                                                                         .font: titleFont,
                                                                                          .paragraphStyle: paragraphStyle
                                                                                       ],
                                                                                       context: nil).height + titleEdgeInsets.bottom
@@ -187,24 +184,15 @@ open class Button: UIButton {
         return rect
     }
 
-    open override func setTitle(_ title: String?, for state: UIControl.State) {
-        super.setTitle(title, for: state)
-        updateStyle()
-    }
-
-    private func updateStyle() {
-        var font: UIFont
+    private func setBackgroundImages() {
         var borderWidth: CGFloat = 3
         switch size {
         case .small:
             borderWidth = 2
-            font = .body14Bold
             contentEdgeInsets = UIEdgeInsets(top: 13, left: 20, bottom: 13, right: 20)
         case .medium:
-            font = .h3SemiBold
             contentEdgeInsets = UIEdgeInsets(top: 20, left: 28, bottom: 20, right: 28)
         case .large:
-            font = .h2Bold
             contentEdgeInsets = UIEdgeInsets(top: 20, left: 28, bottom: 20, right: 28)
         }
         switch style {
@@ -212,9 +200,6 @@ open class Button: UIButton {
             setBackgroundImage(.resizableImage(withColor: .brandPrimary500, cornerRadius: 8), for: .normal)
             setBackgroundImage(.resizableImage(withColor: .brandPrimary600, cornerRadius: 8), for: .highlighted)
             setBackgroundImage(.resizableImage(withColor: .base300, cornerRadius: 8), for: .disabled)
-            setTitleAttributes(font: font, color: .white, for: .normal)
-            setTitleAttributes(font: font, color: .white, for: .highlighted)
-            setTitleAttributes(font: font, color: .white, for: .disabled)
             tintColor = .white
         case .secondary:
             setBackgroundImage(.resizableImage(withColor: .white, cornerRadius: 8,
@@ -225,17 +210,11 @@ open class Button: UIButton {
                                                borderColor: .base300, borderWidth: borderWidth), for: .disabled)
             fallthrough
         case .tertiary:
-            setTitleAttributes(font: font, color: .brandPrimary500, for: .normal)
-            setTitleAttributes(font: font, color: .brandPrimary600, for: .highlighted)
-            setTitleAttributes(font: font, color: .base300, for: .disabled)
             tintColor = isEnabled ? .brandPrimary500 : .base300
         case .destructive:
             setBackgroundImage(.resizableImage(withColor: .triageImmediateMedium, cornerRadius: 8), for: .normal)
             setBackgroundImage(.resizableImage(withColor: .triageImmediateDark, cornerRadius: 8), for: .highlighted)
             setBackgroundImage(.resizableImage(withColor: .triageImmediateLight, cornerRadius: 8), for: .disabled)
-            setTitleAttributes(font: font, color: .white, for: .normal)
-            setTitleAttributes(font: font, color: .white, for: .highlighted)
-            setTitleAttributes(font: font, color: .white, for: .disabled)
             tintColor = .white
         case .destructiveSecondary:
             setBackgroundImage(.resizableImage(withColor: .white, cornerRadius: 8,
@@ -246,27 +225,44 @@ open class Button: UIButton {
                                                borderColor: .triageImmediateLight, borderWidth: borderWidth), for: .disabled)
             fallthrough
         case .destructiveTertiary:
-            setTitleAttributes(font: font, color: .triageImmediateMedium, for: .normal)
-            setTitleAttributes(font: font, color: .triageImmediateMedium, for: .highlighted)
-            setTitleAttributes(font: font, color: .triageImmediateLight, for: .disabled)
             tintColor = isEnabled ? .triageImmediateMedium : .triageImmediateLight
         case .warning:
             setBackgroundImage(.resizableImage(withColor: .brandSecondary500, cornerRadius: 8), for: .normal)
             setBackgroundImage(.resizableImage(withColor: .brandSecondary800, cornerRadius: 8), for: .highlighted)
             setBackgroundImage(.resizableImage(withColor: .brandSecondary400, cornerRadius: 8), for: .disabled)
-            setTitleAttributes(font: font, color: .white, for: .normal)
-            setTitleAttributes(font: font, color: .white, for: .highlighted)
-            setTitleAttributes(font: font, color: .white, for: .disabled)
             tintColor = .white
         }
-        setContentCompressionResistancePriority(.required, for: .horizontal)
-        setContentCompressionResistancePriority(.required, for: .vertical)
     }
 
-    func setTitleAttributes(font: UIFont, color: UIColor, for state: UIControl.State) {
-        setAttributedTitle(NSAttributedString(string: title(for: state) ?? "", attributes: [
-            .font: font,
-            .foregroundColor: color
-        ]), for: state)
+    private func setTitleAttributes() {
+        var titleFont: UIFont
+        switch size {
+        case .small:
+            titleFont = .body14Bold
+        case .medium:
+            titleFont = .h3SemiBold
+        case .large:
+            titleFont = .h2Bold
+        }
+        titleLabel?.font = titleFont
+        switch style {
+        case .primary, .destructive, .warning:
+            setTitleColor(.white, for: .normal)
+            setTitleColor(.white, for: .highlighted)
+            setTitleColor(.white, for: .disabled)
+        case .secondary, .tertiary:
+            setTitleColor(.brandPrimary500, for: .normal)
+            setTitleColor(.brandPrimary600, for: .highlighted)
+            setTitleColor(.base300, for: .disabled)
+        case .destructiveSecondary, .destructiveTertiary:
+            setTitleColor(.triageImmediateMedium, for: .normal)
+            setTitleColor(.triageImmediateMedium, for: .highlighted)
+            setTitleColor(.triageImmediateLight, for: .disabled)
+        }
+    }
+
+    private func updateStyle() {
+        setBackgroundImages()
+        setTitleAttributes()
     }
 }

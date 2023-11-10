@@ -29,9 +29,9 @@ let TriageColorsLightened: [UIColor] = [
 
 let TriageLabelColors: [UIColor] = [
     .white,
-    .white,
-    .white,
-    .white,
+    .base800,
+    .base800,
+    .base800,
     .white,
     .white,
     .white

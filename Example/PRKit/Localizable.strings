@@ -18,6 +18,9 @@
 "SignatureField.clearSignature.title" = "Clear Signature?";
 "SignatureField.clearSignature.message" = "Are you sure you wish to clear this Signature?";
 
+"TriageCounts.total" = "Total: %d";
+"TriageCounts.transported" = "Transp: %d";
+
 "TriagePriority.0" = "Immediate";
 "TriagePriority.1" = "Delayed";
 "TriagePriority.2" = "Minimal";
