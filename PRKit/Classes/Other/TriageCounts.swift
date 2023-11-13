@@ -90,9 +90,9 @@ open class TriageCounts: UIStackView {
             totalButton.contentEdgeInsets = UIEdgeInsets(top: 13, left: 10, bottom: 13, right: 10)
         }
         totalButton.setTitleColor(.base800, for: .normal)
-        totalButton.setTitleColor(.base800, for: .highlighted)
-        totalButton.setTitleColor(.base800, for: .selected)
-        totalButton.setTitleColor(.base800, for: [.highlighted, .selected])
+        totalButton.setTitleColor(.white, for: .highlighted)
+        totalButton.setTitleColor(.white, for: .selected)
+        totalButton.setTitleColor(.white, for: [.highlighted, .selected])
         totalButton.setBackgroundImage(.resizableImage(withColor: .white, cornerRadius: 8,
                                                   borderColor: .base500, borderWidth: 2), for: .normal)
         totalButton.setBackgroundImage(.resizableImage(withColor: .base500, cornerRadius: 8,
