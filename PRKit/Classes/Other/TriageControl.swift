@@ -16,6 +16,7 @@ open class TriageControl: UIControl {
     open weak var editingStackView: UIStackView!
     open var priorityButtons: [Button] = []
     open weak var cancelButton: Button!
+    open var isExpectantHidden = true
 
     open var priority: TriagePriority? {
         didSet { updatePriority() }
@@ -105,10 +106,6 @@ open class TriageControl: UIControl {
             button.setTitleColor(priority.labelColor, for: .highlighted)
             button.setTitleColor(priority.labelColor, for: .selected)
             button.setTitleColor(priority.labelColor, for: [.selected, .highlighted])
-//            button.setTitleAttributes(font: .body14Bold, color: .base800, for: .normal)
-//            button.setTitleAttributes(font: .body14Bold, color: priority.labelColor, for: .highlighted)
-//            button.setTitleAttributes(font: .body14Bold, color: priority.labelColor, for: .selected)
-//            button.setTitleAttributes(font: .body14Bold, color: priority.labelColor, for: [.selected, .highlighted])
             button.setBackgroundImage(.resizableImage(withColor: priority.lightenedColor, cornerRadius: 8,
                                                       borderColor: priority.color, borderWidth: 2), for: .normal)
             button.setBackgroundImage(.resizableImage(withColor: priority.color, cornerRadius: 8,
@@ -120,8 +117,11 @@ open class TriageControl: UIControl {
             button.setBackgroundImage(.resizableImage(withColor: priority.lightenedColor, cornerRadius: 8,
                                                       borderColor: priority.lightenedColor, borderWidth: 2), for: .disabled)
             button.addTarget(self, action: #selector(priorityPressed(_:)), for: .touchUpInside)
-            row.addArrangedSubview(button)
             priorityButtons.append(button)
+            row.addArrangedSubview(button)
+            if priority == .expectant && isExpectantHidden {
+                button.alpha = 0
+            }
         }
         let cancelButton = Button()
         cancelButton.alpha = 0
