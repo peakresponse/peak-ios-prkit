@@ -17,6 +17,7 @@ open class TriageCounts: UIStackView {
     open var totalButton: Button!
     open var priorityButtons: [Button] = []
     open var size: ButtonSize = .small
+    open var isExpectantHidden = true
 
     public override init(frame: CGRect) {
         super.init(frame: frame)
@@ -68,7 +69,9 @@ open class TriageCounts: UIStackView {
             button.addTarget(self, action: #selector(buttonPressed(_:)), for: .touchUpInside)
             priorityButtons.append(button)
             setCount(0, for: priority)
-            if priority == .transported {
+            if priority == .expectant && isExpectantHidden {
+                continue
+            } else if priority == .transported {
                 break
             }
             row.addArrangedSubview(button)
