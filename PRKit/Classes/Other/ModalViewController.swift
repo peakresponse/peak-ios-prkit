@@ -11,9 +11,7 @@ typealias AlertHandler = @convention(block) (UIAlertAction) -> Void
 
 open class ModalViewController: UIViewController {
     open weak var backdropView: UIView!
-    open weak var tapRecognizer: UITapGestureRecognizer!
     open weak var contentView: UIView!
-    open weak var cancelButton: UIButton!
     open weak var messageLabel: UILabel!
     open weak var buttonStackView: UIStackView!
     open var actions: [UIAlertAction] = []
@@ -52,10 +50,6 @@ open class ModalViewController: UIViewController {
             backdropView.rightAnchor.constraint(equalTo: view.rightAnchor),
             backdropView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
-        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(cancelPressed))
-        backdropView.addGestureRecognizer(tapRecognizer)
-        self.backdropView = backdropView
-        self.tapRecognizer = tapRecognizer
 
         let contentView = UIView()
         contentView.translatesAutoresizingMaskIntoConstraints = false
@@ -80,20 +74,6 @@ open class ModalViewController: UIViewController {
         }
         self.contentView = contentView
 
-        let cancelButton = UIButton(type: .custom)
-        cancelButton.translatesAutoresizingMaskIntoConstraints = false
-        cancelButton.tintColor = .base800
-        cancelButton.setImage(UIImage(named: "Exit24px", in: PRKitBundle.instance, compatibleWith: nil), for: .normal)
-        cancelButton.addTarget(self, action: #selector(cancelPressed), for: .touchUpInside)
-        contentView.addSubview(cancelButton)
-        NSLayoutConstraint.activate([
-            cancelButton.heightAnchor.constraint(equalToConstant: 44),
-            cancelButton.widthAnchor.constraint(equalToConstant: 44),
-            cancelButton.topAnchor.constraint(equalTo: contentView.topAnchor),
-            cancelButton.rightAnchor.constraint(equalTo: contentView.rightAnchor)
-        ])
-        self.cancelButton = cancelButton
-
         let messageLabel = UILabel()
         messageLabel.translatesAutoresizingMaskIntoConstraints = false
         messageLabel.font = .h4SemiBold
@@ -103,7 +83,7 @@ open class ModalViewController: UIViewController {
         messageLabel.textColor = .base800
         contentView.addSubview(messageLabel)
         NSLayoutConstraint.activate([
-            messageLabel.topAnchor.constraint(equalTo: cancelButton.bottomAnchor, constant: 16),
+            messageLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 40),
             messageLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 25),
             messageLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -25)
         ])
@@ -139,10 +119,6 @@ open class ModalViewController: UIViewController {
         }
     }
 
-    @objc func cancelPressed() {
-        dismiss(animated: true)
-    }
-
     @objc func actionPressed(_ button: PRKit.Button) {
         let action = actions[button.tag]
         if let block = action.value(forKey: "handler") {
@@ -153,13 +129,11 @@ open class ModalViewController: UIViewController {
                 }
             } else {
                 // hide all the buttons
-                cancelButton.alpha = 0
                 for view in buttonStackView.arrangedSubviews {
                     if let button = view as? PRKit.Button {
-                        button.alpha = 0
+                        button.isEnabled = false
                     }
                 }
-                tapRecognizer.isEnabled = false
                 // put an activity spinner over the selected button
                 let activityIndicatorView = UIActivityIndicatorView.withLargeStyle()
                 activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
