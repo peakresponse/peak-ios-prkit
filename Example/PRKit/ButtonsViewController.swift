@@ -12,10 +12,16 @@ import UIKit
 class ButtonsViewController: UIViewController {
     @IBAction func buttonPressed() {
         let modal = ModalViewController()
-        modal.messageText = "Are you sure you wish to make this incident a red alert?"
+        modal.messageText = "This is an active MCI in progress."
         modal.isDismissedOnAction = false
-        modal.addAction(UIAlertAction(title: "Start Mass Casualty", style: .destructive, handler: { (_) in
+        modal.addAction(UIAlertAction(title: "Join Scene", style: .destructive, handler: { (_) in
             print("destructive")
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2.0) {
+                modal.dismiss(animated: true)
+            }
+        }))
+        modal.addAction(UIAlertAction(title: "View Scene", style: .default, handler: { (_) in
+            print("default")
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2.0) {
                 modal.dismiss(animated: true)
             }
