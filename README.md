@@ -1,19 +1,10 @@
 # PRKit
 
+PRKit is the custom iOS UI toolkit/library for the Peak Response mobile app.
+
 ## Example
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
-
-## Requirements
-
-## Installation
-
-PRKit is available through [CocoaPods](https://cocoapods.org). To install
-it, simply add the following line to your Podfile:
-
-```ruby
-pod 'PRKit'
-```
 
 ## Author
 
@@ -22,7 +13,7 @@ Francis Li, francis@peakresponse.net
 ## License
 
 PRKit  
-Copyright (C) 2022 Peak Response Inc.
+Copyright (C) 2024 Peak Response Inc.
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
