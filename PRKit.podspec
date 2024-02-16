@@ -19,7 +19,7 @@ PRKit is the custom iOS UI toolkit/library for the Peak Response mobile app.
   s.author           = { 'Francis Li' => 'mail@francisli.com' }
   s.source           = { :git => 'https://github.com/peakresponse/peak-ios-prkit.git', :tag => s.version.to_s }
 
-  s.ios.deployment_target = '12.4'
+  s.ios.deployment_target = '15.5'
 
   s.source_files = 'PRKit/Classes/**/*'
 
