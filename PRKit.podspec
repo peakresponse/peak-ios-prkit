@@ -8,10 +8,10 @@
 
 Pod::Spec.new do |s|
   s.name             = 'PRKit'
-  s.version          = '0.1.0'
-  s.summary          = 'A short description of PRKit.'
+  s.version          = '1.0.0'
+  s.summary          = 'PRKit is the custom iOS UI toolkit/library for the Peak Response mobile app.'
   s.description      = <<-DESC
-TODO: Add long description of the pod here.
+PRKit is the custom iOS UI toolkit/library for the Peak Response mobile app.
                        DESC
 
   s.homepage         = 'https://github.com/peakresponse/peak-ios-prkit'
