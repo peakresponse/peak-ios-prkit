@@ -8,35 +8,29 @@
 
 Pod::Spec.new do |s|
   s.name             = 'PRKit'
-  s.version          = '0.1.0'
-  s.summary          = 'A short description of PRKit.'
-
-# This description is used to generate tags and improve search results.
-#   * Think: What does it do? Why did you write it? What is the focus?
-#   * Try to keep it short, snappy and to the point.
-#   * Write the description between the DESC delimiters below.
-#   * Finally, don't worry about the indent, CocoaPods strips it!
-
+  s.version          = '1.0.0'
+  s.summary          = 'PRKit is the custom iOS UI toolkit/library for the Peak Response mobile app.'
   s.description      = <<-DESC
-TODO: Add long description of the pod here.
+PRKit is the custom iOS UI toolkit/library for the Peak Response mobile app.
                        DESC
 
-  s.homepage         = 'https://github.com/Francis Li/PRKit'
-  # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
-  s.license          = { :type => 'MIT', :file => 'LICENSE' }
+  s.homepage         = 'https://github.com/peakresponse/peak-ios-prkit'
+  s.license          = { :type => 'LGPL', :file => 'LICENSE.md' }
   s.author           = { 'Francis Li' => 'mail@francisli.com' }
-  s.source           = { :git => 'https://github.com/Francis Li/PRKit.git', :tag => s.version.to_s }
-  # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
+  s.source           = { :git => 'https://github.com/peakresponse/peak-ios-prkit.git', :tag => s.version.to_s }
 
-  s.ios.deployment_target = '9.0'
+  s.ios.deployment_target = '15.5'
 
   s.source_files = 'PRKit/Classes/**/*'
-  
-  # s.resource_bundles = {
-  #   'PRKit' => ['PRKit/Assets/*.png']
-  # }
+
+  s.resources = ['PRKit/Assets/**/*.xcassets', 'PRKit/Assets/**/*.svg']
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'
-  # s.dependency 'AFNetworking', '~> 2.3'
+  s.dependency 'AlignedCollectionViewFlowLayout'
+  s.dependency 'SVGKit', '~> 3.0'
+  s.dependency 'Keyboardy', '~> 0.2'
+  s.dependency 'SwiftSignatureView', '~> 3.2.0'
+
+  s.pod_target_xcconfig = { 'LD_RUNPATH_SEARCH_PATHS[sdk=iphonesimulator*]' => '$(inherited) $FRAMEWORK_SEARCH_PATHS' }
 end

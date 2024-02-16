@@ -1,0 +1,30 @@
+/* 
+  Localizable.strings
+  PRKit
+
+  Created by Francis Li on 11/12/21.
+  Copyright © 2021 CocoaPods. All rights reserved.
+*/
+
+"Button.cancel" = "Cancel";
+"Button.clear" = "Clear";
+"Button.done" = "Done";
+"Button.no" = "No";
+"Button.search" = "Search";
+"Button.tapToSign" = "Tap Here to Sign";
+"Button.updateStatus" = "Update Status";
+"Button.yes" = "Yes";
+
+"SignatureField.clearSignature.title" = "Clear Signature?";
+"SignatureField.clearSignature.message" = "Are you sure you wish to clear this Signature?";
+
+"TriageCounts.total" = "Total: %d";
+"TriageCounts.transported" = "Transp: %d";
+
+"TriagePriority.0" = "Immediate";
+"TriagePriority.1" = "Delayed";
+"TriagePriority.2" = "Minimal";
+"TriagePriority.3" = "Expectant";
+"TriagePriority.4" = "Dead";
+
+"SearchBar.placeholder" = "Search...";

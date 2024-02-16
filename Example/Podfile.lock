@@ -1,0 +1,53 @@
+PODS:
+  - AlignedCollectionViewFlowLayout (1.1.2)
+  - CocoaLumberjack (3.7.2):
+    - CocoaLumberjack/Core (= 3.7.2)
+  - CocoaLumberjack/Core (3.7.2)
+  - FBSnapshotTestCase (2.1.4):
+    - FBSnapshotTestCase/SwiftSupport (= 2.1.4)
+  - FBSnapshotTestCase/Core (2.1.4)
+  - FBSnapshotTestCase/SwiftSupport (2.1.4):
+    - FBSnapshotTestCase/Core
+  - Keyboardy (0.2.7)
+  - PRKit (1.0.0):
+    - AlignedCollectionViewFlowLayout
+    - Keyboardy (~> 0.2)
+    - SVGKit (~> 3.0)
+    - SwiftSignatureView (~> 3.2.0)
+  - SVGKit (3.0.0):
+    - CocoaLumberjack (~> 3.0)
+  - SwiftLint (0.43.1)
+  - SwiftSignatureView (3.2.0)
+
+DEPENDENCIES:
+  - FBSnapshotTestCase (~> 2.1.4)
+  - PRKit (from `../`)
+  - SwiftLint
+
+SPEC REPOS:
+  trunk:
+    - AlignedCollectionViewFlowLayout
+    - CocoaLumberjack
+    - FBSnapshotTestCase
+    - Keyboardy
+    - SVGKit
+    - SwiftLint
+    - SwiftSignatureView
+
+EXTERNAL SOURCES:
+  PRKit:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  AlignedCollectionViewFlowLayout: ee2ef451e741ec08f8e0967d828001e2f051c20a
+  CocoaLumberjack: b7e05132ff94f6ae4dfa9d5bce9141893a21d9da
+  FBSnapshotTestCase: 094f9f314decbabe373b87cc339bea235a63e07a
+  Keyboardy: 5fee785baf2bc8fa95896a31d88b5f49488f839e
+  PRKit: 27c7ec9e498384b0a49b0274d5c31a52b3120ba6
+  SVGKit: 1ad7513f8c74d9652f94ed64ddecda1a23864dea
+  SwiftLint: 99f82d07b837b942dd563c668de129a03fc3fb52
+  SwiftSignatureView: cd8cca297cc2ca6a6c174da22fb908c33d03d3c0
+
+PODFILE CHECKSUM: 4dc67c9f9779e02d358eec308c934f56a9b829ab
+
+COCOAPODS: 1.13.0
