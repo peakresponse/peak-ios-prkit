@@ -1388,6 +1388,9 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="boolean" keyPath="isActionButtonEnabled" value="NO"/>
+                            <userDefinedRuntimeAttribute type="number" keyPath="height">
+                                <real key="value" value="105"/>
+                            </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </tabBar>
                     <connections>
@@ -1796,7 +1799,7 @@
             <size key="intrinsicContentSize" width="44" height="138"/>
         </designable>
         <designable name="HAb-03-n8o">
-            <size key="intrinsicContentSize" width="114" height="34"/>
+            <size key="intrinsicContentSize" width="120" height="36"/>
         </designable>
         <designable name="HyR-fI-M7N">
             <size key="intrinsicContentSize" width="115" height="68.799999999999997"/>
