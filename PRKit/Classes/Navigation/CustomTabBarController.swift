@@ -10,6 +10,7 @@ import UIKit
 @IBDesignable
 open class CustomTabBarPlaceholder: UITabBar {
     @IBInspectable open var height: CGFloat = 147
+    @IBInspectable open var isActionButtonEnabled: Bool = true
 
     override open func sizeThatFits(_ size: CGSize) -> CGSize {
         var sizeThatFits = super.sizeThatFits(size)
@@ -32,6 +33,7 @@ open class CustomTabBarController: UITabBarController, CustomTabBarDelegate {
         // set up custom tab bar, overlaying existing tab bar
         let customTabBar = CustomTabBar(frame: tabBar.frame)
         customTabBar.delegate = self
+        customTabBar.isActionButtonEnabled = (tabBar as? CustomTabBarPlaceholder)?.isActionButtonEnabled ?? true
         customTabBar.items = viewControllers?.map({ $0.tabBarItem })
         customTabBar.selectedItem = customTabBar.items?.first
         self.customTabBar = customTabBar

@@ -70,7 +70,10 @@ open class CustomTabBar: UIView {
     open weak var button: UIButton!
     open weak var buttonLabel: UILabel!
     open weak var leftStackView: UIStackView!
+    open var leftStackViewRightButtonConstraint: NSLayoutConstraint!
+    open var leftStackViewRightContentConstraint: NSLayoutConstraint!
     open weak var rightStackView: UIStackView!
+    open var isActionButtonEnabled = true
 
     open var items: [UITabBarItem]? {
         didSet {
@@ -174,10 +177,12 @@ open class CustomTabBar: UIView {
         leftStackView.translatesAutoresizingMaskIntoConstraints = false
         leftStackView.distribution = .fillEqually
         contentView.addSubview(leftStackView)
+        leftStackViewRightButtonConstraint = leftStackView.rightAnchor.constraint(equalTo: button.leftAnchor)
+        leftStackViewRightContentConstraint = leftStackView.rightAnchor.constraint(equalTo: contentView.rightAnchor)
         NSLayoutConstraint.activate([
             leftStackView.leftAnchor.constraint(equalTo: contentView.leftAnchor),
             leftStackView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            leftStackView.rightAnchor.constraint(equalTo: button.leftAnchor),
+            leftStackViewRightButtonConstraint,
             leftStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
         self.leftStackView = leftStackView
@@ -197,8 +202,21 @@ open class CustomTabBar: UIView {
 
     open func updateItems() {
         guard let items = items else { return }
+        if isActionButtonEnabled {
+            button.isHidden = false
+            bottomImageView.alpha = 1
+            leftStackViewRightButtonConstraint.isActive = true
+            leftStackViewRightContentConstraint.isActive = false
+            rightStackView.isHidden = false
+        } else {
+            button.isHidden = true
+            bottomImageView.alpha = 0
+            leftStackViewRightButtonConstraint.isActive = false
+            leftStackViewRightContentConstraint.isActive = true
+            rightStackView.isHidden = true
+        }
         for (i, item) in items.enumerated() {
-            let stackView = i < 2 ? leftStackView : rightStackView
+            let stackView = isActionButtonEnabled ? (i < 2 ? leftStackView : rightStackView) : leftStackView
             let button = CustomTabBarButton()
             button.tag = i
             button.item = item
