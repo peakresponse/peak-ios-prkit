@@ -25,6 +25,13 @@ open class FormRadioGroup: FormComponent, CheckboxDelegate {
         }
     }
 
+    open var isDismissingFirstResponderOnChange = true
+    private var _inputAccessoryView: UIView?
+    open override var inputAccessoryView: UIView? {
+        get { return _inputAccessoryView }
+        set { _inputAccessoryView = newValue }
+    }
+
     override public init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
@@ -85,6 +92,9 @@ open class FormRadioGroup: FormComponent, CheckboxDelegate {
     // MARK: - CheckboxDelegate
 
     public func checkbox(_ checkbox: Checkbox, didChange isChecked: Bool) {
+        if isDismissingFirstResponderOnChange, let inputAccessoryView = inputAccessoryView as? FormInputAccessoryView {
+            inputAccessoryView.donePressed()
+        }
         for cb in checkboxes {
             if cb !== checkbox {
                 cb.isChecked = false

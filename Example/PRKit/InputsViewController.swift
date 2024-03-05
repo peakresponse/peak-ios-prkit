@@ -30,6 +30,7 @@ class InputsViewController: UIViewController, FormFieldDelegate, KeyboardAwareSc
         passwordField.inputAccessoryView = inputAccessoryView
         errorField.inputAccessoryView = inputAccessoryView
 
+        radioGroup.inputAccessoryView = inputAccessoryView
         radioGroup.isDeselectable = true
         radioGroup.labelText = "Radio Group"
         radioGroup.addRadioButton(labelText: "Arrived", value: "arrived" as NSObject)
