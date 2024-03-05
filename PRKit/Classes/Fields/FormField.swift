@@ -93,7 +93,7 @@ public enum FormFieldAttributeType: Equatable {
     }
 }
 
-open class FormField: UIView, Localizable, FormInputViewDelegate {
+open class FormField: FormBase, Localizable, FormInputViewDelegate {
     open weak var borderedView: UIView!
     open weak var contentView: UIView!
 
@@ -141,21 +141,12 @@ open class FormField: UIView, Localizable, FormInputViewDelegate {
         }
     }
 
-    open var source: NSObject?
-    open var target: NSObject?
-
-    @IBInspectable open var attributeKey: String?
     open var attributeType: FormFieldAttributeType = .text {
         didSet { updateAttributeType() }
     }
     @IBInspectable open var AttributeType: String {
         get { return attributeType.rawValue }
         set { attributeType = FormFieldAttributeType(rawValue: newValue) ?? .text }
-    }
-    open var attributeValue: NSObject? {
-        didSet {
-            updateAttributeValue()
-        }
     }
     open var inputAccessoryViewOtherButtonTitle: String?
 
@@ -287,7 +278,8 @@ open class FormField: UIView, Localizable, FormInputViewDelegate {
 
     }
 
-    open func updateAttributeValue() {
+    open override func didUpdateAttributeValue() {
+        super.didUpdateAttributeValue()
         if let inputView = inputView as? FormInputView {
             text = inputView.text(for: attributeValue)
         } else {

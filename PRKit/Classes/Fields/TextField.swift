@@ -325,8 +325,8 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
         self.inputView = inputView
     }
 
-    open override func updateAttributeValue() {
-        super.updateAttributeValue()
+    open override func didUpdateAttributeValue() {
+        super.didUpdateAttributeValue()
         if let inputView = inputView as? FormInputView {
             unitLabel.text = inputView.unitText(for: attributeValue) ?? unitText
             unitLabelLeftConstraint?.constant = widthForText(text ?? "", font: textView.font!)
