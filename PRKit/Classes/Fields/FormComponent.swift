@@ -20,12 +20,34 @@ open class FormComponent: UIView {
     open var target: NSObject?
 
     @IBInspectable open var attributeKey: String?
+
     open var attributeValue: NSObject? {
         didSet {
             didUpdateAttributeValue()
         }
     }
 
+    @IBInspectable open var isEditing: Bool = true {
+        didSet {
+            didUpdateEditing()
+        }
+    }
+
+    @IBInspectable open var isEnabled: Bool = true {
+        didSet {
+            didUpdateEnabled()
+        }
+    }
+
     open func didUpdateAttributeValue() {
+    }
+
+    open func didUpdateEditing() {
+    }
+
+    open func didUpdateEnabled() {
+    }
+
+    open func updateStyle() {
     }
 }

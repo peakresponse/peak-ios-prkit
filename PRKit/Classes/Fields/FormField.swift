@@ -163,15 +163,6 @@ open class FormField: FormComponent, Localizable, FormInputViewDelegate {
         didSet { updateStyle() }
     }
 
-    @IBInspectable open var isEditing: Bool = true
-
-    @IBInspectable open var isEnabled: Bool = true {
-        didSet {
-            contentView.isUserInteractionEnabled = isEnabled
-            updateStyle()
-        }
-    }
-
     @IBInspectable open var hasError: Bool = false {
         didSet { updateStyle() }
     }
@@ -284,7 +275,12 @@ open class FormField: FormComponent, Localizable, FormInputViewDelegate {
         }
     }
 
-    open func updateStyle() {
+    open override func didUpdateEnabled() {
+        contentView.isUserInteractionEnabled = isEnabled
+        updateStyle()
+    }
+
+    open override func updateStyle() {
         if isPlainText {
             borderedView.backgroundColor = .clear
             borderedView.layer.borderWidth = 0
