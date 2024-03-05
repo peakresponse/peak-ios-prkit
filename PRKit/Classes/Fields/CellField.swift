@@ -54,7 +54,7 @@ open class CellField: FormField {
     }
 
     @IBAction open func viewPressed(_ sender: UIGestureRecognizer) {
-        delegate?.formFieldDidPress?(self)
+        (delegate as? FormFieldDelegate)?.formFieldDidPress?(self)
     }
 
     open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

@@ -1,5 +1,5 @@
 //
-//  FormBase.swift
+//  FormComponent.swift
 //  PRKit
 //
 //  Created by Francis Li on 3/4/24.
@@ -8,8 +8,14 @@
 import Foundation
 import UIKit
 
+@objc public protocol FormComponentDelegate {
+    @objc optional func formComponentDidChange(_ component: FormComponent)
+}
+
 @IBDesignable
-open class FormBase: UIView {
+open class FormComponent: UIView {
+    @IBOutlet open weak var delegate: FormComponentDelegate?
+
     open var source: NSObject?
     open var target: NSObject?
 

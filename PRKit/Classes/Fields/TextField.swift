@@ -12,7 +12,7 @@ private class InternalTextView: UITextView {
 
     override func becomeFirstResponder() -> Bool {
         if !isEditable, let textField = textField {
-            if !(textField.delegate?.formFieldShouldBeginEditing?(textField) ?? true) {
+            if !((textField.delegate as? FormFieldDelegate)?.formFieldShouldBeginEditing?(textField) ?? true) {
                 return false
             }
         }
@@ -374,19 +374,19 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
     // MARK: - UITextViewDelegate
 
     public func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
-        return delegate?.formFieldShouldBeginEditing?(self) ?? true
+        return (delegate as? FormFieldDelegate)?.formFieldShouldBeginEditing?(self) ?? true
     }
 
     public func textViewDidBeginEditing(_ textView: UITextView) {
-        delegate?.formFieldDidBeginEditing?(self)
+        (delegate as? FormFieldDelegate)?.formFieldDidBeginEditing?(self)
     }
 
     public func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
-        return delegate?.formFieldShouldEndEditing?(self) ?? true
+        return (delegate as? FormFieldDelegate)?.formFieldShouldEndEditing?(self) ?? true
     }
 
     public func textViewDidEndEditing(_ textView: UITextView) {
-        delegate?.formFieldDidEndEditing?(self)
+        (delegate as? FormFieldDelegate)?.formFieldDidEndEditing?(self)
     }
 
     public func textViewDidChange(_ textView: UITextView) {
@@ -396,16 +396,16 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
             debounceTimer?.invalidate()
             debounceTimer = Timer.scheduledTimer(withTimeInterval: debounceTime, repeats: false, block: { [weak self] (_) in
                 guard let self = self else { return }
-                self.delegate?.formFieldDidChange?(self)
+                self.delegate?.formComponentDidChange?(self)
             })
         } else {
-            delegate?.formFieldDidChange?(self)
+            delegate?.formComponentDidChange?(self)
         }
     }
 
     public func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        if text == "\n" {
-            if !(delegate?.formFieldShouldReturn?(self) ?? true) {
+        if text == "\n" || text == "\t" {
+            if !((delegate as? FormFieldDelegate)?.formFieldShouldReturn?(self) ?? true) {
                 return false
             } else if isMultiline {
                 return true
