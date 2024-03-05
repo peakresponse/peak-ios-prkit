@@ -143,7 +143,7 @@ open class Checkbox: UIView {
     }
 
     @objc func buttonPressed() {
-        guard !isRadioButton || isRadioButtonDeselectable else { return }
+        guard !button.isSelected || !isRadioButton || isRadioButtonDeselectable else { return }
         button.isSelected = !button.isSelected
         delegate?.checkbox?(self, didChange: button.isSelected)
     }
