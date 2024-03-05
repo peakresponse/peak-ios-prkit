@@ -130,6 +130,9 @@
                                     <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ewF-G6-KtP" customClass="FormRadioGroup" customModule="PRKit">
                                         <rect key="frame" x="20" y="710" width="374" height="0.0"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="ipr-zj-hHa" id="h6K-DM-Up2"/>
+                                        </connections>
                                     </view>
                                     <view tag="1" contentMode="scaleToFill" ambiguous="YES" placeholderIntrinsicWidth="683.5" placeholderIntrinsicHeight="72.5" translatesAutoresizingMaskIntoConstraints="NO" id="qra-dW-nLk" customClass="TextField" customModule="PRKit">
                                         <rect key="frame" x="20" y="710" width="374" height="73"/>

@@ -30,7 +30,8 @@ class InputsViewController: UIViewController, FormFieldDelegate, KeyboardAwareSc
         passwordField.inputAccessoryView = inputAccessoryView
         errorField.inputAccessoryView = inputAccessoryView
 
-        radioGroup.label.text = "Radio Group"
+        radioGroup.isDeselectable = true
+        radioGroup.labelText = "Radio Group"
         radioGroup.addRadioButton(labelText: "Arrived", value: "arrived" as NSObject)
         radioGroup.addRadioButton(labelText: "En Route", value: "enroute" as NSObject)
     }
@@ -50,6 +51,8 @@ class InputsViewController: UIViewController, FormFieldDelegate, KeyboardAwareSc
     func formComponentDidChange(_ component: FormComponent) {
         if let field = component as? FormField {
             print(field.text ?? "")
+        } else {
+            print(component.attributeValue ?? "nil")
         }
     }
 

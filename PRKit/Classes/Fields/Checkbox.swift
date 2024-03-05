@@ -43,6 +43,7 @@ open class Checkbox: UIView {
     @IBInspectable open var isRadioButton: Bool = false {
         didSet { setImages() }
     }
+    open var isRadioButtonDeselectable = false
     open var cornerRadius: CGFloat { return isRadioButton ? 19 : 8 }
     open var innerCornerRadius: CGFloat { return isRadioButton ? 12 : 4 }
 
@@ -142,7 +143,7 @@ open class Checkbox: UIView {
     }
 
     @objc func buttonPressed() {
-        guard !isRadioButton || !button.isSelected else { return }
+        guard !isRadioButton || isRadioButtonDeselectable else { return }
         button.isSelected = !button.isSelected
         delegate?.checkbox?(self, didChange: button.isSelected)
     }

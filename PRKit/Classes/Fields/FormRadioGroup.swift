@@ -11,8 +11,19 @@ import UIKit
 @IBDesignable
 open class FormRadioGroup: FormComponent, CheckboxDelegate {
     open weak var label: UILabel!
+    @IBInspectable open var labelText: String? {
+        get { return label.text }
+        set { label.text = newValue }
+    }
     open var bottomConstraint: NSLayoutConstraint!
     open var checkboxes: [Checkbox] = []
+    open var isDeselectable = false {
+        didSet {
+            for cb in checkboxes {
+                cb.isRadioButtonDeselectable = isDeselectable
+            }
+        }
+    }
 
     override public init(frame: CGRect) {
         super.init(frame: frame)
@@ -49,6 +60,7 @@ open class FormRadioGroup: FormComponent, CheckboxDelegate {
         checkbox.labelText = labelText
         checkbox.value = value
         checkbox.isRadioButton = true
+        checkbox.isRadioButtonDeselectable = isDeselectable
         addSubview(checkbox)
         bottomConstraint.isActive = false
         bottomConstraint = bottomAnchor.constraint(equalTo: checkbox.bottomAnchor)
@@ -73,6 +85,12 @@ open class FormRadioGroup: FormComponent, CheckboxDelegate {
     // MARK: - CheckboxDelegate
 
     public func checkbox(_ checkbox: Checkbox, didChange isChecked: Bool) {
-
+        for cb in checkboxes {
+            if cb !== checkbox {
+                cb.isChecked = false
+            }
+        }
+        attributeValue = isChecked ? checkbox.value : nil
+        delegate?.formComponentDidChange?(self)
     }
 }
