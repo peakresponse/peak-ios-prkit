@@ -70,29 +70,42 @@ open class Checkbox: UIView {
     open func commonInit() {
         backgroundColor = .clear
 
+        let row = UIStackView()
+        row.translatesAutoresizingMaskIntoConstraints = false
+        row.axis = .horizontal
+        row.spacing = 8
+        row.alignment = .top
+        addSubview(row)
+        NSLayoutConstraint.activate([
+            row.leftAnchor.constraint(equalTo: leftAnchor),
+            row.topAnchor.constraint(equalTo: topAnchor),
+            row.rightAnchor.constraint(equalTo: rightAnchor),
+            bottomAnchor.constraint(equalTo: row.bottomAnchor)
+        ])
+
         let button = UIButton(type: .custom)
         button.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(button)
+        row.addArrangedSubview(button)
         NSLayoutConstraint.activate([
-            button.topAnchor.constraint(equalTo: topAnchor),
-            button.leftAnchor.constraint(equalTo: leftAnchor),
             button.widthAnchor.constraint(equalToConstant: 40),
-            button.heightAnchor.constraint(equalToConstant: 40),
-            bottomAnchor.constraint(greaterThanOrEqualTo: button.bottomAnchor)
+            button.heightAnchor.constraint(equalToConstant: 40)
         ])
         self.button = button
+
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        row.addArrangedSubview(view)
 
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .h4SemiBold
         label.numberOfLines = 0
-        addSubview(label)
+        view.addSubview(label)
         NSLayoutConstraint.activate([
-            label.leftAnchor.constraint(equalTo: button.rightAnchor, constant: 8),
-            label.topAnchor.constraint(equalTo: button.topAnchor, constant: 8),
-            label.rightAnchor.constraint(equalTo: rightAnchor),
-            bottomAnchor.constraint(greaterThanOrEqualTo: label.bottomAnchor)
+            label.leftAnchor.constraint(equalTo: view.leftAnchor),
+            label.topAnchor.constraint(equalTo: view.topAnchor, constant: 8),
+            label.rightAnchor.constraint(equalTo: view.rightAnchor),
+            view.bottomAnchor.constraint(equalTo: label.bottomAnchor)
         ])
         self.label = label
 
