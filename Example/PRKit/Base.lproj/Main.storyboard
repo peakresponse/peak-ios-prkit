@@ -41,7 +41,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <subviews>
                                     <view tag="1" contentMode="scaleToFill" placeholderIntrinsicWidth="683.5" placeholderIntrinsicHeight="72.5" translatesAutoresizingMaskIntoConstraints="NO" id="vxt-c4-Uev" customClass="TextField" customModule="PRKit">
-                                        <rect key="frame" x="20" y="20" width="374" height="73"/>
+                                        <rect key="frame" x="20" y="20" width="374" height="72.5"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="labelText" value="Empty Field"/>
@@ -52,7 +52,7 @@
                                         </connections>
                                     </view>
                                     <view tag="2" contentMode="scaleToFill" placeholderIntrinsicWidth="683.5" placeholderIntrinsicHeight="73" translatesAutoresizingMaskIntoConstraints="NO" id="JGV-fz-1Ch" userLabel="Disabled Field" customClass="TextField" customModule="PRKit">
-                                        <rect key="frame" x="20" y="113" width="374" height="72.5"/>
+                                        <rect key="frame" x="20" y="112.5" width="374" height="73"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="labelText" value="Disabled Field"/>
@@ -70,7 +70,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <view tag="4" contentMode="scaleToFill" placeholderIntrinsicWidth="683.5" placeholderIntrinsicHeight="72.5" translatesAutoresizingMaskIntoConstraints="NO" id="vcJ-Ow-yxv" userLabel="Error Field" customClass="TextField" customModule="PRKit">
-                                        <rect key="frame" x="20" y="298.5" width="374" height="73"/>
+                                        <rect key="frame" x="20" y="298.5" width="374" height="72.5"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="labelText" value="Error Field"/>
@@ -81,14 +81,14 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <view contentMode="scaleToFill" placeholderIntrinsicWidth="240" placeholderIntrinsicHeight="40" translatesAutoresizingMaskIntoConstraints="NO" id="CBl-dn-Vqh" customClass="Checkbox" customModule="PRKit">
-                                        <rect key="frame" x="20" y="401.5" width="374" height="40"/>
+                                        <rect key="frame" x="20" y="401" width="374" height="40"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="labelText" value="Checkbox"/>
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <view contentMode="scaleToFill" placeholderIntrinsicWidth="240" placeholderIntrinsicHeight="40" translatesAutoresizingMaskIntoConstraints="NO" id="jW0-wr-d3R" customClass="Checkbox" customModule="PRKit">
-                                        <rect key="frame" x="20" y="461.5" width="374" height="40"/>
+                                        <rect key="frame" x="20" y="461" width="374" height="40"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="labelText" value="Disabled Checkbox"/>
@@ -97,7 +97,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <view contentMode="scaleToFill" placeholderIntrinsicWidth="374" placeholderIntrinsicHeight="40" translatesAutoresizingMaskIntoConstraints="NO" id="arX-br-IA9" customClass="TextField" customModule="PRKit">
-                                        <rect key="frame" x="20" y="521.5" width="374" height="48.5"/>
+                                        <rect key="frame" x="20" y="521" width="374" height="40"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="placeholderText" value="Search"/>
@@ -110,7 +110,7 @@
                                         </connections>
                                     </view>
                                     <view contentMode="scaleToFill" placeholderIntrinsicWidth="240" placeholderIntrinsicHeight="40" translatesAutoresizingMaskIntoConstraints="NO" id="y3x-cc-GHZ" customClass="Checkbox" customModule="PRKit">
-                                        <rect key="frame" x="20" y="590" width="374" height="40"/>
+                                        <rect key="frame" x="20" y="581" width="374" height="40"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="labelText" value="Radio button"/>
@@ -118,7 +118,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <view contentMode="scaleToFill" placeholderIntrinsicWidth="240" placeholderIntrinsicHeight="40" translatesAutoresizingMaskIntoConstraints="NO" id="spq-dt-YrQ" customClass="Checkbox" customModule="PRKit">
-                                        <rect key="frame" x="20" y="650" width="374" height="40"/>
+                                        <rect key="frame" x="20" y="641" width="374" height="40"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="labelText" value="Disabled Radio button"/>
@@ -264,7 +264,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <subviews>
                                     <view tag="1" contentMode="scaleToFill" placeholderIntrinsicWidth="374" placeholderIntrinsicHeight="72.5" translatesAutoresizingMaskIntoConstraints="NO" id="eiO-p5-cRS" userLabel="Date Field" customClass="TextField" customModule="PRKit">
-                                        <rect key="frame" x="20" y="20" width="374" height="73"/>
+                                        <rect key="frame" x="20" y="20" width="374" height="72.5"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="AttributeType" value="date"/>
@@ -275,7 +275,7 @@
                                         </connections>
                                     </view>
                                     <view tag="2" contentMode="scaleToFill" placeholderIntrinsicWidth="374" placeholderIntrinsicHeight="72.5" translatesAutoresizingMaskIntoConstraints="NO" id="rFx-l1-9xA" customClass="TextField" customModule="PRKit">
-                                        <rect key="frame" x="20" y="113" width="374" height="72.5"/>
+                                        <rect key="frame" x="20" y="112.5" width="374" height="72.5"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="AttributeType" value="datetime"/>
@@ -286,7 +286,7 @@
                                         </connections>
                                     </view>
                                     <view tag="3" contentMode="scaleToFill" placeholderIntrinsicWidth="374" placeholderIntrinsicHeight="72.5" translatesAutoresizingMaskIntoConstraints="NO" id="5Ku-QY-bh8" customClass="TextField" customModule="PRKit">
-                                        <rect key="frame" x="20" y="205.5" width="374" height="73"/>
+                                        <rect key="frame" x="20" y="205" width="374" height="72.5"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="labelText" value="Email"/>
@@ -296,7 +296,7 @@
                                         </connections>
                                     </view>
                                     <view tag="4" contentMode="scaleToFill" placeholderIntrinsicWidth="374" placeholderIntrinsicHeight="72.5" translatesAutoresizingMaskIntoConstraints="NO" id="RN5-yH-PFJ" customClass="TextField" customModule="PRKit">
-                                        <rect key="frame" x="20" y="298.5" width="374" height="72.5"/>
+                                        <rect key="frame" x="20" y="297.5" width="374" height="72.5"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="AttributeType" value="picker"/>
@@ -307,7 +307,7 @@
                                         </connections>
                                     </view>
                                     <view tag="5" contentMode="scaleToFill" placeholderIntrinsicWidth="374" placeholderIntrinsicHeight="72.5" translatesAutoresizingMaskIntoConstraints="NO" id="pRT-XV-e5d" userLabel="Integer Field" customClass="TextField" customModule="PRKit">
-                                        <rect key="frame" x="20" y="391" width="374" height="73"/>
+                                        <rect key="frame" x="20" y="390" width="374" height="72.5"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="AttributeType" value="integer"/>
@@ -318,7 +318,7 @@
                                         </connections>
                                     </view>
                                     <view tag="6" contentMode="scaleToFill" placeholderIntrinsicWidth="374" placeholderIntrinsicHeight="72.5" translatesAutoresizingMaskIntoConstraints="NO" id="lsk-bE-S2o" userLabel="Decimal Field" customClass="TextField" customModule="PRKit">
-                                        <rect key="frame" x="20" y="484" width="374" height="73"/>
+                                        <rect key="frame" x="20" y="482.5" width="374" height="72.5"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="AttributeType" value="decimal"/>
@@ -329,7 +329,7 @@
                                         </connections>
                                     </view>
                                     <view tag="7" contentMode="scaleToFill" placeholderIntrinsicWidth="374" placeholderIntrinsicHeight="72.5" translatesAutoresizingMaskIntoConstraints="NO" id="wRL-tg-g7F" userLabel="Age Field" customClass="TextField" customModule="PRKit">
-                                        <rect key="frame" x="20" y="577" width="374" height="72.5"/>
+                                        <rect key="frame" x="20" y="575" width="374" height="72.5"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="AttributeType" value="integerWithUnit"/>
@@ -340,7 +340,7 @@
                                         </connections>
                                     </view>
                                     <view tag="8" contentMode="scaleToFill" placeholderIntrinsicWidth="374" placeholderIntrinsicHeight="72.5" translatesAutoresizingMaskIntoConstraints="NO" id="1lj-fV-5N5" userLabel="Multiselect Field" customClass="TextField" customModule="PRKit">
-                                        <rect key="frame" x="20" y="669.5" width="374" height="73"/>
+                                        <rect key="frame" x="20" y="667.5" width="374" height="72.5"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="AttributeType" value="multi"/>
@@ -351,7 +351,7 @@
                                         </connections>
                                     </view>
                                     <view tag="9" contentMode="scaleToFill" placeholderIntrinsicWidth="374" placeholderIntrinsicHeight="72.5" translatesAutoresizingMaskIntoConstraints="NO" id="an9-QA-0bQ" userLabel="Single Select Field" customClass="TextField" customModule="PRKit">
-                                        <rect key="frame" x="20" y="762.5" width="374" height="72.5"/>
+                                        <rect key="frame" x="20" y="760" width="374" height="72.5"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="AttributeType" value="multi"/>
@@ -362,7 +362,7 @@
                                         </connections>
                                     </view>
                                     <view tag="10" contentMode="scaleToFill" placeholderIntrinsicWidth="374" placeholderIntrinsicHeight="72.5" translatesAutoresizingMaskIntoConstraints="NO" id="zzq-vE-fXr" userLabel="Search multi select Field" customClass="TextField" customModule="PRKit">
-                                        <rect key="frame" x="20" y="855" width="374" height="73"/>
+                                        <rect key="frame" x="20" y="852.5" width="374" height="72.5"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="AttributeType" value="search"/>
@@ -373,7 +373,7 @@
                                         </connections>
                                     </view>
                                     <view tag="11" contentMode="scaleToFill" placeholderIntrinsicWidth="374" placeholderIntrinsicHeight="72.5" translatesAutoresizingMaskIntoConstraints="NO" id="Ssp-Rq-eBz" userLabel="Search single Select Field" customClass="TextField" customModule="PRKit">
-                                        <rect key="frame" x="20" y="948" width="374" height="73"/>
+                                        <rect key="frame" x="20" y="945" width="374" height="72.5"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="AttributeType" value="search"/>
@@ -384,7 +384,7 @@
                                         </connections>
                                     </view>
                                     <view tag="12" contentMode="scaleToFill" placeholderIntrinsicWidth="374" placeholderIntrinsicHeight="72.5" translatesAutoresizingMaskIntoConstraints="NO" id="Q1B-QG-FNU" userLabel="Combo Field" customClass="TextField" customModule="PRKit">
-                                        <rect key="frame" x="20" y="1041" width="374" height="72.5"/>
+                                        <rect key="frame" x="20" y="1037.5" width="374" height="72.5"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="AttributeType" value="search"/>
@@ -1295,23 +1295,34 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" placeholderIntrinsicWidth="374" placeholderIntrinsicHeight="64" translatesAutoresizingMaskIntoConstraints="NO" id="hHj-lI-GEh" customClass="SegmentedControl" customModule="PRKit">
-                                <rect key="frame" x="20" y="92" width="374" height="64"/>
+                                <rect key="frame" x="20" y="92" width="374" height="56"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <connections>
                                     <action selector="segmentedControlValueChanged:" destination="YiS-Uq-bKw" eventType="valueChanged" id="73D-Tw-f4h"/>
                                 </connections>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h8g-Ey-IoI">
+                                <rect key="frame" x="20" y="188" width="132.5" height="35"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Next Segment"/>
+                                <connections>
+                                    <action selector="buttonPressed:" destination="YiS-Uq-bKw" eventType="touchUpInside" id="aOj-7x-ceK"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="hHj-lI-GEh" firstAttribute="top" secondItem="mfN-yq-DTH" secondAttribute="bottom" id="777-NN-Gzr"/>
                             <constraint firstItem="hHj-lI-GEh" firstAttribute="leading" secondItem="A1k-ui-Piq" secondAttribute="leadingMargin" id="IEJ-A5-Y5W"/>
+                            <constraint firstItem="h8g-Ey-IoI" firstAttribute="top" secondItem="hHj-lI-GEh" secondAttribute="bottom" constant="40" id="WfQ-Di-z1d"/>
+                            <constraint firstItem="h8g-Ey-IoI" firstAttribute="leading" secondItem="hHj-lI-GEh" secondAttribute="leading" id="gYV-gw-DFa"/>
                             <constraint firstItem="hHj-lI-GEh" firstAttribute="trailing" secondItem="A1k-ui-Piq" secondAttribute="trailingMargin" id="pDu-UT-2Iw"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Overview" id="7ZU-LY-Yaq"/>
                     <navigationItem key="navigationItem" title="Navigation" id="Z5e-sj-FVu"/>
                     <connections>
+                        <outlet property="button" destination="h8g-Ey-IoI" id="0K6-MP-9gI"/>
                         <outlet property="segmentedControl" destination="hHj-lI-GEh" id="cWl-GF-mre"/>
                     </connections>
                 </viewController>

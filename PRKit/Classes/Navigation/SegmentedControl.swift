@@ -12,7 +12,14 @@ open class SegmentedControl: UIControl {
     open weak var stackView: UIStackView!
 
     open var selectedIndex: Int {
-        stackView.arrangedSubviews.firstIndex(where: { ($0 as? UIButton)?.isSelected ?? false }) ?? -1
+        get {
+            return stackView.arrangedSubviews.firstIndex(where: { ($0 as? UIButton)?.isSelected ?? false }) ?? -1
+        }
+        set {
+            for (i, subview) in stackView.arrangedSubviews.enumerated() {
+                (subview as? UIButton)?.isSelected = i == newValue
+            }
+        }
     }
 
     open var segmentsCount: Int {
