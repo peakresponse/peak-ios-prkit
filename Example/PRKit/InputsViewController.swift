@@ -18,6 +18,7 @@ class InputsViewController: UIViewController, FormFieldDelegate, KeyboardAwareSc
     @IBOutlet weak var passwordField: PasswordField!
     @IBOutlet weak var errorField: TextField!
     @IBOutlet weak var statusField: TextField!
+    @IBOutlet weak var radioGroup: FormRadioGroup!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +29,12 @@ class InputsViewController: UIViewController, FormFieldDelegate, KeyboardAwareSc
         disabledField.inputAccessoryView = inputAccessoryView
         passwordField.inputAccessoryView = inputAccessoryView
         errorField.inputAccessoryView = inputAccessoryView
+
+        radioGroup.inputAccessoryView = inputAccessoryView
+        radioGroup.isDeselectable = true
+        radioGroup.labelText = "Radio Group"
+        radioGroup.addRadioButton(labelText: "Arrived", value: "arrived" as NSObject)
+        radioGroup.addRadioButton(labelText: "En Route", value: "enroute" as NSObject)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -42,8 +49,12 @@ class InputsViewController: UIViewController, FormFieldDelegate, KeyboardAwareSc
 
     // MARK: - FormFieldDelegate
 
-    func formFieldDidChange(_ field: FormField) {
-        print(field.text ?? "")
+    func formComponentDidChange(_ component: FormComponent) {
+        if let field = component as? FormField {
+            print(field.text ?? "")
+        } else {
+            print(component.attributeValue ?? "nil")
+        }
     }
 
     func formFieldDidPressOther(_ field: FormField) {

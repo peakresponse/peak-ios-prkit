@@ -50,7 +50,7 @@ open class TriageCounts: UIStackView {
             button.titleLabel?.font = .h4SemiBold
             button.setTitle("0", for: .normal)
             if size == .small {
-                button.contentEdgeInsets = UIEdgeInsets(top: 13, left: 10, bottom: 13, right: 10)
+                button.contentEdgeInsets = UIEdgeInsets(top: 13, left: 2, bottom: 13, right: 2)
             }
             button.setTitleColor(.base800, for: .normal)
             button.setTitleColor(priority.labelColor, for: .highlighted)
@@ -90,7 +90,7 @@ open class TriageCounts: UIStackView {
         totalButton.style = .secondary
         totalButton.titleLabel?.font = .h4SemiBold
         if size == .small {
-            totalButton.contentEdgeInsets = UIEdgeInsets(top: 13, left: 10, bottom: 13, right: 10)
+            totalButton.contentEdgeInsets = UIEdgeInsets(top: 13, left: 2, bottom: 13, right: 2)
         }
         totalButton.setTitleColor(.base800, for: .normal)
         totalButton.setTitleColor(.white, for: .highlighted)

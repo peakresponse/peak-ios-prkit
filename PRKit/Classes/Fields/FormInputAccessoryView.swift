@@ -178,7 +178,7 @@ open class FormInputAccessoryView: UIInputView {
     @objc func otherPressed() {
         if let currentView = currentView {
             if let formField = currentView as? FormField, formField.inputAccessoryViewOtherButtonTitle != nil {
-                formField.delegate?.formFieldDidPressOther?(formField)
+                (formField.delegate as? FormFieldDelegate)?.formFieldDidPressOther?(formField)
             } else if let inputView = currentView.inputView as? FormInputView {
                 if let otherTitle = inputView.accessoryOtherButtonPressed(self) {
                     otherButton.setTitle(otherTitle, for: .normal)

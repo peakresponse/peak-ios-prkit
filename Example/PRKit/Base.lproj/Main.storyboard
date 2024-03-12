@@ -37,7 +37,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9oV-f3-XvB">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9oV-f3-XvB">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <subviews>
                                     <view tag="1" contentMode="scaleToFill" placeholderIntrinsicWidth="683.5" placeholderIntrinsicHeight="72.5" translatesAutoresizingMaskIntoConstraints="NO" id="vxt-c4-Uev" customClass="TextField" customModule="PRKit">
@@ -127,8 +127,15 @@
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="isEnabled" value="NO"/>
                                         </userDefinedRuntimeAttributes>
                                     </view>
-                                    <view tag="1" contentMode="scaleToFill" placeholderIntrinsicWidth="683.5" placeholderIntrinsicHeight="72.5" translatesAutoresizingMaskIntoConstraints="NO" id="qra-dW-nLk" customClass="TextField" customModule="PRKit">
-                                        <rect key="frame" x="20" y="701" width="374" height="72.5"/>
+                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ewF-G6-KtP" customClass="FormRadioGroup" customModule="PRKit">
+                                        <rect key="frame" x="20" y="710" width="374" height="0.0"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="ipr-zj-hHa" id="h6K-DM-Up2"/>
+                                        </connections>
+                                    </view>
+                                    <view tag="1" contentMode="scaleToFill" ambiguous="YES" placeholderIntrinsicWidth="683.5" placeholderIntrinsicHeight="72.5" translatesAutoresizingMaskIntoConstraints="NO" id="qra-dW-nLk" customClass="TextField" customModule="PRKit">
+                                        <rect key="frame" x="20" y="710" width="374" height="73"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="labelText" value="Empty Field"/>
@@ -138,15 +145,15 @@
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="isEnabled" value="NO"/>
                                         </userDefinedRuntimeAttributes>
                                     </view>
-                                    <view contentMode="scaleToFill" placeholderIntrinsicWidth="374" placeholderIntrinsicHeight="70" translatesAutoresizingMaskIntoConstraints="NO" id="qC5-6K-NwV" customClass="SignatureField" customModule="PRKit">
-                                        <rect key="frame" x="20" y="793.5" width="374" height="70"/>
+                                    <view contentMode="scaleToFill" ambiguous="YES" placeholderIntrinsicWidth="374" placeholderIntrinsicHeight="70" translatesAutoresizingMaskIntoConstraints="NO" id="qC5-6K-NwV" customClass="SignatureField" customModule="PRKit">
+                                        <rect key="frame" x="20" y="803" width="374" height="74"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <connections>
                                             <outlet property="delegate" destination="ipr-zj-hHa" id="9AZ-I0-KvA"/>
                                         </connections>
                                     </view>
-                                    <view contentMode="scaleToFill" placeholderIntrinsicWidth="374" placeholderIntrinsicHeight="80" translatesAutoresizingMaskIntoConstraints="NO" id="S3I-MJ-FQx" customClass="CellField" customModule="PRKit">
-                                        <rect key="frame" x="20" y="883.5" width="374" height="80"/>
+                                    <view contentMode="scaleToFill" ambiguous="YES" placeholderIntrinsicWidth="374" placeholderIntrinsicHeight="80" translatesAutoresizingMaskIntoConstraints="NO" id="S3I-MJ-FQx" customClass="CellField" customModule="PRKit">
+                                        <rect key="frame" x="20" y="897" width="374" height="80"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="text" value="Patient Refusal Against Medical Advice"/>
@@ -172,12 +179,16 @@
                                     <constraint firstItem="JGV-fz-1Ch" firstAttribute="leading" secondItem="vxt-c4-Uev" secondAttribute="leading" id="GkN-lQ-rLb"/>
                                     <constraint firstItem="vgv-B0-hHD" firstAttribute="trailing" secondItem="JGV-fz-1Ch" secondAttribute="trailing" id="Hzb-RP-a8g"/>
                                     <constraint firstItem="arX-br-IA9" firstAttribute="trailing" secondItem="jW0-wr-d3R" secondAttribute="trailing" id="IKx-Ne-c1M"/>
+                                    <constraint firstItem="ewF-G6-KtP" firstAttribute="top" secondItem="spq-dt-YrQ" secondAttribute="bottom" constant="20" id="JhX-JN-zTM"/>
                                     <constraint firstItem="spq-dt-YrQ" firstAttribute="trailing" secondItem="y3x-cc-GHZ" secondAttribute="trailing" id="KeH-4s-hKY"/>
                                     <constraint firstItem="CBl-dn-Vqh" firstAttribute="leading" secondItem="vcJ-Ow-yxv" secondAttribute="leading" id="MF1-C4-N9f"/>
+                                    <constraint firstItem="ewF-G6-KtP" firstAttribute="trailing" secondItem="spq-dt-YrQ" secondAttribute="trailing" id="Otx-gS-ck1"/>
                                     <constraint firstItem="vxt-c4-Uev" firstAttribute="leading" secondItem="fE2-LA-PNf" secondAttribute="leading" constant="20" id="SZe-SZ-GXM"/>
+                                    <constraint firstItem="qra-dW-nLk" firstAttribute="top" secondItem="ewF-G6-KtP" secondAttribute="bottom" constant="20" id="TMD-LI-I4B"/>
                                     <constraint firstItem="arX-br-IA9" firstAttribute="leading" secondItem="jW0-wr-d3R" secondAttribute="leading" id="ToL-IN-uuZ"/>
                                     <constraint firstItem="S3I-MJ-FQx" firstAttribute="top" secondItem="qC5-6K-NwV" secondAttribute="bottom" constant="20" id="UjQ-A8-z5p"/>
                                     <constraint firstItem="arX-br-IA9" firstAttribute="top" secondItem="jW0-wr-d3R" secondAttribute="bottom" constant="20" id="Vdc-G6-FSz"/>
+                                    <constraint firstItem="ewF-G6-KtP" firstAttribute="leading" secondItem="spq-dt-YrQ" secondAttribute="leading" id="XwE-30-ktB"/>
                                     <constraint firstItem="qra-dW-nLk" firstAttribute="leading" secondItem="spq-dt-YrQ" secondAttribute="leading" id="YJE-Dp-kqi"/>
                                     <constraint firstItem="y3x-cc-GHZ" firstAttribute="trailing" secondItem="arX-br-IA9" secondAttribute="trailing" id="ZOy-sU-OtE"/>
                                     <constraint firstItem="jW0-wr-d3R" firstAttribute="top" secondItem="CBl-dn-Vqh" secondAttribute="bottom" constant="20" id="b3B-sP-AAH"/>
@@ -185,7 +196,6 @@
                                     <constraint firstItem="S3I-MJ-FQx" firstAttribute="leading" secondItem="qC5-6K-NwV" secondAttribute="leading" id="bsq-Ba-flM"/>
                                     <constraint firstItem="y3x-cc-GHZ" firstAttribute="leading" secondItem="arX-br-IA9" secondAttribute="leading" id="dYq-lY-Yp3"/>
                                     <constraint firstItem="CBl-dn-Vqh" firstAttribute="trailing" secondItem="vcJ-Ow-yxv" secondAttribute="trailing" id="dr8-u4-ME4"/>
-                                    <constraint firstItem="qra-dW-nLk" firstAttribute="top" secondItem="spq-dt-YrQ" secondAttribute="bottom" constant="20" id="h15-cD-ikQ"/>
                                     <constraint firstItem="qC5-6K-NwV" firstAttribute="top" secondItem="qra-dW-nLk" secondAttribute="bottom" constant="20" id="hwP-S9-5iO"/>
                                     <constraint firstItem="S3I-MJ-FQx" firstAttribute="trailing" secondItem="qC5-6K-NwV" secondAttribute="trailing" id="p8F-NB-sNT"/>
                                     <constraint firstItem="CBl-dn-Vqh" firstAttribute="top" secondItem="vcJ-Ow-yxv" secondAttribute="bottom" constant="30" id="qWJ-o2-x30"/>
@@ -212,6 +222,7 @@
                         <outlet property="emptyField" destination="vxt-c4-Uev" id="5Fg-lw-R5x"/>
                         <outlet property="errorField" destination="vcJ-Ow-yxv" id="sQ3-Ud-GNO"/>
                         <outlet property="passwordField" destination="vgv-B0-hHD" id="BQ8-9i-MZl"/>
+                        <outlet property="radioGroup" destination="ewF-G6-KtP" id="TEu-7i-BQv"/>
                         <outlet property="scrollView" destination="9oV-f3-XvB" id="n4W-lZ-qGX"/>
                         <outlet property="scrollViewBottomConstraint" destination="HEh-OK-GPu" id="Nch-0S-KFH"/>
                         <outlet property="statusField" destination="qra-dW-nLk" id="UQX-HB-hlp"/>
@@ -1284,23 +1295,34 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" placeholderIntrinsicWidth="374" placeholderIntrinsicHeight="64" translatesAutoresizingMaskIntoConstraints="NO" id="hHj-lI-GEh" customClass="SegmentedControl" customModule="PRKit">
-                                <rect key="frame" x="20" y="92" width="374" height="64"/>
+                                <rect key="frame" x="20" y="92" width="374" height="56"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <connections>
                                     <action selector="segmentedControlValueChanged:" destination="YiS-Uq-bKw" eventType="valueChanged" id="73D-Tw-f4h"/>
                                 </connections>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h8g-Ey-IoI">
+                                <rect key="frame" x="20" y="188" width="132.5" height="35"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Next Segment"/>
+                                <connections>
+                                    <action selector="buttonPressed:" destination="YiS-Uq-bKw" eventType="touchUpInside" id="aOj-7x-ceK"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="hHj-lI-GEh" firstAttribute="top" secondItem="mfN-yq-DTH" secondAttribute="bottom" id="777-NN-Gzr"/>
                             <constraint firstItem="hHj-lI-GEh" firstAttribute="leading" secondItem="A1k-ui-Piq" secondAttribute="leadingMargin" id="IEJ-A5-Y5W"/>
+                            <constraint firstItem="h8g-Ey-IoI" firstAttribute="top" secondItem="hHj-lI-GEh" secondAttribute="bottom" constant="40" id="WfQ-Di-z1d"/>
+                            <constraint firstItem="h8g-Ey-IoI" firstAttribute="leading" secondItem="hHj-lI-GEh" secondAttribute="leading" id="gYV-gw-DFa"/>
                             <constraint firstItem="hHj-lI-GEh" firstAttribute="trailing" secondItem="A1k-ui-Piq" secondAttribute="trailingMargin" id="pDu-UT-2Iw"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Overview" id="7ZU-LY-Yaq"/>
                     <navigationItem key="navigationItem" title="Navigation" id="Z5e-sj-FVu"/>
                     <connections>
+                        <outlet property="button" destination="h8g-Ey-IoI" id="0K6-MP-9gI"/>
                         <outlet property="segmentedControl" destination="hHj-lI-GEh" id="cWl-GF-mre"/>
                     </connections>
                 </viewController>

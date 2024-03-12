@@ -69,7 +69,7 @@ open class PasswordField: FormField, UITextFieldDelegate {
     }
 
     @objc func textFieldDidChange() {
-        delegate?.formFieldDidChange?(self)
+        delegate?.formComponentDidChange?(self)
     }
 
     override open func updateStyle() {
@@ -96,23 +96,23 @@ open class PasswordField: FormField, UITextFieldDelegate {
     // MARK: - UITextViewDelegate
 
     public func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        return delegate?.formFieldShouldBeginEditing?(self) ?? true
+        return (delegate as? FormFieldDelegate)?.formFieldShouldBeginEditing?(self) ?? true
     }
 
     public func textFieldDidBeginEditing(_ textField: UITextField) {
-        delegate?.formFieldDidBeginEditing?(self)
+        (delegate as? FormFieldDelegate)?.formFieldDidBeginEditing?(self)
     }
 
     public func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-        return delegate?.formFieldShouldEndEditing?(self) ?? true
+        return (delegate as? FormFieldDelegate)?.formFieldShouldEndEditing?(self) ?? true
     }
 
     public func textFieldDidEndEditing(_ textField: UITextField) {
-        delegate?.formFieldDidEndEditing?(self)
+        (delegate as? FormFieldDelegate)?.formFieldDidEndEditing?(self)
     }
 
     public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        return delegate?.formFieldShouldReturn?(self) ?? true
+        return (delegate as? FormFieldDelegate)?.formFieldShouldReturn?(self) ?? true
     }
 
     public func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {

@@ -78,7 +78,7 @@ open class SignatureField: FormField, SignatureViewControllerDelegate {
     @objc open func signPressed() {
         let vc = SignatureViewController()
         vc.delegate = self
-        delegate?.formField?(self, wantsToPresent: vc)
+        (delegate as? FormFieldDelegate)?.formField?(self, wantsToPresent: vc)
     }
 
     @objc override open func clearPressed() {
@@ -94,13 +94,13 @@ open class SignatureField: FormField, SignatureViewControllerDelegate {
         vc.addAction(UIAlertAction(title: "Button.yes".localized, style: .destructive, handler: { [weak self] (_) in
             self?.clearPressed()
         }))
-        delegate?.formField?(self, wantsToPresent: vc)
+        (delegate as? FormFieldDelegate)?.formField?(self, wantsToPresent: vc)
     }
 
     // MARK: - SignatureViewControllerDelegate
 
     public func signatureViewController(_ vc: SignatureViewController, didSign image: UIImage) {
         signatureImage = image
-        delegate?.formFieldDidChange?(self)
+        delegate?.formComponentDidChange?(self)
     }
 }

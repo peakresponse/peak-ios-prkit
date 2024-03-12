@@ -158,15 +158,17 @@ open class SearchViewController: UIViewController, CheckboxDelegate, FormFieldDe
 
     // MARK: - FormFieldDelegate
 
-    open func formFieldDidChange(_ field: FormField) {
+    open func formComponentDidChange(_ component: FormComponent) {
         collectionView.refreshControl?.beginRefreshing()
-        source?.search(field.text, callback: { [weak self] (didLoad) in
-            guard let self = self else { return }
-            self.collectionView.refreshControl?.endRefreshing()
-            if didLoad {
-                self.collectionView.reloadData()
-            }
-        })
+        if let field = component as? FormField {
+            source?.search(field.text, callback: { [weak self] (didLoad) in
+                guard let self = self else { return }
+                self.collectionView.refreshControl?.endRefreshing()
+                if didLoad {
+                    self.collectionView.reloadData()
+                }
+            })
+        }
         collectionView.reloadData()
     }
 

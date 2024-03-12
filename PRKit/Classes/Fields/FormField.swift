@@ -7,13 +7,12 @@
 
 import UIKit
 
-@objc public protocol FormFieldDelegate {
+@objc public protocol FormFieldDelegate: FormComponentDelegate {
     @objc optional func formFieldShouldBeginEditing(_ field: FormField) -> Bool
     @objc optional func formFieldDidBeginEditing(_ field: FormField)
     @objc optional func formFieldShouldEndEditing(_ field: FormField) -> Bool
     @objc optional func formFieldDidEndEditing(_ field: FormField)
     @objc optional func formFieldShouldReturn(_ field: FormField) -> Bool
-    @objc optional func formFieldDidChange(_ field: FormField)
     @objc optional func formFieldDidPress(_ field: FormField)
     @objc optional func formFieldDidPressOther(_ field: FormField)
     @objc optional func formFieldDidPressStatus(_ field: FormField)
@@ -93,7 +92,7 @@ public enum FormFieldAttributeType: Equatable {
     }
 }
 
-open class FormField: UIView, Localizable, FormInputViewDelegate {
+open class FormField: FormComponent, Localizable, FormInputViewDelegate {
     open weak var borderedView: UIView!
     open weak var contentView: UIView!
 
@@ -133,29 +132,18 @@ open class FormField: UIView, Localizable, FormInputViewDelegate {
         return _errorLabel
     }
 
-    @IBOutlet open weak var delegate: FormFieldDelegate?
-
     @objc open var text: String? {
         didSet {
             updateStyle()
         }
     }
 
-    open var source: NSObject?
-    open var target: NSObject?
-
-    @IBInspectable open var attributeKey: String?
     open var attributeType: FormFieldAttributeType = .text {
         didSet { updateAttributeType() }
     }
     @IBInspectable open var AttributeType: String {
         get { return attributeType.rawValue }
         set { attributeType = FormFieldAttributeType(rawValue: newValue) ?? .text }
-    }
-    open var attributeValue: NSObject? {
-        didSet {
-            updateAttributeValue()
-        }
     }
     open var inputAccessoryViewOtherButtonTitle: String?
 
@@ -173,15 +161,6 @@ open class FormField: UIView, Localizable, FormInputViewDelegate {
 
     @IBInspectable open var isPlainText: Bool = false {
         didSet { updateStyle() }
-    }
-
-    @IBInspectable open var isEditing: Bool = true
-
-    @IBInspectable open var isEnabled: Bool = true {
-        didSet {
-            contentView.isUserInteractionEnabled = isEnabled
-            updateStyle()
-        }
     }
 
     @IBInspectable open var hasError: Bool = false {
@@ -287,7 +266,8 @@ open class FormField: UIView, Localizable, FormInputViewDelegate {
 
     }
 
-    open func updateAttributeValue() {
+    open override func didUpdateAttributeValue() {
+        super.didUpdateAttributeValue()
         if let inputView = inputView as? FormInputView {
             text = inputView.text(for: attributeValue)
         } else {
@@ -295,7 +275,12 @@ open class FormField: UIView, Localizable, FormInputViewDelegate {
         }
     }
 
-    open func updateStyle() {
+    open override func didUpdateEnabled() {
+        contentView.isUserInteractionEnabled = isEnabled
+        updateStyle()
+    }
+
+    open override func updateStyle() {
         if isPlainText {
             borderedView.backgroundColor = .clear
             borderedView.layer.borderWidth = 0
@@ -355,7 +340,7 @@ open class FormField: UIView, Localizable, FormInputViewDelegate {
         text = nil
         attributeValue = nil
         status = .none
-        delegate?.formFieldDidChange?(self)
+        delegate?.formComponentDidChange?(self)
         if let inputView = inputView as? FormInputView, inputView.shouldResignAfterClear {
             resignFirstResponder()
         } else {
@@ -364,17 +349,17 @@ open class FormField: UIView, Localizable, FormInputViewDelegate {
     }
 
     @objc open func statusPressed() {
-        delegate?.formFieldDidPressStatus?(self)
+        (delegate as? FormFieldDelegate)?.formFieldDidPressStatus?(self)
     }
 
     // MARK: - FormInputViewDelegate
 
     public func formInputView(_ inputView: FormInputView, didChange value: NSObject?) {
         attributeValue = value
-        delegate?.formFieldDidChange?(self)
+        delegate?.formComponentDidChange?(self)
     }
 
     public func formInputView(_ inputView: FormInputView, wantsToPresent vc: UIViewController) {
-        delegate?.formField?(self, wantsToPresent: vc)
+        (delegate as? FormFieldDelegate)?.formField?(self, wantsToPresent: vc)
     }
 }

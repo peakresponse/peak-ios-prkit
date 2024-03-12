@@ -18,6 +18,7 @@ class SecondNavigationViewController: UIViewController {
 
 class NavigationViewController: UIViewController {
     @IBOutlet weak var segmentedControl: SegmentedControl!
+    @IBOutlet weak var button: UIButton!
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
@@ -33,5 +34,9 @@ class NavigationViewController: UIViewController {
 
     @IBAction func segmentedControlValueChanged(_ sender: SegmentedControl) {
         print(sender.selectedIndex)
+    }
+
+    @IBAction func buttonPressed(_ sender: UIButton) {
+        segmentedControl.selectedIndex = (segmentedControl.selectedIndex + 1) % 3
     }
 }
