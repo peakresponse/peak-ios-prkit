@@ -12,10 +12,15 @@ typealias AlertHandler = @convention(block) (UIAlertAction) -> Void
 open class ModalViewController: UIViewController {
     open weak var backdropView: UIView!
     open weak var contentView: UIView!
+    open weak var titleLabel: UILabel!
     open weak var messageLabel: UILabel!
     open weak var buttonStackView: UIStackView!
     open var actions: [UIAlertAction] = []
     open var isDismissedOnAction = true
+
+    open var titleText: String? {
+        didSet { titleLabel?.text = titleText}
+    }
 
     open var messageText: String? {
         didSet { messageLabel?.text = messageText }
@@ -74,19 +79,35 @@ open class ModalViewController: UIViewController {
         }
         self.contentView = contentView
 
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        stackView.spacing = 10
+        contentView.addSubview(stackView)
+        NSLayoutConstraint.activate([
+            stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 40),
+            stackView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 25),
+            stackView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -25)
+        ])
+
+        let titleLabel = UILabel()
+        titleLabel.font = .h3SemiBold
+        titleLabel.numberOfLines = 0
+        titleLabel.text = titleText
+        titleLabel.isHidden = titleText == nil
+        titleLabel.textAlignment = .center
+        titleLabel.textColor = .base800
+        stackView.addArrangedSubview(titleLabel)
+        self.titleLabel = titleLabel
+
         let messageLabel = UILabel()
-        messageLabel.translatesAutoresizingMaskIntoConstraints = false
         messageLabel.font = .h4SemiBold
         messageLabel.numberOfLines = 0
         messageLabel.text = messageText
+        messageLabel.isHidden = messageText == nil
         messageLabel.textAlignment = .center
-        messageLabel.textColor = .base800
-        contentView.addSubview(messageLabel)
-        NSLayoutConstraint.activate([
-            messageLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 40),
-            messageLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 25),
-            messageLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -25)
-        ])
+        messageLabel.textColor = titleText == nil ? .base800 : .base500
+        stackView.addArrangedSubview(messageLabel)
         self.messageLabel = messageLabel
 
         let buttonStackView = UIStackView()
@@ -95,7 +116,7 @@ open class ModalViewController: UIViewController {
         buttonStackView.spacing = 20
         contentView.addSubview(buttonStackView)
         NSLayoutConstraint.activate([
-            buttonStackView.topAnchor.constraint(equalTo: messageLabel.bottomAnchor, constant: 20),
+            buttonStackView.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 20),
             buttonStackView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 40),
             buttonStackView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -40),
             contentView.bottomAnchor.constraint(equalTo: buttonStackView.bottomAnchor, constant: 40)
