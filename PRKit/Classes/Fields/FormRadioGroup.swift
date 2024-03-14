@@ -66,6 +66,7 @@ open class FormRadioGroup: FormComponent, CheckboxDelegate {
         checkbox.translatesAutoresizingMaskIntoConstraints = false
         checkbox.labelText = labelText
         checkbox.value = value
+        checkbox.isChecked = value == attributeValue
         checkbox.isRadioButton = true
         checkbox.isRadioButtonDeselectable = isDeselectable
         addSubview(checkbox)
@@ -89,16 +90,17 @@ open class FormRadioGroup: FormComponent, CheckboxDelegate {
         checkboxes.append(checkbox)
     }
 
+    open override func didUpdateAttributeValue() {
+        for cb in checkboxes {
+            cb.isChecked = cb.value == attributeValue
+        }
+    }
+
     // MARK: - CheckboxDelegate
 
     public func checkbox(_ checkbox: Checkbox, didChange isChecked: Bool) {
         if isDismissingFirstResponderOnChange, let inputAccessoryView = inputAccessoryView as? FormInputAccessoryView {
             inputAccessoryView.donePressed()
-        }
-        for cb in checkboxes {
-            if cb !== checkbox {
-                cb.isChecked = false
-            }
         }
         attributeValue = isChecked ? checkbox.value : nil
         delegate?.formComponentDidChange?(self)
