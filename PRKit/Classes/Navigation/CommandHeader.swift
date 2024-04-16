@@ -95,7 +95,7 @@ open class CommandHeader: UIView {
     }
     open var rightBarButtonView: UIView?
 
-    @IBOutlet weak var delegate: CommandHeaderDelegate?
+    @IBOutlet open weak var delegate: CommandHeaderDelegate?
 
     override public init(frame: CGRect) {
         super.init(frame: frame)
