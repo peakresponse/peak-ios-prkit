@@ -9,7 +9,7 @@
 import UIKit
 import PRKit
 
-class HeadersViewController: UIViewController {
+class HeadersViewController: ViewController {
     @IBOutlet weak var commandFooter: CommandFooter!
     @IBOutlet weak var commandHeader: CommandHeader!
     @IBOutlet weak var itemCommandHeader: CommandHeader!

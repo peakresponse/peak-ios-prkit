@@ -16,7 +16,7 @@ class SecondNavigationViewController: UIViewController {
     }
 }
 
-class NavigationViewController: UIViewController {
+class NavigationViewController: ViewController {
     @IBOutlet weak var segmentedControl: SegmentedControl!
     @IBOutlet weak var button: UIButton!
 

@@ -41,7 +41,7 @@ enum AgeTestUnits: String, StringCaseIterable {
     }
 }
 
-class KeyboardsViewController: UIViewController, FormFieldDelegate, KeyboardAwareScrollViewController {
+class KeyboardsViewController: ViewController, FormFieldDelegate, KeyboardAwareScrollViewController {
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var scrollViewBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var dateTimeField: TextField!

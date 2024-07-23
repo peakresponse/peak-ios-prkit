@@ -9,7 +9,7 @@
 import PRKit
 import UIKit
 
-class InputsViewController: UIViewController, FormFieldDelegate, KeyboardAwareScrollViewController {
+class InputsViewController: ViewController, FormFieldDelegate, KeyboardAwareScrollViewController {
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var scrollViewBottomConstraint: NSLayoutConstraint!
 
