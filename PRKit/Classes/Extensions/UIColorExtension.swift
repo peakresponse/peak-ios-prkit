@@ -27,7 +27,7 @@ public extension UIColor {
         if #available(iOS 13, *) {
             return UIColor { (traitCollection: UITraitCollection) -> UIColor in
                 if traitCollection.userInterfaceStyle == .dark {
-                    return .brandPrimary500
+                    return .brandPrimary300
                 } else {
                     return .brandPrimary200
                 }
@@ -51,6 +51,66 @@ public extension UIColor {
         }
     }
 
+    static var textBackground: UIColor {
+        if #available(iOS 13, *) {
+            return UIColor { (traitCollection: UITraitCollection) -> UIColor in
+                if traitCollection.userInterfaceStyle == .dark {
+                    return .base700
+                } else {
+                    return .white
+                }
+            }
+        } else {
+            return .white
+        }
+    }
+
+    static var labelText: UIColor {
+        if #available(iOS 13, *) {
+            return UIColor { (traitCollection: UITraitCollection) -> UIColor in
+                if traitCollection.userInterfaceStyle == .dark {
+                    return .base300
+                } else {
+                    return .base500
+                }
+            }
+        } else {
+            return .base500
+        }
+    }
+
+    static var focusedLabelText: UIColor {
+        if #available(iOS 13, *) {
+            return UIColor { (traitCollection: UITraitCollection) -> UIColor in
+                if traitCollection.userInterfaceStyle == .dark {
+                    return .brandPrimary300
+                } else {
+                    return .brandPrimary500
+                }
+            }
+        } else {
+            return .brandPrimary500
+        }
+    }
+
+    static var placeholderText: UIColor {
+        if #available(iOS 13, *) {
+            return UIColor { (traitCollection: UITraitCollection) -> UIColor in
+                if traitCollection.userInterfaceStyle == .dark {
+                    return .base500
+                } else {
+                    return .base300
+                }
+            }
+        } else {
+            return .base300
+        }
+    }
+
+    static var error: UIColor {
+        return .brandSecondary500
+    }
+
     // Helper for retrieving colors from the Assets xcassets bundle- providing an explicit Bundle
     // reference ensures this works in other contexts- including Interface Builder IBDesignable execution
     private static func named(_ name: String) -> UIColor {
@@ -67,6 +127,14 @@ public extension UIColor {
 
     static var base500: UIColor {
         return UIColor.named("Base500")
+    }
+
+    static var base600: UIColor {
+        return UIColor.named("Base600")
+    }
+
+    static var base700: UIColor {
+        return UIColor.named("Base700")
     }
 
     static var base800: UIColor {

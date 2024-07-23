@@ -240,7 +240,7 @@ open class FormField: FormComponent, Localizable, FormInputViewDelegate {
         _errorLabel.translatesAutoresizingMaskIntoConstraints = false
         _errorLabel.font = .body14Bold
         _errorLabel.numberOfLines = 0
-        _errorLabel.textColor = .brandSecondary500
+        _errorLabel.textColor = .error
         _errorLabel.isHidden = !hasError
         addSubview(_errorLabel)
 
@@ -258,7 +258,7 @@ open class FormField: FormComponent, Localizable, FormInputViewDelegate {
     override open func layoutSubviews() {
         super.layoutSubviews()
         if isFirstResponder {
-            borderedView.addOutline(size: 4, color: .brandPrimary200, opacity: 1)
+            borderedView.addOutline(size: 4, color: .highlight, opacity: 1)
         }
     }
 
@@ -285,11 +285,11 @@ open class FormField: FormComponent, Localizable, FormInputViewDelegate {
             borderedView.backgroundColor = .clear
             borderedView.layer.borderWidth = 0
         } else {
-            borderedView.backgroundColor = .white
+            borderedView.backgroundColor = .textBackground
             borderedView.layer.borderWidth = 2
             borderedView.layer.cornerRadius = 8
             if hasError {
-                borderedView.layer.borderColor = UIColor.brandSecondary500.cgColor
+                borderedView.layer.borderColor = UIColor.error.cgColor
                 if isFirstResponder {
                     borderedView.addOutline(size: 4, color: .brandSecondary400, opacity: 1)
                 } else {
@@ -297,7 +297,7 @@ open class FormField: FormComponent, Localizable, FormInputViewDelegate {
                 }
             } else if isFirstResponder {
                 borderedView.layer.borderColor = UIColor.brandPrimary500.cgColor
-                borderedView.addOutline(size: 4, color: .brandPrimary200, opacity: 1)
+                borderedView.addOutline(size: 4, color: .highlight, opacity: 1)
             } else {
                 borderedView.layer.borderColor = isEnabled ?
                     (isEmpty ? UIColor.base500.cgColor : UIColor.brandPrimary300.cgColor) :
@@ -307,7 +307,7 @@ open class FormField: FormComponent, Localizable, FormInputViewDelegate {
         }
 
         label.font = .h4SemiBold
-        label.textColor = hasError ? .brandSecondary500 : (isFirstResponder ? .brandPrimary500 : .base500)
+        label.textColor = hasError ? .error : (isFirstResponder ? .focusedLabelText : .labelText)
 
         _errorLabel?.isHidden = !hasError
 

@@ -182,6 +182,7 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
         super.commonInit()
 
         let textView = InternalTextView()
+        textView.backgroundColor = .clear
         textView.delegate = self
         textView.textField = self
         textView.translatesAutoresizingMaskIntoConstraints = false
@@ -223,7 +224,7 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
         let placeholderLabel = UILabel()
         placeholderLabel.translatesAutoresizingMaskIntoConstraints = false
         placeholderLabel.font = textView.font
-        placeholderLabel.textColor = .base300
+        placeholderLabel.textColor = .placeholderText
         placeholderLabel.isHidden = !isEmpty
         contentView.addSubview(placeholderLabel)
         NSLayoutConstraint.activate([
@@ -335,7 +336,7 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
 
     override open func updateStyle() {
         super.updateStyle()
-        textView.textColor = .base800
+        textView.textColor = .text
         textViewHeightConstraint.constant = heightForText(textView.text, font: textView.font!, width: textView.frame.width)
         unitLabelLeftConstraint?.constant = widthForText(textView.text, font: textView.font!)
         clearButton.isHidden = isEmpty || !isEnabled
