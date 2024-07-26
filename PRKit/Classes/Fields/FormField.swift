@@ -313,10 +313,10 @@ open class FormField: FormComponent, Localizable, FormInputViewDelegate {
 
         _errorLabel?.isHidden = !hasError
 
-        statusButton.backgroundColor = .brandPrimary300
+        statusButton.backgroundColor = .border
         if status != .none {
             if statusButton.image(for: .normal) == nil {
-                statusButton.setImage(UIImage.image(withColor: .brandPrimary500, cornerRadius: 16,
+                statusButton.setImage(UIImage.image(withColor: .focusedBorder, cornerRadius: 16,
                                                     iconImage: UIImage(named: "Voice24px", in: PRKitBundle.instance, compatibleWith: nil),
                                                     iconTintColor: .white),
                                       for: .normal)
