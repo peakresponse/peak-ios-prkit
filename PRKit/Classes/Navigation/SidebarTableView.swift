@@ -23,11 +23,11 @@ open class SidebarTableViewCell: UITableViewCell {
         accessoryType = .none
         selectionStyle = .none
         textLabel?.font = .h4SemiBold
-        textLabel?.textColor = .text
+        textLabel?.textColor = .interactiveText
 
         let bottomBorder = UIView()
         bottomBorder.translatesAutoresizingMaskIntoConstraints = false
-        bottomBorder.backgroundColor = .text
+        bottomBorder.backgroundColor = .interactiveText
         addSubview(bottomBorder)
         NSLayoutConstraint.activate([
             bottomBorder.leftAnchor.constraint(equalTo: leftAnchor),

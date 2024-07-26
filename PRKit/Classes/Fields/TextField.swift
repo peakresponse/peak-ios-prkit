@@ -206,7 +206,7 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
         let clearButton = UIButton(type: .custom)
         clearButton.translatesAutoresizingMaskIntoConstraints = false
         clearButton.setImage(UIImage(named: "Exit24px", in: PRKitBundle.instance, compatibleWith: nil), for: .normal)
-        clearButton.imageView?.tintColor = .base800
+        clearButton.imageView?.tintColor = .labelText
         clearButton.isHidden = true
         clearButton.addTarget(self, action: #selector(clearPressed), for: .touchUpInside)
         contentView.addSubview(clearButton)

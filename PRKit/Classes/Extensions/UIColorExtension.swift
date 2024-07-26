@@ -7,108 +7,80 @@
 
 import UIKit
 
+func colorForStyle(normalColor: UIColor, darkColor: UIColor? = nil) -> UIColor {
+    if #available(iOS 13, *) {
+        return UIColor { (traitCollection: UITraitCollection) -> UIColor in
+            if traitCollection.userInterfaceStyle == .dark {
+                return darkColor ?? normalColor
+            } else {
+                return normalColor
+            }
+        }
+    } else {
+        return normalColor
+    }
+}
+
 public extension UIColor {
     // Semantic color definitions with Dark mode support
     static var background: UIColor {
-        if #available(iOS 13, *) {
-            return UIColor { (traitCollection: UITraitCollection) -> UIColor in
-                if traitCollection.userInterfaceStyle == .dark {
-                    return .base800
-                } else {
-                    return .base100
-                }
-            }
-        } else {
-            return .base100
-        }
+        return colorForStyle(normalColor: .base100, darkColor: .base800)
+    }
+
+    static var border: UIColor {
+        return colorForStyle(normalColor: .brandPrimary300, darkColor: .brandPrimary500)
+    }
+
+    static var focusedBorder: UIColor {
+        return colorForStyle(normalColor: .brandPrimary500, darkColor: .brandPrimary400)
+    }
+
+    static var emptyBorder: UIColor {
+        return colorForStyle(normalColor: .base500)
+    }
+
+    static var disabledBorder: UIColor {
+        return colorForStyle(normalColor: .base300, darkColor: .base600)
     }
 
     static var highlight: UIColor {
-        if #available(iOS 13, *) {
-            return UIColor { (traitCollection: UITraitCollection) -> UIColor in
-                if traitCollection.userInterfaceStyle == .dark {
-                    return .brandPrimary300
-                } else {
-                    return .brandPrimary200
-                }
-            }
-        } else {
-            return .brandPrimary200
-        }
+        return colorForStyle(normalColor: .brandPrimary200, darkColor: .brandPrimary300)
     }
 
     static var text: UIColor {
-        if #available(iOS 13, *) {
-            return UIColor { (traitCollection: UITraitCollection) -> UIColor in
-                if traitCollection.userInterfaceStyle == .dark {
-                    return .brandPrimary100
-                } else {
-                    return .brandPrimary500
-                }
-            }
-        } else {
-            return .brandPrimary500
-        }
+        return colorForStyle(normalColor: .base800, darkColor: .base300)
     }
 
     static var textBackground: UIColor {
-        if #available(iOS 13, *) {
-            return UIColor { (traitCollection: UITraitCollection) -> UIColor in
-                if traitCollection.userInterfaceStyle == .dark {
-                    return .base700
-                } else {
-                    return .white
-                }
-            }
-        } else {
-            return .white
-        }
+        return colorForStyle(normalColor: .white, darkColor: .base700)
     }
 
     static var labelText: UIColor {
-        if #available(iOS 13, *) {
-            return UIColor { (traitCollection: UITraitCollection) -> UIColor in
-                if traitCollection.userInterfaceStyle == .dark {
-                    return .base300
-                } else {
-                    return .base500
-                }
-            }
-        } else {
-            return .base500
-        }
+        return colorForStyle(normalColor: .base500, darkColor: .base300)
+    }
+
+    static var disabledLabelText: UIColor {
+        return colorForStyle(normalColor: .base500)
     }
 
     static var focusedLabelText: UIColor {
-        if #available(iOS 13, *) {
-            return UIColor { (traitCollection: UITraitCollection) -> UIColor in
-                if traitCollection.userInterfaceStyle == .dark {
-                    return .brandPrimary300
-                } else {
-                    return .brandPrimary500
-                }
-            }
-        } else {
-            return .brandPrimary500
-        }
+        return colorForStyle(normalColor: .brandPrimary500, darkColor: .brandPrimary300)
     }
 
     static var placeholderText: UIColor {
-        if #available(iOS 13, *) {
-            return UIColor { (traitCollection: UITraitCollection) -> UIColor in
-                if traitCollection.userInterfaceStyle == .dark {
-                    return .base500
-                } else {
-                    return .base300
-                }
-            }
-        } else {
-            return .base300
-        }
+        return colorForStyle(normalColor: .base300, darkColor: .base500)
+    }
+
+    static var interactiveText: UIColor {
+        return colorForStyle(normalColor: .brandPrimary500, darkColor: .brandPrimary100)
     }
 
     static var error: UIColor {
         return .brandSecondary500
+    }
+
+    static var errorHighlight: UIColor {
+        return colorForStyle(normalColor: .brandSecondary400, darkColor: .brandSecondary450)
     }
 
     // Helper for retrieving colors from the Assets xcassets bundle- providing an explicit Bundle
@@ -153,6 +125,10 @@ public extension UIColor {
         return UIColor.named("BrandPrimary300")
     }
 
+    static var brandPrimary400: UIColor {
+        return UIColor.named("BrandPrimary400")
+    }
+
     static var brandPrimary500: UIColor {
         return UIColor.named("BrandPrimary500")
     }
@@ -175,6 +151,10 @@ public extension UIColor {
 
     static var brandSecondary400: UIColor {
         return UIColor.named("BrandSecondary400")
+    }
+
+    static var brandSecondary450: UIColor {
+        return UIColor.named("BrandSecondary450")
     }
 
     static var brandSecondary500: UIColor {
