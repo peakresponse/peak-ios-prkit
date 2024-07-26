@@ -257,7 +257,7 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
         guard _iconView == nil else { return }
         let iconView = UIImageView()
         iconView.translatesAutoresizingMaskIntoConstraints = false
-        iconView.tintColor = .base800
+        iconView.tintColor = .labelText
         iconView.contentMode = .center
         iconView.isHidden = !isEmpty
         contentView.addSubview(iconView)
