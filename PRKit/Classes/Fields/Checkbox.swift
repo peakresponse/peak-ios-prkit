@@ -119,19 +119,19 @@ open class Checkbox: UIView {
     }
 
     open func setImages() {
-        button.setBackgroundImage(UIImage.resizableImage(withColor: .white, cornerRadius: cornerRadius, borderColor: .base500, borderWidth: 2), for: .normal)
-        let disabledBg = UIImage.resizableImage(withColor: .white, cornerRadius: cornerRadius, borderColor: .base300, borderWidth: 2)
+        button.setBackgroundImage(UIImage.resizableImage(withColor: .textBackground, cornerRadius: cornerRadius, borderColor: .emptyBorder, borderWidth: 2), for: .normal)
+        let disabledBg = UIImage.resizableImage(withColor: .textBackground, cornerRadius: cornerRadius, borderColor: .disabledBorder, borderWidth: 2)
         button.setBackgroundImage(disabledBg, for: .disabled)
         button.setBackgroundImage(disabledBg, for: [.disabled, .selected])
-        let activeBg = UIImage.resizableImage(withColor: .white, cornerRadius: cornerRadius, borderColor: .brandPrimary500, borderWidth: 2)
+        let activeBg = UIImage.resizableImage(withColor: .textBackground, cornerRadius: cornerRadius, borderColor: .focusedBorder, borderWidth: 2)
         button.setBackgroundImage(activeBg, for: .focused)
         button.setBackgroundImage(activeBg, for: .highlighted)
         button.setBackgroundImage(activeBg, for: [.highlighted, .selected])
-        button.setBackgroundImage(UIImage.resizableImage(withColor: .white, cornerRadius: cornerRadius, borderColor: .brandPrimary300, borderWidth: 2), for: [.normal, .selected])
-        let selected = UIImage.resizableImage(withColor: .brandPrimary500, cornerRadius: innerCornerRadius).resizedTo(CGSize(width: 26, height: 26))
+        button.setBackgroundImage(UIImage.resizableImage(withColor: .textBackground, cornerRadius: cornerRadius, borderColor: .border, borderWidth: 2), for: [.normal, .selected])
+        let selected = UIImage.resizableImage(withColor: .focusedBorder, cornerRadius: innerCornerRadius).resizedTo(CGSize(width: 26, height: 26))
         button.setImage(selected, for: .selected)
         button.setImage(selected, for: [.highlighted, .selected])
-        button.setImage(UIImage.resizableImage(withColor: .base500, cornerRadius: innerCornerRadius).resizedTo(CGSize(width: 26, height: 26)), for: [.disabled, .selected])
+        button.setImage(UIImage.resizableImage(withColor: .disabledBorder, cornerRadius: innerCornerRadius).resizedTo(CGSize(width: 26, height: 26)), for: [.disabled, .selected])
     }
 
     public static func sizeThatFits(_ width: CGFloat, with labelText: String) -> CGSize {
@@ -152,7 +152,7 @@ open class Checkbox: UIView {
 
     func updateUserInteractionState() {
         button.isEnabled = isEnabled
-        label.textColor = isEnabled ? .base800 : .base300
+        label.textColor = isEnabled ? .labelText : .disabledLabelText
     }
 
     @objc func buttonPressed() {
