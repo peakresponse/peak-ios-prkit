@@ -72,7 +72,7 @@ public extension UIColor {
     }
 
     static var interactiveText: UIColor {
-        return colorForStyle(normalColor: .brandPrimary500, darkColor: .brandPrimary100)
+        return colorForStyle(normalColor: .brandPrimary500, darkColor: .brandPrimary200)
     }
 
     static var error: UIColor {
@@ -81,6 +81,70 @@ public extension UIColor {
 
     static var errorHighlight: UIColor {
         return colorForStyle(normalColor: .brandSecondary400, darkColor: .brandSecondary450)
+    }
+
+    static var primaryButtonNormal: UIColor {
+        return colorForStyle(normalColor: .brandPrimary500, darkColor: .brandPrimary600)
+    }
+
+    static var primaryButtonLabelNormal: UIColor {
+        return .white
+    }
+
+    static var primaryButtonHighlighted: UIColor {
+        return colorForStyle(normalColor: .brandPrimary600, darkColor: .brandPrimary700)
+    }
+
+    static var primaryButtonDisabled: UIColor {
+        return colorForStyle(normalColor: .base300, darkColor: .base500)
+    }
+
+    static var primaryButtonTint: UIColor {
+        return colorForStyle(normalColor: .white, darkColor: nil)
+    }
+
+    static var secondaryButtonNormal: UIColor {
+        return colorForStyle(normalColor: .white, darkColor: .base800)
+    }
+
+    static var secondaryButtonBorderNormal: UIColor {
+        return colorForStyle(normalColor: .brandPrimary500, darkColor: nil)
+    }
+
+    static var secondaryButtonLabelNormal: UIColor {
+        return colorForStyle(normalColor: .brandPrimary500, darkColor: .brandPrimary400)
+    }
+
+    static var secondaryButtonHighlighted: UIColor {
+        return colorForStyle(normalColor: .brandPrimary100, darkColor: .base800)
+    }
+
+    static var secondaryButtonLabelHighlighted: UIColor {
+        return colorForStyle(normalColor: .brandPrimary600, darkColor: .brandPrimary500)
+    }
+
+    static var secondaryButtonBorderHighlighted: UIColor {
+        return colorForStyle(normalColor: .brandPrimary600, darkColor: nil)
+    }
+
+    static var secondaryButtonDisabled: UIColor {
+        return colorForStyle(normalColor: .white, darkColor: .base800)
+    }
+
+    static var secondaryButtonBorderDisabled: UIColor {
+        return colorForStyle(normalColor: .base300, darkColor: .base500)
+    }
+
+    static var secondaryButtonLabelDisabled: UIColor {
+        return colorForStyle(normalColor: .base300, darkColor: .base500)
+    }
+
+    static var secondaryButtonTint: UIColor {
+        return colorForStyle(normalColor: .brandPrimary500, darkColor: .brandPrimary400)
+    }
+
+    static var secondaryButtonTintDisabled: UIColor {
+        return colorForStyle(normalColor: .base300, darkColor: .base500)
     }
 
     // Helper for retrieving colors from the Assets xcassets bundle- providing an explicit Bundle
