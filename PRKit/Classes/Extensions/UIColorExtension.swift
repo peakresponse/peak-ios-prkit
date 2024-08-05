@@ -91,11 +91,23 @@ public extension UIColor {
     }
 
     static var interactiveText: UIColor {
-        return colorForStyle(normalColor: .brandPrimary500, darkColor: .brandPrimary400)
+        return colorForStyle(normalColor: .brandPrimary500, darkColor: .brandPrimary500)
+    }
+
+    static var highlightedInteractiveText: UIColor {
+        return colorForStyle(normalColor: .brandPrimary600, darkColor: .brandPrimary600)
     }
 
     static var disabledInteractiveText: UIColor {
-        return colorForStyle(normalColor: .brandPrimary700, darkColor: .brandPrimary600)
+        return colorForStyle(normalColor: .brandPrimary700, darkColor: .brandPrimary700)
+    }
+
+    static var selectedInteractiveText: UIColor {
+        return colorForStyle(normalColor: .white, darkColor: .white)
+    }
+
+    static var highlightedSelectedInteractiveText: UIColor {
+        return colorForStyle(normalColor: .base100, darkColor: .base100)
     }
 
     static var error: UIColor {

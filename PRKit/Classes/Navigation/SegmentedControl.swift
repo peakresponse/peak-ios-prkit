@@ -37,7 +37,7 @@ open class SegmentedControl: UIControl {
     }
 
     open func commonInit() {
-        backgroundColor = .brandPrimary500
+        backgroundColor = .interactiveText
         layer.cornerRadius = 8
         layer.masksToBounds = true
         heightAnchor.constraint(equalToConstant: 56).isActive = true
@@ -66,10 +66,10 @@ open class SegmentedControl: UIControl {
         let button = UIButton(type: .custom)
         button.titleLabel?.font = .h4SemiBold
         button.setTitle(title, for: .normal)
-        button.setTitleColor(.brandPrimary500, for: .normal)
-        button.setTitleColor(.brandPrimary600, for: .highlighted)
-        button.setTitleColor(.white, for: .selected)
-        button.setTitleColor(.base100, for: [.selected, .highlighted])
+        button.setTitleColor(.interactiveText, for: .normal)
+        button.setTitleColor(.highlightedInteractiveText, for: .highlighted)
+        button.setTitleColor(.selectedInteractiveText, for: .selected)
+        button.setTitleColor(.highlightedSelectedInteractiveText, for: [.selected, .highlighted])
         button.addTarget(self, action: #selector(buttonPressed(_:)), for: .touchUpInside)
         stackView.insertArrangedSubview(button, at: index)
         if stackView.arrangedSubviews.count == 1 {
@@ -110,13 +110,13 @@ open class SegmentedControl: UIControl {
     }
 
     open func setBackgroundImages(for button: UIButton, corners: UIRectCorner) {
-        button.setBackgroundImage(UIImage.resizableImage(withColor: .brandPrimary100, cornerRadius: 6, corners: corners),
+        button.setBackgroundImage(UIImage.resizableImage(withColor: .background, cornerRadius: 6, corners: corners),
                                   for: .normal)
-        button.setBackgroundImage(UIImage.resizableImage(withColor: .brandPrimary200, cornerRadius: 6, corners: corners),
+        button.setBackgroundImage(UIImage.resizableImage(withColor: .highlight, cornerRadius: 6, corners: corners),
                                   for: .highlighted)
-        button.setBackgroundImage(UIImage.resizableImage(withColor: .brandPrimary500, cornerRadius: 6, corners: corners),
+        button.setBackgroundImage(UIImage.resizableImage(withColor: .interactiveText, cornerRadius: 6, corners: corners),
                                   for: .selected)
-        button.setBackgroundImage(UIImage.resizableImage(withColor: .brandPrimary600, cornerRadius: 6, corners: corners),
+        button.setBackgroundImage(UIImage.resizableImage(withColor: .highlightedInteractiveText, cornerRadius: 6, corners: corners),
                                   for: [.selected, .highlighted])
     }
 
