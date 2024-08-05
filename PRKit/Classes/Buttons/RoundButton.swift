@@ -21,11 +21,11 @@ open class RoundButton: UIButton {
     }
 
     open func commonInit() {
-        addShadow(withOffset: CGSize(width: 5, height: 5), radius: 10, color: .base500, opacity: 0.4)
+        addShadow(withOffset: CGSize(width: 5, height: 5), radius: 10, color: .dropShadow, opacity: 0.4)
         let size = floor(min(frame.size.width, frame.size.height) / 2)
-        setBackgroundImage(UIImage.resizableImage(withColor: .brandPrimary500, cornerRadius: size), for: .normal)
-        setBackgroundImage(UIImage.resizableImage(withColor: .brandPrimary600, cornerRadius: size), for: .highlighted)
-        setBackgroundImage(UIImage.resizableImage(withColor: .base300, cornerRadius: size), for: .disabled)
+        setBackgroundImage(UIImage.resizableImage(withColor: .primaryButtonNormal, cornerRadius: size), for: .normal)
+        setBackgroundImage(UIImage.resizableImage(withColor: .primaryButtonHighlighted, cornerRadius: size), for: .highlighted)
+        setBackgroundImage(UIImage.resizableImage(withColor: .primaryButtonDisabled, cornerRadius: size), for: .disabled)
 
         titleLabel?.font = .h4SemiBold
         titleLabel?.numberOfLines = 0

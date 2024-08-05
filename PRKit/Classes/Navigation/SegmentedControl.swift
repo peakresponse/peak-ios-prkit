@@ -37,7 +37,7 @@ open class SegmentedControl: UIControl {
     }
 
     open func commonInit() {
-        backgroundColor = .interactiveText
+        backgroundColor = .primaryButtonNormal
         layer.cornerRadius = 8
         layer.masksToBounds = true
         heightAnchor.constraint(equalToConstant: 56).isActive = true
@@ -114,9 +114,9 @@ open class SegmentedControl: UIControl {
                                   for: .normal)
         button.setBackgroundImage(UIImage.resizableImage(withColor: .highlight, cornerRadius: 6, corners: corners),
                                   for: .highlighted)
-        button.setBackgroundImage(UIImage.resizableImage(withColor: .interactiveText, cornerRadius: 6, corners: corners),
+        button.setBackgroundImage(UIImage.resizableImage(withColor: .primaryButtonNormal, cornerRadius: 6, corners: corners),
                                   for: .selected)
-        button.setBackgroundImage(UIImage.resizableImage(withColor: .highlightedInteractiveText, cornerRadius: 6, corners: corners),
+        button.setBackgroundImage(UIImage.resizableImage(withColor: .primaryButtonHighlighted, cornerRadius: 6, corners: corners),
                                   for: [.selected, .highlighted])
     }
 

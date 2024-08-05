@@ -40,6 +40,10 @@ public extension UIColor {
         return colorForStyle(normalColor: .brandPrimary300, darkColor: .brandPrimary700)
     }
 
+    static var dropShadow: UIColor {
+        return colorForStyle(normalColor: .base500, darkColor: .base800)
+    }
+
     // MARK: - Borders
 
     static var border: UIColor {

@@ -39,15 +39,15 @@ open class CustomTabBarButton: UIButton {
     }
 
     func commonInit() {
-        tintColor = .base500
+        tintColor = .labelText
         titleLabel?.font = .body14Bold
         titleLabel?.numberOfLines = 2
         titleLabel?.textAlignment = .center
         titleLabel?.lineBreakMode = .byClipping
-        setTitleColor(.base500, for: .normal)
-        setTitleColor(.base800, for: .highlighted)
-        setTitleColor(.base800, for: .selected)
-        setTitleColor(.base800, for: [.highlighted, .selected])
+        setTitleColor(.labelText, for: .normal)
+        setTitleColor(.text, for: .highlighted)
+        setTitleColor(.text, for: .selected)
+        setTitleColor(.text, for: [.highlighted, .selected])
     }
 
     open override func imageRect(forContentRect contentRect: CGRect) -> CGRect {
@@ -105,10 +105,10 @@ open class CustomTabBar: UIView {
 
     open func commonInit() {
         backgroundColor = .clear
-        addShadow(withOffset: CGSize(width: 0, height: -10), radius: 15, color: .base500, opacity: 0.4)
+        addShadow(withOffset: CGSize(width: 0, height: -10), radius: 15, color: .dropShadow, opacity: 0.4)
 
         let contentView = UIView()
-        contentView.backgroundColor = .white
+        contentView.backgroundColor = .textBackground
         contentView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(contentView)
         NSLayoutConstraint.activate([
@@ -120,7 +120,7 @@ open class CustomTabBar: UIView {
         self.contentView = contentView
 
         let bottomView = UIView()
-        bottomView.backgroundColor = .white
+        bottomView.backgroundColor = .textBackground
         bottomView.translatesAutoresizingMaskIntoConstraints = false
         insertSubview(bottomView, belowSubview: contentView)
         NSLayoutConstraint.activate([
@@ -144,9 +144,9 @@ open class CustomTabBar: UIView {
 
         let button = UIButton(type: .custom)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setBackgroundImage(UIImage.resizableImage(withColor: .brandPrimary500, cornerRadius: 47), for: .normal)
-        button.setBackgroundImage(UIImage.resizableImage(withColor: .brandPrimary600, cornerRadius: 47), for: .highlighted)
-        button.setBackgroundImage(UIImage.resizableImage(withColor: .base300, cornerRadius: 47), for: .disabled)
+        button.setBackgroundImage(UIImage.resizableImage(withColor: .interactiveText, cornerRadius: 47), for: .normal)
+        button.setBackgroundImage(UIImage.resizableImage(withColor: .highlightedInteractiveText, cornerRadius: 47), for: .highlighted)
+        button.setBackgroundImage(UIImage.resizableImage(withColor: .disabledInteractiveText, cornerRadius: 47), for: .disabled)
         button.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
         addSubview(button)
         NSLayoutConstraint.activate([
@@ -161,7 +161,7 @@ open class CustomTabBar: UIView {
         buttonLabel.translatesAutoresizingMaskIntoConstraints = false
         buttonLabel.font = .h4SemiBold
         buttonLabel.textAlignment = .center
-        buttonLabel.textColor = .white
+        buttonLabel.textColor = .selectedInteractiveText
         buttonLabel.isUserInteractionEnabled = false
         buttonLabel.numberOfLines = 0
         addSubview(buttonLabel)
@@ -236,7 +236,7 @@ open class CustomTabBar: UIView {
                 for view in stackView.arrangedSubviews {
                     if let view = view as? UIButton {
                         view.isSelected = view.tag == index
-                        view.tintColor = view.isSelected ? .base800 : .base500
+                        view.tintColor = view.isSelected ? .text : .disabledLabelText
                     }
                 }
             }
