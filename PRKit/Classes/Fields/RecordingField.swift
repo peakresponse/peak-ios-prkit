@@ -76,14 +76,16 @@ open class RecordingField: UIView {
     open func commonInit() {
         layer.cornerRadius = 8
         layer.borderWidth = 2
-        layer.borderColor = UIColor.base300.cgColor
+        layer.borderColor = UIColor.disabledBorder.cgColor
+
+        backgroundColor = .textBackground
 
         let playButton = UIButton()
         playButton.addTarget(self, action: #selector(playPressed), for: .touchUpInside)
-        playButton.tintColor = .brandPrimary500
+        playButton.tintColor = .interactiveText
         playButton.setImage(PRKitBundle.image(named: "RecordPlay40px"), for: .normal)
         playButton.setImage(PRKitBundle.image(named: "RecordStop40px"), for: .selected)
-        playButton.setImage(PRKitBundle.image(named: "RecordStop40px")?.tinted(with: .brandPrimary700).withRenderingMode(.alwaysOriginal),
+        playButton.setImage(PRKitBundle.image(named: "RecordStop40px")?.tinted(with: .disabledInteractiveText).withRenderingMode(.alwaysOriginal),
                             for: [.selected, .highlighted])
         playButton.translatesAutoresizingMaskIntoConstraints = false
         addSubview(playButton)
@@ -121,7 +123,7 @@ open class RecordingField: UIView {
 
         let titleLabel = UILabel()
         titleLabel.font = .body14Bold
-        titleLabel.textColor = .base500
+        titleLabel.textColor = .labelText
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         addSubview(titleLabel)
         NSLayoutConstraint.activate([
@@ -133,7 +135,7 @@ open class RecordingField: UIView {
 
         let durationLabel = UILabel()
         durationLabel.font = .body14Bold
-        durationLabel.textColor = .base800
+        durationLabel.textColor = .text
         durationLabel.translatesAutoresizingMaskIntoConstraints = false
         addSubview(durationLabel)
         NSLayoutConstraint.activate([
@@ -145,7 +147,7 @@ open class RecordingField: UIView {
 
         let textLabel = UILabel()
         textLabel.font = .h4SemiBold
-        textLabel.textColor = .base800
+        textLabel.textColor = .text
         textLabel.translatesAutoresizingMaskIntoConstraints = false
         textLabel.numberOfLines = 0
         addSubview(textLabel)

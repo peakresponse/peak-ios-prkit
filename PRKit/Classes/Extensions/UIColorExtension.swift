@@ -87,7 +87,11 @@ public extension UIColor {
     }
 
     static var interactiveText: UIColor {
-        return colorForStyle(normalColor: .brandPrimary500, darkColor: .brandPrimary200)
+        return colorForStyle(normalColor: .brandPrimary500, darkColor: .brandPrimary400)
+    }
+
+    static var disabledInteractiveText: UIColor {
+        return colorForStyle(normalColor: .brandPrimary700, darkColor: .brandPrimary600)
     }
 
     static var error: UIColor {
