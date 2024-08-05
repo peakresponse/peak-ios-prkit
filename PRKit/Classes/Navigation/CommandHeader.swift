@@ -108,7 +108,7 @@ open class CommandHeader: UIView {
     }
 
     open func commonInit() {
-        backgroundColor = .white
+        backgroundColor = .textBackground
 
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -135,7 +135,7 @@ open class CommandHeader: UIView {
 
         let userButton = UserButton(type: .custom)
         userButton.translatesAutoresizingMaskIntoConstraints = false
-        userButton.setTitleColor(.base500, for: .normal)
+        userButton.setTitleColor(.labelText, for: .normal)
         userButton.titleLabel?.font = isCompact ? .body14Bold : .h4SemiBold
         userButton.titleLabel?.lineBreakMode = .byTruncatingTail
         userButton.addTarget(self, action: #selector(userPressed), for: .touchUpInside)
@@ -173,9 +173,9 @@ open class CommandHeader: UIView {
         if let action = barButtonItem.action {
             button.addTarget(barButtonItem.target, action: action, for: .touchUpInside)
         }
-        button.tintColor = barButtonItem.style == .done ? .brandPrimary500 : .base500
+        button.tintColor = barButtonItem.style == .done ? .interactiveText : .labelText
         button.titleLabel?.font = .h3SemiBold
-        button.setTitleColor(barButtonItem.style == .done ? .brandPrimary500 : .base500, for: .normal)
+        button.setTitleColor(barButtonItem.style == .done ? .interactiveText : .labelText, for: .normal)
         return button
     }
 

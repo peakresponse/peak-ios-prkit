@@ -36,6 +36,10 @@ public extension UIColor {
         return colorForStyle(normalColor: .base300, darkColor: .black)
     }
 
+    static var header: UIColor {
+        return colorForStyle(normalColor: .brandPrimary300, darkColor: .brandPrimary700)
+    }
+
     // MARK: - Borders
 
     static var border: UIColor {

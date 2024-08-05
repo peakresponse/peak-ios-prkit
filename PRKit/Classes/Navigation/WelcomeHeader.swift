@@ -38,7 +38,7 @@ open class WelcomeHeader: UIView {
     }
 
     open func commonInit() {
-        backgroundColor = .brandPrimary300
+        backgroundColor = .header
 
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -76,7 +76,7 @@ open class WelcomeHeader: UIView {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .h4SemiBold
-        label.textColor = .base800
+        label.textColor = .text
         view.addSubview(label)
         NSLayoutConstraint.activate([
             label.centerYAnchor.constraint(equalTo: view.centerYAnchor),
