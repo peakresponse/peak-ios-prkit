@@ -108,7 +108,7 @@ open class CommandHeader: UIView {
     }
 
     open func commonInit() {
-        backgroundColor = .textBackground
+        backgroundColor = .background
 
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
