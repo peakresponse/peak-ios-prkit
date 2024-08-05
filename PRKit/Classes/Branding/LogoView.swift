@@ -13,7 +13,7 @@ public enum LogoStyle: String {
 }
 
 public enum LogoVariant: String {
-    case dark, light, white
+    case auto, dark, light, white
 }
 
 @IBDesignable
@@ -78,6 +78,8 @@ open class LogoView: UIView {
         switch style {
         case .full:
             switch variant {
+            case .auto:
+                setAutoImage()
             case .dark:
                 imageView.image = SVGKImage(named: "logo.full.dark.svg", in: PRKitBundle.instance)
             case .light:
@@ -87,6 +89,8 @@ open class LogoView: UIView {
             }
         case .square:
             switch variant {
+            case .auto:
+                setAutoImage()
             case .dark:
                 imageView.image = SVGKImage(named: "logo.square.dark.svg", in: PRKitBundle.instance)
             case .light:
@@ -102,5 +106,21 @@ open class LogoView: UIView {
             imageViewAspectConstraint = imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor, multiplier: image.size.width / image.size.height)
             imageViewAspectConstraint.isActive = true
         }
+    }
+
+    private func setAutoImage() {
+        if variant == .auto {
+            switch style {
+            case .full:
+                imageView.image = traitCollection.userInterfaceStyle == .dark ? SVGKImage(named: "logo.full.light.svg", in: PRKitBundle.instance) : SVGKImage(named: "logo.full.dark.svg", in: PRKitBundle.instance)
+            case .square:
+                imageView.image = traitCollection.userInterfaceStyle == .dark ? SVGKImage(named: "logo.square.light.svg", in: PRKitBundle.instance) : SVGKImage(named: "logo.square.dark.svg", in: PRKitBundle.instance)
+            }
+        }
+    }
+
+    open override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        setAutoImage()
     }
 }
