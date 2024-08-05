@@ -32,6 +32,10 @@ public extension UIColor {
         return colorForStyle(normalColor: .white, darkColor: .base700)
     }
 
+    static var modalBackdrop: UIColor {
+        return colorForStyle(normalColor: .base300, darkColor: .black)
+    }
+
     // MARK: - Borders
 
     static var border: UIColor {

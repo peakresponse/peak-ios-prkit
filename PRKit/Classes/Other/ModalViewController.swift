@@ -46,7 +46,7 @@ open class ModalViewController: UIViewController {
 
         let backdropView = UIView()
         backdropView.translatesAutoresizingMaskIntoConstraints = false
-        backdropView.backgroundColor = .base300
+        backdropView.backgroundColor = .modalBackdrop
         backdropView.alpha = 0.7
         view.addSubview(backdropView)
         NSLayoutConstraint.activate([
@@ -58,7 +58,7 @@ open class ModalViewController: UIViewController {
 
         let contentView = UIView()
         contentView.translatesAutoresizingMaskIntoConstraints = false
-        contentView.backgroundColor = .white
+        contentView.backgroundColor = .background
         contentView.layer.cornerRadius = 16
         contentView.addShadow(withOffset: CGSize(width: 0, height: 6), radius: 10, color: .base800, opacity: 0.15)
         view.addSubview(contentView)
@@ -96,7 +96,7 @@ open class ModalViewController: UIViewController {
         titleLabel.text = titleText
         titleLabel.isHidden = titleText == nil
         titleLabel.textAlignment = .center
-        titleLabel.textColor = .base800
+        titleLabel.textColor = .text
         stackView.addArrangedSubview(titleLabel)
         self.titleLabel = titleLabel
 
@@ -106,7 +106,7 @@ open class ModalViewController: UIViewController {
         messageLabel.text = messageText
         messageLabel.isHidden = messageText == nil
         messageLabel.textAlignment = .center
-        messageLabel.textColor = titleText == nil ? .base800 : .base500
+        messageLabel.textColor = titleText == nil ? .text : .labelText
         stackView.addArrangedSubview(messageLabel)
         self.messageLabel = messageLabel
 
