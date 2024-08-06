@@ -56,7 +56,7 @@ open class SignatureField: FormField, SignatureViewControllerDelegate {
         let clearButton = UIButton(type: .custom)
         clearButton.translatesAutoresizingMaskIntoConstraints = false
         clearButton.setImage(UIImage(named: "Exit24px", in: PRKitBundle.instance, compatibleWith: nil), for: .normal)
-        clearButton.imageView?.tintColor = .text
+        clearButton.imageView?.tintColor = .labelText
         clearButton.isHidden = true
         clearButton.addTarget(self, action: #selector(clearInternalPressed), for: .touchUpInside)
         contentView.addSubview(clearButton)
