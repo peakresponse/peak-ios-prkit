@@ -9,7 +9,7 @@
 import PRKit
 import UIKit
 
-class ButtonsViewController: UIViewController {
+class ButtonsViewController: ViewController {
     @IBAction func buttonPressed() {
         let modal = ModalViewController()
         modal.messageText = "This is an active MCI in progress."

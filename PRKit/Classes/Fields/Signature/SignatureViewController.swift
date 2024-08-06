@@ -55,6 +55,8 @@ open class SignatureViewController: UIViewController, SwiftSignatureViewDelegate
         }
 
         let signatureView = SwiftSignatureView()
+        signatureView.subviews[0].subviews[0].overrideUserInterfaceStyle = traitCollection.userInterfaceStyle
+        signatureView.subviews[0].subviews[0].backgroundColor = .background
         signatureView.translatesAutoresizingMaskIntoConstraints = false
         signatureView.delegate = self
         view.addSubview(signatureView)
@@ -114,7 +116,7 @@ open class SignatureViewController: UIViewController, SwiftSignatureViewDelegate
 
         let lineView = UIView()
         lineView.translatesAutoresizingMaskIntoConstraints = false
-        lineView.backgroundColor = .base300
+        lineView.backgroundColor = .disabledBorder
         lineView.isHidden = true
         view.addSubview(lineView)
         lineViewConstraints = [

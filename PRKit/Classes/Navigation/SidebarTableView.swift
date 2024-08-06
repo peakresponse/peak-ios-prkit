@@ -19,15 +19,15 @@ open class SidebarTableViewCell: UITableViewCell {
     }
 
     open func commonInit() {
-        backgroundColor = .base100
+        backgroundColor = .background
         accessoryType = .none
         selectionStyle = .none
         textLabel?.font = .h4SemiBold
-        textLabel?.textColor = .brandPrimary500
+        textLabel?.textColor = .interactiveText
 
         let bottomBorder = UIView()
         bottomBorder.translatesAutoresizingMaskIntoConstraints = false
-        bottomBorder.backgroundColor = .brandPrimary500
+        bottomBorder.backgroundColor = .interactiveText
         addSubview(bottomBorder)
         NSLayoutConstraint.activate([
             bottomBorder.leftAnchor.constraint(equalTo: leftAnchor),
@@ -38,7 +38,7 @@ open class SidebarTableViewCell: UITableViewCell {
     }
 
     open override func setHighlighted(_ highlighted: Bool, animated: Bool) {
-        backgroundColor = highlighted ? .brandPrimary200 : .base100
+        backgroundColor = highlighted ? .highlight : .background
     }
 }
 
@@ -54,7 +54,7 @@ open class SidebarTableView: UITableView {
     }
 
     open func commonInit() {
-        backgroundColor = .base100
+        backgroundColor = .background
         separatorStyle = .none
         rowHeight = 66
         register(SidebarTableViewCell.self, forCellReuseIdentifier: "SidebarItem")

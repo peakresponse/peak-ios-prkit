@@ -33,6 +33,8 @@ open class TriageControl: UIControl {
     }
 
     open func commonInit() {
+        backgroundColor = .background
+
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical

@@ -182,6 +182,7 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
         super.commonInit()
 
         let textView = InternalTextView()
+        textView.backgroundColor = .clear
         textView.delegate = self
         textView.textField = self
         textView.translatesAutoresizingMaskIntoConstraints = false
@@ -205,7 +206,7 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
         let clearButton = UIButton(type: .custom)
         clearButton.translatesAutoresizingMaskIntoConstraints = false
         clearButton.setImage(UIImage(named: "Exit24px", in: PRKitBundle.instance, compatibleWith: nil), for: .normal)
-        clearButton.imageView?.tintColor = .base800
+        clearButton.imageView?.tintColor = .labelText
         clearButton.isHidden = true
         clearButton.addTarget(self, action: #selector(clearPressed), for: .touchUpInside)
         contentView.addSubview(clearButton)
@@ -223,7 +224,7 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
         let placeholderLabel = UILabel()
         placeholderLabel.translatesAutoresizingMaskIntoConstraints = false
         placeholderLabel.font = textView.font
-        placeholderLabel.textColor = .base300
+        placeholderLabel.textColor = .placeholderText
         placeholderLabel.isHidden = !isEmpty
         contentView.addSubview(placeholderLabel)
         NSLayoutConstraint.activate([
@@ -256,7 +257,7 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
         guard _iconView == nil else { return }
         let iconView = UIImageView()
         iconView.translatesAutoresizingMaskIntoConstraints = false
-        iconView.tintColor = .base800
+        iconView.tintColor = .labelText
         iconView.contentMode = .center
         iconView.isHidden = !isEmpty
         contentView.addSubview(iconView)
@@ -335,7 +336,7 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
 
     override open func updateStyle() {
         super.updateStyle()
-        textView.textColor = .base800
+        textView.textColor = .text
         textViewHeightConstraint.constant = heightForText(textView.text, font: textView.font!, width: textView.frame.width)
         unitLabelLeftConstraint?.constant = widthForText(textView.text, font: textView.font!)
         clearButton.isHidden = isEmpty || !isEnabled

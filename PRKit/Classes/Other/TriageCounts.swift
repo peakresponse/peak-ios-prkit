@@ -30,6 +30,7 @@ open class TriageCounts: UIStackView {
     }
 
     open func commonInit() {
+        backgroundColor = .clear
         axis = .vertical
         alignment = .fill
         distribution = .fillEqually

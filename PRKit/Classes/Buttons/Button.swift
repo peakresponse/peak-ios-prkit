@@ -12,7 +12,7 @@ public enum ButtonSize: String {
 }
 
 public enum ButtonStyle: String {
-    case primary, secondary, tertiary, destructive, destructiveSecondary, destructiveTertiary, warning
+    case primary, secondary, tertiary, destructive, destructiveSecondary
 }
 
 @IBDesignable
@@ -197,40 +197,33 @@ open class Button: UIButton {
         }
         switch style {
         case .primary:
-            setBackgroundImage(.resizableImage(withColor: .brandPrimary500, cornerRadius: 8), for: .normal)
-            setBackgroundImage(.resizableImage(withColor: .brandPrimary600, cornerRadius: 8), for: .highlighted)
-            setBackgroundImage(.resizableImage(withColor: .base300, cornerRadius: 8), for: .disabled)
-            tintColor = .white
+            setBackgroundImage(.resizableImage(withColor: .primaryButtonNormal, cornerRadius: 8), for: .normal)
+            setBackgroundImage(.resizableImage(withColor: .primaryButtonHighlighted, cornerRadius: 8), for: .highlighted)
+            setBackgroundImage(.resizableImage(withColor: .primaryButtonDisabled, cornerRadius: 8), for: .disabled)
+            tintColor = .primaryButtonTint
         case .secondary:
-            setBackgroundImage(.resizableImage(withColor: .white, cornerRadius: 8,
-                                               borderColor: .brandPrimary500, borderWidth: borderWidth), for: .normal)
-            setBackgroundImage(.resizableImage(withColor: .brandPrimary100, cornerRadius: 8,
-                                               borderColor: .brandPrimary600, borderWidth: borderWidth), for: .highlighted)
-            setBackgroundImage(.resizableImage(withColor: .white, cornerRadius: 8,
-                                               borderColor: .base300, borderWidth: borderWidth), for: .disabled)
+            setBackgroundImage(.resizableImage(withColor: .secondaryButtonNormal, cornerRadius: 8,
+                                               borderColor: .secondaryButtonBorderNormal, borderWidth: borderWidth), for: .normal)
+            setBackgroundImage(.resizableImage(withColor: .secondaryButtonHighlighted, cornerRadius: 8,
+                                               borderColor: .secondaryButtonBorderHighlighted, borderWidth: borderWidth), for: .highlighted)
+            setBackgroundImage(.resizableImage(withColor: .secondaryButtonDisabled, cornerRadius: 8,
+                                               borderColor: .secondaryButtonBorderDisabled, borderWidth: borderWidth), for: .disabled)
             fallthrough
         case .tertiary:
-            tintColor = isEnabled ? .brandPrimary500 : .base300
+            tintColor = isEnabled ? .secondaryButtonTint : .secondaryButtonTintDisabled
         case .destructive:
-            setBackgroundImage(.resizableImage(withColor: .triageImmediateMedium, cornerRadius: 8), for: .normal)
-            setBackgroundImage(.resizableImage(withColor: .triageImmediateDark, cornerRadius: 8), for: .highlighted)
-            setBackgroundImage(.resizableImage(withColor: .triageImmediateLight, cornerRadius: 8), for: .disabled)
-            tintColor = .white
+            setBackgroundImage(.resizableImage(withColor: .destructiveButtonNormal, cornerRadius: 8), for: .normal)
+            setBackgroundImage(.resizableImage(withColor: .destructiveButtonHighlighted, cornerRadius: 8), for: .highlighted)
+            setBackgroundImage(.resizableImage(withColor: .destructiveButtonDisabled, cornerRadius: 8), for: .disabled)
+            tintColor = .destructiveButtonTint
         case .destructiveSecondary:
-            setBackgroundImage(.resizableImage(withColor: .white, cornerRadius: 8,
-                                               borderColor: .triageImmediateMedium, borderWidth: borderWidth), for: .normal)
-            setBackgroundImage(.resizableImage(withColor: .triageImmediateLight, cornerRadius: 8,
-                                               borderColor: .triageImmediateMedium, borderWidth: borderWidth), for: .highlighted)
-            setBackgroundImage(.resizableImage(withColor: .white, cornerRadius: 8,
-                                               borderColor: .triageImmediateLight, borderWidth: borderWidth), for: .disabled)
-            fallthrough
-        case .destructiveTertiary:
-            tintColor = isEnabled ? .triageImmediateMedium : .triageImmediateLight
-        case .warning:
-            setBackgroundImage(.resizableImage(withColor: .brandSecondary500, cornerRadius: 8), for: .normal)
-            setBackgroundImage(.resizableImage(withColor: .brandSecondary800, cornerRadius: 8), for: .highlighted)
-            setBackgroundImage(.resizableImage(withColor: .brandSecondary400, cornerRadius: 8), for: .disabled)
-            tintColor = .white
+            setBackgroundImage(.resizableImage(withColor: .destructiveSecondaryButtonNormal, cornerRadius: 8,
+                                               borderColor: .destructiveSecondaryButtonBorderNormal, borderWidth: borderWidth), for: .normal)
+            setBackgroundImage(.resizableImage(withColor: .destructiveSecondaryButtonHighlighted, cornerRadius: 8,
+                                               borderColor: .destructiveSecondaryButtonBorderHighlighted, borderWidth: borderWidth), for: .highlighted)
+            setBackgroundImage(.resizableImage(withColor: .destructiveSecondaryButtonDisabled, cornerRadius: 8,
+                                               borderColor: .destructiveSecondaryButtonLabelDisabled, borderWidth: borderWidth), for: .disabled)
+            tintColor = isEnabled ? .destructiveSecondaryButtonTint : .destructiveSecondaryButtonTintDisabled
         }
     }
 
@@ -246,18 +239,18 @@ open class Button: UIButton {
         }
         titleLabel?.font = titleFont
         switch style {
-        case .primary, .destructive, .warning:
-            setTitleColor(.white, for: .normal)
-            setTitleColor(.white, for: .highlighted)
-            setTitleColor(.white, for: .disabled)
+        case .primary, .destructive:
+            setTitleColor(.primaryButtonLabelNormal, for: .normal)
+            setTitleColor(.primaryButtonLabelNormal, for: .highlighted)
+            setTitleColor(.primaryButtonLabelNormal, for: .disabled)
         case .secondary, .tertiary:
-            setTitleColor(.brandPrimary500, for: .normal)
-            setTitleColor(.brandPrimary600, for: .highlighted)
-            setTitleColor(.base300, for: .disabled)
-        case .destructiveSecondary, .destructiveTertiary:
-            setTitleColor(.triageImmediateMedium, for: .normal)
-            setTitleColor(.triageImmediateMedium, for: .highlighted)
-            setTitleColor(.triageImmediateLight, for: .disabled)
+            setTitleColor(.secondaryButtonLabelNormal, for: .normal)
+            setTitleColor(.secondaryButtonLabelHighlighted, for: .highlighted)
+            setTitleColor(.secondaryButtonLabelDisabled, for: .disabled)
+        case .destructiveSecondary:
+            setTitleColor(.destructiveSecondaryButtonLabelNormal, for: .normal)
+            setTitleColor(.destructiveSecondaryButtonLabelHighlighted, for: .highlighted)
+            setTitleColor(.destructiveSecondaryButtonLabelDisabled, for: .disabled)
         }
     }
 

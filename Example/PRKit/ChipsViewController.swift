@@ -9,7 +9,7 @@
 import UIKit
 import PRKit
 
-class ChipsViewController: UIViewController, RecordingFieldDelegate, TriageCountsDelegate {
+class ChipsViewController: ViewController, RecordingFieldDelegate, TriageCountsDelegate {
     @IBOutlet weak var recordingField: RecordingField!
     @IBOutlet weak var disabledCounterConrol: CounterControl!
     @IBOutlet weak var triageCountsView: TriageCounts!

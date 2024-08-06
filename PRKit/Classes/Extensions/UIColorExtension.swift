@@ -7,7 +7,251 @@
 
 import UIKit
 
+func colorForStyle(normalColor: UIColor, darkColor: UIColor? = nil) -> UIColor {
+    if #available(iOS 13, *) {
+        return UIColor { (traitCollection: UITraitCollection) -> UIColor in
+            if traitCollection.userInterfaceStyle == .dark {
+                return darkColor ?? normalColor
+            } else {
+                return normalColor
+            }
+        }
+    } else {
+        return normalColor
+    }
+}
+
 public extension UIColor {
+    // MARK: - Backgrounds
+
+    static var background: UIColor {
+        return colorForStyle(normalColor: .base100, darkColor: .base800)
+    }
+
+    static var textBackground: UIColor {
+        return colorForStyle(normalColor: .white, darkColor: .base700)
+    }
+
+    static var modalBackdrop: UIColor {
+        return colorForStyle(normalColor: .base300, darkColor: .black)
+    }
+
+    static var header: UIColor {
+        return colorForStyle(normalColor: .brandPrimary300, darkColor: .brandPrimary700)
+    }
+
+    static var dropShadow: UIColor {
+        return colorForStyle(normalColor: .base500, darkColor: .black)
+    }
+
+    static var highlight: UIColor {
+        return colorForStyle(normalColor: .brandPrimary200, darkColor: .brandPrimary300)
+    }
+
+    static var errorHighlight: UIColor {
+        return colorForStyle(normalColor: .brandSecondary400, darkColor: .brandSecondary450)
+    }
+
+    // MARK: - Borders
+
+    static var border: UIColor {
+        return colorForStyle(normalColor: .brandPrimary300, darkColor: .brandPrimary500)
+    }
+
+    static var focusedBorder: UIColor {
+        return colorForStyle(normalColor: .brandPrimary500, darkColor: .brandPrimary400)
+    }
+
+    static var emptyBorder: UIColor {
+        return colorForStyle(normalColor: .base500)
+    }
+
+    static var disabledBorder: UIColor {
+        return colorForStyle(normalColor: .base300, darkColor: .base600)
+    }
+
+    // MARK: - Text
+
+    static var text: UIColor {
+        return colorForStyle(normalColor: .base800, darkColor: .base300)
+    }
+
+    static var headingText: UIColor {
+        return colorForStyle(normalColor: .brandPrimary600, darkColor: .brandPrimary500)
+    }
+
+    static var labelText: UIColor {
+        return colorForStyle(normalColor: .base500, darkColor: .base400)
+    }
+
+    static var disabledLabelText: UIColor {
+        return colorForStyle(normalColor: .base500)
+    }
+
+    static var focusedLabelText: UIColor {
+        return colorForStyle(normalColor: .brandPrimary500, darkColor: .brandPrimary300)
+    }
+
+    static var placeholderText: UIColor {
+        return colorForStyle(normalColor: .base300, darkColor: .base500)
+    }
+
+    static var interactiveText: UIColor {
+        return colorForStyle(normalColor: .brandPrimary500, darkColor: .brandPrimary500)
+    }
+
+    static var highlightedInteractiveText: UIColor {
+        return colorForStyle(normalColor: .brandPrimary600, darkColor: .brandPrimary600)
+    }
+
+    static var disabledInteractiveText: UIColor {
+        return colorForStyle(normalColor: .brandPrimary700, darkColor: .brandPrimary700)
+    }
+
+    static var selectedInteractiveText: UIColor {
+        return colorForStyle(normalColor: .white, darkColor: .white)
+    }
+
+    static var highlightedSelectedInteractiveText: UIColor {
+        return colorForStyle(normalColor: .base100, darkColor: .base100)
+    }
+
+    static var error: UIColor {
+        return .brandSecondary500
+    }
+
+    // MARK: - Primary Button
+
+    static var primaryButtonNormal: UIColor {
+        return colorForStyle(normalColor: .brandPrimary500, darkColor: .brandPrimary600)
+    }
+
+    static var primaryButtonLabelNormal: UIColor {
+        return .white
+    }
+
+    static var primaryButtonHighlighted: UIColor {
+        return colorForStyle(normalColor: .brandPrimary600, darkColor: .brandPrimary700)
+    }
+
+    static var primaryButtonDisabled: UIColor {
+        return colorForStyle(normalColor: .base300, darkColor: .base500)
+    }
+
+    static var primaryButtonTint: UIColor {
+        return colorForStyle(normalColor: .white, darkColor: nil)
+    }
+
+    // MARK: - Secondary Button
+
+    static var secondaryButtonNormal: UIColor {
+        return colorForStyle(normalColor: .white, darkColor: .base800)
+    }
+
+    static var secondaryButtonBorderNormal: UIColor {
+        return colorForStyle(normalColor: .brandPrimary500, darkColor: nil)
+    }
+
+    static var secondaryButtonLabelNormal: UIColor {
+        return colorForStyle(normalColor: .brandPrimary500, darkColor: .brandPrimary400)
+    }
+
+    static var secondaryButtonHighlighted: UIColor {
+        return colorForStyle(normalColor: .brandPrimary100, darkColor: .base800)
+    }
+
+    static var secondaryButtonLabelHighlighted: UIColor {
+        return colorForStyle(normalColor: .brandPrimary600, darkColor: .brandPrimary500)
+    }
+
+    static var secondaryButtonBorderHighlighted: UIColor {
+        return colorForStyle(normalColor: .brandPrimary600, darkColor: nil)
+    }
+
+    static var secondaryButtonDisabled: UIColor {
+        return colorForStyle(normalColor: .white, darkColor: .base800)
+    }
+
+    static var secondaryButtonBorderDisabled: UIColor {
+        return colorForStyle(normalColor: .base300, darkColor: .base500)
+    }
+
+    static var secondaryButtonLabelDisabled: UIColor {
+        return colorForStyle(normalColor: .base300, darkColor: .base500)
+    }
+
+    static var secondaryButtonTint: UIColor {
+        return colorForStyle(normalColor: .brandPrimary500, darkColor: .brandPrimary400)
+    }
+
+    static var secondaryButtonTintDisabled: UIColor {
+        return colorForStyle(normalColor: .base300, darkColor: .base500)
+    }
+
+    // MARK: - Destructive Button
+
+    static var destructiveButtonNormal: UIColor {
+        return colorForStyle(normalColor: .triageImmediateMedium, darkColor: nil)
+    }
+
+    static var destructiveButtonHighlighted: UIColor {
+        return colorForStyle(normalColor: .triageImmediateDark, darkColor: nil)
+    }
+
+    static var destructiveButtonDisabled: UIColor {
+        return colorForStyle(normalColor: .triageImmediateLight, darkColor: .base600)
+    }
+
+    static var destructiveButtonTint: UIColor {
+        return colorForStyle(normalColor: .white, darkColor: nil)
+    }
+
+    // MARK: - Destructive Secondary Button
+
+    static var destructiveSecondaryButtonNormal: UIColor {
+        return colorForStyle(normalColor: .white, darkColor: .base800)
+    }
+
+    static var destructiveSecondaryButtonBorderNormal: UIColor {
+        return colorForStyle(normalColor: .triageImmediateMedium, darkColor: nil)
+    }
+
+    static var destructiveSecondaryButtonLabelNormal: UIColor {
+        return colorForStyle(normalColor: .triageImmediateMedium, darkColor: nil)
+    }
+
+    static var destructiveSecondaryButtonHighlighted: UIColor {
+        return colorForStyle(normalColor: .triageImmediateLight, darkColor: .triageImmediateDark)
+    }
+
+    static var destructiveSecondaryButtonLabelHighlighted: UIColor {
+        return colorForStyle(normalColor: .triageImmediateMedium, darkColor: nil)
+    }
+
+    static var destructiveSecondaryButtonBorderHighlighted: UIColor {
+        return colorForStyle(normalColor: .triageImmediateMedium, darkColor: nil)
+    }
+
+    static var destructiveSecondaryButtonDisabled: UIColor {
+        return colorForStyle(normalColor: .white, darkColor: .base800)
+    }
+
+    static var destructiveSecondaryButtonBorderDisabled: UIColor {
+        return colorForStyle(normalColor: .triageImmediateLight, darkColor: .base500)
+    }
+
+    static var destructiveSecondaryButtonLabelDisabled: UIColor {
+        return colorForStyle(normalColor: .triageImmediateLight, darkColor: .base500)
+    }
+
+    static var destructiveSecondaryButtonTint: UIColor {
+        return colorForStyle(normalColor: .triageImmediateMedium, darkColor: nil)
+    }
+
+    static var destructiveSecondaryButtonTintDisabled: UIColor {
+        return colorForStyle(normalColor: .triageImmediateLight, darkColor: nil)
+    }
+
     // Helper for retrieving colors from the Assets xcassets bundle- providing an explicit Bundle
     // reference ensures this works in other contexts- including Interface Builder IBDesignable execution
     private static func named(_ name: String) -> UIColor {
@@ -22,8 +266,20 @@ public extension UIColor {
         return UIColor.named("Base300")
     }
 
+    static var base400: UIColor {
+        return UIColor.named("Base400")
+    }
+
     static var base500: UIColor {
         return UIColor.named("Base500")
+    }
+
+    static var base600: UIColor {
+        return UIColor.named("Base600")
+    }
+
+    static var base700: UIColor {
+        return UIColor.named("Base700")
     }
 
     static var base800: UIColor {
@@ -40,6 +296,10 @@ public extension UIColor {
 
     static var brandPrimary300: UIColor {
         return UIColor.named("BrandPrimary300")
+    }
+
+    static var brandPrimary400: UIColor {
+        return UIColor.named("BrandPrimary400")
     }
 
     static var brandPrimary500: UIColor {
@@ -64,6 +324,10 @@ public extension UIColor {
 
     static var brandSecondary400: UIColor {
         return UIColor.named("BrandSecondary400")
+    }
+
+    static var brandSecondary450: UIColor {
+        return UIColor.named("BrandSecondary450")
     }
 
     static var brandSecondary500: UIColor {
@@ -128,56 +392,8 @@ public extension UIColor {
 
     // deprecated legacy colors -------------------
 
-    static var immediateRed: UIColor {
-        return UIColor.named("ImmediateRed")
-    }
-
-    static var immediateRedLightened: UIColor {
-        return UIColor.named("LightImmediateRed")
-    }
-
-    static var delayedYellow: UIColor {
-        return UIColor.named("DelayedYellow")
-    }
-
-    static var delayedYellowLightened: UIColor {
-        return UIColor.named("LightDelayedYellow")
-    }
-
-    static var minimalGreen: UIColor {
-        return UIColor.named("MinimalGreen")
-    }
-
-    static var minimalGreenLightened: UIColor {
-        return UIColor.named("LightMinimalGreen")
-    }
-
-    static var expectantGray: UIColor {
-        return UIColor.named("ExpectGrey")
-    }
-
-    static var expectantGrayLightened: UIColor {
-        return UIColor.named("LightExpectGrey")
-    }
-
-    static var deadBlack: UIColor {
-        return UIColor.named("DeadBlack")
-    }
-
-    static var deadBlackLightened: UIColor {
-        return UIColor.named("LightDeadBlack")
-    }
-
     static var peakBlue: UIColor {
         return UIColor.named("PeakBlue")
-    }
-
-    static var lightPeakBlue: UIColor {
-        return UIColor.named("LightPeakBlue")
-    }
-
-    static var middlePeakBlue: UIColor {
-        return UIColor.named("MiddlePeakBlue")
     }
 
     static var darkPeakBlue: UIColor {
@@ -192,10 +408,6 @@ public extension UIColor {
         return UIColor.named("BgBackground")
     }
 
-    static var orangeAccent: UIColor {
-        return UIColor.named("OrangeAccent")
-    }
-
     static var mainGrey: UIColor {
         return UIColor.named("MainGrey")
     }
@@ -204,36 +416,8 @@ public extension UIColor {
         return UIColor.named("LowPriorityGrey")
     }
 
-    static var lightGreyBlue: UIColor {
-        return UIColor.named("LightGreyBlue")
-    }
-
-    static var backgroundBlueGray: UIColor {
-        return UIColor(r: 229, g: 236, b: 239)
-    }
-
-    static var bottomBlueGray: UIColor {
-        return UIColor(r: 245, g: 247, b: 249)
-    }
-
-    static var natBlue: UIColor {
-        return UIColor(r: 70, g: 165, b: 219)
-    }
-
-    static var natBlueLightened: UIColor {
-        return UIColor(r: 208, g: 233, b: 247)
-    }
-
     static var gray2: UIColor {
         return UIColor(r: 79, g: 79, b: 79)
-    }
-
-    static var gray3: UIColor {
-        return UIColor(r: 130, g: 130, b: 130)
-    }
-
-    static var gray4: UIColor {
-        return UIColor(r: 189, g: 189, b: 189)
     }
 
     static var purple2: UIColor {

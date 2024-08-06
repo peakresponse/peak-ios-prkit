@@ -29,7 +29,7 @@ open class SearchViewController: UIViewController, CheckboxDelegate, FormFieldDe
     open override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = .base100
+        view.backgroundColor = .background
 
         let commandHeader = CommandHeader()
         commandHeader.translatesAutoresizingMaskIntoConstraints = false
@@ -71,7 +71,7 @@ open class SearchViewController: UIViewController, CheckboxDelegate, FormFieldDe
 
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.refreshControl = refreshControl
-        collectionView.backgroundColor = .white
+        collectionView.backgroundColor = .background
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.dataSource = self
         collectionView.delegate = self
