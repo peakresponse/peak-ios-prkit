@@ -77,7 +77,7 @@ public extension UIColor {
     }
 
     static var labelText: UIColor {
-        return colorForStyle(normalColor: .base500, darkColor: .base300)
+        return colorForStyle(normalColor: .base500, darkColor: .base400)
     }
 
     static var disabledLabelText: UIColor {
@@ -260,6 +260,10 @@ public extension UIColor {
 
     static var base300: UIColor {
         return UIColor.named("Base300")
+    }
+
+    static var base400: UIColor {
+        return UIColor.named("Base400")
     }
 
     static var base500: UIColor {
