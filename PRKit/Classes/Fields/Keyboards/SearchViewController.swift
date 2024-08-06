@@ -71,7 +71,7 @@ open class SearchViewController: UIViewController, CheckboxDelegate, FormFieldDe
 
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.refreshControl = refreshControl
-        collectionView.backgroundColor = .textBackground
+        collectionView.backgroundColor = .background
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.dataSource = self
         collectionView.delegate = self
