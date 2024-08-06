@@ -76,6 +76,10 @@ public extension UIColor {
         return colorForStyle(normalColor: .base800, darkColor: .base300)
     }
 
+    static var headingText: UIColor {
+        return colorForStyle(normalColor: .brandPrimary600, darkColor: .base300)
+    }
+
     static var labelText: UIColor {
         return colorForStyle(normalColor: .base500, darkColor: .base400)
     }
