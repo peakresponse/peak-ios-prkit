@@ -55,6 +55,7 @@ open class SignatureViewController: UIViewController, SwiftSignatureViewDelegate
         }
 
         let signatureView = SwiftSignatureView()
+        signatureView.overrideUserInterfaceStyle = traitCollection.userInterfaceStyle
         signatureView.subviews[0].subviews[0].backgroundColor = .background
         signatureView.translatesAutoresizingMaskIntoConstraints = false
         signatureView.delegate = self
