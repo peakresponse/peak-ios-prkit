@@ -88,7 +88,7 @@ open class CommandFooter: UIView {
         layoutConstraints.append(stackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -20))
         if traitCollection.horizontalSizeClass == .compact {
             backgroundColor = .background
-            addShadow(withOffset: CGSize(width: 4, height: -4), radius: 20, color: .base800, opacity: 0.2)
+            addShadow(withOffset: CGSize(width: 4, height: -4), radius: 20, color: .dropShadow, opacity: 0.2)
 
             stackView.axis = .horizontal
             layoutConstraints.append(stackView.leftAnchor.constraint(equalTo: leftAnchor, constant: 20))
@@ -113,7 +113,7 @@ open class CommandFooter: UIView {
                 delegate?.commandFooterDidUpdateLayout?(self, isOverlapping: false)
             } else {
                 backgroundColor = .background
-                addShadow(withOffset: CGSize(width: 4, height: -4), radius: 20, color: .base800, opacity: 0.2)
+                addShadow(withOffset: CGSize(width: 4, height: -4), radius: 20, color: .dropShadow, opacity: 0.2)
                 stackView.axis = .horizontal
                 layoutConstraints.append(stackView.leftAnchor.constraint(greaterThanOrEqualTo: leftAnchor, constant: 20))
                 delegate?.commandFooterDidUpdateLayout?(self, isOverlapping: true)
