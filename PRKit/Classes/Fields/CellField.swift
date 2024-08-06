@@ -27,7 +27,7 @@ open class CellField: FormField {
         let textLabel = UILabel()
         textLabel.translatesAutoresizingMaskIntoConstraints = false
         textLabel.font = .h4SemiBold
-        textLabel.textColor = .base800
+        textLabel.textColor = .text
         textLabel.numberOfLines = 0
         contentView.addSubview(textLabel)
         NSLayoutConstraint.activate([
@@ -40,7 +40,7 @@ open class CellField: FormField {
         let disclosureIndicatorView = UIImageView()
         disclosureIndicatorView.translatesAutoresizingMaskIntoConstraints = false
         disclosureIndicatorView.image = UIImage(named: "ChevronRight24px", in: PRKitBundle.instance, compatibleWith: nil)
-        disclosureIndicatorView.tintColor = .base500
+        disclosureIndicatorView.tintColor = .labelText
         contentView.addSubview(disclosureIndicatorView)
         NSLayoutConstraint.activate([
             textLabel.rightAnchor.constraint(equalTo: disclosureIndicatorView.leftAnchor, constant: -6),
@@ -58,17 +58,17 @@ open class CellField: FormField {
     }
 
     open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        borderedView.backgroundColor = .brandPrimary100
-        borderedView.layer.borderColor = UIColor.brandPrimary500.cgColor
+        borderedView.backgroundColor = .highlight
+        borderedView.layer.borderColor = UIColor.focusedBorder.cgColor
     }
 
     open override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        borderedView.backgroundColor = .white
-        borderedView.layer.borderColor = UIColor.brandPrimary300.cgColor
+        borderedView.backgroundColor = .textBackground
+        borderedView.layer.borderColor = UIColor.border.cgColor
     }
 
     open override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-        borderedView.backgroundColor = .white
-        borderedView.layer.borderColor = UIColor.brandPrimary300.cgColor
+        borderedView.backgroundColor = .textBackground
+        borderedView.layer.borderColor = UIColor.border.cgColor
     }
 }

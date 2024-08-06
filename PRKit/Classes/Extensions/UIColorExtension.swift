@@ -44,6 +44,14 @@ public extension UIColor {
         return colorForStyle(normalColor: .base500, darkColor: .base800)
     }
 
+    static var highlight: UIColor {
+        return colorForStyle(normalColor: .brandPrimary200, darkColor: .brandPrimary300)
+    }
+
+    static var errorHighlight: UIColor {
+        return colorForStyle(normalColor: .brandSecondary400, darkColor: .brandSecondary450)
+    }
+
     // MARK: - Borders
 
     static var border: UIColor {
@@ -60,16 +68,6 @@ public extension UIColor {
 
     static var disabledBorder: UIColor {
         return colorForStyle(normalColor: .base300, darkColor: .base600)
-    }
-
-    // MARK: - Highlight
-
-    static var highlight: UIColor {
-        return colorForStyle(normalColor: .brandPrimary200, darkColor: .brandPrimary300)
-    }
-
-    static var errorHighlight: UIColor {
-        return colorForStyle(normalColor: .brandSecondary400, darkColor: .brandSecondary450)
     }
 
     // MARK: - Text
