@@ -60,7 +60,7 @@ open class ModalViewController: UIViewController {
         contentView.translatesAutoresizingMaskIntoConstraints = false
         contentView.backgroundColor = .background
         contentView.layer.cornerRadius = 16
-        contentView.addShadow(withOffset: CGSize(width: 0, height: 6), radius: 10, color: .base800, opacity: 0.15)
+        contentView.addShadow(withOffset: CGSize(width: 0, height: 6), radius: 10, color: .dropShadow, opacity: 0.15)
         view.addSubview(contentView)
         NSLayoutConstraint.activate([
             contentView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
