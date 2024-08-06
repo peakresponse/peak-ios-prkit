@@ -41,7 +41,7 @@ public extension UIColor {
     }
 
     static var dropShadow: UIColor {
-        return colorForStyle(normalColor: .base500, darkColor: .base800)
+        return colorForStyle(normalColor: .base500, darkColor: .black)
     }
 
     static var highlight: UIColor {
