@@ -74,7 +74,7 @@ open class PasswordField: FormField, UITextFieldDelegate {
 
     override open func updateStyle() {
         super.updateStyle()
-        textField.textColor = isEnabled ? .base800 : .base300
+        textField.textColor = isEnabled ? .text : .disabledLabelText
     }
 
     open override var canBecomeFirstResponder: Bool {

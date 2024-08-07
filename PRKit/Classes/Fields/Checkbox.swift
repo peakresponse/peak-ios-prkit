@@ -152,7 +152,7 @@ open class Checkbox: UIView {
 
     func updateUserInteractionState() {
         button.isEnabled = isEnabled
-        label.textColor = isEnabled ? .labelText : .disabledLabelText
+        label.textColor = isEnabled ? .text : .disabledLabelText
     }
 
     @objc func buttonPressed() {

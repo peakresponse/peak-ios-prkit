@@ -158,7 +158,7 @@ open class ModalViewController: UIViewController {
                 // put an activity spinner over the selected button
                 let activityIndicatorView = UIActivityIndicatorView.withLargeStyle()
                 activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
-                activityIndicatorView.tintColor = .base800
+                activityIndicatorView.tintColor = .text
                 view.addSubview(activityIndicatorView)
                 NSLayoutConstraint.activate([
                     activityIndicatorView.centerXAnchor.constraint(equalTo: button.centerXAnchor),

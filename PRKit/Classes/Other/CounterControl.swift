@@ -20,7 +20,7 @@ open class CounterControl: UIControl {
     open weak var bottomBorder: UIView!
     open weak var bottomBorderTopConstraint: NSLayoutConstraint!
 
-    @IBInspectable open var color: UIColor = .base500 {
+    @IBInspectable open var color: UIColor = .labelText {
         didSet { updateColor() }
     }
 
@@ -64,7 +64,7 @@ open class CounterControl: UIControl {
     }
 
     open func commonInit() {
-        backgroundColor = .white
+        backgroundColor = .textBackground
         layer.cornerRadius = 16
         layer.masksToBounds = true
 
@@ -127,7 +127,7 @@ open class CounterControl: UIControl {
 
         let countLabel = UILabel()
         countLabel.translatesAutoresizingMaskIntoConstraints = false
-        countLabel.textColor = .base800
+        countLabel.textColor = .text
         countLabel.font = .h1Bold
         countLabel.textAlignment = .center
         addSubview(countLabel)

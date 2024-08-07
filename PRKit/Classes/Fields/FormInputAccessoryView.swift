@@ -56,7 +56,7 @@ open class FormInputAccessoryView: UIInputView {
         let prevButton = UIButton(type: .custom)
         prevButton.translatesAutoresizingMaskIntoConstraints = false
         prevButton.setImage(UIImage(named: "ChevronUp40px", in: PRKitBundle.instance, compatibleWith: nil), for: .normal)
-        prevButton.tintColor = .base800
+        prevButton.tintColor = .text
         prevButton.addTarget(self, action: #selector(prevPressed), for: .touchUpInside)
         prevNextView.addSubview(prevButton)
         NSLayoutConstraint.activate([
@@ -70,7 +70,7 @@ open class FormInputAccessoryView: UIInputView {
         let nextButton = UIButton(type: .custom)
         nextButton.translatesAutoresizingMaskIntoConstraints = false
         nextButton.setImage(UIImage(named: "ChevronDown40px", in: PRKitBundle.instance, compatibleWith: nil), for: .normal)
-        nextButton.tintColor = .base800
+        nextButton.tintColor = .text
         nextButton.addTarget(self, action: #selector(nextPressed), for: .touchUpInside)
         prevNextView.addSubview(nextButton)
         let nextButtonLeftConstraint = nextButton.leftAnchor.constraint(equalTo: prevButton.rightAnchor, constant: 10)
