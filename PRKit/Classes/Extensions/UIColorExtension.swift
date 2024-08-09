@@ -7,21 +7,21 @@
 
 import UIKit
 
-func colorForStyle(normalColor: UIColor, darkColor: UIColor? = nil) -> UIColor {
-    if #available(iOS 13, *) {
-        return UIColor { (traitCollection: UITraitCollection) -> UIColor in
-            if traitCollection.userInterfaceStyle == .dark {
-                return darkColor ?? normalColor
-            } else {
-                return normalColor
-            }
-        }
-    } else {
-        return normalColor
-    }
-}
-
 public extension UIColor {
+    static func colorForStyle(normalColor: UIColor, darkColor: UIColor? = nil) -> UIColor {
+        if #available(iOS 13, *) {
+            return UIColor { (traitCollection: UITraitCollection) -> UIColor in
+                if traitCollection.userInterfaceStyle == .dark {
+                    return darkColor ?? normalColor
+                } else {
+                    return normalColor
+                }
+            }
+        } else {
+            return normalColor
+        }
+    }
+
     // MARK: - Backgrounds
 
     static var background: UIColor {
