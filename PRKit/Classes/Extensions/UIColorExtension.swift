@@ -29,7 +29,7 @@ public extension UIColor {
     }
 
     static var activeBackground: UIColor {
-        return colorForStyle(normalColor: .base300, darkColor: .base400)
+        return colorForStyle(normalColor: .brandSecondary300, darkColor: .brandSecondary400)
     }
 
     static var textBackground: UIColor {
