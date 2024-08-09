@@ -28,6 +28,10 @@ public extension UIColor {
         return colorForStyle(normalColor: .base100, darkColor: .base800)
     }
 
+    static var activeBackground: UIColor {
+        return colorForStyle(normalColor: .base300, darkColor: .base400)
+    }
+
     static var textBackground: UIColor {
         return colorForStyle(normalColor: .white, darkColor: .base700)
     }
@@ -76,12 +80,24 @@ public extension UIColor {
         return colorForStyle(normalColor: .base800, darkColor: .base300)
     }
 
+    static var activeText: UIColor {
+        return colorForStyle(normalColor: .base800, darkColor: .base800)
+    }
+
     static var headingText: UIColor {
         return colorForStyle(normalColor: .brandPrimary600, darkColor: .brandPrimary500)
     }
 
+    static var activeHeadingText: UIColor {
+        return colorForStyle(normalColor: .brandSecondary800, darkColor: .brandSecondary800)
+    }
+
     static var labelText: UIColor {
         return colorForStyle(normalColor: .base500, darkColor: .base400)
+    }
+
+    static var activeLabelText: UIColor {
+        return colorForStyle(normalColor: .base500, darkColor: .base600)
     }
 
     static var disabledLabelText: UIColor {
