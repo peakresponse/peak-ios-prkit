@@ -8,6 +8,10 @@
 import UIKit
 
 open class NumberKeypad: FormInputView {
+    public static var instance: NumberKeypad = {
+        return NumberKeypad()
+    }()
+
     open weak var rows: UIStackView!
     open var buttons: [Button] = []
 

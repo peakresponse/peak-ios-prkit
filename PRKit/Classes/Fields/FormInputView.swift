@@ -12,7 +12,7 @@ import UIKit
     func formInputView(_ inputView: FormInputView, wantsToPresent vc: UIViewController)
 }
 
-open class FormInputView: UIInputView {
+open class FormInputView: UIView {
     open weak var delegate: FormInputViewDelegate?
 
     open weak var textView: UITextView!
@@ -22,7 +22,7 @@ open class FormInputView: UIInputView {
     }
 
     public init() {
-        super.init(frame: .zero, inputViewStyle: .keyboard)
+        super.init(frame: .zero)
     }
 
     public required init?(coder: NSCoder) {

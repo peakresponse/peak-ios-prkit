@@ -278,18 +278,15 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
         case .decimal:
             inputView = textView.inputView as? NumberKeypad
             if inputView == nil {
-                inputView = NumberKeypad()
+                inputView = NumberKeypad.instance
             }
-            (inputView as? NumberKeypad)?.isDecimalHidden = attributeType == .integer
-        case .integerWithUnit(let source):
+        case .integerWithUnit(_):
             fallthrough
-        case .decimalWithUnit(let source):
+        case .decimalWithUnit(_):
             inputView = textView.inputView as? NumberAndUnitKeypad
             if inputView == nil {
                 inputView = NumberAndUnitKeypad()
             }
-            (inputView as? NumberAndUnitKeypad)?.isDecimalHidden = attributeType == .integerWithUnit()
-            (inputView as? NumberAndUnitKeypad)?.unitSource = source
         case .date:
             inputView = textView.inputView as? DateKeyboard
             if inputView == nil {
@@ -300,30 +297,53 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
             if inputView == nil {
                 inputView = DateTimeKeyboard()
             }
-        case .picker(let source):
+        case .picker(_):
             inputView = textView.inputView as? PickerKeyboard
             if inputView == nil {
                 inputView = PickerKeyboard()
             }
-            (inputView as? PickerKeyboard)?.source = source
-        case .single(let source):
+        case .single(_):
             fallthrough
-        case .multi(let source):
+        case .multi(_):
             inputView = textView.inputView as? SelectKeyboard
             if inputView == nil {
                 inputView = SelectKeyboard()
             }
-            (inputView as? SelectKeyboard)?.source = source
-            (inputView as? SelectKeyboard)?.isMultiSelect = attributeType == .multi()
         case .custom(let newInputView):
             inputView = newInputView
         default:
             break
         }
-        inputView?.delegate = self
-        inputView?.textView = textView
         textView.isEditable = inputView?.isTextViewEditable ?? true
         self.inputView = inputView
+    }
+
+    open override func reloadInputViews() {
+        if let inputView = inputView as? FormInputView {
+            switch attributeType {
+            case .integer:
+                fallthrough
+            case .decimal:
+                (inputView as? NumberKeypad)?.isDecimalHidden = attributeType == .integer
+            case .integerWithUnit(let source):
+                fallthrough
+            case .decimalWithUnit(let source):
+                (inputView as? NumberAndUnitKeypad)?.isDecimalHidden = attributeType == .integerWithUnit()
+                (inputView as? NumberAndUnitKeypad)?.unitSource = source
+            case .picker(let source):
+                (inputView as? PickerKeyboard)?.source = source
+            case .single(let source):
+                fallthrough
+            case .multi(let source):
+                (inputView as? SelectKeyboard)?.source = source
+                (inputView as? SelectKeyboard)?.isMultiSelect = attributeType == .multi()
+            default:
+                break
+            }
+            inputView.delegate = self
+            inputView.textView = textView
+        }
+        super.reloadInputViews()
     }
 
     open override func didUpdateAttributeValue() {

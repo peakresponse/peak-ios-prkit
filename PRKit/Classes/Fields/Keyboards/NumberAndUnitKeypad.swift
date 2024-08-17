@@ -29,7 +29,7 @@ class NumberAndUnitKeypad: ComboKeyboard {
 
     public init() {
         super.init(keyboards: [
-            NumberKeypad(),
+            NumberKeypad.instance,
             SelectKeyboard()
         ], titles: ["123", "Unit"])
     }

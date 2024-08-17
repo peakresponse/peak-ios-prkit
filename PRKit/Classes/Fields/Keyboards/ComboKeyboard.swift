@@ -27,8 +27,12 @@ open class ComboKeyboard: FormInputView, FormInputViewDelegate {
 
     open func commonInit() {
         autoresizingMask = [.flexibleWidth, .flexibleHeight]
+    }
 
+    open override func reloadInputViews() {
+        super.reloadInputViews()
         for keyboard in keyboards {
+            keyboard.removeFromSuperview()
             keyboard.translatesAutoresizingMaskIntoConstraints = false
             keyboard.isHidden = true
             keyboard.delegate = self
