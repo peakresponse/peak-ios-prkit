@@ -62,6 +62,89 @@ public enum FormFieldAttributeType: Equatable {
         }
     }
 
+    var inputView: FormInputView? {
+        switch self {
+        case .integer, .decimal:
+            return NumberKeypad.instance
+        case .integerWithUnit(_), .decimalWithUnit(_):
+            return NumberAndUnitKeypad.instance
+        case .date:
+            return DateKeyboard.instance
+        case .datetime:
+            return DateTimeKeyboard.instance
+        case .picker(_):
+            return PickerKeyboard.instance
+        case .single(_), .multi(_):
+            return SelectKeyboard.instance
+        case .custom(let inputView):
+            return inputView
+        default:
+            return nil
+        }
+    }
+
+    public func configureInputView(delegate: FormInputViewDelegate?, textView: UITextView) {
+        switch self {
+        case .integer:
+            (inputView as? NumberKeypad)?.isDecimalHidden = true
+        case .decimal:
+            (inputView as? NumberKeypad)?.isDecimalHidden = false
+        case .integerWithUnit(let source):
+            (inputView as? NumberAndUnitKeypad)?.isDecimalHidden = true
+            (inputView as? NumberAndUnitKeypad)?.unitSource = source
+        case .decimalWithUnit(let source):
+            (inputView as? NumberAndUnitKeypad)?.isDecimalHidden = false
+            (inputView as? NumberAndUnitKeypad)?.unitSource = source
+        case .picker(let source):
+            (inputView as? PickerKeyboard)?.source = source
+        case .single(let source):
+            (inputView as? SelectKeyboard)?.isMultiSelect = false
+            (inputView as? SelectKeyboard)?.source = source
+        case .multi(let source):
+            (inputView as? SelectKeyboard)?.isMultiSelect = true
+            (inputView as? SelectKeyboard)?.source = source
+        default:
+            break
+        }
+        inputView?.delegate = delegate
+        inputView?.textView = textView
+    }
+
+    public func text(for value: NSObject?) -> String? {
+        switch self {
+        case .date:
+            return ISO8601DateFormatter.date(from: value as? String)?.asDateString()
+        case .datetime:
+            return (value as? Date)?.asDateTimeString()
+        case .integerWithUnit(_), .decimalWithUnit(_):
+            if let value = value as? [String?], value.count > 0 {
+                return value[0]
+            }
+            return nil
+        case .picker(let source), .single(let source), .multi(let source):
+            if let value = value as? [NSObject] {
+                return value.compactMap({ text(for: $0) }).joined(separator: "\n")
+            }
+            return source?.title(for: value)
+        case .custom(let inputView):
+            return inputView?.text(for: value)
+        default:
+            return value as? String
+        }
+    }
+
+    public func unitText(for value: NSObject?) -> String? {
+        switch self {
+        case .integerWithUnit(let source), .decimalWithUnit(let source):
+            if let value = value as? [NSObject?], value.count == 2, let unit = source?.title(for: value[1]) {
+                return " \(unit)"
+            }
+        default:
+            break
+        }
+        return nil
+    }
+
     public static func == (lhs: FormFieldAttributeType, rhs: FormFieldAttributeType) -> Bool {
         switch (lhs, rhs) {
         case (.text, .text):
@@ -268,11 +351,7 @@ open class FormField: FormComponent, Localizable, FormInputViewDelegate {
 
     open override func didUpdateAttributeValue() {
         super.didUpdateAttributeValue()
-        if let inputView = inputView as? FormInputView {
-            text = inputView.text(for: attributeValue)
-        } else {
-            text = attributeValue as? String
-        }
+        text = attributeType.text(for: attributeValue)
     }
 
     open override func didUpdateEnabled() {

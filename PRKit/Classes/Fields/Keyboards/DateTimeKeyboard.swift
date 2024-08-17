@@ -8,6 +8,16 @@
 import UIKit
 
 open class DateTimeKeyboard: FormInputView {
+    private static weak var singleton: DateTimeKeyboard?
+    public static var instance: DateTimeKeyboard {
+        var instance = singleton
+        if instance == nil {
+            instance = DateTimeKeyboard()
+            singleton = instance
+        }
+        return instance!
+    }
+
     open weak var datePicker: UIDatePicker!
 
     open var date: Date {

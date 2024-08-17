@@ -64,8 +64,22 @@ open class SelectCheckboxCell: UICollectionViewCell {
 
 open class SelectKeyboard: FormInputView, CheckboxDelegate,
                            UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    private static weak var singleton: SelectKeyboard?
+    public static var instance: SelectKeyboard {
+        var instance = singleton
+        if instance == nil {
+            instance = SelectKeyboard()
+            singleton = instance
+        }
+        return instance!
+    }
+
     open weak var collectionView: UICollectionView!
-    open var source: KeyboardSource?
+    open var source: KeyboardSource? {
+        didSet {
+            collectionView?.reloadData()
+        }
+    }
     open var values: [NSObject]?
     open var isMultiSelect = false
 

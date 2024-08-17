@@ -21,7 +21,7 @@ open class FormInputAccessoryView: UIInputView {
     open weak var prevView: UIView?
 
     public init(rootView: UIView) {
-        super.init(frame: .zero, inputViewStyle: .default)
+        super.init(frame: .zero, inputViewStyle: .keyboard)
         self.rootView = rootView
         commonInit()
     }
