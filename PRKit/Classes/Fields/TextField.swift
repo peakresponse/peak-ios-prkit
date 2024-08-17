@@ -319,7 +319,7 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
         self.inputView = inputView
     }
 
-    open override func reloadInputViews() {
+    open func configureInputViews() {
         if let inputView = inputView as? FormInputView {
             switch attributeType {
             case .integer:
@@ -344,13 +344,17 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
             inputView.delegate = self
             inputView.textView = textView
         }
+    }
+
+    open override func reloadInputViews() {
+        configureInputViews()
         super.reloadInputViews()
     }
 
     open override func didUpdateAttributeValue() {
         super.didUpdateAttributeValue()
         if let inputView = inputView as? FormInputView {
-            reloadInputViews()
+            configureInputViews()
             unitLabel.text = inputView.unitText(for: attributeValue) ?? unitText
             unitLabelLeftConstraint?.constant = widthForText(text ?? "", font: textView.font!)
         }
