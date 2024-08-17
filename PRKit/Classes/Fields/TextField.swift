@@ -272,92 +272,20 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
     }
 
     open override func updateAttributeType() {
-        var inputView: FormInputView?
-        switch attributeType {
-        case .integer:
-            fallthrough
-        case .decimal:
-            inputView = textView.inputView as? NumberKeypad
-            if inputView == nil {
-                inputView = NumberKeypad.instance
-            }
-        case .integerWithUnit(_):
-            fallthrough
-        case .decimalWithUnit(_):
-            inputView = textView.inputView as? NumberAndUnitKeypad
-            if inputView == nil {
-                inputView = NumberAndUnitKeypad.instance
-            }
-        case .date:
-            inputView = textView.inputView as? DateKeyboard
-            if inputView == nil {
-                inputView = DateKeyboard.instance
-            }
-        case .datetime:
-            inputView = textView.inputView as? DateTimeKeyboard
-            if inputView == nil {
-                inputView = DateTimeKeyboard.instance
-            }
-        case .picker(_):
-            inputView = textView.inputView as? PickerKeyboard
-            if inputView == nil {
-                inputView = PickerKeyboard.instance
-            }
-        case .single(_):
-            fallthrough
-        case .multi(_):
-            inputView = textView.inputView as? SelectKeyboard
-            if inputView == nil {
-                inputView = SelectKeyboard.instance
-            }
-        case .custom(let newInputView):
-            inputView = newInputView
-        default:
-            break
-        }
+        var inputView = attributeType.inputView
         textView.isEditable = inputView?.isTextViewEditable ?? true
         self.inputView = inputView
     }
 
-    open func configureInputViews() {
-        if let inputView = inputView as? FormInputView {
-            switch attributeType {
-            case .integer:
-                fallthrough
-            case .decimal:
-                (inputView as? NumberKeypad)?.isDecimalHidden = attributeType == .integer
-            case .integerWithUnit(let source):
-                fallthrough
-            case .decimalWithUnit(let source):
-                (inputView as? NumberAndUnitKeypad)?.isDecimalHidden = attributeType == .integerWithUnit()
-                (inputView as? NumberAndUnitKeypad)?.unitSource = source
-            case .picker(let source):
-                (inputView as? PickerKeyboard)?.source = source
-            case .single(let source):
-                fallthrough
-            case .multi(let source):
-                (inputView as? SelectKeyboard)?.isMultiSelect = attributeType == .multi()
-                (inputView as? SelectKeyboard)?.source = source
-            default:
-                break
-            }
-            inputView.delegate = self
-            inputView.textView = textView
-        }
-    }
-
     open override func reloadInputViews() {
-        configureInputViews()
+        attributeType.configureInputView(delegate: self, textView: textView)
         super.reloadInputViews()
     }
 
     open override func didUpdateAttributeValue() {
+        unitLabel.text = attributeType.unitText(for: attributeValue) ?? unitText
+        unitLabelLeftConstraint?.constant = widthForText(text ?? "", font: textView.font!)
         super.didUpdateAttributeValue()
-        if let inputView = inputView as? FormInputView {
-            configureInputViews()
-            unitLabel.text = inputView.unitText(for: attributeValue) ?? unitText
-            unitLabelLeftConstraint?.constant = widthForText(text ?? "", font: textView.font!)
-        }
     }
 
     override open func updateStyle() {
