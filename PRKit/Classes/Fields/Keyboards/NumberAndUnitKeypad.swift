@@ -8,6 +8,16 @@
 import UIKit
 
 class NumberAndUnitKeypad: ComboKeyboard {
+    private static weak var singleton: NumberAndUnitKeypad?
+    public static var instance: NumberAndUnitKeypad {
+        var instance = singleton
+        if instance == nil {
+            instance = NumberAndUnitKeypad()
+            singleton = instance
+        }
+        return instance!
+    }
+
     open override weak var textView: UITextView! {
         get { return keyboards[0].textView }
         set { keyboards[0].textView = newValue }
@@ -24,13 +34,18 @@ class NumberAndUnitKeypad: ComboKeyboard {
 
     open var unitSource: KeyboardSource? {
         get { return (keyboards[1] as? SelectKeyboard)?.source }
-        set { (keyboards[1] as? SelectKeyboard)?.source = newValue }
+        set {
+            if let keyboard = keyboards[1] as? SelectKeyboard {
+                keyboard.isMultiSelect = false
+                keyboard.source = newValue
+            }
+        }
     }
 
     public init() {
         super.init(keyboards: [
             NumberKeypad.instance,
-            SelectKeyboard()
+            SelectKeyboard.instance
         ], titles: ["123", "Unit"])
     }
 

@@ -44,7 +44,15 @@ open class ComboKeyboard: FormInputView, FormInputViewDelegate {
                 keyboard.bottomAnchor.constraint(equalTo: bottomAnchor)
             ])
         }
+        currentIndex = 0
         keyboards[0].isHidden = false
+    }
+
+    open override func removeAllSubInputViews() {
+        for keyboard in keyboards {
+            keyboard.removeFromSuperview()
+            keyboard.isHidden = false
+        }
     }
 
     open override func setValue(_ value: NSObject?) {

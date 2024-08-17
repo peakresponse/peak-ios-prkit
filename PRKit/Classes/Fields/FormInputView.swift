@@ -45,6 +45,10 @@ open class FormInputView: UIView {
         return false
     }
 
+    open func removeAllSubInputViews() {
+
+    }
+
     open var accessoryOtherButtonTitle: String? {
         return nil
     }

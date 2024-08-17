@@ -8,8 +8,22 @@
 import UIKit
 
 open class PickerKeyboard: FormInputView, UIPickerViewDelegate, UIPickerViewDataSource {
+    private static weak var singleton: PickerKeyboard?
+    public static var instance: PickerKeyboard {
+        var instance = singleton
+        if instance == nil {
+            instance = PickerKeyboard()
+            singleton = instance
+        }
+        return instance!
+    }
+
     open weak var picker: UIPickerView!
-    open var source: KeyboardSource?
+    open var source: KeyboardSource? {
+        didSet {
+            picker?.reloadAllComponents()
+        }
+    }
 
     public override init() {
         super.init()
