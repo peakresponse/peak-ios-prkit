@@ -26,5 +26,6 @@
 "TriagePriority.2" = "Minimal";
 "TriagePriority.3" = "Expectant";
 "TriagePriority.4" = "Dead";
+"TriagePriority.5" = "Deleted";
 
 "SearchBar.placeholder" = "Search...";
