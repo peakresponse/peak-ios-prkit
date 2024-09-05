@@ -112,6 +112,10 @@ public extension UIColor {
         return colorForStyle(normalColor: .base300, darkColor: .base500)
     }
 
+    static var destructiveText: UIColor {
+        return colorForStyle(normalColor: .triageImmediateMedium, darkColor: nil)
+    }
+
     static var interactiveText: UIColor {
         return colorForStyle(normalColor: .brandPrimary500, darkColor: .brandPrimary500)
     }

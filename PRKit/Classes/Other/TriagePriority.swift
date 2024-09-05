@@ -14,6 +14,7 @@ let TriageColors: [UIColor] = [
     .triageExpectantMedium,
     .triageDeadMedium,
     .triageTransportedMedium,
+    .base500,
     .base500
 ]
 
@@ -24,6 +25,7 @@ let TriageColorsLightened: [UIColor] = [
     .triageExpectantLight,
     .triageDeadLight,
     .triageTransportedLight,
+    .base300,
     .base300
 ]
 
@@ -32,6 +34,7 @@ let TriageLabelColors: [UIColor] = [
     .base800,
     .base800,
     .base800,
+    .white,
     .white,
     .white,
     .white
@@ -44,6 +47,7 @@ let TriageMapMarkerImages: [UIImage?] = [
     UIImage(named: "Expectant", in: PRKitBundle.instance, compatibleWith: nil),
     UIImage(named: "Dead", in: PRKitBundle.instance, compatibleWith: nil),
     nil,
+    nil,
     UIImage(named: "Unknown", in: PRKitBundle.instance, compatibleWith: nil)
 ]
 
@@ -54,6 +58,7 @@ public enum TriagePriority: Int, CustomStringConvertible, CaseIterable {
     case expectant
     case dead
     case transported
+    case deleted
     case unknown
 
     public var description: String {

@@ -38,7 +38,6 @@ open class CommandHeader: UIView {
     }
 
     open weak var stackView: UIStackView!
-    open weak var stackViewLeftConstraint: NSLayoutConstraint!
 
     open weak var _userButton: UIButton!
     open var userButton: UIButton {
@@ -117,15 +116,13 @@ open class CommandHeader: UIView {
         stackView.distribution = .fillEqually
         stackView.spacing = 20
         addSubview(stackView)
-        let stackViewLeftConstraint = stackView.leftAnchor.constraint(equalTo: leftAnchor, constant: 20)
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 12),
-            stackViewLeftConstraint,
-            stackView.rightAnchor.constraint(equalTo: rightAnchor, constant: -20),
+            stackView.leftAnchor.constraint(equalTo: leftAnchor),
+            stackView.rightAnchor.constraint(equalTo: rightAnchor),
             bottomAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 12)
         ])
         self.stackView = stackView
-        self.stackViewLeftConstraint = stackViewLeftConstraint
     }
 
     open func initUserButton() {
@@ -139,10 +136,18 @@ open class CommandHeader: UIView {
         userButton.titleLabel?.font = isCompact ? .body14Bold : .h4SemiBold
         userButton.titleLabel?.lineBreakMode = .byTruncatingTail
         userButton.addTarget(self, action: #selector(userPressed), for: .touchUpInside)
-        stackView.insertArrangedSubview(userButton, at: 0)
+
+        let view = UIView()
+        view.addSubview(userButton)
         NSLayoutConstraint.activate([
+            userButton.topAnchor.constraint(equalTo: view.topAnchor),
+            userButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20),
+            userButton.rightAnchor.constraint(equalTo: view.rightAnchor),
+            userButton.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             userButton.heightAnchor.constraint(equalToConstant: isCompact ? 36 : 48)
         ])
+        stackView.insertArrangedSubview(view, at: 0)
+
         _userButton = userButton
         userImageURL = nil
     }
@@ -151,9 +156,20 @@ open class CommandHeader: UIView {
         guard _searchField == nil else { return }
 
         let searchField = TextField()
+        searchField.translatesAutoresizingMaskIntoConstraints = false
         searchField.isLabelHidden = true
         searchField.isSearchIconHidden = false
-        stackView.addArrangedSubview(searchField)
+
+        let view = UIView()
+        view.addSubview(searchField)
+        NSLayoutConstraint.activate([
+            searchField.topAnchor.constraint(equalTo: view.topAnchor),
+            searchField.leftAnchor.constraint(equalTo: view.leftAnchor),
+            searchField.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20),
+            searchField.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+        stackView.addArrangedSubview(view)
+
         _searchField = searchField
     }
 
@@ -173,9 +189,11 @@ open class CommandHeader: UIView {
         if let action = barButtonItem.action {
             button.addTarget(barButtonItem.target, action: action, for: .touchUpInside)
         }
-        button.tintColor = barButtonItem.style == .done ? .interactiveText : .labelText
+        let color = barButtonItem.tintColor ?? (barButtonItem.style == .done ? .interactiveText : .labelText)
+        button.tintColor = color
         button.titleLabel?.font = .h3SemiBold
-        button.setTitleColor(barButtonItem.style == .done ? .interactiveText : .labelText, for: .normal)
+        button.setTitleColor(color, for: .normal)
+        button.setTitleColor(color.colorWithBrightnessMultiplier(multiplier: 0.8), for: .highlighted)
         return button
     }
 
@@ -187,12 +205,11 @@ open class CommandHeader: UIView {
             view.addSubview(subview)
             NSLayoutConstraint.activate([
                 subview.topAnchor.constraint(equalTo: view.topAnchor),
-                subview.leftAnchor.constraint(equalTo: view.leftAnchor),
+                subview.leftAnchor.constraint(equalTo: view.leftAnchor, constant: leftBarButtonItem.image != nil ? 0 : 20),
                 subview.rightAnchor.constraint(lessThanOrEqualTo: view.rightAnchor),
                 view.bottomAnchor.constraint(equalTo: subview.bottomAnchor)
             ])
             stackView.insertArrangedSubview(view, at: 0)
-            stackViewLeftConstraint.constant = leftBarButtonItem.image != nil ? 0 : 20
             leftBarButtonView = view
         }
     }
@@ -224,7 +241,7 @@ open class CommandHeader: UIView {
             NSLayoutConstraint.activate([
                 subview.topAnchor.constraint(equalTo: view.topAnchor),
                 subview.leftAnchor.constraint(greaterThanOrEqualTo: view.leftAnchor),
-                subview.rightAnchor.constraint(equalTo: view.rightAnchor),
+                subview.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20),
                 view.bottomAnchor.constraint(equalTo: subview.bottomAnchor)
             ])
             stackView.addArrangedSubview(view)

@@ -26,7 +26,9 @@ class HeadersViewController: ViewController {
         backItem.image = UIImage(named: "ChevronLeft40px", in: PRKitBundle.instance, compatibleWith: nil)
         backCommandHeader.leftBarButtonItem = backItem
 
-        backCommandHeader.centerBarButtonItem = UIBarButtonItem(title: "Center", style: .plain, target: nil, action: nil)
+        let centerBarButtonItem = UIBarButtonItem(title: "Center", style: .plain, target: nil, action: nil)
+        centerBarButtonItem.tintColor = .destructiveText
+        backCommandHeader.centerBarButtonItem = centerBarButtonItem
 
         let spinner = UIActivityIndicatorView.withMediumStyle()
         spinner.color = .base500
