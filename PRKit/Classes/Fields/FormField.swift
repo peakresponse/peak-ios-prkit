@@ -443,4 +443,12 @@ open class FormField: FormComponent, Localizable, FormInputViewDelegate {
     public func formInputView(_ inputView: FormInputView, wantsToPresent vc: UIViewController) {
         (delegate as? FormFieldDelegate)?.formField?(self, wantsToPresent: vc)
     }
+
+    // MARK: - UIResponder
+
+    public override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if canBecomeFirstResponder {
+            _ = becomeFirstResponder()
+        }
+    }
 }
