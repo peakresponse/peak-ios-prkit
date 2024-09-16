@@ -27,7 +27,7 @@ class UserButton: UIButton {
 }
 
 @IBDesignable
-open class CommandHeader: UIView {
+open class CommandHeader: UIView, FormFieldDelegate {
     @IBInspectable open var isUserHidden: Bool {
         get { return _userButton?.isHidden ?? true }
         set { userButton.isHidden = newValue }
@@ -80,6 +80,8 @@ open class CommandHeader: UIView {
         }
         return _searchField
     }
+    open weak var searchFieldLeftConstraint: NSLayoutConstraint!
+    open weak var searchFieldDelegate: FormFieldDelegate?
 
     @IBOutlet open var leftBarButtonItem: UIBarButtonItem? {
         didSet { updateLeftBarButtonItem() }
@@ -159,15 +161,19 @@ open class CommandHeader: UIView {
         searchField.translatesAutoresizingMaskIntoConstraints = false
         searchField.isLabelHidden = true
         searchField.isSearchIconHidden = false
+        searchField.delegate = self
 
         let view = UIView()
         view.addSubview(searchField)
+        let searchFieldLeftConstraint = searchField.leftAnchor.constraint(equalTo: view.leftAnchor)
         NSLayoutConstraint.activate([
             searchField.topAnchor.constraint(equalTo: view.topAnchor),
-            searchField.leftAnchor.constraint(equalTo: view.leftAnchor),
+            searchFieldLeftConstraint,
             searchField.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20),
             searchField.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
+        self.searchFieldLeftConstraint = searchFieldLeftConstraint
+
         stackView.addArrangedSubview(view)
 
         _searchField = searchField
@@ -246,6 +252,75 @@ open class CommandHeader: UIView {
             ])
             stackView.addArrangedSubview(view)
             self.rightBarButtonView = view
+        }
+    }
+
+    // MARK: - FormFieldDelegate
+
+    public func formComponentDidChange(_ component: FormComponent) {
+        searchFieldDelegate?.formComponentDidChange?(component)
+    }
+
+    public func formFieldDidBeginEditing(_ field: FormField) {
+        searchFieldDelegate?.formFieldDidBeginEditing?(field)
+    }
+
+    public func formFieldShouldEndEditing(_ field: FormField) -> Bool {
+        return searchFieldDelegate?.formFieldShouldEndEditing?(field) ?? true
+    }
+
+    public func formFieldDidEndEditing(_ field: FormField) {
+        searchFieldDelegate?.formFieldDidEndEditing?(field)
+    }
+
+    public func formFieldDidPress(_ field: FormField) {
+        searchFieldDelegate?.formFieldDidPress?(field)
+    }
+
+    public func formFieldDidPressOther(_ field: FormField) {
+        searchFieldDelegate?.formFieldDidPressOther?(field)
+    }
+
+    public func formFieldDidPressStatus(_ field: FormField) {
+        searchFieldDelegate?.formFieldDidPressStatus?(field)
+    }
+
+    public func formField(_ field: FormField, wantsToPresent vc: UIViewController) {
+        searchFieldDelegate?.formField?(field, wantsToPresent: vc)
+    }
+
+    public func formFieldShouldBeginEditing(_ field: FormField) -> Bool {
+        if let formFieldShouldBeginEditing = searchFieldDelegate?.formFieldShouldBeginEditing {
+            return formFieldShouldBeginEditing(field)
+        } else {
+            searchFieldLeftConstraint.constant = 20
+            UIView.animate(withDuration: 0.2) { [weak self] in
+                guard let self = self else { return }
+                for subview in stackView.arrangedSubviews {
+                    if subview != field.superview {
+                        subview.isHidden = true
+                    }
+                }
+            }
+            return true
+        }
+    }
+
+    public func formFieldShouldReturn(_ field: FormField) -> Bool {
+        if let formFieldShouldReturn = searchFieldDelegate?.formFieldShouldReturn {
+            return formFieldShouldReturn(field)
+        } else {
+            field.resignFirstResponder()
+            UIView.animate(withDuration: 0.2, animations: { [weak self] in
+                guard let self = self else { return }
+                for subview in stackView.arrangedSubviews {
+                    subview.isHidden = false
+                }
+            }) { [weak self] _ in
+                guard let self = self else { return }
+                self.searchFieldLeftConstraint.constant = 0
+            }
+            return false
         }
     }
 }
