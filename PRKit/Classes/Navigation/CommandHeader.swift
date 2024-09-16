@@ -293,14 +293,16 @@ open class CommandHeader: UIView, FormFieldDelegate {
         if let formFieldShouldBeginEditing = searchFieldDelegate?.formFieldShouldBeginEditing {
             return formFieldShouldBeginEditing(field)
         } else {
-            searchFieldLeftConstraint.constant = 20
+            layoutIfNeeded()
             UIView.animate(withDuration: 0.2) { [weak self] in
                 guard let self = self else { return }
+                searchFieldLeftConstraint.constant = 20
                 for subview in stackView.arrangedSubviews {
                     if subview != field.superview {
                         subview.isHidden = true
                     }
                 }
+                layoutIfNeeded()
             }
             return true
         }
@@ -311,14 +313,14 @@ open class CommandHeader: UIView, FormFieldDelegate {
             return formFieldShouldReturn(field)
         } else {
             field.resignFirstResponder()
-            UIView.animate(withDuration: 0.2, animations: { [weak self] in
+            layoutIfNeeded()
+            UIView.animate(withDuration: 0.2) { [weak self] in
                 guard let self = self else { return }
                 for subview in stackView.arrangedSubviews {
                     subview.isHidden = false
                 }
-            }) { [weak self] _ in
-                guard let self = self else { return }
                 self.searchFieldLeftConstraint.constant = 0
+                layoutIfNeeded()
             }
             return false
         }
