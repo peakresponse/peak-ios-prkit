@@ -10,6 +10,7 @@
 		00AC9541CBFC05924A0F4E63 /* Pods_PRKit_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9C39E2AD8A575AB3A882B91 /* Pods_PRKit_Example.framework */; };
 		45120AE327C58BED00F0F4AF /* ChipsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45120AE227C58BED00F0F4AF /* ChipsViewController.swift */; };
 		45467C6728135300003F7DEC /* ButtonsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45467C6628135300003F7DEC /* ButtonsViewController.swift */; };
+		45A133582E5E938400A386E7 /* CustomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A133572E5E938000A386E7 /* CustomViewController.swift */; };
 		45A5AD942C6AC1C4007F63AE /* TablesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A5AD932C6AC1C4007F63AE /* TablesViewController.swift */; };
 		45C007C62728BD610072FF18 /* HeadersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C007C52728BD610072FF18 /* HeadersViewController.swift */; };
 		45C757D62730939B00386F07 /* NavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C757D52730939B00386F07 /* NavigationViewController.swift */; };
@@ -49,6 +50,7 @@
 		45120AE227C58BED00F0F4AF /* ChipsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChipsViewController.swift; sourceTree = "<group>"; };
 		45467C6628135300003F7DEC /* ButtonsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonsViewController.swift; sourceTree = "<group>"; };
 		456F04F627A89C09000CEE42 /* LICENSE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = LICENSE.md; path = ../LICENSE.md; sourceTree = "<group>"; };
+		45A133572E5E938000A386E7 /* CustomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomViewController.swift; sourceTree = "<group>"; };
 		45A5AD932C6AC1C4007F63AE /* TablesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TablesViewController.swift; sourceTree = "<group>"; };
 		45C007C52728BD610072FF18 /* HeadersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadersViewController.swift; sourceTree = "<group>"; };
 		45C757D52730939B00386F07 /* NavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationViewController.swift; sourceTree = "<group>"; };
@@ -132,6 +134,7 @@
 				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
 				45467C6628135300003F7DEC /* ButtonsViewController.swift */,
 				45120AE227C58BED00F0F4AF /* ChipsViewController.swift */,
+				45A133572E5E938000A386E7 /* CustomViewController.swift */,
 				45C007C52728BD610072FF18 /* HeadersViewController.swift */,
 				45C757D72733541400386F07 /* InputsViewController.swift */,
 				45F7BAEA273C8ED300FBD31F /* KeyboardsViewController.swift */,
@@ -438,6 +441,7 @@
 				607FACD81AFB9204008FA782 /* ViewController.swift in Sources */,
 				45467C6728135300003F7DEC /* ButtonsViewController.swift in Sources */,
 				45C007C62728BD610072FF18 /* HeadersViewController.swift in Sources */,
+				45A133582E5E938400A386E7 /* CustomViewController.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
 				45120AE327C58BED00F0F4AF /* ChipsViewController.swift in Sources */,
 			);
