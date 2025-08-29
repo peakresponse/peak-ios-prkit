@@ -99,6 +99,13 @@ open class TemperatureField: FormComponent, FormComponentDelegate {
         self.cField = cField
     }
 
+    open override func updateStyle() {
+        fField.status = status
+        fField.updateStyle()
+        cField.status = status
+        cField.updateStyle()
+    }
+
     open override func reloadInputViews() {
         fField.reloadInputViews()
         cField.reloadInputViews()

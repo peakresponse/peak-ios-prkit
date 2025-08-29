@@ -19,6 +19,14 @@ open class FormComponent: UIView {
     open var source: NSObject?
     open var target: NSObject?
 
+    open var status: PredictionStatus = .none {
+        didSet { if status != oldValue { updateStyle() } }
+    }
+    @IBInspectable open var Status: String? {
+        get { status.rawValue }
+        set { status = PredictionStatus(rawValue: newValue ?? "") ?? .none }
+    }
+
     @IBInspectable open var attributeKey: String?
 
     open var attributeValue: NSObject? {
