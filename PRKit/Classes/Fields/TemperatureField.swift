@@ -112,6 +112,8 @@ open class TemperatureField: FormComponent, FormComponentDelegate {
         // if none, convert
         if fField.attributeValue == nil {
             convertToFahrenheit()
+        } else if cField.attributeValue == nil {
+            convertToCelsius()
         }
     }
 
