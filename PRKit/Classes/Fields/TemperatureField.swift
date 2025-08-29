@@ -109,6 +109,10 @@ open class TemperatureField: FormComponent, FormComponentDelegate {
         // check for a corresponding F value
         let obj = source ?? target
         fField.attributeValue = obj?.value(forKeyPath: "\(attributeKey ?? "")F") as? NSObject
+        // if none, convert
+        if fField.attributeValue == nil {
+            convertToFahrenheit()
+        }
     }
 
     open override func didUpdateEditing() {
@@ -121,26 +125,32 @@ open class TemperatureField: FormComponent, FormComponentDelegate {
         cField.isEnabled = isEnabled
     }
 
+    open func convertToCelsius() {
+        if let text = fField.text, let value = Double(text) {
+            let celsius = (value - 32) * 5 / 9
+            cField.attributeValue = String(format: "%.1f", celsius) as NSString
+        } else {
+            cField.attributeValue = nil
+        }
+    }
+
+    open func convertToFahrenheit() {
+        if let text = cField.text, let value = Double(text) {
+            let fahrenheit = (value * 9 / 5) + 32
+            fField.attributeValue = String(format: "%.1f", fahrenheit) as NSString
+        } else {
+            fField.attributeValue = nil
+        }
+    }
+
     // MARK: - FormComponentDelegate
 
     @objc open func formComponentDidChange(_ component: FormComponent) {
         if component === fField {
-            // convert to Celsius
-            if let text = fField.text, let value = Double(text) {
-                let celsius = (value - 32) * 5 / 9
-                cField.attributeValue = String(format: "%.1f", celsius) as NSString
-            } else {
-                cField.attributeValue = nil
-            }
+            convertToCelsius()
             delegate?.formComponentDidChange?(cField)
         } else if component === cField {
-            // convert to Fahrenheit
-            if let text = cField.text, let value = Double(text) {
-                let fahrenheit = (value * 9 / 5) + 32
-                fField.attributeValue = String(format: "%.1f", fahrenheit) as NSString
-            } else {
-                fField.attributeValue = nil
-            }
+            convertToFahrenheit()
             delegate?.formComponentDidChange?(fField)
         }
         delegate?.formComponentDidChange?(component)
