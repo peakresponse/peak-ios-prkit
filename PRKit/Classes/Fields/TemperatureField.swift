@@ -7,6 +7,15 @@
 
 import UIKit
 
+private class TemperatureTextField: TextField {
+    weak var parent: TemperatureField?
+
+    override open func didUpdateAttributeValue() {
+        super.didUpdateAttributeValue()
+        parent?.didUpdateAttributeValue(from: self)
+    }
+}
+
 open class TemperatureField: FormComponent, FormComponentDelegate {
     open var fField: TextField!
     open var cField: TextField!
@@ -86,44 +95,24 @@ open class TemperatureField: FormComponent, FormComponentDelegate {
             bottomAnchor.constraint(equalTo: stackView.bottomAnchor)
         ])
 
-        let fField = TextField()
+        let fField = TemperatureTextField()
+        fField.parent = self
         fField.attributeType = .decimal
         fField.delegate = self
         stackView.addArrangedSubview(fField)
         self.fField = fField
 
-        let cField = TextField()
+        let cField = TemperatureTextField()
+        cField.parent = self
         cField.attributeType = .decimal
         cField.delegate = self
         stackView.addArrangedSubview(cField)
         self.cField = cField
     }
 
-    open override func updateStyle() {
-        fField.status = status
-        fField.updateStyle()
-        cField.status = status
-        cField.updateStyle()
-    }
-
     open override func reloadInputViews() {
         fField.reloadInputViews()
         cField.reloadInputViews()
-    }
-
-    open override func didUpdateAttributeValue() {
-        cField.attributeValue = attributeValue
-        // check for a corresponding F value
-        let obj = source ?? target
-        fField.attributeValue = obj?.value(forKeyPath: "\(attributeKey ?? "")F") as? NSObject
-        // if none, convert
-        if fField.attributeValue == nil {
-            convertToFahrenheit()
-            delegate?.formComponentDidChange?(fField)
-        } else if cField.attributeValue == nil {
-            convertToCelsius()
-            delegate?.formComponentDidChange?(cField)
-        }
     }
 
     open override func didUpdateEditing() {
@@ -151,6 +140,16 @@ open class TemperatureField: FormComponent, FormComponentDelegate {
             fField.attributeValue = String(format: "%.1f", fahrenheit) as NSString
         } else {
             fField.attributeValue = nil
+        }
+    }
+
+    func didUpdateAttributeValue(from textField: TextField) {
+        if textField === fField && cField.text == nil {
+            convertToCelsius()
+            delegate?.formComponentDidChange?(cField)
+        } else if textField === cField && fField.text == nil {
+            convertToFahrenheit()
+            delegate?.formComponentDidChange?(fField)
         }
     }
 
