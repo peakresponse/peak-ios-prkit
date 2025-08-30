@@ -144,10 +144,10 @@ open class TemperatureField: FormComponent, FormComponentDelegate {
     }
 
     func didUpdateAttributeValue(from textField: TextField) {
-        if textField == fField && cField.text == nil {
+        if textField == fField && (cField.text?.isEmpty ?? true) {
             convertToCelsius()
             delegate?.formComponentDidChange?(cField)
-        } else if textField == cField && fField.text == nil {
+        } else if textField == cField && (fField.text?.isEmpty ?? true) {
             convertToFahrenheit()
             delegate?.formComponentDidChange?(fField)
         }
