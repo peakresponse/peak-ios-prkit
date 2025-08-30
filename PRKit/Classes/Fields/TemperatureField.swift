@@ -129,7 +129,7 @@ open class TemperatureField: FormComponent, FormComponentDelegate {
         if let text = fField.text, let value = Double(text) {
             let celsius = (value - 32) * 5 / 9
             cField.attributeValue = String(format: "%.1f", celsius) as NSString
-        } else {
+        } else if cField.attributeValue != nil {
             cField.attributeValue = nil
         }
     }
@@ -138,16 +138,16 @@ open class TemperatureField: FormComponent, FormComponentDelegate {
         if let text = cField.text, let value = Double(text) {
             let fahrenheit = (value * 9 / 5) + 32
             fField.attributeValue = String(format: "%.1f", fahrenheit) as NSString
-        } else {
+        } else if fField.attributeValue != nil {
             fField.attributeValue = nil
         }
     }
 
     func didUpdateAttributeValue(from textField: TextField) {
-        if textField == fField && (cField.text?.isEmpty ?? true) {
+        if textField == fField && cField.attributeValue == nil {
             convertToCelsius()
             delegate?.formComponentDidChange?(cField)
-        } else if textField == cField && (fField.text?.isEmpty ?? true) {
+        } else if textField == cField && fField.attributeValue == nil {
             convertToFahrenheit()
             delegate?.formComponentDidChange?(fField)
         }
