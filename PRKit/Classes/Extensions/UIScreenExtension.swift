@@ -7,7 +7,7 @@
 
 // From: https://stackoverflow.com/a/76728094
 extension UIScreen {
-    static var current: UIScreen? {
+    static public var current: UIScreen? {
         UIWindow.current?.screen
     }
 }
