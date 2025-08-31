@@ -179,13 +179,6 @@ open class FormField: FormComponent, Localizable, FormInputViewDelegate {
     open weak var borderedView: UIView!
     open weak var contentView: UIView!
 
-    open var status: PredictionStatus = .none {
-        didSet { if status != oldValue { updateStyle() } }
-    }
-    @IBInspectable open var Status: String? {
-        get { status.rawValue }
-        set { status = PredictionStatus(rawValue: newValue ?? "") ?? .none }
-    }
     open weak var statusButton: UIButton!
     open var statusButtonWidthConstraint: NSLayoutConstraint!
 
