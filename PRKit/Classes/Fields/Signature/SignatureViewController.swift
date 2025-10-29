@@ -50,6 +50,16 @@ open class SignatureViewController: UIViewController, SwiftSignatureViewDelegate
     open override func viewDidLoad() {
         super.viewDidLoad()
 
+        let view = UIView(frame: self.view.bounds)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(view)
+        NSLayoutConstraint.activate([
+            view.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            view.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
+            view.widthAnchor.constraint(equalTo: self.view.heightAnchor),
+            view.heightAnchor.constraint(equalTo: self.view.widthAnchor)
+        ])
+
         if traitCollection.horizontalSizeClass == .compact {
             view.transform = CGAffineTransform(rotationAngle: -.pi/2)
         }
