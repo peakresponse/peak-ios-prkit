@@ -273,28 +273,25 @@ open class FormField: FormComponent, Localizable, FormInputViewDelegate {
         ])
         self.borderedView = borderedView
 
-        let statusButton = UIButton()
-        statusButton.translatesAutoresizingMaskIntoConstraints = false
-        statusButton.addTarget(self, action: #selector(statusPressed), for: .touchUpInside)
-        borderedView.addSubview(statusButton)
-        statusButtonWidthConstraint = statusButton.widthAnchor.constraint(equalToConstant: 0)
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .horizontal
+        borderedView.addSubview(stackView)
         NSLayoutConstraint.activate([
-            statusButton.topAnchor.constraint(equalTo: borderedView.topAnchor),
-            statusButton.leftAnchor.constraint(equalTo: borderedView.leftAnchor),
-            statusButton.bottomAnchor.constraint(equalTo: borderedView.bottomAnchor),
-            statusButtonWidthConstraint
+            stackView.topAnchor.constraint(equalTo: borderedView.topAnchor),
+            stackView.leftAnchor.constraint(equalTo: borderedView.leftAnchor),
+            stackView.rightAnchor.constraint(equalTo: borderedView.rightAnchor),
+            stackView.bottomAnchor.constraint(equalTo: borderedView.bottomAnchor)
         ])
+
+        let statusButton = UIButton()
+        statusButton.widthAnchor.constraint(equalToConstant: 46).isActive = true
+        stackView.addArrangedSubview(statusButton)
         self.statusButton = statusButton
 
         let contentView = UIView()
         contentView.translatesAutoresizingMaskIntoConstraints = false
-        borderedView.addSubview(contentView)
-        NSLayoutConstraint.activate([
-            contentView.topAnchor.constraint(equalTo: borderedView.topAnchor),
-            contentView.leftAnchor.constraint(equalTo: statusButton.rightAnchor),
-            contentView.rightAnchor.constraint(equalTo: borderedView.rightAnchor),
-            borderedView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
-        ])
+        stackView.addArrangedSubview(contentView)
         self.contentView = contentView
 
         let label = UILabel()
@@ -393,10 +390,10 @@ open class FormField: FormComponent, Localizable, FormInputViewDelegate {
                                                     iconTintColor: .white),
                                       for: .normal)
             }
-            statusButtonWidthConstraint.constant = 46
+            statusButton.isHidden = false
         } else {
             statusButton.setImage(nil, for: .normal)
-            statusButtonWidthConstraint.constant = 0
+            statusButton.isHidden = true
         }
     }
 
