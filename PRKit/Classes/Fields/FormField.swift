@@ -177,10 +177,18 @@ public enum FormFieldAttributeType: Equatable {
 
 open class FormField: FormComponent, Localizable, FormInputViewDelegate {
     open weak var borderedView: UIView!
+    open weak var stackView: UIStackView!
     open weak var contentView: UIView!
 
     open weak var statusButton: UIButton!
-    open var statusButtonWidthConstraint: NSLayoutConstraint!
+    open weak var accessoryButton: UIButton?
+    open var accessoryButtonImage: UIImage? {
+        get { return accessoryButton?.image(for: .normal) }
+        set {
+            initAccessoryButton()
+            accessoryButton?.setImage(newValue, for: .normal)
+        }
+    }
 
     open weak var label: UILabel!
     open weak var labelHeightConstraint: NSLayoutConstraint!
@@ -283,9 +291,11 @@ open class FormField: FormComponent, Localizable, FormInputViewDelegate {
             stackView.rightAnchor.constraint(equalTo: borderedView.rightAnchor),
             stackView.bottomAnchor.constraint(equalTo: borderedView.bottomAnchor)
         ])
+        self.stackView = stackView
 
         let statusButton = UIButton()
         statusButton.widthAnchor.constraint(equalToConstant: 46).isActive = true
+        statusButton.backgroundColor = .border
         stackView.addArrangedSubview(statusButton)
         self.statusButton = statusButton
 
@@ -306,6 +316,21 @@ open class FormField: FormComponent, Localizable, FormInputViewDelegate {
         ])
         self.label = label
         self.labelHeightConstraint = labelHeightConstraint
+    }
+
+    private func initAccessoryButton() {
+        if accessoryButton != nil {
+            return
+        }
+        let accessoryButton = UIButton()
+        accessoryButton.widthAnchor.constraint(equalToConstant: 46).isActive = true
+        accessoryButton.setBackgroundImage(.resizableImage(withColor: .primaryButtonNormal, cornerRadius: 8, corners: [.topRight, .bottomRight]), for: .normal)
+        accessoryButton.setBackgroundImage(.resizableImage(withColor: .primaryButtonHighlighted, cornerRadius: 8, corners: [.topRight, .bottomRight]), for: .highlighted)
+        accessoryButton.setBackgroundImage(.resizableImage(withColor: .primaryButtonDisabled, cornerRadius: 8, corners: [.topRight, .bottomRight]), for: .disabled)
+        accessoryButton.tintColor = .primaryButtonTint
+
+        stackView.addArrangedSubview(accessoryButton)
+        self.accessoryButton = accessoryButton
     }
 
     private func initErrorLabel() {
@@ -382,7 +407,6 @@ open class FormField: FormComponent, Localizable, FormInputViewDelegate {
 
         _errorLabel?.isHidden = !hasError
 
-        statusButton.backgroundColor = .border
         if status != .none {
             if statusButton.image(for: .normal) == nil {
                 statusButton.setImage(UIImage.image(withColor: .focusedBorder, cornerRadius: 16,
