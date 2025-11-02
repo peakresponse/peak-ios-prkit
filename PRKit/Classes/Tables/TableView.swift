@@ -27,4 +27,15 @@ open class TableView: UITableView {
         backgroundColor = .background
         separatorStyle = .none
     }
+
+    open override func dequeueReusableCell(withIdentifier identifier: String, for indexPath: IndexPath) -> UITableViewCell {
+        let cell = super.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
+        if style == .insetGrouped, let cell = cell as? ListItemTableViewCell {
+            cell.isGrouped = true
+            cell.isFirst = indexPath.row == 0
+            cell.isLast = indexPath.row == numberOfRows(inSection: indexPath.section) - 1
+            print("isGrouped")
+        }
+        return cell
+    }
 }
