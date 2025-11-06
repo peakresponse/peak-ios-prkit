@@ -14,13 +14,15 @@ class TablesViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        tableView.sectionHeaderHeight = UITableView.automaticDimension
         tableView.register(ListItemTableViewCell.self, forCellReuseIdentifier: "Item")
+        tableView.register(GroupedTableViewSectionHeader.self, forHeaderFooterViewReuseIdentifier: "groupedSectionHeader")
     }
 
     // MARK: UITableViewDataSource
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return 2
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -36,6 +38,14 @@ class TablesViewController: UITableViewController {
     }
 
     // MARK: UITableViewDelegate
+
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "groupedSectionHeader")
+        if let header = header as? GroupedTableViewSectionHeader {
+            header.titleLabel.text = "Section \(section)"
+        }
+        return header
+    }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)

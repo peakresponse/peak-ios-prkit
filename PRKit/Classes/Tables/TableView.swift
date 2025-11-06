@@ -34,7 +34,6 @@ open class TableView: UITableView {
             cell.isGrouped = true
             cell.isFirst = indexPath.row == 0
             cell.isLast = indexPath.row == numberOfRows(inSection: indexPath.section) - 1
-            print("isGrouped")
         }
         return cell
     }
