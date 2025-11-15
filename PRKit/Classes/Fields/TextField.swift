@@ -275,6 +275,12 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
         var inputView = attributeType.inputView
         textView.isEditable = inputView?.isTextViewEditable ?? true
         self.inputView = inputView
+        switch attributeType {
+        case .text:
+            autocorrectionType = .default
+        default:
+            autocorrectionType = .no
+        }
     }
 
     open override func reloadInputViews() {
