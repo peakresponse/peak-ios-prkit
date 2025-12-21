@@ -75,28 +75,32 @@ open class ListItemTableViewCell: UITableViewCell {
     open override func layoutSubviews() {
         super.layoutSubviews()
         if isGrouped {
-            layer.cornerRadius = 8
+            var radius: CGFloat = 8
+            if #available(iOS 26.0, *) {
+                radius = 24
+            }
+            layer.cornerRadius = radius
             layer.sublayers?.filter({$0 is CAShapeLayer}).forEach({$0.removeFromSuperlayer()})
             let path = UIBezierPath()
             if isLast {
-                path.move(to: CGPoint(x: 9, y: bounds.height - 1))
-                path.addArc(withCenter: CGPoint(x: 9, y: bounds.height - 9), radius: 8, startAngle: CGFloat.pi/2, endAngle: CGFloat.pi, clockwise: true)
+                path.move(to: CGPoint(x: radius + 1, y: bounds.height - 1))
+                path.addArc(withCenter: CGPoint(x: radius + 1, y: bounds.height - radius - 1), radius: radius, startAngle: CGFloat.pi/2, endAngle: CGFloat.pi, clockwise: true)
             } else {
                 path.move(to: CGPoint(x: 1, y: bounds.height))
             }
             if isFirst {
                 path.addLine(to: CGPoint(x: 1, y: 8))
-                path.addArc(withCenter: CGPoint(x: 9, y: 9), radius: 8, startAngle: CGFloat.pi, endAngle: 3*CGFloat.pi/2, clockwise: true)
-                path.addLine(to: CGPoint(x: bounds.width - 9, y: 1))
-                path.addArc(withCenter: CGPoint(x: bounds.width - 9, y: 9), radius: 8, startAngle: 3*CGFloat.pi/2, endAngle: 2*CGFloat.pi, clockwise: true)
+                path.addArc(withCenter: CGPoint(x: radius + 1, y: radius + 1), radius: radius, startAngle: CGFloat.pi, endAngle: 3*CGFloat.pi/2, clockwise: true)
+                path.addLine(to: CGPoint(x: bounds.width - radius - 1, y: 1))
+                path.addArc(withCenter: CGPoint(x: bounds.width - radius - 1, y: radius + 1), radius: radius, startAngle: 3*CGFloat.pi/2, endAngle: 2*CGFloat.pi, clockwise: true)
             } else {
                 path.addLine(to: CGPoint(x: 1, y: 0))
                 path.move(to: CGPoint(x: bounds.width - 1, y: 0))
             }
             if isLast {
-                path.addLine(to: CGPoint(x: bounds.width - 1, y: bounds.height - 9))
-                path.addArc(withCenter: CGPoint(x: bounds.width - 9, y: bounds.height - 9), radius: 8, startAngle: 0, endAngle: CGFloat.pi/2, clockwise: true)
-                path.move(to: CGPoint(x: bounds.width - 9, y: bounds.height - 1))
+                path.addLine(to: CGPoint(x: bounds.width - 1, y: bounds.height - radius - 1))
+                path.addArc(withCenter: CGPoint(x: bounds.width - radius - 1, y: bounds.height - radius - 1), radius: radius, startAngle: 0, endAngle: CGFloat.pi/2, clockwise: true)
+                path.move(to: CGPoint(x: bounds.width - radius - 1, y: bounds.height - 1))
             } else {
                 path.addLine(to: CGPoint(x: bounds.width - 1, y: bounds.height))
             }
