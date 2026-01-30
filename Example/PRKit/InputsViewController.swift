@@ -26,6 +26,7 @@ class InputsViewController: ViewController, FormFieldDelegate, KeyboardAwareScro
         let inputAccessoryView = FormInputAccessoryView(rootView: view)
         emptyField.inputAccessoryView = inputAccessoryView
         emptyField.inputAccessoryViewOtherButtonTitle = "Open Tag"
+        emptyField.accessoryButtonImage = UIImage(named: "Phone40px", in: PRKitBundle.instance, compatibleWith: nil)
         disabledField.inputAccessoryView = inputAccessoryView
         passwordField.inputAccessoryView = inputAccessoryView
         errorField.inputAccessoryView = inputAccessoryView

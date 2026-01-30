@@ -177,10 +177,18 @@ public enum FormFieldAttributeType: Equatable {
 
 open class FormField: FormComponent, Localizable, FormInputViewDelegate {
     open weak var borderedView: UIView!
+    open weak var stackView: UIStackView!
     open weak var contentView: UIView!
 
     open weak var statusButton: UIButton!
-    open var statusButtonWidthConstraint: NSLayoutConstraint!
+    open weak var accessoryButton: UIButton?
+    open var accessoryButtonImage: UIImage? {
+        get { return accessoryButton?.image(for: .normal) }
+        set {
+            initAccessoryButton()
+            accessoryButton?.setImage(newValue, for: .normal)
+        }
+    }
 
     open weak var label: UILabel!
     open weak var labelHeightConstraint: NSLayoutConstraint!
@@ -273,28 +281,27 @@ open class FormField: FormComponent, Localizable, FormInputViewDelegate {
         ])
         self.borderedView = borderedView
 
-        let statusButton = UIButton()
-        statusButton.translatesAutoresizingMaskIntoConstraints = false
-        statusButton.addTarget(self, action: #selector(statusPressed), for: .touchUpInside)
-        borderedView.addSubview(statusButton)
-        statusButtonWidthConstraint = statusButton.widthAnchor.constraint(equalToConstant: 0)
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .horizontal
+        borderedView.addSubview(stackView)
         NSLayoutConstraint.activate([
-            statusButton.topAnchor.constraint(equalTo: borderedView.topAnchor),
-            statusButton.leftAnchor.constraint(equalTo: borderedView.leftAnchor),
-            statusButton.bottomAnchor.constraint(equalTo: borderedView.bottomAnchor),
-            statusButtonWidthConstraint
+            stackView.topAnchor.constraint(equalTo: borderedView.topAnchor),
+            stackView.leftAnchor.constraint(equalTo: borderedView.leftAnchor),
+            stackView.rightAnchor.constraint(equalTo: borderedView.rightAnchor),
+            stackView.bottomAnchor.constraint(equalTo: borderedView.bottomAnchor)
         ])
+        self.stackView = stackView
+
+        let statusButton = UIButton()
+        statusButton.widthAnchor.constraint(equalToConstant: 46).isActive = true
+        statusButton.backgroundColor = .border
+        stackView.addArrangedSubview(statusButton)
         self.statusButton = statusButton
 
         let contentView = UIView()
         contentView.translatesAutoresizingMaskIntoConstraints = false
-        borderedView.addSubview(contentView)
-        NSLayoutConstraint.activate([
-            contentView.topAnchor.constraint(equalTo: borderedView.topAnchor),
-            contentView.leftAnchor.constraint(equalTo: statusButton.rightAnchor),
-            contentView.rightAnchor.constraint(equalTo: borderedView.rightAnchor),
-            borderedView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
-        ])
+        stackView.addArrangedSubview(contentView)
         self.contentView = contentView
 
         let label = UILabel()
@@ -309,6 +316,21 @@ open class FormField: FormComponent, Localizable, FormInputViewDelegate {
         ])
         self.label = label
         self.labelHeightConstraint = labelHeightConstraint
+    }
+
+    private func initAccessoryButton() {
+        if accessoryButton != nil {
+            return
+        }
+        let accessoryButton = UIButton()
+        accessoryButton.widthAnchor.constraint(equalToConstant: 46).isActive = true
+        accessoryButton.setBackgroundImage(.resizableImage(withColor: .primaryButtonNormal, cornerRadius: 8, corners: [.topRight, .bottomRight]), for: .normal)
+        accessoryButton.setBackgroundImage(.resizableImage(withColor: .primaryButtonHighlighted, cornerRadius: 8, corners: [.topRight, .bottomRight]), for: .highlighted)
+        accessoryButton.setBackgroundImage(.resizableImage(withColor: .primaryButtonDisabled, cornerRadius: 8, corners: [.topRight, .bottomRight]), for: .disabled)
+        accessoryButton.tintColor = .primaryButtonTint
+
+        stackView.addArrangedSubview(accessoryButton)
+        self.accessoryButton = accessoryButton
     }
 
     private func initErrorLabel() {
@@ -385,7 +407,6 @@ open class FormField: FormComponent, Localizable, FormInputViewDelegate {
 
         _errorLabel?.isHidden = !hasError
 
-        statusButton.backgroundColor = .border
         if status != .none {
             if statusButton.image(for: .normal) == nil {
                 statusButton.setImage(UIImage.image(withColor: .focusedBorder, cornerRadius: 16,
@@ -393,10 +414,10 @@ open class FormField: FormComponent, Localizable, FormInputViewDelegate {
                                                     iconTintColor: .white),
                                       for: .normal)
             }
-            statusButtonWidthConstraint.constant = 46
+            statusButton.isHidden = false
         } else {
             statusButton.setImage(nil, for: .normal)
-            statusButtonWidthConstraint.constant = 0
+            statusButton.isHidden = true
         }
     }
 
