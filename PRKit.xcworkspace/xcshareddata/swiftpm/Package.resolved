@@ -1,0 +1,60 @@
+{
+  "originHash" : "60ed6a6673e1c7ddbf56cbd74b13d35288647d26b521816daa232d5695a47d0e",
+  "pins" : [
+    {
+      "identity" : "alignedcollectionviewflowlayout",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/mischa-hildebrand/AlignedCollectionViewFlowLayout",
+      "state" : {
+        "revision" : "236094ac389234d528cc782c140bcb20724b86bf",
+        "version" : "1.1.3"
+      }
+    },
+    {
+      "identity" : "cocoalumberjack",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/CocoaLumberjack/CocoaLumberjack.git",
+      "state" : {
+        "revision" : "a9ed4b6f9bdedce7d77046f43adfb8ce1fd54114",
+        "version" : "3.9.0"
+      }
+    },
+    {
+      "identity" : "keyboardy",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/podkovyrin/Keyboardy",
+      "state" : {
+        "revision" : "16083ab9e90581342609ce342d5e664f0f885d05",
+        "version" : "0.2.7"
+      }
+    },
+    {
+      "identity" : "svgkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/svgkit/svgkit",
+      "state" : {
+        "revision" : "58152b9f7c85eab239160b36ffdfd364aa43d666",
+        "version" : "3.0.0"
+      }
+    },
+    {
+      "identity" : "swift-log",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-log",
+      "state" : {
+        "revision" : "8c0f217f01000dd30f60d6e536569ad4e74291f9",
+        "version" : "1.11.0"
+      }
+    },
+    {
+      "identity" : "swiftsignatureview",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/alankarmisra/SwiftSignatureView",
+      "state" : {
+        "revision" : "04ce145272c47d9b87657af3cc3d12bd26de6745",
+        "version" : "3.2.1"
+      }
+    }
+  ],
+  "version" : 3
+}
