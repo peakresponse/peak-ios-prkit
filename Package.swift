@@ -4,7 +4,7 @@
 import PackageDescription
 
 let package = Package(
-    name: "peak-ios-prkit",
+    name: "PRKit",
     platforms: [
         .iOS(.v15),
     ],
