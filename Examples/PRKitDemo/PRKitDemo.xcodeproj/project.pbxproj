@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4536D4712FAE93B2001ACA32 /* PRKit in Frameworks */ = {isa = PBXBuildFile; productRef = 4536D4702FAE93B2001ACA32 /* PRKit */; };
 		45DF0BA72F8AE9A60033E80A /* PRKit in Frameworks */ = {isa = PBXBuildFile; productRef = 45DF0BA62F8AE9A60033E80A /* PRKit */; };
 /* End PBXBuildFile section */
 
@@ -70,6 +71,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				45DF0BA72F8AE9A60033E80A /* PRKit in Frameworks */,
+				4536D4712FAE93B2001ACA32 /* PRKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -131,6 +133,7 @@
 			name = PRKitDemo;
 			packageProductDependencies = (
 				45DF0BA62F8AE9A60033E80A /* PRKit */,
+				4536D4702FAE93B2001ACA32 /* PRKit */,
 			);
 			productName = PRKitDemo;
 			productReference = 45DF0B712F8AE9670033E80A /* PRKitDemo.app */;
@@ -215,7 +218,7 @@
 			mainGroup = 45DF0B682F8AE9670033E80A;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				45DF0BA52F8AE9A60033E80A /* XCLocalSwiftPackageReference "../../../peak-ios-prkit" */,
+				4536D46F2FAE93B2001ACA32 /* XCLocalSwiftPackageReference "../../../prkit" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 45DF0B722F8AE9670033E80A /* Products */;
@@ -604,13 +607,17 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		45DF0BA52F8AE9A60033E80A /* XCLocalSwiftPackageReference "../../../peak-ios-prkit" */ = {
+		4536D46F2FAE93B2001ACA32 /* XCLocalSwiftPackageReference "../../../prkit" */ = {
 			isa = XCLocalSwiftPackageReference;
-			relativePath = "../../../peak-ios-prkit";
+			relativePath = ../../../prkit;
 		};
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		4536D4702FAE93B2001ACA32 /* PRKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = PRKit;
+		};
 		45DF0BA62F8AE9A60033E80A /* PRKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = PRKit;
