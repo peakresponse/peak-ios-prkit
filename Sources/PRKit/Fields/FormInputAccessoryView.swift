@@ -156,6 +156,11 @@ open class FormInputAccessoryView: UIInputView {
             if let formField = currentView as? FormField, let otherTitle = formField.inputAccessoryViewOtherButtonTitle {
                 otherButton.isHidden = false
                 otherButton.setTitle(otherTitle, for: .normal)
+            } else if let formField = currentView as? FormField,
+                      formField.attributeTypes.count > 1 {
+                let nextAttributeType = formField.attributeTypes[(formField.attributeIndex + 1) % formField.attributeTypes.count]
+                otherButton.setTitle(nextAttributeType.rawValue.capitalized, for: .normal)
+                otherButton.isHidden = false
             } else if let inputView = currentView.inputView as? FormInputView, let otherTitle = inputView.accessoryOtherButtonTitle {
                 otherButton.isHidden = false
                 otherButton.setTitle(otherTitle, for: .normal)
@@ -179,6 +184,10 @@ open class FormInputAccessoryView: UIInputView {
         if let currentView = currentView {
             if let formField = currentView as? FormField, formField.inputAccessoryViewOtherButtonTitle != nil {
                 (formField.delegate as? FormFieldDelegate)?.formFieldDidPressOther?(formField)
+            }  else if let formField = currentView as? FormField,
+                       formField.attributeTypes.count > 1 {
+                formField.attributeIndex = (formField.attributeIndex + 1) % formField.attributeTypes.count
+                formField.reloadInputViews()
             } else if let inputView = currentView.inputView as? FormInputView {
                 if let otherTitle = inputView.accessoryOtherButtonPressed(self) {
                     otherButton.setTitle(otherTitle, for: .normal)

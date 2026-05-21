@@ -9,6 +9,7 @@ import UIKit
 
 private class InternalTextView: UITextView {
     weak var textField: TextField?
+    var ignoreResignFirstResponder: Bool = false
 
     override func becomeFirstResponder() -> Bool {
         if !isEditable, let textField = textField {
@@ -26,6 +27,9 @@ private class InternalTextView: UITextView {
     }
 
     override func resignFirstResponder() -> Bool {
+        if ignoreResignFirstResponder {
+            return false
+        }
         if super.resignFirstResponder() {
             (inputView as? FormInputView)?.removeAllSubInputViews()
             textField?.updateStyle()
@@ -272,8 +276,10 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
     }
 
     open override func updateAttributeType() {
+        (textView as? InternalTextView)?.ignoreResignFirstResponder = true
         var inputView = attributeType.inputView
         textView.isEditable = inputView?.isTextViewEditable ?? true
+        (textView as? InternalTextView)?.ignoreResignFirstResponder = false
         self.inputView = inputView
         switch attributeType {
         case .text:
@@ -285,6 +291,7 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
 
     open override func reloadInputViews() {
         attributeType.configureInputView(delegate: self, textView: textView)
+        textView.reloadInputViews()
         super.reloadInputViews()
     }
 

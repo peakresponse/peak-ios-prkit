@@ -222,13 +222,37 @@ open class FormField: FormComponent, Localizable, FormInputViewDelegate {
         }
     }
 
-    open var attributeType: FormFieldAttributeType = .text {
-        didSet { updateAttributeType() }
+    open var attributeIndex: Int = 0 {
+        didSet {
+            updateAttributeType()
+        }
+    }
+    open var attributeTypes: [FormFieldAttributeType] = [.text] {
+        didSet {
+            attributeValues = [NSObject?](repeating: nil, count: attributeTypes.count)
+        }
+    }
+    open var attributeType: FormFieldAttributeType {
+        get { return attributeTypes[attributeIndex] }
+        set {
+            attributeTypes[attributeIndex] = newValue
+            updateAttributeType()
+        }
     }
     @IBInspectable open var AttributeType: String {
         get { return attributeType.rawValue }
         set { attributeType = FormFieldAttributeType(rawValue: newValue) ?? .text }
     }
+
+    open var attributeValues: [NSObject?] = [nil]
+    open override var attributeValue: NSObject? {
+        get { return attributeValues[attributeIndex] }
+        set {
+            attributeValues[attributeIndex] = newValue
+            didUpdateAttributeValue()
+        }
+    }
+
     open var inputAccessoryViewOtherButtonTitle: String?
 
     open var isEmpty: Bool {
@@ -366,7 +390,7 @@ open class FormField: FormComponent, Localizable, FormInputViewDelegate {
 
     open override func didUpdateAttributeValue() {
         super.didUpdateAttributeValue()
-        text = attributeType.text(for: attributeValue)
+        text = attributeValues.enumerated().compactMap { attributeTypes[$0].text(for: $1) }.joined(separator: " ")
     }
 
     open override func didUpdateEnabled() {
