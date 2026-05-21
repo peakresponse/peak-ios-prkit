@@ -152,6 +152,7 @@ open class SelectKeyboard: FormInputView, CheckboxDelegate,
     open override func reloadInputViews() {
         super.reloadInputViews()
         updateLayout()
+        collectionView.contentOffset = .zero
     }
 
     open override func setValue(_ value: NSObject?) {
