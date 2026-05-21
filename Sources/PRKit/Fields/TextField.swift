@@ -372,6 +372,11 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
     }
 
     public func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if textView.text != attributeValues[attributeIndex] as? String {
+            textView.text = text
+            attributeValue = text as? NSObject
+            return false
+        }
         if text == "\n" || text == "\t" {
             if !((delegate as? FormFieldDelegate)?.formFieldShouldReturn?(self) ?? true) {
                 return false

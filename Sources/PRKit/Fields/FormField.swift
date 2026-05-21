@@ -230,6 +230,7 @@ open class FormField: FormComponent, Localizable, FormInputViewDelegate {
     open var attributeTypes: [FormFieldAttributeType] = [.text] {
         didSet {
             attributeValues = [NSObject?](repeating: nil, count: attributeTypes.count)
+            updateAttributeType()
         }
     }
     open var attributeType: FormFieldAttributeType {
@@ -249,6 +250,9 @@ open class FormField: FormComponent, Localizable, FormInputViewDelegate {
         get { return attributeValues[attributeIndex] }
         set {
             attributeValues[attributeIndex] = newValue
+            for (i, _) in attributeValues.enumerated() where i != attributeIndex {
+                attributeValues[i] = nil
+            }
             didUpdateAttributeValue()
         }
     }
@@ -457,7 +461,7 @@ open class FormField: FormComponent, Localizable, FormInputViewDelegate {
 
     @objc open func clearPressed() {
         text = nil
-        attributeValue = nil
+        attributeValues = .init(repeating: nil, count: attributeTypes.count)
         status = .none
         delegate?.formComponentDidChange?(self)
         if let inputView = inputView as? FormInputView, inputView.shouldResignAfterClear {
