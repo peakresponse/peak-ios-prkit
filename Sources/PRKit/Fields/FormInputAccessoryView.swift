@@ -159,7 +159,7 @@ open class FormInputAccessoryView: UIInputView {
             } else if let formField = currentView as? FormField,
                       formField.attributeTypes.count > 1 {
                 let nextAttributeType = formField.attributeTypes[(formField.attributeIndex + 1) % formField.attributeTypes.count]
-                otherButton.setTitle(nextAttributeType.rawValue.capitalized, for: .normal)
+                otherButton.setTitle(nextAttributeType.buttonLabel, for: .normal)
                 otherButton.isHidden = false
             } else if let inputView = currentView.inputView as? FormInputView, let otherTitle = inputView.accessoryOtherButtonTitle {
                 otherButton.isHidden = false

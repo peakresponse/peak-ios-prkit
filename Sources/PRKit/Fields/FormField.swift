@@ -33,6 +33,22 @@ public enum FormFieldAttributeType: Equatable {
         return String(describing: self)
     }
 
+    var buttonLabel: String {
+        switch self {
+        case .integer, .integerWithUnit(_), .decimal, .decimalWithUnit(_):
+            return "Button.123".localized
+        case .date, .datetime:
+            return "Button.date".localized
+        case .picker(let source), .single(let source), .multi(let source):
+            if let name = source?.name, !name.isEmpty {
+                return name
+            }
+            return "Button.select".localized
+        default:
+            return "Button.abc".localized
+        }
+    }
+
     init?(rawValue: String) {
         switch rawValue {
         case "text":
@@ -394,7 +410,8 @@ open class FormField: FormComponent, Localizable, FormInputViewDelegate {
 
     open override func didUpdateAttributeValue() {
         super.didUpdateAttributeValue()
-        text = attributeValues.enumerated().compactMap { attributeTypes[$0].text(for: $1) }.joined(separator: " ")
+        let text = attributeValues.enumerated().compactMap { attributeTypes[$0].text(for: $1) }.joined(separator: " ")
+        self.text = text.isEmpty ? nil : text
     }
 
     open override func didUpdateEnabled() {
@@ -460,8 +477,8 @@ open class FormField: FormComponent, Localizable, FormInputViewDelegate {
     }
 
     @objc open func clearPressed() {
-        text = nil
         attributeValues = .init(repeating: nil, count: attributeTypes.count)
+        text = nil
         status = .none
         delegate?.formComponentDidChange?(self)
         if let inputView = inputView as? FormInputView, inputView.shouldResignAfterClear {
