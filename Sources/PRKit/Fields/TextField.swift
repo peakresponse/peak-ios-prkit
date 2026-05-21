@@ -21,6 +21,9 @@ private class InternalTextView: UITextView {
             selectedRange = NSRange(location: text.count, length: 0)
             textField?.updateStyle()
             textField?.reloadInputViews()
+            if !isEditable, let textField = textField {
+                (textField.delegate as? FormFieldDelegate)?.formFieldDidBeginEditing?(textField)
+            }
             return true
         }
         return false
