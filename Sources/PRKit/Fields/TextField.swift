@@ -378,6 +378,7 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
         if textView.text != attributeValues[attributeIndex] as? String {
             textView.text = text
             attributeValue = text as? NSObject
+            textViewDidChange(textView)
             return false
         }
         if text == "\n" || text == "\t" {
