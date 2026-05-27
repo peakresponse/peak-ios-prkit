@@ -261,7 +261,11 @@ open class FormField: FormComponent, Localizable, FormInputViewDelegate {
         set { attributeType = FormFieldAttributeType(rawValue: newValue) ?? .text }
     }
 
-    open var attributeValues: [NSObject?] = [nil]
+    open var attributeValues: [NSObject?] = [nil] {
+        didSet {
+            didUpdateAttributeValue()
+        }
+    }
     open override var attributeValue: NSObject? {
         get { return attributeValues[attributeIndex] }
         set {
