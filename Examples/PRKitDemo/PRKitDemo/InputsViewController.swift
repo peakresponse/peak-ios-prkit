@@ -11,15 +11,16 @@ import PRKit
 import UIKit
 
 class InputsViewController: ViewController, FormFieldDelegate, KeyboardAwareScrollViewController {
-    @IBOutlet weak var scrollView: UIScrollView!
-    @IBOutlet weak var scrollViewBottomConstraint: NSLayoutConstraint!
+    weak var scrollView: UIScrollView!
+    weak var scrollViewBottomConstraint: NSLayoutConstraint!
 
-    @IBOutlet weak var emptyField: TextField!
-    @IBOutlet weak var disabledField: TextField!
-    @IBOutlet weak var passwordField: PasswordField!
-    @IBOutlet weak var errorField: TextField!
-    @IBOutlet weak var statusField: TextField!
-    @IBOutlet weak var radioGroup: FormRadioGroup!
+    weak var autocompleteField: AutocompleteTextField!
+    weak var emptyField: TextField!
+    weak var disabledField: TextField!
+    weak var passwordField: PasswordField!
+    weak var errorField: TextField!
+    weak var statusField: TextField!
+    weak var radioGroup: FormRadioGroup!
     
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -50,6 +51,22 @@ class InputsViewController: ViewController, FormFieldDelegate, KeyboardAwareScro
 
         var tag = 1
 
+        let autocompleteField = AutocompleteTextField()
+        autocompleteField.translatesAutoresizingMaskIntoConstraints = false
+        autocompleteField.delegate = self
+        autocompleteField.labelText = "Autocomplete Field"
+        autocompleteField.placeholderText = "Placeholder"
+        autocompleteField.inputAccessoryView = inputAccessoryView
+        autocompleteField.tag = tag
+        tag += 1
+        scrollView.addSubview(autocompleteField)
+        NSLayoutConstraint.activate([
+            autocompleteField.topAnchor.constraint(equalTo: scrollView.contentLayoutGuide.topAnchor, constant: 20),
+            autocompleteField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            autocompleteField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+        ])
+        self.autocompleteField = autocompleteField
+
         let emptyField = TextField()
         emptyField.translatesAutoresizingMaskIntoConstraints = false
         emptyField.delegate = self
@@ -62,7 +79,7 @@ class InputsViewController: ViewController, FormFieldDelegate, KeyboardAwareScro
         tag += 1
         scrollView.addSubview(emptyField)
         NSLayoutConstraint.activate([
-            emptyField.topAnchor.constraint(equalTo: scrollView.contentLayoutGuide.topAnchor, constant: 20),
+            emptyField.topAnchor.constraint(equalTo: autocompleteField.bottomAnchor, constant: 20),
             emptyField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             emptyField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
         ])
