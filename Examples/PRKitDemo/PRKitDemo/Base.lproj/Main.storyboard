@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="24128" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="pLw-Kb-tnX">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="24765" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="pLw-Kb-tnX">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24063"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24743"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -18,219 +18,31 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="ipr-zj-hHa" kind="relationship" relationship="rootViewController" id="w2x-Cc-1ST"/>
+                        <segue destination="hke-KF-x2z" kind="relationship" relationship="rootViewController" id="jY8-vi-fBK"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZaK-cI-WNk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1625" y="1205"/>
         </scene>
-        <!--Inputs-->
-        <scene sceneID="so1-AM-8hb">
+        <!--Inputs View Controller-->
+        <scene sceneID="MsW-wL-B10">
             <objects>
-                <viewController title="Inputs" id="ipr-zj-hHa" customClass="InputsViewController" customModule="PRKit_Example" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="hke-KF-x2z" customClass="InputsViewController" customModule="PRKitDemo" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="MqT-dz-7bR"/>
-                        <viewControllerLayoutGuide type="bottom" id="QRS-kN-5A6"/>
+                        <viewControllerLayoutGuide type="top" id="diS-aS-VSe"/>
+                        <viewControllerLayoutGuide type="bottom" id="do8-D8-nmZ"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="bVO-ox-Q8p">
+                    <view key="view" contentMode="scaleToFill" id="6QV-nM-MAf">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9oV-f3-XvB">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                                <subviews>
-                                    <view tag="1" contentMode="scaleToFill" placeholderIntrinsicWidth="683.5" placeholderIntrinsicHeight="72.5" translatesAutoresizingMaskIntoConstraints="NO" id="vxt-c4-Uev" customClass="TextField" customModule="PRKit">
-                                        <rect key="frame" x="20" y="20" width="374" height="72.5"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="labelText" value="Empty Field"/>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="placeholderText" value="Placeholder"/>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <outlet property="delegate" destination="ipr-zj-hHa" id="ZtX-c4-ijG"/>
-                                        </connections>
-                                    </view>
-                                    <view tag="2" contentMode="scaleToFill" placeholderIntrinsicWidth="683.5" placeholderIntrinsicHeight="73" translatesAutoresizingMaskIntoConstraints="NO" id="JGV-fz-1Ch" userLabel="Disabled Field" customClass="TextField" customModule="PRKit">
-                                        <rect key="frame" x="20" y="112.5" width="374" height="73"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="labelText" value="Disabled Field"/>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="text" value="Input"/>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="placeholderText" value="Placeholder"/>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isEnabled" value="NO"/>
-                                        </userDefinedRuntimeAttributes>
-                                    </view>
-                                    <view tag="3" contentMode="scaleToFill" placeholderIntrinsicWidth="683.5" placeholderIntrinsicHeight="73" translatesAutoresizingMaskIntoConstraints="NO" id="vgv-B0-hHD" customClass="PasswordField" customModule="PRKit">
-                                        <rect key="frame" x="20" y="205.5" width="374" height="73"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="labelText" value="Password Field"/>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="placeholderText" value="********"/>
-                                        </userDefinedRuntimeAttributes>
-                                    </view>
-                                    <view tag="4" contentMode="scaleToFill" placeholderIntrinsicWidth="683.5" placeholderIntrinsicHeight="72.5" translatesAutoresizingMaskIntoConstraints="NO" id="vcJ-Ow-yxv" userLabel="Error Field" customClass="TextField" customModule="PRKit">
-                                        <rect key="frame" x="20" y="298.5" width="374" height="72.5"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="labelText" value="Error Field"/>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="placeholderText" value="Placeholder"/>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="hasError" value="YES"/>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="errorText" value="Error note"/>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="text" value="Input"/>
-                                        </userDefinedRuntimeAttributes>
-                                    </view>
-                                    <view contentMode="scaleToFill" placeholderIntrinsicWidth="240" placeholderIntrinsicHeight="40" translatesAutoresizingMaskIntoConstraints="NO" id="CBl-dn-Vqh" customClass="Checkbox" customModule="PRKit">
-                                        <rect key="frame" x="20" y="401" width="374" height="40"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="labelText" value="Checkbox"/>
-                                        </userDefinedRuntimeAttributes>
-                                    </view>
-                                    <view contentMode="scaleToFill" placeholderIntrinsicWidth="240" placeholderIntrinsicHeight="40" translatesAutoresizingMaskIntoConstraints="NO" id="jW0-wr-d3R" customClass="Checkbox" customModule="PRKit">
-                                        <rect key="frame" x="20" y="461" width="374" height="40"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="labelText" value="Disabled Checkbox"/>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isChecked" value="YES"/>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isEnabled" value="NO"/>
-                                        </userDefinedRuntimeAttributes>
-                                    </view>
-                                    <view contentMode="scaleToFill" placeholderIntrinsicWidth="374" placeholderIntrinsicHeight="40" translatesAutoresizingMaskIntoConstraints="NO" id="arX-br-IA9" customClass="TextField" customModule="PRKit">
-                                        <rect key="frame" x="20" y="521" width="374" height="40"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="placeholderText" value="Search"/>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isLabelHidden" value="YES"/>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isSearchIconHidden" value="YES"/>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isDebounced" value="YES"/>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <outlet property="delegate" destination="ipr-zj-hHa" id="t2f-yY-OMH"/>
-                                        </connections>
-                                    </view>
-                                    <view contentMode="scaleToFill" placeholderIntrinsicWidth="240" placeholderIntrinsicHeight="40" translatesAutoresizingMaskIntoConstraints="NO" id="y3x-cc-GHZ" customClass="Checkbox" customModule="PRKit">
-                                        <rect key="frame" x="20" y="581" width="374" height="40"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="labelText" value="Radio button"/>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isRadioButton" value="YES"/>
-                                        </userDefinedRuntimeAttributes>
-                                    </view>
-                                    <view contentMode="scaleToFill" placeholderIntrinsicWidth="240" placeholderIntrinsicHeight="40" translatesAutoresizingMaskIntoConstraints="NO" id="spq-dt-YrQ" customClass="Checkbox" customModule="PRKit">
-                                        <rect key="frame" x="20" y="641" width="374" height="40"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="labelText" value="Disabled Radio button"/>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isChecked" value="YES"/>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isRadioButton" value="YES"/>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isEnabled" value="NO"/>
-                                        </userDefinedRuntimeAttributes>
-                                    </view>
-                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ewF-G6-KtP" customClass="FormRadioGroup" customModule="PRKit">
-                                        <rect key="frame" x="20" y="710" width="374" height="0.0"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                        <connections>
-                                            <outlet property="delegate" destination="ipr-zj-hHa" id="h6K-DM-Up2"/>
-                                        </connections>
-                                    </view>
-                                    <view tag="1" contentMode="scaleToFill" ambiguous="YES" placeholderIntrinsicWidth="683.5" placeholderIntrinsicHeight="72.5" translatesAutoresizingMaskIntoConstraints="NO" id="qra-dW-nLk" customClass="TextField" customModule="PRKit">
-                                        <rect key="frame" x="20" y="730" width="374" height="73"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="labelText" value="Empty Field"/>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="placeholderText" value="Placeholder"/>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="Status" value="UNCONFIRMED"/>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="text" value="Prediction status"/>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isEnabled" value="NO"/>
-                                        </userDefinedRuntimeAttributes>
-                                    </view>
-                                    <view contentMode="scaleToFill" ambiguous="YES" placeholderIntrinsicWidth="374" placeholderIntrinsicHeight="70" translatesAutoresizingMaskIntoConstraints="NO" id="qC5-6K-NwV" customClass="SignatureField" customModule="PRKit">
-                                        <rect key="frame" x="20" y="823" width="374" height="74"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                        <connections>
-                                            <outlet property="delegate" destination="ipr-zj-hHa" id="9AZ-I0-KvA"/>
-                                        </connections>
-                                    </view>
-                                    <view contentMode="scaleToFill" ambiguous="YES" placeholderIntrinsicWidth="374" placeholderIntrinsicHeight="80" translatesAutoresizingMaskIntoConstraints="NO" id="S3I-MJ-FQx" customClass="CellField" customModule="PRKit">
-                                        <rect key="frame" x="20" y="917" width="374" height="80"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="text" value="Patient Refusal Against Medical Advice"/>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isLabelHidden" value="YES"/>
-                                        </userDefinedRuntimeAttributes>
-                                    </view>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstItem="vgv-B0-hHD" firstAttribute="top" secondItem="JGV-fz-1Ch" secondAttribute="bottom" constant="20" id="1Sp-rs-ZPB"/>
-                                    <constraint firstItem="vxt-c4-Uev" firstAttribute="trailing" secondItem="fE2-LA-PNf" secondAttribute="trailing" constant="-20" id="5Ol-dy-fPY"/>
-                                    <constraint firstItem="JGV-fz-1Ch" firstAttribute="trailing" secondItem="vxt-c4-Uev" secondAttribute="trailing" id="5gh-qj-Lmv"/>
-                                    <constraint firstItem="JGV-fz-1Ch" firstAttribute="top" secondItem="vxt-c4-Uev" secondAttribute="bottom" constant="20" id="6es-DE-JyQ"/>
-                                    <constraint firstItem="jW0-wr-d3R" firstAttribute="trailing" secondItem="CBl-dn-Vqh" secondAttribute="trailing" id="7Pv-K0-FTk"/>
-                                    <constraint firstItem="vcJ-Ow-yxv" firstAttribute="trailing" secondItem="vgv-B0-hHD" secondAttribute="trailing" id="9ZG-0T-xDE"/>
-                                    <constraint firstItem="vcJ-Ow-yxv" firstAttribute="leading" secondItem="vgv-B0-hHD" secondAttribute="leading" id="Aby-TE-zQ9"/>
-                                    <constraint firstItem="spq-dt-YrQ" firstAttribute="leading" secondItem="y3x-cc-GHZ" secondAttribute="leading" id="B7f-zV-7ZJ"/>
-                                    <constraint firstItem="y3x-cc-GHZ" firstAttribute="top" secondItem="arX-br-IA9" secondAttribute="bottom" constant="20" id="BGB-bL-qXw"/>
-                                    <constraint firstItem="spq-dt-YrQ" firstAttribute="top" secondItem="y3x-cc-GHZ" secondAttribute="bottom" constant="20" id="Cxd-ow-cLd"/>
-                                    <constraint firstItem="qC5-6K-NwV" firstAttribute="trailing" secondItem="qra-dW-nLk" secondAttribute="trailing" id="EBF-Ve-G0n"/>
-                                    <constraint firstItem="wVU-M6-xuG" firstAttribute="trailing" secondItem="vxt-c4-Uev" secondAttribute="trailing" constant="20" id="ENs-Ei-A1i"/>
-                                    <constraint firstItem="vgv-B0-hHD" firstAttribute="leading" secondItem="JGV-fz-1Ch" secondAttribute="leading" id="EvX-KA-APa"/>
-                                    <constraint firstItem="vcJ-Ow-yxv" firstAttribute="top" secondItem="vgv-B0-hHD" secondAttribute="bottom" constant="20" id="FSk-h2-wBD"/>
-                                    <constraint firstItem="JGV-fz-1Ch" firstAttribute="leading" secondItem="vxt-c4-Uev" secondAttribute="leading" id="GkN-lQ-rLb"/>
-                                    <constraint firstItem="vgv-B0-hHD" firstAttribute="trailing" secondItem="JGV-fz-1Ch" secondAttribute="trailing" id="Hzb-RP-a8g"/>
-                                    <constraint firstItem="arX-br-IA9" firstAttribute="trailing" secondItem="jW0-wr-d3R" secondAttribute="trailing" id="IKx-Ne-c1M"/>
-                                    <constraint firstItem="ewF-G6-KtP" firstAttribute="top" secondItem="spq-dt-YrQ" secondAttribute="bottom" constant="20" id="JhX-JN-zTM"/>
-                                    <constraint firstItem="spq-dt-YrQ" firstAttribute="trailing" secondItem="y3x-cc-GHZ" secondAttribute="trailing" id="KeH-4s-hKY"/>
-                                    <constraint firstItem="CBl-dn-Vqh" firstAttribute="leading" secondItem="vcJ-Ow-yxv" secondAttribute="leading" id="MF1-C4-N9f"/>
-                                    <constraint firstItem="ewF-G6-KtP" firstAttribute="trailing" secondItem="spq-dt-YrQ" secondAttribute="trailing" id="Otx-gS-ck1"/>
-                                    <constraint firstItem="vxt-c4-Uev" firstAttribute="leading" secondItem="fE2-LA-PNf" secondAttribute="leading" constant="20" id="SZe-SZ-GXM"/>
-                                    <constraint firstItem="qra-dW-nLk" firstAttribute="top" secondItem="ewF-G6-KtP" secondAttribute="bottom" constant="20" id="TMD-LI-I4B"/>
-                                    <constraint firstItem="arX-br-IA9" firstAttribute="leading" secondItem="jW0-wr-d3R" secondAttribute="leading" id="ToL-IN-uuZ"/>
-                                    <constraint firstItem="S3I-MJ-FQx" firstAttribute="top" secondItem="qC5-6K-NwV" secondAttribute="bottom" constant="20" id="UjQ-A8-z5p"/>
-                                    <constraint firstItem="arX-br-IA9" firstAttribute="top" secondItem="jW0-wr-d3R" secondAttribute="bottom" constant="20" id="Vdc-G6-FSz"/>
-                                    <constraint firstItem="ewF-G6-KtP" firstAttribute="leading" secondItem="spq-dt-YrQ" secondAttribute="leading" id="XwE-30-ktB"/>
-                                    <constraint firstItem="qra-dW-nLk" firstAttribute="leading" secondItem="spq-dt-YrQ" secondAttribute="leading" id="YJE-Dp-kqi"/>
-                                    <constraint firstItem="y3x-cc-GHZ" firstAttribute="trailing" secondItem="arX-br-IA9" secondAttribute="trailing" id="ZOy-sU-OtE"/>
-                                    <constraint firstItem="jW0-wr-d3R" firstAttribute="top" secondItem="CBl-dn-Vqh" secondAttribute="bottom" constant="20" id="b3B-sP-AAH"/>
-                                    <constraint firstItem="wVU-M6-xuG" firstAttribute="bottom" secondItem="S3I-MJ-FQx" secondAttribute="bottom" constant="20" id="bEC-9Q-0by"/>
-                                    <constraint firstItem="S3I-MJ-FQx" firstAttribute="leading" secondItem="qC5-6K-NwV" secondAttribute="leading" id="bsq-Ba-flM"/>
-                                    <constraint firstItem="y3x-cc-GHZ" firstAttribute="leading" secondItem="arX-br-IA9" secondAttribute="leading" id="dYq-lY-Yp3"/>
-                                    <constraint firstItem="CBl-dn-Vqh" firstAttribute="trailing" secondItem="vcJ-Ow-yxv" secondAttribute="trailing" id="dr8-u4-ME4"/>
-                                    <constraint firstItem="qC5-6K-NwV" firstAttribute="top" secondItem="qra-dW-nLk" secondAttribute="bottom" constant="20" id="hwP-S9-5iO"/>
-                                    <constraint firstItem="S3I-MJ-FQx" firstAttribute="trailing" secondItem="qC5-6K-NwV" secondAttribute="trailing" id="p8F-NB-sNT"/>
-                                    <constraint firstItem="CBl-dn-Vqh" firstAttribute="top" secondItem="vcJ-Ow-yxv" secondAttribute="bottom" constant="30" id="qWJ-o2-x30"/>
-                                    <constraint firstItem="vxt-c4-Uev" firstAttribute="top" secondItem="wVU-M6-xuG" secondAttribute="top" constant="20" id="rCF-Mv-kXR"/>
-                                    <constraint firstItem="qra-dW-nLk" firstAttribute="trailing" secondItem="spq-dt-YrQ" secondAttribute="trailing" id="rPF-Ye-qll"/>
-                                    <constraint firstItem="jW0-wr-d3R" firstAttribute="leading" secondItem="CBl-dn-Vqh" secondAttribute="leading" id="ulT-WH-l1k"/>
-                                    <constraint firstItem="qC5-6K-NwV" firstAttribute="leading" secondItem="qra-dW-nLk" secondAttribute="leading" id="xXt-kL-fUy"/>
-                                </constraints>
-                                <viewLayoutGuide key="contentLayoutGuide" id="wVU-M6-xuG"/>
-                                <viewLayoutGuide key="frameLayoutGuide" id="fE2-LA-PNf"/>
-                            </scrollView>
-                        </subviews>
-                        <color key="backgroundColor" name="Base100"/>
-                        <constraints>
-                            <constraint firstItem="9oV-f3-XvB" firstAttribute="bottom" secondItem="bVO-ox-Q8p" secondAttribute="bottom" id="HEh-OK-GPu"/>
-                            <constraint firstItem="9oV-f3-XvB" firstAttribute="top" secondItem="bVO-ox-Q8p" secondAttribute="top" id="WgQ-qR-xTL"/>
-                            <constraint firstItem="9oV-f3-XvB" firstAttribute="leading" secondItem="bVO-ox-Q8p" secondAttribute="leading" id="jyV-Fx-CXQ"/>
-                            <constraint firstItem="9oV-f3-XvB" firstAttribute="trailing" secondItem="bVO-ox-Q8p" secondAttribute="trailing" id="o9C-QU-EHO"/>
-                        </constraints>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Inputs" id="rwP-sB-YSr"/>
-                    <connections>
-                        <outlet property="disabledField" destination="JGV-fz-1Ch" id="hkV-5n-wzu"/>
-                        <outlet property="emptyField" destination="vxt-c4-Uev" id="5Fg-lw-R5x"/>
-                        <outlet property="errorField" destination="vcJ-Ow-yxv" id="sQ3-Ud-GNO"/>
-                        <outlet property="passwordField" destination="vgv-B0-hHD" id="BQ8-9i-MZl"/>
-                        <outlet property="radioGroup" destination="ewF-G6-KtP" id="TEu-7i-BQv"/>
-                        <outlet property="scrollView" destination="9oV-f3-XvB" id="n4W-lZ-qGX"/>
-                        <outlet property="scrollViewBottomConstraint" destination="HEh-OK-GPu" id="Nch-0S-KFH"/>
-                        <outlet property="statusField" destination="qra-dW-nLk" id="UQX-HB-hlp"/>
-                    </connections>
+                    <navigationItem key="navigationItem" id="5xH-Sd-Wc4"/>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="mGf-W1-tWC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Xj9-8K-rwV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2318.840579710145" y="1204.6875"/>
+            <point key="canvasLocation" x="2371" y="1205"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="vT0-F0-7qb">
@@ -251,7 +63,7 @@
         <!--Keyboards-->
         <scene sceneID="F1h-q5-c3I">
             <objects>
-                <viewController id="eyu-sI-ctB" customClass="KeyboardsViewController" customModule="PRKit_Example" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="eyu-sI-ctB" customClass="KeyboardsViewController" customModule="PRKitDemo" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="RQu-RI-4ix"/>
                         <viewControllerLayoutGuide type="bottom" id="U3n-zf-zZr"/>
@@ -488,7 +300,7 @@
         <!--Chips-->
         <scene sceneID="U5V-8n-xb6">
             <objects>
-                <viewController id="zxa-MG-ex6" customClass="ChipsViewController" customModule="PRKit_Example" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="zxa-MG-ex6" customClass="ChipsViewController" customModule="PRKitDemo" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="x5C-n2-Xs5"/>
                         <viewControllerLayoutGuide type="bottom" id="uka-pa-S8O"/>
@@ -735,7 +547,7 @@
         <!--Buttons-->
         <scene sceneID="Oht-ji-Sz1">
             <objects>
-                <viewController title="Buttons" id="hYy-H2-TVc" customClass="ButtonsViewController" customModule="PRKit_Example" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Buttons" id="hYy-H2-TVc" customClass="ButtonsViewController" customModule="PRKitDemo" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="XgC-YR-MwM"/>
                         <viewControllerLayoutGuide type="bottom" id="dLL-rA-cvc"/>
@@ -1101,7 +913,7 @@
         <!--Branding-->
         <scene sceneID="clR-S6-Tf0">
             <objects>
-                <viewController id="xxn-Ty-V5J" customClass="ViewController" customModule="PRKit_Example" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="xxn-Ty-V5J" customClass="ViewController" customModule="PRKitDemo" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Q7M-oX-ACD"/>
                         <viewControllerLayoutGuide type="bottom" id="DyJ-Ty-0Z0"/>
@@ -1231,7 +1043,7 @@
         <!--Headers-->
         <scene sceneID="TN4-1M-cWi">
             <objects>
-                <viewController id="XnX-u6-GFM" customClass="HeadersViewController" customModule="PRKit_Example" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="XnX-u6-GFM" customClass="HeadersViewController" customModule="PRKitDemo" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="30E-si-bCG"/>
                         <viewControllerLayoutGuide type="bottom" id="SqT-E0-mjs"/>
@@ -1341,7 +1153,7 @@
         <!--Navigation-->
         <scene sceneID="vqS-4a-pNv">
             <objects>
-                <viewController id="YiS-Uq-bKw" customClass="NavigationViewController" customModule="PRKit_Example" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="YiS-Uq-bKw" customClass="NavigationViewController" customModule="PRKitDemo" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="mfN-yq-DTH"/>
                         <viewControllerLayoutGuide type="bottom" id="4pf-98-Svn"/>
@@ -1389,7 +1201,7 @@
         <!--Treat-->
         <scene sceneID="ad6-P7-fkC">
             <objects>
-                <viewController id="Xzx-pu-qdp" customClass="SecondNavigationViewController" customModule="PRKit_Example" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Xzx-pu-qdp" customClass="SecondNavigationViewController" customModule="PRKitDemo" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="QIE-jg-O2r"/>
                         <viewControllerLayoutGuide type="bottom" id="Q61-mO-7fX"/>
@@ -1408,7 +1220,7 @@
         <!--Triage-->
         <scene sceneID="aXX-js-H60">
             <objects>
-                <viewController id="UWG-zF-qDT" customClass="SecondNavigationViewController" customModule="PRKit_Example" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="UWG-zF-qDT" customClass="SecondNavigationViewController" customModule="PRKitDemo" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="CpR-O1-F9N"/>
                         <viewControllerLayoutGuide type="bottom" id="hWI-we-dtj"/>
@@ -1458,7 +1270,7 @@
         <!--Tables View Controller-->
         <scene sceneID="uzj-Ba-dxv">
             <objects>
-                <tableViewController id="iAL-kP-iJd" userLabel="Tables View Controller" customClass="TablesViewController" customModule="PRKit_Example" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="iAL-kP-iJd" userLabel="Tables View Controller" customClass="TablesViewController" customModule="PRKitDemo" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" id="w6r-ns-cmX" customClass="TableView" customModule="PRKit">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1521,7 +1333,7 @@
         <!--Roles/Resources-->
         <scene sceneID="mLk-xE-yiD">
             <objects>
-                <viewController id="DXt-nW-JiG" customClass="SecondNavigationViewController" customModule="PRKit_Example" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="DXt-nW-JiG" customClass="SecondNavigationViewController" customModule="PRKitDemo" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ekB-xq-EyC"/>
                         <viewControllerLayoutGuide type="bottom" id="9yO-b3-2hR"/>
@@ -1608,7 +1420,7 @@
         <!--Custom View Controller-->
         <scene sceneID="Wik-xh-p6M">
             <objects>
-                <viewController id="OLM-bO-o8S" customClass="CustomViewController" customModule="PRKit_Example" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="OLM-bO-o8S" customClass="CustomViewController" customModule="PRKitDemo" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="UXI-p5-1DR"/>
                         <viewControllerLayoutGuide type="bottom" id="3DK-79-N1c"/>
@@ -1865,6 +1677,24 @@
             </objects>
             <point key="canvasLocation" x="894" y="468"/>
         </scene>
+        <!--App View Controller-->
+        <scene sceneID="fh4-sg-QWB">
+            <objects>
+                <viewController id="MUQ-kX-kCH" customClass="AppViewController" customModule="PRKitDemo" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="yQ3-dG-lTi"/>
+                        <viewControllerLayoutGuide type="bottom" id="QAW-SD-tiO"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="tei-lE-Tuy">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GGi-Kg-T6b" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1847" y="459"/>
+        </scene>
         <!--Split View Controller-->
         <scene sceneID="wBv-Uh-LeL">
             <objects>
@@ -1875,12 +1705,12 @@
                 </splitViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3Kv-hh-AFp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="138" y="771"/>
+            <point key="canvasLocation" x="-465" y="467"/>
         </scene>
         <!--Stage-->
         <scene sceneID="zWr-jU-P3P">
             <objects>
-                <viewController id="7OG-1l-2sQ" customClass="SecondNavigationViewController" customModule="PRKit_Example" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="7OG-1l-2sQ" customClass="SecondNavigationViewController" customModule="PRKitDemo" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="42b-qw-il0"/>
                         <viewControllerLayoutGuide type="bottom" id="deP-L9-oQu"/>
@@ -1899,7 +1729,7 @@
         <!--Transport-->
         <scene sceneID="KBI-Ya-JvN">
             <objects>
-                <viewController id="oJj-qK-Pbg" customClass="SecondNavigationViewController" customModule="PRKit_Example" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="oJj-qK-Pbg" customClass="SecondNavigationViewController" customModule="PRKitDemo" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="u51-np-kLh"/>
                         <viewControllerLayoutGuide type="bottom" id="ZcY-GZ-oPX"/>
@@ -1918,7 +1748,7 @@
         <!--Reunify-->
         <scene sceneID="gPS-D3-eZ5">
             <objects>
-                <viewController id="Fin-bh-ock" customClass="SecondNavigationViewController" customModule="PRKit_Example" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Fin-bh-ock" customClass="SecondNavigationViewController" customModule="PRKitDemo" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="l6o-Ll-Jja"/>
                         <viewControllerLayoutGuide type="bottom" id="wdK-dj-S2P"/>

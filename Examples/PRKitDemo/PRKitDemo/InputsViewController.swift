@@ -20,23 +20,219 @@ class InputsViewController: ViewController, FormFieldDelegate, KeyboardAwareScro
     @IBOutlet weak var errorField: TextField!
     @IBOutlet weak var statusField: TextField!
     @IBOutlet weak var radioGroup: FormRadioGroup!
-
+    
+    init() {
+        super.init(nibName: nil, bundle: nil)
+        navigationItem.title = "Inputs"
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         let inputAccessoryView = FormInputAccessoryView(rootView: view)
+
+        let scrollView = UIScrollView()
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(scrollView)
+        let scrollViewBottomConstraint = scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        NSLayoutConstraint.activate([
+            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            scrollViewBottomConstraint
+        ])
+        self.scrollView = scrollView
+        self.scrollViewBottomConstraint = scrollViewBottomConstraint
+
+        var tag = 1
+
+        let emptyField = TextField()
+        emptyField.translatesAutoresizingMaskIntoConstraints = false
+        emptyField.delegate = self
+        emptyField.labelText = "Empty Field"
+        emptyField.placeholderText = "Placeholder"
         emptyField.inputAccessoryView = inputAccessoryView
         emptyField.inputAccessoryViewOtherButtonTitle = "Open Tag"
         emptyField.accessoryButtonImage = UIImage(named: "Phone40px", in: PRKitBundle.instance, compatibleWith: nil)
+        emptyField.tag = tag
+        tag += 1
+        scrollView.addSubview(emptyField)
+        NSLayoutConstraint.activate([
+            emptyField.topAnchor.constraint(equalTo: scrollView.contentLayoutGuide.topAnchor, constant: 20),
+            emptyField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            emptyField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+        ])
+        self.emptyField = emptyField
+        
+        let disabledField = TextField()
+        disabledField.translatesAutoresizingMaskIntoConstraints = false
+        disabledField.delegate = self
+        disabledField.labelText = "Disabled Field"
+        disabledField.placeholderText = "Placeholder"
         disabledField.inputAccessoryView = inputAccessoryView
+        disabledField.isEnabled = false
+        disabledField.tag = tag
+        tag += 1
+        scrollView.addSubview(disabledField)
+        NSLayoutConstraint.activate([
+            disabledField.topAnchor.constraint(equalTo: emptyField.bottomAnchor, constant: 20),
+            disabledField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            disabledField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+        ])
+        self.disabledField = disabledField
+        
+        let passwordField = PasswordField()
+        passwordField.translatesAutoresizingMaskIntoConstraints = false
+        passwordField.delegate = self
+        passwordField.labelText = "Password Field"
+        passwordField.placeholderText = "********"
         passwordField.inputAccessoryView = inputAccessoryView
+        passwordField.tag = tag
+        tag += 1
+        scrollView.addSubview(passwordField)
+        NSLayoutConstraint.activate([
+            passwordField.topAnchor.constraint(equalTo: disabledField.bottomAnchor, constant: 20),
+            passwordField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            passwordField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+        ])
+        self.passwordField = passwordField
+        
+        let errorField = TextField()
+        errorField.translatesAutoresizingMaskIntoConstraints = false
+        errorField.delegate = self
+        errorField.labelText = "Error Field"
+        errorField.placeholderText = "Placeholder"
+        errorField.hasError = true
+        errorField.errorText = "Lorem ipsum dolor sit amet consectetur adipiscing elit. Dolor sit amet consectetur adipiscing elit quisque faucibus."
         errorField.inputAccessoryView = inputAccessoryView
+        errorField.tag = tag
+        tag += 1
+        scrollView.addSubview(errorField)
+        NSLayoutConstraint.activate([
+            errorField.topAnchor.constraint(equalTo: passwordField.bottomAnchor, constant: 20),
+            errorField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            errorField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+        ])
+        self.errorField = errorField
+        
+        let checkbox = Checkbox()
+        checkbox.translatesAutoresizingMaskIntoConstraints = false
+        checkbox.labelText = "Checkbox"
+        scrollView.addSubview(checkbox)
+        NSLayoutConstraint.activate([
+            checkbox.topAnchor.constraint(equalTo: errorField.bottomAnchor, constant: 30),
+            checkbox.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            checkbox.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+        ])
+        
+        let disabledCheckbox = Checkbox()
+        disabledCheckbox.translatesAutoresizingMaskIntoConstraints = false
+        disabledCheckbox.labelText = "Disabled Checkbox"
+        disabledCheckbox.isEnabled = false
+        disabledCheckbox.isChecked = true
+        scrollView.addSubview(disabledCheckbox)
+        NSLayoutConstraint.activate([
+            disabledCheckbox.topAnchor.constraint(equalTo: checkbox.bottomAnchor, constant: 20),
+            disabledCheckbox.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            disabledCheckbox.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+        ])
 
+        let searchField = TextField()
+        searchField.translatesAutoresizingMaskIntoConstraints = false
+        searchField.delegate = self
+        searchField.isLabelHidden = true
+        searchField.isSearchIconHidden = false
+        searchField.placeholderText = "Search..."
+        searchField.inputAccessoryView = inputAccessoryView
+        searchField.tag = tag
+        tag += 1
+        scrollView.addSubview(searchField)
+        NSLayoutConstraint.activate([
+            searchField.topAnchor.constraint(equalTo: disabledCheckbox.bottomAnchor, constant: 20),
+            searchField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            searchField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+        ])
+        
+        let radioButton = Checkbox()
+        radioButton.translatesAutoresizingMaskIntoConstraints = false
+        radioButton.labelText = "Radio button"
+        radioButton.isRadioButton = true
+        scrollView.addSubview(radioButton)
+        NSLayoutConstraint.activate([
+            radioButton.topAnchor.constraint(equalTo: searchField.bottomAnchor, constant: 20),
+            radioButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            radioButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+        ])
+        
+        let disabledRadioButton = Checkbox()
+        disabledRadioButton.translatesAutoresizingMaskIntoConstraints = false
+        disabledRadioButton.labelText = "Disabled radio button"
+        disabledRadioButton.isRadioButton = true
+        disabledRadioButton.isChecked = true
+        disabledRadioButton.isEnabled = false
+        scrollView.addSubview(disabledRadioButton)
+        NSLayoutConstraint.activate([
+            disabledRadioButton.topAnchor.constraint(equalTo: radioButton.bottomAnchor, constant: 20),
+            disabledRadioButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            disabledRadioButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+        ])
+
+        let radioGroup = FormRadioGroup()
+        radioGroup.translatesAutoresizingMaskIntoConstraints = false
         radioGroup.inputAccessoryView = inputAccessoryView
         radioGroup.isDeselectable = true
         radioGroup.labelText = "Radio Group"
         radioGroup.addRadioButton(labelText: "Arrived", value: "arrived" as NSObject)
         radioGroup.addRadioButton(labelText: "En Route", value: "enroute" as NSObject)
+        scrollView.addSubview(radioGroup)
+        NSLayoutConstraint.activate([
+            radioGroup.topAnchor.constraint(equalTo: disabledRadioButton.bottomAnchor, constant: 20),
+            radioGroup.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            radioGroup.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+        ])
+
+        let statusField = TextField()
+        statusField.translatesAutoresizingMaskIntoConstraints = false
+        statusField.delegate = self
+        statusField.labelText = "Status Field"
+        statusField.placeholderText = "Placeholder"
+        statusField.status = .unconfirmed
+        statusField.inputAccessoryView = inputAccessoryView
+        statusField.tag = tag
+        tag += 1
+        scrollView.addSubview(statusField)
+        NSLayoutConstraint.activate([
+            statusField.topAnchor.constraint(equalTo: radioGroup.bottomAnchor, constant: 20),
+            statusField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            statusField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+        ])
+        self.statusField = statusField
+        
+        let signatureField = SignatureField()
+        signatureField.translatesAutoresizingMaskIntoConstraints = false
+        signatureField.delegate = self
+        scrollView.addSubview(signatureField)
+        NSLayoutConstraint.activate([
+            signatureField.topAnchor.constraint(equalTo: statusField.bottomAnchor, constant: 20),
+            signatureField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            signatureField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+        ])
+        
+        let cellField = CellField()
+        cellField.translatesAutoresizingMaskIntoConstraints = false
+        cellField.isLabelHidden = true
+        cellField.text = "Patient Refusal Against Medical Advice"
+        scrollView.addSubview(cellField)
+        NSLayoutConstraint.activate([
+            cellField.topAnchor.constraint(equalTo: signatureField.bottomAnchor, constant: 20),
+            cellField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            cellField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            scrollView.contentLayoutGuide.bottomAnchor.constraint(equalTo: cellField.bottomAnchor, constant: 20)
+        ])
     }
 
     override func viewWillAppear(_ animated: Bool) {

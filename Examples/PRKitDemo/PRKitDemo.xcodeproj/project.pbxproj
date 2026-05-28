@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		4536D4A42FAE94E8001ACA32 /* PRKit in Frameworks */ = {isa = PBXBuildFile; productRef = 4536D4A32FAE94E8001ACA32 /* PRKit */; };
+		45C401202FC7C6A400E679CC /* PRKit in Frameworks */ = {isa = PBXBuildFile; productRef = 45DF0BA62F8AE9A60033E80A /* PRKit */; };
+		45C401212FC7C6A400E679CC /* PRKit in Frameworks */ = {isa = PBXBuildFile; productRef = 4536D4702FAE93B2001ACA32 /* PRKit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +71,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				45C401212FC7C6A400E679CC /* PRKit in Frameworks */,
+				45C401202FC7C6A400E679CC /* PRKit in Frameworks */,
 				4536D4A42FAE94E8001ACA32 /* PRKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
