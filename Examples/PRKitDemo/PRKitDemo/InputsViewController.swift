@@ -50,6 +50,15 @@ class InputsViewController: ViewController, FormFieldDelegate, KeyboardAwareScro
         self.scrollViewBottomConstraint = scrollViewBottomConstraint
 
         var tag = 1
+        
+        var items: [(String, String)] = []
+        for i in 1...20 {
+            items.append(("Label \(i)", "value\(i)"))
+        }
+        var items2: [(String, String)] = []
+        for i in 1...20 {
+            items2.append(("Another Label \(i)", "anothervalue\(i)"))
+        }
 
         let autocompleteField = AutocompleteTextField()
         autocompleteField.translatesAutoresizingMaskIntoConstraints = false
@@ -58,6 +67,10 @@ class InputsViewController: ViewController, FormFieldDelegate, KeyboardAwareScro
         autocompleteField.placeholderText = "Placeholder"
         autocompleteField.inputAccessoryView = inputAccessoryView
         autocompleteField.tag = tag
+        autocompleteField.sources = [
+            TupleKeyboardSource(name: "Suggested", items: items),
+            TupleKeyboardSource(name: "ICD-10", items: items2),
+        ]
         tag += 1
         scrollView.addSubview(autocompleteField)
         NSLayoutConstraint.activate([
@@ -248,7 +261,26 @@ class InputsViewController: ViewController, FormFieldDelegate, KeyboardAwareScro
             cellField.topAnchor.constraint(equalTo: signatureField.bottomAnchor, constant: 20),
             cellField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             cellField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            scrollView.contentLayoutGuide.bottomAnchor.constraint(equalTo: cellField.bottomAnchor, constant: 20)
+        ])
+        
+        let bottomAutocompleteField = AutocompleteTextField()
+        bottomAutocompleteField.translatesAutoresizingMaskIntoConstraints = false
+        bottomAutocompleteField.delegate = self
+        bottomAutocompleteField.labelText = "Autocomplete Field"
+        bottomAutocompleteField.placeholderText = "Placeholder"
+        bottomAutocompleteField.inputAccessoryView = inputAccessoryView
+        bottomAutocompleteField.tag = tag
+        bottomAutocompleteField.sources = [
+            TupleKeyboardSource(name: "Suggested", items: items),
+            TupleKeyboardSource(name: "ICD-10", items: items2),
+        ]
+        tag += 1
+        scrollView.addSubview(bottomAutocompleteField)
+        NSLayoutConstraint.activate([
+            bottomAutocompleteField.topAnchor.constraint(equalTo: signatureField.bottomAnchor, constant: 20),
+            bottomAutocompleteField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            bottomAutocompleteField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            scrollView.contentLayoutGuide.bottomAnchor.constraint(equalTo: bottomAutocompleteField.bottomAnchor, constant: 20)
         ])
     }
 
