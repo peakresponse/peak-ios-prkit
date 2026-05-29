@@ -53,233 +53,31 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="eyu-sI-ctB" kind="relationship" relationship="rootViewController" id="cpQ-zR-60y"/>
+                        <segue destination="8uc-nS-u6l" kind="relationship" relationship="rootViewController" id="HFD-vY-Ue5"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YDr-Wt-MyO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3165" y="1205"/>
         </scene>
-        <!--Keyboards-->
-        <scene sceneID="F1h-q5-c3I">
+        <!--Keyboards View Controller-->
+        <scene sceneID="lUO-0h-gsf">
             <objects>
-                <viewController id="eyu-sI-ctB" customClass="KeyboardsViewController" customModule="PRKitDemo" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="8uc-nS-u6l" customClass="KeyboardsViewController" customModule="PRKitDemo" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="RQu-RI-4ix"/>
-                        <viewControllerLayoutGuide type="bottom" id="U3n-zf-zZr"/>
+                        <viewControllerLayoutGuide type="top" id="Xqj-Hv-n0J"/>
+                        <viewControllerLayoutGuide type="bottom" id="Jh3-8H-bq4"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="5vI-H3-9Fb">
+                    <view key="view" contentMode="scaleToFill" id="JCZ-Nd-WUX">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0qr-hl-4jc">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                                <subviews>
-                                    <view tag="1" contentMode="scaleToFill" placeholderIntrinsicWidth="374" placeholderIntrinsicHeight="72.5" translatesAutoresizingMaskIntoConstraints="NO" id="eiO-p5-cRS" userLabel="Date Field" customClass="TextField" customModule="PRKit">
-                                        <rect key="frame" x="20" y="20" width="374" height="72.5"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="AttributeType" value="date"/>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="labelText" value="Date"/>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <outlet property="delegate" destination="eyu-sI-ctB" id="9eM-0i-A7s"/>
-                                        </connections>
-                                    </view>
-                                    <view tag="2" contentMode="scaleToFill" placeholderIntrinsicWidth="374" placeholderIntrinsicHeight="72.5" translatesAutoresizingMaskIntoConstraints="NO" id="rFx-l1-9xA" customClass="TextField" customModule="PRKit">
-                                        <rect key="frame" x="20" y="112.5" width="374" height="72.5"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="AttributeType" value="datetime"/>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="labelText" value="Date &amp; Time"/>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <outlet property="delegate" destination="eyu-sI-ctB" id="NSg-g2-6Rg"/>
-                                        </connections>
-                                    </view>
-                                    <view tag="3" contentMode="scaleToFill" placeholderIntrinsicWidth="374" placeholderIntrinsicHeight="72.5" translatesAutoresizingMaskIntoConstraints="NO" id="5Ku-QY-bh8" customClass="TextField" customModule="PRKit">
-                                        <rect key="frame" x="20" y="205" width="374" height="72.5"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="labelText" value="Email"/>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <outlet property="delegate" destination="eyu-sI-ctB" id="Q2Q-vl-kCL"/>
-                                        </connections>
-                                    </view>
-                                    <view tag="4" contentMode="scaleToFill" placeholderIntrinsicWidth="374" placeholderIntrinsicHeight="72.5" translatesAutoresizingMaskIntoConstraints="NO" id="RN5-yH-PFJ" customClass="TextField" customModule="PRKit">
-                                        <rect key="frame" x="20" y="297.5" width="374" height="72.5"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="AttributeType" value="picker"/>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="labelText" value="Picker"/>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <outlet property="delegate" destination="eyu-sI-ctB" id="67j-XS-yK9"/>
-                                        </connections>
-                                    </view>
-                                    <view tag="5" contentMode="scaleToFill" placeholderIntrinsicWidth="374" placeholderIntrinsicHeight="72.5" translatesAutoresizingMaskIntoConstraints="NO" id="pRT-XV-e5d" userLabel="Integer Field" customClass="TextField" customModule="PRKit">
-                                        <rect key="frame" x="20" y="390" width="374" height="72.5"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="AttributeType" value="integer"/>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="labelText" value="Integer"/>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <outlet property="delegate" destination="eyu-sI-ctB" id="g0V-WK-jtA"/>
-                                        </connections>
-                                    </view>
-                                    <view tag="6" contentMode="scaleToFill" placeholderIntrinsicWidth="374" placeholderIntrinsicHeight="72.5" translatesAutoresizingMaskIntoConstraints="NO" id="lsk-bE-S2o" userLabel="Decimal Field" customClass="TextField" customModule="PRKit">
-                                        <rect key="frame" x="20" y="482.5" width="374" height="72.5"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="AttributeType" value="decimal"/>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="labelText" value="Decimal"/>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <outlet property="delegate" destination="eyu-sI-ctB" id="352-WO-bsK"/>
-                                        </connections>
-                                    </view>
-                                    <view tag="7" contentMode="scaleToFill" placeholderIntrinsicWidth="374" placeholderIntrinsicHeight="72.5" translatesAutoresizingMaskIntoConstraints="NO" id="wRL-tg-g7F" userLabel="Age Field" customClass="TextField" customModule="PRKit">
-                                        <rect key="frame" x="20" y="575" width="374" height="72.5"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="AttributeType" value="integerWithUnit"/>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="labelText" value="Age"/>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <outlet property="delegate" destination="eyu-sI-ctB" id="pYM-CH-qaO"/>
-                                        </connections>
-                                    </view>
-                                    <view tag="8" contentMode="scaleToFill" placeholderIntrinsicWidth="374" placeholderIntrinsicHeight="72.5" translatesAutoresizingMaskIntoConstraints="NO" id="1lj-fV-5N5" userLabel="Multiselect Field" customClass="TextField" customModule="PRKit">
-                                        <rect key="frame" x="20" y="667.5" width="374" height="72.5"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="AttributeType" value="multi"/>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="labelText" value="Multi select"/>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <outlet property="delegate" destination="eyu-sI-ctB" id="mGC-ZV-BLW"/>
-                                        </connections>
-                                    </view>
-                                    <view tag="9" contentMode="scaleToFill" placeholderIntrinsicWidth="374" placeholderIntrinsicHeight="72.5" translatesAutoresizingMaskIntoConstraints="NO" id="an9-QA-0bQ" userLabel="Single Select Field" customClass="TextField" customModule="PRKit">
-                                        <rect key="frame" x="20" y="760" width="374" height="72.5"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="AttributeType" value="multi"/>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="labelText" value="Single select"/>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <outlet property="delegate" destination="eyu-sI-ctB" id="heD-DB-mV5"/>
-                                        </connections>
-                                    </view>
-                                    <view tag="10" contentMode="scaleToFill" placeholderIntrinsicWidth="374" placeholderIntrinsicHeight="72.5" translatesAutoresizingMaskIntoConstraints="NO" id="zzq-vE-fXr" userLabel="Search multi select Field" customClass="TextField" customModule="PRKit">
-                                        <rect key="frame" x="20" y="852.5" width="374" height="72.5"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="AttributeType" value="search"/>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="labelText" value="Search multi select"/>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <outlet property="delegate" destination="eyu-sI-ctB" id="6Do-t8-SvC"/>
-                                        </connections>
-                                    </view>
-                                    <view tag="11" contentMode="scaleToFill" placeholderIntrinsicWidth="374" placeholderIntrinsicHeight="72.5" translatesAutoresizingMaskIntoConstraints="NO" id="Ssp-Rq-eBz" userLabel="Search single Select Field" customClass="TextField" customModule="PRKit">
-                                        <rect key="frame" x="20" y="945" width="374" height="72.5"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="AttributeType" value="search"/>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="labelText" value="Search single select"/>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <outlet property="delegate" destination="eyu-sI-ctB" id="awd-dv-dPF"/>
-                                        </connections>
-                                    </view>
-                                    <view tag="12" contentMode="scaleToFill" placeholderIntrinsicWidth="374" placeholderIntrinsicHeight="72.5" translatesAutoresizingMaskIntoConstraints="NO" id="Q1B-QG-FNU" userLabel="Combo Field" customClass="TextField" customModule="PRKit">
-                                        <rect key="frame" x="20" y="1037.5" width="374" height="72.5"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="AttributeType" value="search"/>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="labelText" value="Combo"/>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <outlet property="delegate" destination="eyu-sI-ctB" id="y61-5s-c9e"/>
-                                        </connections>
-                                    </view>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstItem="pRT-XV-e5d" firstAttribute="leading" secondItem="RN5-yH-PFJ" secondAttribute="leading" id="0PC-6b-Xyq"/>
-                                    <constraint firstItem="lsk-bE-S2o" firstAttribute="trailing" secondItem="pRT-XV-e5d" secondAttribute="trailing" id="0Sl-pA-cIM"/>
-                                    <constraint firstItem="RN5-yH-PFJ" firstAttribute="leading" secondItem="5Ku-QY-bh8" secondAttribute="leading" id="2LH-lK-PlX"/>
-                                    <constraint firstItem="lsk-bE-S2o" firstAttribute="leading" secondItem="pRT-XV-e5d" secondAttribute="leading" id="3vb-Bl-gWw"/>
-                                    <constraint firstItem="eiO-p5-cRS" firstAttribute="leading" secondItem="kkl-yR-yal" secondAttribute="leading" constant="20" id="4fp-tI-ISK"/>
-                                    <constraint firstItem="Ssp-Rq-eBz" firstAttribute="trailing" secondItem="zzq-vE-fXr" secondAttribute="trailing" id="5Wb-fT-hvD"/>
-                                    <constraint firstItem="RN5-yH-PFJ" firstAttribute="top" secondItem="5Ku-QY-bh8" secondAttribute="bottom" constant="20" id="6tq-jZ-0nZ"/>
-                                    <constraint firstItem="rFx-l1-9xA" firstAttribute="trailing" secondItem="eiO-p5-cRS" secondAttribute="trailing" id="8K5-Dr-kVJ"/>
-                                    <constraint firstItem="1lj-fV-5N5" firstAttribute="trailing" secondItem="wRL-tg-g7F" secondAttribute="trailing" id="AWk-Ws-YWs"/>
-                                    <constraint firstItem="rFx-l1-9xA" firstAttribute="top" secondItem="eiO-p5-cRS" secondAttribute="bottom" constant="20" id="Ait-eF-Zre"/>
-                                    <constraint firstItem="kkl-yR-yal" firstAttribute="bottom" secondItem="Q1B-QG-FNU" secondAttribute="bottom" constant="40" id="Bbu-6d-0Hp"/>
-                                    <constraint firstItem="kkl-yR-yal" firstAttribute="trailing" secondItem="eiO-p5-cRS" secondAttribute="trailing" constant="20" id="Bxo-3z-g6F"/>
-                                    <constraint firstItem="zzq-vE-fXr" firstAttribute="leading" secondItem="an9-QA-0bQ" secondAttribute="leading" id="CBp-hY-hrA"/>
-                                    <constraint firstItem="an9-QA-0bQ" firstAttribute="trailing" secondItem="1lj-fV-5N5" secondAttribute="trailing" id="ClG-3J-QH6"/>
-                                    <constraint firstItem="Ssp-Rq-eBz" firstAttribute="top" secondItem="zzq-vE-fXr" secondAttribute="bottom" constant="20" id="CsZ-Hn-Hvh"/>
-                                    <constraint firstItem="rFx-l1-9xA" firstAttribute="leading" secondItem="eiO-p5-cRS" secondAttribute="leading" id="DRt-fx-D5g"/>
-                                    <constraint firstItem="eiO-p5-cRS" firstAttribute="width" secondItem="IOF-hj-M1j" secondAttribute="width" constant="-40" id="F73-k9-WS8"/>
-                                    <constraint firstItem="Ssp-Rq-eBz" firstAttribute="leading" secondItem="zzq-vE-fXr" secondAttribute="leading" id="Luj-LI-X7E"/>
-                                    <constraint firstItem="pRT-XV-e5d" firstAttribute="trailing" secondItem="RN5-yH-PFJ" secondAttribute="trailing" id="Ne7-ZO-BFc"/>
-                                    <constraint firstItem="5Ku-QY-bh8" firstAttribute="trailing" secondItem="rFx-l1-9xA" secondAttribute="trailing" id="QOv-gR-cXc"/>
-                                    <constraint firstItem="wRL-tg-g7F" firstAttribute="top" secondItem="lsk-bE-S2o" secondAttribute="bottom" constant="20" id="RNh-b3-Ss0"/>
-                                    <constraint firstItem="an9-QA-0bQ" firstAttribute="top" secondItem="1lj-fV-5N5" secondAttribute="bottom" constant="20" id="TTF-tO-8LY"/>
-                                    <constraint firstItem="5Ku-QY-bh8" firstAttribute="top" secondItem="rFx-l1-9xA" secondAttribute="bottom" constant="20" id="Uql-gz-yLc"/>
-                                    <constraint firstItem="eiO-p5-cRS" firstAttribute="top" secondItem="kkl-yR-yal" secondAttribute="top" constant="20" id="YYH-FL-zrs"/>
-                                    <constraint firstItem="1lj-fV-5N5" firstAttribute="top" secondItem="wRL-tg-g7F" secondAttribute="bottom" constant="20" id="YcG-zH-z6c"/>
-                                    <constraint firstItem="lsk-bE-S2o" firstAttribute="top" secondItem="pRT-XV-e5d" secondAttribute="bottom" constant="20" id="ZMm-gL-G4U"/>
-                                    <constraint firstItem="zzq-vE-fXr" firstAttribute="top" secondItem="an9-QA-0bQ" secondAttribute="bottom" constant="20" id="c7N-IU-O17"/>
-                                    <constraint firstItem="wRL-tg-g7F" firstAttribute="trailing" secondItem="lsk-bE-S2o" secondAttribute="trailing" id="cTi-7y-Dce"/>
-                                    <constraint firstItem="5Ku-QY-bh8" firstAttribute="leading" secondItem="rFx-l1-9xA" secondAttribute="leading" id="cZI-iz-AP6"/>
-                                    <constraint firstItem="Q1B-QG-FNU" firstAttribute="top" secondItem="Ssp-Rq-eBz" secondAttribute="bottom" constant="20" id="gYU-xp-CLJ"/>
-                                    <constraint firstItem="1lj-fV-5N5" firstAttribute="leading" secondItem="wRL-tg-g7F" secondAttribute="leading" id="lLI-Ky-4mS"/>
-                                    <constraint firstItem="pRT-XV-e5d" firstAttribute="top" secondItem="RN5-yH-PFJ" secondAttribute="bottom" constant="20" id="pPg-g2-VcB"/>
-                                    <constraint firstItem="zzq-vE-fXr" firstAttribute="trailing" secondItem="an9-QA-0bQ" secondAttribute="trailing" id="r4L-IA-4UK"/>
-                                    <constraint firstItem="wRL-tg-g7F" firstAttribute="leading" secondItem="lsk-bE-S2o" secondAttribute="leading" id="rW8-dN-1D9"/>
-                                    <constraint firstItem="Q1B-QG-FNU" firstAttribute="leading" secondItem="Ssp-Rq-eBz" secondAttribute="leading" id="t0i-iU-eEB"/>
-                                    <constraint firstItem="RN5-yH-PFJ" firstAttribute="trailing" secondItem="5Ku-QY-bh8" secondAttribute="trailing" id="vS3-NV-5eT"/>
-                                    <constraint firstItem="Q1B-QG-FNU" firstAttribute="trailing" secondItem="Ssp-Rq-eBz" secondAttribute="trailing" id="vVm-kD-IDb"/>
-                                    <constraint firstItem="an9-QA-0bQ" firstAttribute="leading" secondItem="1lj-fV-5N5" secondAttribute="leading" id="yuW-t0-rDz"/>
-                                </constraints>
-                                <viewLayoutGuide key="contentLayoutGuide" id="kkl-yR-yal"/>
-                                <viewLayoutGuide key="frameLayoutGuide" id="IOF-hj-M1j"/>
-                            </scrollView>
-                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstAttribute="trailing" secondItem="0qr-hl-4jc" secondAttribute="trailing" id="0NE-YF-TYh"/>
-                            <constraint firstItem="0qr-hl-4jc" firstAttribute="top" secondItem="5vI-H3-9Fb" secondAttribute="top" id="7jj-Ad-wyx"/>
-                            <constraint firstItem="0qr-hl-4jc" firstAttribute="leading" secondItem="5vI-H3-9Fb" secondAttribute="leading" id="9yf-9R-M5W"/>
-                            <constraint firstItem="0qr-hl-4jc" firstAttribute="bottom" secondItem="5vI-H3-9Fb" secondAttribute="bottom" id="zKZ-eh-cOf"/>
-                        </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Keyboards" id="17X-ii-Zlo"/>
-                    <connections>
-                        <outlet property="ageField" destination="wRL-tg-g7F" id="pXZ-kj-EYo"/>
-                        <outlet property="comboField" destination="Q1B-QG-FNU" id="DxF-Y1-yGd"/>
-                        <outlet property="dateField" destination="eiO-p5-cRS" id="s7e-kf-nD7"/>
-                        <outlet property="dateTimeField" destination="rFx-l1-9xA" id="cOO-qm-Iez"/>
-                        <outlet property="decimalField" destination="lsk-bE-S2o" id="v7V-39-K48"/>
-                        <outlet property="emailField" destination="5Ku-QY-bh8" id="Aqp-Jm-hMa"/>
-                        <outlet property="integerField" destination="pRT-XV-e5d" id="8og-Sk-Esl"/>
-                        <outlet property="multiField" destination="1lj-fV-5N5" id="5wh-I8-hNI"/>
-                        <outlet property="multiSearchField" destination="zzq-vE-fXr" id="KT1-qo-7XF"/>
-                        <outlet property="pickerField" destination="RN5-yH-PFJ" id="y6a-LR-Ee3"/>
-                        <outlet property="scrollView" destination="0qr-hl-4jc" id="sQN-CJ-o0b"/>
-                        <outlet property="scrollViewBottomConstraint" destination="zKZ-eh-cOf" id="0dr-sF-KXB"/>
-                        <outlet property="singleField" destination="an9-QA-0bQ" id="bap-Ny-NXM"/>
-                        <outlet property="singleSearchField" destination="Ssp-Rq-eBz" id="q2S-4g-coc"/>
-                    </connections>
+                    <navigationItem key="navigationItem" id="9U9-3L-9LC"/>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="xyK-EW-kig" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="DBi-1b-P2N" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3876.811594202899" y="1204.6875"/>
+            <point key="canvasLocation" x="3877" y="1205"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="dH6-SK-vzC">

@@ -10,17 +10,17 @@ import PRKit
 import UIKit
 
 class RootViewController: UITableViewController {
-    let rows = [
-        "Branding",
-        "Buttons",
-        "Chips",
-        "Custom",
-        "Headers",
-        "Inputs",
-        "Keyboards",
-        "Navigation",
-        "Tabs",
-        "Tables"
+    let rows: [(String, UIViewController.Type?)] = [
+        ("Branding", nil),
+        ("Buttons", nil),
+        ("Chips", nil),
+        ("Custom", nil),
+        ("Headers", nil),
+        ("Inputs", InputsViewController.self),
+        ("Keyboards", KeyboardsViewController.self),
+        ("Navigation", nil),
+        ("Tabs", nil),
+        ("Tables", nil)
     ]
     
     init() {
@@ -54,14 +54,16 @@ class RootViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SidebarItem", for: indexPath)
-        cell.textLabel?.text = rows[indexPath.row]
+        cell.textLabel?.text = rows[indexPath.row].0
         return cell
     }
     
     // MARK: - UITableViewDelegate
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let vc = InputsViewController()
-        showDetailViewController(vc, sender: self)
+        if let type = rows[indexPath.row].1 {
+            let vc = type.init()
+            showDetailViewController(vc, sender: self)
+        }
     }
 }
