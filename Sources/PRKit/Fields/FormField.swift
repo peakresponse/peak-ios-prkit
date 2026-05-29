@@ -196,6 +196,7 @@ open class FormField: FormComponent, Localizable, FormInputViewDelegate {
     open weak var stackView: UIStackView!
     open weak var contentStackView: UIStackView!
     open weak var contentView: UIView!
+    var multiValueViews: [UIView]?
 
     open weak var statusButton: UIButton!
     open weak var accessoryButton: UIButton?
@@ -272,7 +273,6 @@ open class FormField: FormComponent, Localizable, FormInputViewDelegate {
             for (i, _) in attributeValues.enumerated() where i != attributeIndex {
                 attributeValues[i] = nil
             }
-            didUpdateAttributeValue()
         }
     }
 
@@ -409,7 +409,61 @@ open class FormField: FormComponent, Localizable, FormInputViewDelegate {
 
     open override func didUpdateAttributeValue() {
         super.didUpdateAttributeValue()
-        let text = attributeValues.enumerated().compactMap { attributeTypes[$0].text(for: $1) }.joined(separator: " ")
+        var text: String = ""
+        if let multiValueViews {
+            for view in multiValueViews {
+                view.removeFromSuperview()
+            }
+        }
+        if let values = attributeValues.first as? [NSObject?], !values.isEmpty {
+            let values = values.compactMap({ attributeTypes[0].text(for: $0)})
+            if !values.isEmpty {
+                for (i, value) in values.enumerated() {
+                    if i == values.count - 1 {
+                        self.text = value
+                    } else {
+                        if multiValueViews == nil {
+                            multiValueViews = []
+                        }
+                        let valueView = UIView()
+                        multiValueViews?.append(valueView)
+                        contentStackView.insertArrangedSubview(valueView, at: 2)
+
+                        let valueSeparatorView = UIView()
+                        valueSeparatorView.translatesAutoresizingMaskIntoConstraints = false
+                        valueSeparatorView.backgroundColor = .disabledBorder
+                        valueView.addSubview(valueSeparatorView)
+                        NSLayoutConstraint.activate([
+                            valueSeparatorView.topAnchor.constraint(equalTo: valueView.topAnchor, constant: (i == values.count - 2) ? 2 : 0),
+                            valueSeparatorView.leftAnchor.constraint(equalTo: valueView.leftAnchor),
+                            valueSeparatorView.rightAnchor.constraint(equalTo: valueView.rightAnchor),
+                            valueSeparatorView.heightAnchor.constraint(equalToConstant: 2)
+                        ])
+
+                        let valueLabel = UILabel()
+                        valueLabel.translatesAutoresizingMaskIntoConstraints = false
+                        valueLabel.font = .h4SemiBold
+                        valueLabel.numberOfLines = 0
+                        let attributedText = NSMutableAttributedString(string: value)
+                        let paragraphStyle = NSMutableParagraphStyle()
+                        paragraphStyle.lineSpacing = 4
+                        attributedText.addAttribute(.paragraphStyle, value: paragraphStyle, range: .init(location: 0, length: attributedText.length))
+                        valueLabel.attributedText = attributedText
+
+                        valueLabel.textColor = .text
+                        valueView.addSubview(valueLabel)
+                        NSLayoutConstraint.activate([
+                            valueLabel.topAnchor.constraint(equalTo: valueSeparatorView.bottomAnchor, constant: 10),
+                            valueLabel.leadingAnchor.constraint(equalTo: valueView.leadingAnchor),
+                            valueLabel.trailingAnchor.constraint(equalTo: valueView.trailingAnchor),
+                            valueLabel.bottomAnchor.constraint(equalTo: valueView.bottomAnchor, constant: -10)
+                        ])
+                    }
+                }
+                return
+            }
+        }
+        text = attributeValues.enumerated().compactMap { attributeTypes[$0].text(for: $1) }.joined(separator: " ")
         self.text = text.isEmpty ? nil : text
     }
 

@@ -202,11 +202,11 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
         contentView.addSubview(textView)
         let textViewHeightConstraint = textView.heightAnchor.constraint(equalToConstant: round(textView.font!.lineHeight * 1.2))
         NSLayoutConstraint.activate([
-            textView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            textView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 4),
             textView.leftAnchor.constraint(equalTo: contentView.leftAnchor),
             textView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -32),
             textViewHeightConstraint,
-            contentView.bottomAnchor.constraint(equalTo: textView.bottomAnchor)
+            contentView.bottomAnchor.constraint(equalTo: textView.bottomAnchor, constant: 2)
         ])
         self.textView = textView
         self.textViewHeightConstraint = textViewHeightConstraint
@@ -254,9 +254,9 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
         unitLabelLeftConstraint = unitLabel.leftAnchor.constraint(equalTo: label.leftAnchor)
         unitLabelLeftConstraint.priority = .defaultLow
         NSLayoutConstraint.activate([
-            unitLabel.topAnchor.constraint(equalTo: label.bottomAnchor),
+            unitLabel.topAnchor.constraint(equalTo: textView.topAnchor),
             unitLabelLeftConstraint,
-            unitLabel.rightAnchor.constraint(lessThanOrEqualTo: label.rightAnchor)
+            unitLabel.rightAnchor.constraint(lessThanOrEqualTo: textView.rightAnchor)
         ])
         _unitLabel = unitLabel
     }
