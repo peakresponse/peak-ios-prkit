@@ -194,6 +194,7 @@ public enum FormFieldAttributeType: Equatable {
 open class FormField: FormComponent, Localizable, FormInputViewDelegate {
     open weak var borderedView: UIView!
     open weak var stackView: UIStackView!
+    open weak var contentStackView: UIStackView!
     open weak var contentView: UIView!
 
     open weak var statusButton: UIButton!
@@ -207,7 +208,6 @@ open class FormField: FormComponent, Localizable, FormInputViewDelegate {
     }
 
     open weak var label: UILabel!
-    open weak var labelHeightConstraint: NSLayoutConstraint!
     @IBInspectable open var l10nKey: String? {
         get { return nil }
         set { label.l10nKey = newValue }
@@ -220,7 +220,6 @@ open class FormField: FormComponent, Localizable, FormInputViewDelegate {
         get { return label.isHidden }
         set {
             label.isHidden = newValue
-            labelHeightConstraint.constant = newValue ? 4 : 28
         }
     }
 
@@ -346,24 +345,30 @@ open class FormField: FormComponent, Localizable, FormInputViewDelegate {
         statusButton.backgroundColor = .border
         stackView.addArrangedSubview(statusButton)
         self.statusButton = statusButton
-
-        let contentView = UIView()
-        contentView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.addArrangedSubview(contentView)
-        self.contentView = contentView
+        
+        let view = UIView()
+        stackView.addArrangedSubview(view)
+        
+        let contentStackView = UIStackView()
+        contentStackView.translatesAutoresizingMaskIntoConstraints = false
+        contentStackView.axis = .vertical
+        contentStackView.spacing = 2
+        view.addSubview(contentStackView)
+        NSLayoutConstraint.activate([
+            contentStackView.topAnchor.constraint(equalTo: view.topAnchor, constant: 10),
+            contentStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            contentStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            contentStackView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -8),
+        ])
+        self.contentStackView = contentStackView
 
         let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        let labelHeightConstraint = label.heightAnchor.constraint(equalToConstant: 28)
-        contentView.addSubview(label)
-        NSLayoutConstraint.activate([
-            label.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
-            label.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 16),
-            label.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -16),
-            labelHeightConstraint
-        ])
+        contentStackView.addArrangedSubview(label)
         self.label = label
-        self.labelHeightConstraint = labelHeightConstraint
+
+        let contentView = UIView()
+        contentStackView.addArrangedSubview(contentView)
+        self.contentView = contentView
     }
 
     private func initAccessoryButton() {
@@ -388,17 +393,7 @@ open class FormField: FormComponent, Localizable, FormInputViewDelegate {
         _errorLabel.numberOfLines = 0
         _errorLabel.textColor = .error
         _errorLabel.isHidden = !hasError
-        addSubview(_errorLabel)
-
-        let bottomConstraint = bottomAnchor.constraint(equalTo: _errorLabel.bottomAnchor)
-        bottomConstraint.priority = .defaultHigh
-        NSLayoutConstraint.activate([
-            _errorLabel.topAnchor.constraint(equalTo: borderedView.bottomAnchor, constant: 4),
-            _errorLabel.heightAnchor.constraint(equalToConstant: 18),
-            _errorLabel.leftAnchor.constraint(equalTo: borderedView.leftAnchor, constant: 16),
-            _errorLabel.rightAnchor.constraint(equalTo: borderedView.rightAnchor, constant: -16),
-            bottomConstraint
-        ])
+        contentStackView.addArrangedSubview(_errorLabel)
     }
 
     override open func layoutSubviews() {

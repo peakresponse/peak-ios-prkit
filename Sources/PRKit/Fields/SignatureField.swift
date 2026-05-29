@@ -26,6 +26,8 @@ open class SignatureField: FormField, SignatureViewControllerDelegate {
 
     override open func commonInit() {
         super.commonInit()
+        
+        isLabelHidden = true
 
         let signatureView = UIImageView()
         signatureView.translatesAutoresizingMaskIntoConstraints = false
@@ -35,7 +37,7 @@ open class SignatureField: FormField, SignatureViewControllerDelegate {
             signatureView.topAnchor.constraint(equalTo: contentView.topAnchor),
             signatureView.leftAnchor.constraint(equalTo: contentView.leftAnchor),
             signatureView.rightAnchor.constraint(equalTo: contentView.rightAnchor),
-            signatureView.heightAnchor.constraint(equalToConstant: 74),
+            signatureView.heightAnchor.constraint(equalToConstant: 58),
             contentView.bottomAnchor.constraint(equalTo: signatureView.bottomAnchor)
         ])
         self.signatureView = signatureView
@@ -49,7 +51,7 @@ open class SignatureField: FormField, SignatureViewControllerDelegate {
         contentView.addSubview(signButton)
         NSLayoutConstraint.activate([
             signButton.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            signButton.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
+            signButton.centerYAnchor.constraint(equalTo: contentView.centerYAnchor, constant: -1)
         ])
         self.signButton = signButton
 
@@ -63,7 +65,7 @@ open class SignatureField: FormField, SignatureViewControllerDelegate {
         NSLayoutConstraint.activate([
             clearButton.widthAnchor.constraint(equalToConstant: 44),
             clearButton.heightAnchor.constraint(equalToConstant: 44),
-            clearButton.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -6),
+            clearButton.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: 12),
             clearButton.centerYAnchor.constraint(equalTo: signatureView.centerYAnchor)
         ])
         self.clearButton = clearButton

@@ -31,9 +31,9 @@ open class CellField: FormField {
         textLabel.numberOfLines = 0
         contentView.addSubview(textLabel)
         NSLayoutConstraint.activate([
-            textLabel.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 0),
-            textLabel.leftAnchor.constraint(equalTo: label.leftAnchor),
-            contentView.bottomAnchor.constraint(equalTo: textLabel.bottomAnchor, constant: 12)
+            textLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
+            textLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor),
+            contentView.bottomAnchor.constraint(equalTo: textLabel.bottomAnchor, constant: 4)
         ])
         self.textLabel = textLabel
 
@@ -44,7 +44,7 @@ open class CellField: FormField {
         contentView.addSubview(disclosureIndicatorView)
         NSLayoutConstraint.activate([
             textLabel.rightAnchor.constraint(equalTo: disclosureIndicatorView.leftAnchor, constant: -6),
-            disclosureIndicatorView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -6),
+            disclosureIndicatorView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: 6),
             disclosureIndicatorView.centerYAnchor.constraint(equalTo: textLabel.centerYAnchor)
         ])
         self.disclosureIndicatorView = disclosureIndicatorView

@@ -60,11 +60,11 @@ open class PasswordField: FormField, UITextFieldDelegate {
         contentView.addSubview(textField)
 
         NSLayoutConstraint.activate([
-            textField.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 0),
-            textField.leftAnchor.constraint(equalTo: label.leftAnchor),
-            textField.rightAnchor.constraint(equalTo: label.rightAnchor),
+            textField.topAnchor.constraint(equalTo: contentView.topAnchor),
+            textField.leftAnchor.constraint(equalTo: contentView.leftAnchor),
+            textField.rightAnchor.constraint(equalTo: contentView.rightAnchor),
             textField.heightAnchor.constraint(equalToConstant: round(textField.font!.lineHeight * 1.2)),
-            contentView.bottomAnchor.constraint(equalTo: textField.bottomAnchor, constant: 8)
+            contentView.bottomAnchor.constraint(equalTo: textField.bottomAnchor)
         ])
     }
 

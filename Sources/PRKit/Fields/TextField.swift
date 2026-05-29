@@ -202,11 +202,11 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
         contentView.addSubview(textView)
         let textViewHeightConstraint = textView.heightAnchor.constraint(equalToConstant: round(textView.font!.lineHeight * 1.2))
         NSLayoutConstraint.activate([
-            textView.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 0),
-            textView.leftAnchor.constraint(equalTo: label.leftAnchor),
-            textView.rightAnchor.constraint(equalTo: label.rightAnchor, constant: -44),
+            textView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            textView.leftAnchor.constraint(equalTo: contentView.leftAnchor),
+            textView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -32),
             textViewHeightConstraint,
-            contentView.bottomAnchor.constraint(equalTo: textView.bottomAnchor, constant: 8)
+            contentView.bottomAnchor.constraint(equalTo: textView.bottomAnchor)
         ])
         self.textView = textView
         self.textViewHeightConstraint = textViewHeightConstraint
@@ -221,7 +221,7 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
         NSLayoutConstraint.activate([
             clearButton.widthAnchor.constraint(equalToConstant: 44),
             clearButton.heightAnchor.constraint(equalToConstant: 44),
-            clearButton.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -6),
+            clearButton.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: 12),
             clearButton.centerYAnchor.constraint(equalTo: textView.centerYAnchor)
         ])
         self.clearButton = clearButton
@@ -236,9 +236,9 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
         placeholderLabel.isHidden = !isEmpty
         contentView.addSubview(placeholderLabel)
         NSLayoutConstraint.activate([
-            placeholderLabel.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 0),
-            placeholderLabel.leftAnchor.constraint(equalTo: label.leftAnchor),
-            placeholderLabel.rightAnchor.constraint(equalTo: label.rightAnchor)
+            placeholderLabel.topAnchor.constraint(equalTo: textView.topAnchor),
+            placeholderLabel.leftAnchor.constraint(equalTo: textView.leftAnchor),
+            placeholderLabel.rightAnchor.constraint(equalTo: textView.rightAnchor)
         ])
         _placeholderLabel = placeholderLabel
     }
@@ -254,7 +254,7 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
         unitLabelLeftConstraint = unitLabel.leftAnchor.constraint(equalTo: label.leftAnchor)
         unitLabelLeftConstraint.priority = .defaultLow
         NSLayoutConstraint.activate([
-            unitLabel.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 0),
+            unitLabel.topAnchor.constraint(equalTo: label.bottomAnchor),
             unitLabelLeftConstraint,
             unitLabel.rightAnchor.constraint(lessThanOrEqualTo: label.rightAnchor)
         ])
@@ -272,7 +272,7 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
         NSLayoutConstraint.activate([
             iconView.widthAnchor.constraint(equalToConstant: 44),
             iconView.heightAnchor.constraint(equalToConstant: 44),
-            iconView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -6),
+            iconView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: 12),
             iconView.centerYAnchor.constraint(equalTo: textView.centerYAnchor, constant: -1)
         ])
         _iconView = iconView
@@ -377,7 +377,7 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
     public func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         if textView.text != attributeValues[attributeIndex] as? String {
             textView.text = text
-            attributeValue = text as? NSObject
+            attributeValue = text as NSObject
             textViewDidChange(textView)
             return false
         }

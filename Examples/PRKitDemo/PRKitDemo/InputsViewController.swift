@@ -83,7 +83,7 @@ class InputsViewController: ViewController, FormFieldDelegate, KeyboardAwareScro
         let emptyField = TextField()
         emptyField.translatesAutoresizingMaskIntoConstraints = false
         emptyField.delegate = self
-        emptyField.labelText = "Empty Field"
+        emptyField.labelText = "Lorem ipsum dolor sit amet consectetur adipiscing elit. Dolor sit amet consectetur adipiscing elit quisque faucibus."
         emptyField.placeholderText = "Placeholder"
         emptyField.inputAccessoryView = inputAccessoryView
         emptyField.inputAccessoryViewOtherButtonTitle = "Open Tag"
@@ -154,7 +154,7 @@ class InputsViewController: ViewController, FormFieldDelegate, KeyboardAwareScro
         checkbox.labelText = "Checkbox"
         scrollView.addSubview(checkbox)
         NSLayoutConstraint.activate([
-            checkbox.topAnchor.constraint(equalTo: errorField.bottomAnchor, constant: 30),
+            checkbox.topAnchor.constraint(equalTo: errorField.bottomAnchor, constant: 20),
             checkbox.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             checkbox.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
         ])
@@ -272,12 +272,11 @@ class InputsViewController: ViewController, FormFieldDelegate, KeyboardAwareScro
         bottomAutocompleteField.tag = tag
         bottomAutocompleteField.sources = [
             TupleKeyboardSource(name: "Suggested", items: items),
-            TupleKeyboardSource(name: "ICD-10", items: items2),
         ]
         tag += 1
         scrollView.addSubview(bottomAutocompleteField)
         NSLayoutConstraint.activate([
-            bottomAutocompleteField.topAnchor.constraint(equalTo: signatureField.bottomAnchor, constant: 20),
+            bottomAutocompleteField.topAnchor.constraint(equalTo: cellField.bottomAnchor, constant: 20),
             bottomAutocompleteField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             bottomAutocompleteField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             scrollView.contentLayoutGuide.bottomAnchor.constraint(equalTo: bottomAutocompleteField.bottomAnchor, constant: 20)
