@@ -216,7 +216,7 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
         clearButton.setImage(UIImage(named: "Exit24px", in: PRKitBundle.instance, compatibleWith: nil), for: .normal)
         clearButton.imageView?.tintColor = .labelText
         clearButton.isHidden = true
-        clearButton.addTarget(self, action: #selector(clearPressed), for: .touchUpInside)
+        clearButton.addTarget(self, action: #selector(clearPressed(_:)), for: .touchUpInside)
         contentView.addSubview(clearButton)
         NSLayoutConstraint.activate([
             clearButton.widthAnchor.constraint(equalToConstant: 44),

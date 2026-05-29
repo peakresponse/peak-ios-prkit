@@ -414,6 +414,7 @@ open class FormField: FormComponent, Localizable, FormInputViewDelegate {
             for view in multiValueViews {
                 view.removeFromSuperview()
             }
+            self.multiValueViews?.removeAll()
         }
         if let values = attributeValues.first as? [NSObject?], !values.isEmpty {
             let values = values.compactMap({ attributeTypes[0].text(for: $0)})
@@ -455,8 +456,21 @@ open class FormField: FormComponent, Localizable, FormInputViewDelegate {
                         NSLayoutConstraint.activate([
                             valueLabel.topAnchor.constraint(equalTo: valueSeparatorView.bottomAnchor, constant: 10),
                             valueLabel.leadingAnchor.constraint(equalTo: valueView.leadingAnchor),
-                            valueLabel.trailingAnchor.constraint(equalTo: valueView.trailingAnchor),
+                            valueLabel.trailingAnchor.constraint(equalTo: valueView.trailingAnchor, constant: -44),
                             valueLabel.bottomAnchor.constraint(equalTo: valueView.bottomAnchor, constant: -10)
+                        ])
+
+                        let valueClearButton = UIButton(type: .custom)
+                        valueClearButton.translatesAutoresizingMaskIntoConstraints = false
+                        valueClearButton.setImage(UIImage(named: "Exit24px", in: PRKitBundle.instance, compatibleWith: nil), for: .normal)
+                        valueClearButton.imageView?.tintColor = .labelText
+                        valueClearButton.addTarget(self, action: #selector(clearPressed(_:)), for: .touchUpInside)
+                        valueView.addSubview(valueClearButton)
+                        NSLayoutConstraint.activate([
+                            valueClearButton.widthAnchor.constraint(equalToConstant: 44),
+                            valueClearButton.heightAnchor.constraint(equalToConstant: 44),
+                            valueClearButton.rightAnchor.constraint(equalTo: valueView.rightAnchor, constant: 12),
+                            valueClearButton.centerYAnchor.constraint(equalTo: valueLabel.centerYAnchor)
                         ])
                     }
                 }
@@ -529,7 +543,22 @@ open class FormField: FormComponent, Localizable, FormInputViewDelegate {
         }
     }
 
-    @objc open func clearPressed() {
+    @objc open func clearPressed(_ sender: UIButton? = nil) {
+        if let sender, let multiValueViews, var values = attributeValues[0] as? [NSObject?] {
+            var found = false
+            for (i, view) in multiValueViews.enumerated() where sender.isDescendant(of: view) {
+                found = true
+                values.remove(at: i)
+                break
+            }
+            if !found {
+                values.removeLast()
+            }
+            attributeValues[0] = values as NSObject
+            delegate?.formComponentDidChange?(self)
+            reloadInputViews()
+            return
+        }
         attributeValues = .init(repeating: nil, count: attributeTypes.count)
         text = nil
         status = .none

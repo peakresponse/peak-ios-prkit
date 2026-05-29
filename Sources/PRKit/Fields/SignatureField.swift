@@ -83,9 +83,9 @@ open class SignatureField: FormField, SignatureViewControllerDelegate {
         (delegate as? FormFieldDelegate)?.formField?(self, wantsToPresent: vc)
     }
 
-    @objc override open func clearPressed() {
+    @objc override open func clearPressed(_ sender: UIButton? = nil) {
         signatureImage = nil
-        super.clearPressed()
+        super.clearPressed(sender)
     }
 
     @objc open func clearInternalPressed() {
