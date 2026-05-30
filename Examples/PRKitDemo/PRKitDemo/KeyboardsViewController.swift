@@ -43,20 +43,20 @@ enum AgeTestUnits: String, StringCaseIterable {
 }
 
 class KeyboardsViewController: ViewController, FormFieldDelegate, KeyboardAwareScrollViewController {
-    @IBOutlet weak var scrollView: UIScrollView!
-    @IBOutlet weak var scrollViewBottomConstraint: NSLayoutConstraint!
-    @IBOutlet weak var dateField: TextField!
-    @IBOutlet weak var dateTimeField: TextField!
-    @IBOutlet weak var emailField: TextField!
-    @IBOutlet weak var pickerField: TextField!
-    @IBOutlet weak var integerField: TextField!
-    @IBOutlet weak var decimalField: TextField!
-    @IBOutlet weak var ageField: TextField!
-    @IBOutlet weak var multiField: TextField!
-    @IBOutlet weak var singleField: TextField!
-    @IBOutlet weak var multiSearchField: TextField!
-    @IBOutlet weak var singleSearchField: TextField!
-    @IBOutlet weak var comboField: TextField!
+    weak var scrollView: UIScrollView!
+    weak var scrollViewBottomConstraint: NSLayoutConstraint!
+    weak var dateField: TextField!
+    weak var dateTimeField: TextField!
+    weak var emailField: TextField!
+    weak var pickerField: TextField!
+    weak var integerField: TextField!
+    weak var decimalField: TextField!
+    weak var ageField: TextField!
+    weak var multiField: TextField!
+    weak var singleField: TextField!
+    weak var multiSearchField: TextField!
+    weak var singleSearchField: TextField!
+    weak var comboField: TextField!
 
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -86,6 +86,21 @@ class KeyboardsViewController: ViewController, FormFieldDelegate, KeyboardAwareS
 
         var tag = 1
 
+        let textField = TextField()
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.delegate = self
+        textField.labelText = "Multiple keyboards (new)"
+        textField.attributeTypes = [.text, .single(EnumKeyboardSource<PickerTestEnum>())]
+        textField.inputAccessoryView = inputAccessoryView
+        textField.tag = tag
+        tag += 1
+        scrollView.addSubview(textField)
+        NSLayoutConstraint.activate([
+            textField.topAnchor.constraint(equalTo: scrollView.contentLayoutGuide.topAnchor, constant: 20),
+            textField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            textField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+        ])
+
         let dateField = TextField()
         dateField.translatesAutoresizingMaskIntoConstraints = false
         dateField.delegate = self
@@ -97,7 +112,7 @@ class KeyboardsViewController: ViewController, FormFieldDelegate, KeyboardAwareS
         tag += 1
         scrollView.addSubview(dateField)
         NSLayoutConstraint.activate([
-            dateField.topAnchor.constraint(equalTo: scrollView.contentLayoutGuide.topAnchor, constant: 20),
+            dateField.topAnchor.constraint(equalTo: textField.bottomAnchor, constant: 20),
             dateField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             dateField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
         ])
@@ -269,7 +284,7 @@ class KeyboardsViewController: ViewController, FormFieldDelegate, KeyboardAwareS
         let comboField = TextField()
         comboField.translatesAutoresizingMaskIntoConstraints = false
         comboField.delegate = self
-        comboField.labelText = "Single Select"
+        comboField.labelText = "Combo Select"
         let searchKeyboard = SearchKeyboard(source: EnumKeyboardSource<PickerTestEnum>(), isMultiSelect: false)
         let pickerKeyboard = PickerKeyboard()
         pickerKeyboard.source = EnumKeyboardSource<PickerTestEnum>()

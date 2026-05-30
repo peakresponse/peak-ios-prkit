@@ -588,8 +588,10 @@ open class FormField: FormComponent, Localizable, FormInputViewDelegate {
     // MARK: - UIResponder
 
     public override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if canBecomeFirstResponder {
+        if touches.count == 1, let touch = touches.first, bounds.contains(touch.location(in: self)), canBecomeFirstResponder {
             _ = becomeFirstResponder()
+            return
         }
+        super.touchesBegan(touches, with: event)
     }
 }

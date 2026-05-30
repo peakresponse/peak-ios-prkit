@@ -33,9 +33,8 @@ extension KeyboardAwareScrollViewController {
 
     public func keyboardDidTransition(_ state: KeyboardState) {
         if let firstResponder = scrollView.firstResponder, let superview = firstResponder.superview {
-            var rect = superview.convert(firstResponder.frame, to: scrollView)
-            rect.origin.y += 20
-            scrollView.scrollRectToVisible(rect, animated: true)
+            let rect = superview.convert(firstResponder.frame, to: scrollView)
+            scrollView.setContentOffset(CGPoint(x: 0, y: rect.origin.y - scrollView.safeAreaInsets.top), animated: true)
         }
     }
 }
