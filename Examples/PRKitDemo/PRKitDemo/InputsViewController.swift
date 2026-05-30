@@ -63,13 +63,12 @@ class InputsViewController: ViewController, FormFieldDelegate, KeyboardAwareScro
         let autocompleteField = AutocompleteTextField()
         autocompleteField.translatesAutoresizingMaskIntoConstraints = false
         autocompleteField.delegate = self
-        autocompleteField.labelText = "Autocomplete Field"
+        autocompleteField.labelText = "Autocomplete (Single)"
         autocompleteField.placeholderText = "Placeholder"
         autocompleteField.inputAccessoryView = inputAccessoryView
         autocompleteField.tag = tag
         autocompleteField.sources = [
             TupleKeyboardSource(name: "Suggested", items: items),
-            TupleKeyboardSource(name: "ICD-10", items: items2),
         ]
         tag += 1
         scrollView.addSubview(autocompleteField)
@@ -297,9 +296,9 @@ class InputsViewController: ViewController, FormFieldDelegate, KeyboardAwareScro
 
     func formComponentDidChange(_ component: FormComponent) {
         if let field = component as? FormField {
-            print(field.text ?? "")
+            print("changed", field.labelText ?? "", field.text ?? "", field.attributeValue ?? "nil")
         } else {
-            print(component.attributeValue ?? "nil")
+            print("changed", component.attributeKey ?? "", component.attributeValue ?? "nil")
         }
     }
 

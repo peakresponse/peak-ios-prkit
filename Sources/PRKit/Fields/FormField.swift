@@ -538,7 +538,7 @@ open class FormField: FormComponent, Localizable, FormInputViewDelegate {
         if let inputView = inputView as? FormInputView {
             inputView.setValue(attributeValue)
         }
-        if let inputAccessoryView = inputAccessoryView as? FormInputAccessoryView {
+        if let inputAccessoryView = inputAccessoryView as? FormInputAccessoryView, isFirstResponder {
             inputAccessoryView.currentView = self
         }
     }

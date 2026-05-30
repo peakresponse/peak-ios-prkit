@@ -9,14 +9,13 @@ import Foundation
 import UIKit
 
 class AutocompleteDropdownView: UIView, UITableViewDataSource, UITableViewDelegate {
-    let sources: [KeyboardSource]!
-    var sourceIndex = 0
+    weak var textField: AutocompleteTextField!
     var stackView: UIStackView!
     var segmentedControl: SegmentedControl?
     var tableView: TableView!
     
-    init(sources: [KeyboardSource]) {
-        self.sources = sources
+    init(textField: AutocompleteTextField) {
+        self.textField = textField
         super.init(frame: .zero)
         commonInit()
     }
@@ -40,9 +39,9 @@ class AutocompleteDropdownView: UIView, UITableViewDataSource, UITableViewDelega
             stackView.trailingAnchor.constraint(equalTo: trailingAnchor),
         ])
 
-        if sources.count > 1 {
+        if textField.sources.count > 1 {
             let segmentedControl = SegmentedControl()
-            for source in sources {
+            for source in textField.sources {
                 segmentedControl.addSegment(title: source.name)
             }
             stackView.addArrangedSubview(segmentedControl)
@@ -56,10 +55,10 @@ class AutocompleteDropdownView: UIView, UITableViewDataSource, UITableViewDelega
         tableView.clipsToBounds = true
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.register(ListItemTableViewCell.self, forCellReuseIdentifier: "Item")
+        tableView.register(CheckboxTableViewCell.self, forCellReuseIdentifier: "Item")
         stackView.addArrangedSubview(tableView)
     }
-    
+
     // MARK: - UITableViewDataSource
     
     public func numberOfSections(in tableView: UITableView) -> Int {
@@ -67,32 +66,72 @@ class AutocompleteDropdownView: UIView, UITableViewDataSource, UITableViewDelega
     }
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return sources[sourceIndex].count()
+        return textField.sources[textField.sourceIndex].count()
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Item", for: indexPath)
-        if let cell = cell as? ListItemTableViewCell {
-            cell.label.text = sources[sourceIndex].title(at: indexPath.row)
+        if let cell = cell as? CheckboxTableViewCell {
+            cell.checkbox.isRadioButton = !textField.isMultiSelect
+            cell.checkbox.labelText = textField.sources[textField.sourceIndex].title(at: indexPath.row)
+            cell.checkbox.isUserInteractionEnabled = false
+            if textField.isMultiSelect {
+
+            } else {
+                cell.checkbox.isChecked = textField.attributeValue == textField.sources[textField.sourceIndex].value(at: indexPath.row)
+            }
         }
         return cell
+    }
+
+    // MARK: - UITableViewDelegate
+
+    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        if let cell = tableView.cellForRow(at: indexPath) as? CheckboxTableViewCell, let value = textField.sources[textField.sourceIndex].value(at: indexPath.row) {
+            if cell.checkbox.isChecked {
+                // de-select
+            } else {
+                // select
+                cell.checkbox.isChecked = true
+                if textField.isMultiSelect {
+
+                } else {
+                    textField.attributeValue = value
+                    textField.text = cell.checkbox.labelText
+                    print("???", textField.attributeValues)
+                    for otherIndexPath in tableView.indexPathsForVisibleRows ?? [] {
+                        if otherIndexPath != indexPath, let otherCell = tableView.cellForRow(at: otherIndexPath) as? CheckboxTableViewCell {
+                            otherCell.checkbox.isChecked = false
+                        }
+                    }
+                    textField.hideDropdown()
+                    textField.delegate?.formComponentDidChange?(textField)
+                }
+            }
+        }
     }
 }
 
 open class AutocompleteTextField: TextField {
+    public var isMultiSelect = false
     public var sources: [KeyboardSource] = []
-    var sourceIndex = 0
-    
+    public var sourceIndex = 0
+
     var dropdownView: AutocompleteDropdownView?
-    
-    override public func textViewDidBeginEditing(_ textView: UITextView) {
-        super.textViewDidBeginEditing(textView)
-        if dropdownView == nil {
-            let dropdownView = AutocompleteDropdownView(sources: sources)
-            dropdownView.translatesAutoresizingMaskIntoConstraints = false
-            self.dropdownView = dropdownView
+
+    open override func clearPressed(_ sender: UIButton? = nil) {
+        super.clearPressed(sender)
+        textViewDidChange(textView)
+        if isFirstResponder {
+            showDropdown()
         }
-        if let dropdownView {
+    }
+
+    func showDropdown() {
+        if dropdownView == nil {
+            let dropdownView = AutocompleteDropdownView(textField: self)
+            dropdownView.translatesAutoresizingMaskIntoConstraints = false
             var superview: UIView? = superview
             while !(superview is UIScrollView) && superview != nil {
                 superview = superview?.superview
@@ -109,11 +148,11 @@ open class AutocompleteTextField: TextField {
                     dropdownView.bottomAnchor.constraint(equalTo: scrollView.frameLayoutGuide.bottomAnchor, constant: -4),
                 ])
             }
+            self.dropdownView = dropdownView
         }
     }
     
-    override public func textViewDidEndEditing(_ textView: UITextView) {
-        super.textViewDidEndEditing(textView)
+    func hideDropdown() {
         var superview: UIView? = superview
         while !(superview is UIScrollView) && superview != nil {
             superview = superview?.superview
@@ -123,5 +162,42 @@ open class AutocompleteTextField: TextField {
             scrollView.isScrollEnabled = true
         }
         dropdownView?.removeFromSuperview()
+        dropdownView = nil
+    }
+
+    // MARK: - UITextViewDelegate
+
+    override public func textViewDidBeginEditing(_ textView: UITextView) {
+        super.textViewDidBeginEditing(textView)
+        showDropdown()
+    }
+
+    public override func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if !isMultiSelect && attributeValue != nil {
+            attributeValue = nil
+            if text == "" {
+                textViewDidChange(textView)
+            }
+            showDropdown()
+        }
+        return true
+    }
+
+    override public func textViewDidChange(_ textView: UITextView) {
+        if let text = textView.text, !text.isEmpty {
+            sources[sourceIndex].search(text, callback: nil)
+        } else {
+            sources[sourceIndex].search(nil, callback: nil)
+        }
+        dropdownView?.tableView.reloadData()
+    }
+
+    override public func textViewDidEndEditing(_ textView: UITextView) {
+        super.textViewDidEndEditing(textView)
+        hideDropdown()
+        if isMultiSelect || attributeValue == nil {
+            text = nil
+        }
+        sources[sourceIndex].search(nil, callback: nil)
     }
 }
