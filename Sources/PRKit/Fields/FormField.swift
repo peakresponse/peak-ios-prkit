@@ -28,6 +28,7 @@ public enum FormFieldAttributeType: Equatable {
     case single(KeyboardSource? = nil)
     case multi(KeyboardSource? = nil)
     case custom(FormInputView? = nil)
+    case autocomplete([KeyboardSource]? = nil, Bool = false)
 
     var rawValue: String {
         return String(describing: self)
@@ -73,6 +74,8 @@ public enum FormFieldAttributeType: Equatable {
             self = .multi()
         case "custom":
             self = .custom()
+        case "autocomplete":
+            self = .autocomplete()
         default:
             return nil
         }
@@ -144,6 +147,13 @@ public enum FormFieldAttributeType: Equatable {
             return source?.title(for: value)
         case .custom(let inputView):
             return inputView?.text(for: value)
+        case .autocomplete(let sources, _):
+            for source in sources ?? [] {
+                if let text = source.title(for: value) {
+                    return text
+                }
+            }
+            return nil
         default:
             return value as? String
         }
@@ -184,6 +194,8 @@ public enum FormFieldAttributeType: Equatable {
         case (.multi, .multi):
             return true
         case (.custom, .custom):
+            return true
+        case (.autocomplete, .autocomplete):
             return true
         default:
             return false
@@ -420,7 +432,7 @@ open class FormField: FormComponent, Localizable, FormInputViewDelegate {
             let values = values.compactMap({ attributeTypes[0].text(for: $0)})
             if !values.isEmpty {
                 for (i, value) in values.enumerated() {
-                    if i == values.count - 1 && attributeTypes[0] != .text {
+                    if i == values.count - 1 && attributeTypes[0] != .autocomplete() {
                         self.text = value
                     } else {
                         if multiValueViews == nil {
@@ -552,7 +564,7 @@ open class FormField: FormComponent, Localizable, FormInputViewDelegate {
                 break
             }
             if !found {
-                if attributeTypes[0] == .text {
+                if attributeTypes[0] == .autocomplete() {
                     text = nil
                     return
                 }

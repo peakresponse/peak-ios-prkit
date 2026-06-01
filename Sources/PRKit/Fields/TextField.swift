@@ -7,7 +7,140 @@
 
 import UIKit
 
-private class InternalTextView: UITextView {
+class TextFieldDropdownView: UIView, UITableViewDataSource, UITableViewDelegate {
+    weak var textField: TextField!
+    var stackView: UIStackView!
+    var segmentedControl: SegmentedControl?
+    var tableView: TableView!
+
+    init(textField: TextField) {
+        self.textField = textField
+        super.init(frame: .zero)
+        commonInit()
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError()
+    }
+
+    func commonInit() {
+        backgroundColor = .clear
+        addShadow(withOffset: .zero, radius: 4, color: .black, opacity: 0.25)
+
+        stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        stackView.spacing = 4
+        addSubview(stackView)
+        NSLayoutConstraint.activate([
+            stackView.topAnchor.constraint(equalTo: topAnchor),
+            stackView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            stackView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            stackView.trailingAnchor.constraint(equalTo: trailingAnchor),
+        ])
+
+        if case let .autocomplete(sources, _) = textField.attributeTypes[0], let sources, sources.count > 1 {
+            let segmentedControl = SegmentedControl()
+            segmentedControl.addTarget(self, action: #selector(segmentedControlValueChanged), for: .valueChanged)
+            for source in sources {
+                segmentedControl.addSegment(title: source.name)
+            }
+            stackView.addArrangedSubview(segmentedControl)
+            self.segmentedControl = segmentedControl
+        }
+
+        tableView = TableView()
+        tableView.backgroundColor = .white
+        tableView.layer.borderColor = UIColor.focusedBorder.cgColor
+        tableView.layer.borderWidth = 2
+        tableView.layer.cornerRadius = 8
+        tableView.clipsToBounds = true
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.register(CheckboxTableViewCell.self, forCellReuseIdentifier: "Item")
+        stackView.addArrangedSubview(tableView)
+    }
+
+    @objc func segmentedControlValueChanged() {
+        tableView.reloadData()
+    }
+
+    // MARK: - UITableViewDataSource
+
+    public func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        guard case let .autocomplete(sources, _) = textField.attributeTypes[0], let sources else { return 0 }
+        return sources[segmentedControl?.selectedIndex ?? 0].count()
+    }
+
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Item", for: indexPath)
+        if let cell = cell as? CheckboxTableViewCell,
+           case let .autocomplete(sources, isMultiSelect) = textField.attributeTypes[0],
+           let sources,
+           let value = sources[segmentedControl?.selectedIndex ?? 0].value(at: indexPath.row) {
+            cell.checkbox.isRadioButton = !isMultiSelect
+            cell.checkbox.labelText = sources[segmentedControl?.selectedIndex ?? 0].title(at: indexPath.row)
+            cell.checkbox.isUserInteractionEnabled = false
+            if isMultiSelect {
+                let values = textField.attributeValue as? [NSObject] ?? []
+                cell.checkbox.isChecked = values.contains(value)
+            } else {
+                cell.checkbox.isChecked = textField.attributeValue == value
+            }
+        }
+        return cell
+    }
+
+    // MARK: - UITableViewDelegate
+
+    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        if let cell = tableView.cellForRow(at: indexPath) as? CheckboxTableViewCell,
+           case let .autocomplete(sources, isMultiSelect) = textField.attributeTypes[0],
+           let sources,
+           let value = sources[segmentedControl?.selectedIndex ?? 0].value(at: indexPath.row) {
+            if cell.checkbox.isChecked {
+                cell.checkbox.isChecked = false
+                if isMultiSelect {
+                    if var values = textField.attributeValue as? [NSObject], let index = values.firstIndex(of: value) {
+                        values.remove(at: index)
+                        textField.attributeValue = values as NSObject
+                    } else {
+                        textField.attributeValue = [] as NSObject
+                    }
+                } else {
+                    textField.attributeValue = nil
+                }
+            } else {
+                cell.checkbox.isChecked = true
+                if isMultiSelect {
+                    if var values = textField.attributeValue as? [NSObject] {
+                        values.append(value)
+                        textField.attributeValue = values as NSObject
+                    } else {
+                        textField.attributeValue = [value] as NSObject
+                    }
+                } else {
+                    textField.attributeValue = value
+                    textField.text = cell.checkbox.labelText
+                    for otherIndexPath in tableView.indexPathsForVisibleRows ?? [] {
+                        if otherIndexPath != indexPath, let otherCell = tableView.cellForRow(at: otherIndexPath) as? CheckboxTableViewCell {
+                            otherCell.checkbox.isChecked = false
+                        }
+                    }
+                    textField.hideDropdown()
+                    textField.delegate?.formComponentDidChange?(textField)
+                }
+            }
+        }
+    }
+}
+
+class InternalTextView: UITextView {
     weak var textField: TextField?
     var ignoreResignFirstResponder: Bool = false
 
@@ -79,6 +212,8 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
     @IBInspectable open var isDebounced: Bool = false
     @IBInspectable open var debounceTime: Double = 0.3
     open var debounceTimer: Timer?
+
+    weak var dropdownView: TextFieldDropdownView?
 
     weak var _placeholderLabel: UILabel!
     open var placeholderLabel: UILabel {
@@ -278,9 +413,18 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
         _iconView = iconView
     }
 
+    open override func clearPressed(_ sender: UIButton? = nil) {
+        super.clearPressed(sender)
+        if case .autocomplete(_, _) = attributeType {
+            textViewDidChange(textView)
+            if isFirstResponder {
+                showDropdown()
+            }
+        }
+    }
     open override func updateAttributeType() {
         (textView as? InternalTextView)?.ignoreResignFirstResponder = true
-        var inputView = attributeType.inputView
+        let inputView = attributeType.inputView
         textView.isEditable = inputView?.isTextViewEditable ?? true
         (textView as? InternalTextView)?.ignoreResignFirstResponder = false
         self.inputView = inputView
@@ -306,13 +450,14 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
 
     override open func updateStyle() {
         super.updateStyle()
+        let isTextViewEmpty = textView.text?.isEmpty ?? true
         textView.textColor = .text
         textViewHeightConstraint.constant = heightForText(textView.text, font: textView.font!, width: textView.frame.width)
         unitLabelLeftConstraint?.constant = widthForText(textView.text, font: textView.font!)
-        clearButton.isHidden = isEmpty || !isEnabled
-        _iconView?.isHidden = !isEmpty
-        _placeholderLabel?.isHidden = !isEmpty
-        _unitLabel?.isHidden = isEmpty && !isFirstResponder
+        clearButton.isHidden = isTextViewEmpty || !isEnabled
+        _iconView?.isHidden = !isTextViewEmpty
+        _placeholderLabel?.isHidden = !isTextViewEmpty
+        _unitLabel?.isHidden = isTextViewEmpty && !isFirstResponder
     }
 
     open override var canBecomeFirstResponder: Bool {
@@ -331,14 +476,52 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
         return textView.resignFirstResponder()
     }
 
+    func showDropdown() {
+        if dropdownView == nil {
+            let dropdownView = TextFieldDropdownView(textField: self)
+            dropdownView.translatesAutoresizingMaskIntoConstraints = false
+            var superview: UIView? = superview
+            while !(superview is UIScrollView) && superview != nil {
+                superview = superview?.superview
+            }
+            if let scrollView = superview as? UIScrollView {
+                scrollView.isScrollEnabled = false
+                scrollView.contentInset = .init(top: 0, left: 0, bottom: scrollView.frame.height, right: 0)
+                scrollView.setContentOffset(CGPoint(x: 0, y: -(scrollView.safeAreaInsets.top - frame.origin.y)), animated: true)
+                scrollView.addSubview(dropdownView)
+                NSLayoutConstraint.activate([
+                    dropdownView.topAnchor.constraint(equalTo: textView.bottomAnchor, constant: 14),
+                    dropdownView.leadingAnchor.constraint(equalTo: leadingAnchor),
+                    dropdownView.trailingAnchor.constraint(equalTo: trailingAnchor),
+                    dropdownView.bottomAnchor.constraint(equalTo: scrollView.frameLayoutGuide.bottomAnchor, constant: -4),
+                ])
+            }
+            self.dropdownView = dropdownView
+        }
+    }
+
+    func hideDropdown() {
+        var superview: UIView? = superview
+        while !(superview is UIScrollView) && superview != nil {
+            superview = superview?.superview
+        }
+        if let scrollView = superview as? UIScrollView {
+            scrollView.contentInset = .zero
+            scrollView.isScrollEnabled = true
+        }
+        dropdownView?.removeFromSuperview()
+        dropdownView = nil
+    }
+
     // MARK: - NSTextStorageDelegate
 
     public func textStorage(_ textStorage: NSTextStorage, didProcessEditing editedMask: NSTextStorage.EditActions,
                      range editedRange: NSRange, changeInLength delta: Int) {
         if editedMask.contains(.editedCharacters) {
-            _placeholderLabel?.isHidden = !isEmpty
-            _iconView?.isHidden = !isEmpty
-            clearButton.isHidden = isEmpty || !isEnabled
+            let isTextViewEmpty = textView.text?.isEmpty ?? true
+            _placeholderLabel?.isHidden = !isTextViewEmpty
+            _iconView?.isHidden = !isTextViewEmpty
+            clearButton.isHidden = isTextViewEmpty || !isEnabled
         }
     }
 
@@ -350,6 +533,9 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
 
     public func textViewDidBeginEditing(_ textView: UITextView) {
         (delegate as? FormFieldDelegate)?.formFieldDidBeginEditing?(self)
+        if case .autocomplete(_, _) = attributeType {
+            showDropdown()
+        }
     }
 
     public func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
@@ -357,10 +543,30 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
     }
 
     public func textViewDidEndEditing(_ textView: UITextView) {
+        if case let .autocomplete(sources, isMultiSelect) = attributeType {
+            if isMultiSelect || attributeValue == nil {
+                text = nil
+            }
+            for source in sources ?? [] {
+                source.search(nil, callback: nil)
+            }
+            hideDropdown()
+        }
         (delegate as? FormFieldDelegate)?.formFieldDidEndEditing?(self)
     }
 
     public func textViewDidChange(_ textView: UITextView) {
+        if case let .autocomplete(sources, _) = attributeType {
+            var text: String?
+            if !(textView.text?.isEmpty ?? true) {
+                text = textView.text
+            }
+            for source in sources ?? [] {
+                source.search(text, callback: nil)
+            }
+            dropdownView?.tableView.reloadData()
+            return
+        }
         text = textView.text ?? ""
         attributeValue = text as NSObject?
         if isDebounced {
@@ -375,6 +581,16 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
     }
 
     public func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if case let .autocomplete(_, isMultiSelect) = attributeType {
+            if !isMultiSelect && attributeValue != nil {
+                attributeValue = nil
+                if text == "" {
+                    textViewDidChange(textView)
+                }
+                showDropdown()
+            }
+            return true
+        }
         if text == "\n" || text == "\t" {
             if !((delegate as? FormFieldDelegate)?.formFieldShouldReturn?(self) ?? true) {
                 return false

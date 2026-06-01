@@ -14,7 +14,7 @@ class InputsViewController: ViewController, FormFieldDelegate, KeyboardAwareScro
     weak var scrollView: UIScrollView!
     weak var scrollViewBottomConstraint: NSLayoutConstraint!
 
-    weak var autocompleteField: AutocompleteTextField!
+    weak var autocompleteField: TextField!
     weak var emptyField: TextField!
     weak var disabledField: TextField!
     weak var passwordField: PasswordField!
@@ -60,16 +60,18 @@ class InputsViewController: ViewController, FormFieldDelegate, KeyboardAwareScro
             items2.append(("Another Label \(i)", "anothervalue\(i)"))
         }
 
-        var autocompleteField = AutocompleteTextField()
+        let autocompleteField = TextField()
         autocompleteField.translatesAutoresizingMaskIntoConstraints = false
         autocompleteField.delegate = self
         autocompleteField.labelText = "Autocomplete (Single)"
-        autocompleteField.placeholderText = "Placeholder"
+        autocompleteField.placeholderText = "Search"
         autocompleteField.inputAccessoryView = inputAccessoryView
-        autocompleteField.tag = tag
-        autocompleteField.sources = [
-            TupleKeyboardSource(name: "Suggested", items: items),
+        autocompleteField.attributeTypes = [
+            .autocomplete([
+                TupleKeyboardSource(name: "Suggested", items: items)
+            ])
         ]
+        autocompleteField.tag = tag
         tag += 1
         scrollView.addSubview(autocompleteField)
         NSLayoutConstraint.activate([
@@ -79,17 +81,18 @@ class InputsViewController: ViewController, FormFieldDelegate, KeyboardAwareScro
         ])
         self.autocompleteField = autocompleteField
 
-        let autocompleteMultiField = AutocompleteTextField()
+        let autocompleteMultiField = TextField()
         autocompleteMultiField.translatesAutoresizingMaskIntoConstraints = false
         autocompleteMultiField.delegate = self
         autocompleteMultiField.labelText = "Autocomplete (Multi)"
-        autocompleteMultiField.isMultiSelect = true
         autocompleteMultiField.placeholderText = "Search..."
         autocompleteMultiField.inputAccessoryView = inputAccessoryView
-        autocompleteMultiField.tag = tag
-        autocompleteMultiField.sources = [
-            TupleKeyboardSource(name: "Suggested", items: items),
+        autocompleteMultiField.attributeTypes = [
+            .autocomplete([
+                TupleKeyboardSource(name: "Suggested", items: items)
+            ], true)
         ]
+        autocompleteMultiField.tag = tag
         tag += 1
         scrollView.addSubview(autocompleteMultiField)
         NSLayoutConstraint.activate([
@@ -281,16 +284,19 @@ class InputsViewController: ViewController, FormFieldDelegate, KeyboardAwareScro
             cellField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
         ])
         
-        let bottomAutocompleteField = AutocompleteTextField()
+        let bottomAutocompleteField = TextField()
         bottomAutocompleteField.translatesAutoresizingMaskIntoConstraints = false
         bottomAutocompleteField.delegate = self
         bottomAutocompleteField.labelText = "Autocomplete Field"
         bottomAutocompleteField.placeholderText = "Placeholder"
         bottomAutocompleteField.inputAccessoryView = inputAccessoryView
-        bottomAutocompleteField.tag = tag
-        bottomAutocompleteField.sources = [
-            TupleKeyboardSource(name: "Suggested", items: items),
+        bottomAutocompleteField.attributeTypes = [
+            .autocomplete([
+                TupleKeyboardSource(name: "Suggested", items: items),
+                TupleKeyboardSource(name: "Other", items: items2),
+            ])
         ]
+        bottomAutocompleteField.tag = tag
         tag += 1
         scrollView.addSubview(bottomAutocompleteField)
         NSLayoutConstraint.activate([
