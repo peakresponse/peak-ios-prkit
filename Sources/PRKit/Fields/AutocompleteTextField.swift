@@ -13,20 +13,21 @@ class AutocompleteDropdownView: UIView, UITableViewDataSource, UITableViewDelega
     var stackView: UIStackView!
     var segmentedControl: SegmentedControl?
     var tableView: TableView!
-    
+
     init(textField: AutocompleteTextField) {
         self.textField = textField
         super.init(frame: .zero)
         commonInit()
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError()
     }
-    
+
     func commonInit() {
-        backgroundColor = .background
-        
+        backgroundColor = .clear
+        addShadow(withOffset: .zero, radius: 4, color: .black, opacity: 0.25)
+
         stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
@@ -60,25 +61,26 @@ class AutocompleteDropdownView: UIView, UITableViewDataSource, UITableViewDelega
     }
 
     // MARK: - UITableViewDataSource
-    
+
     public func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-    
+
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return textField.sources[textField.sourceIndex].count()
     }
-    
+
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Item", for: indexPath)
-        if let cell = cell as? CheckboxTableViewCell {
+        if let cell = cell as? CheckboxTableViewCell, let value = textField.sources[textField.sourceIndex].value(at: indexPath.row) {
             cell.checkbox.isRadioButton = !textField.isMultiSelect
             cell.checkbox.labelText = textField.sources[textField.sourceIndex].title(at: indexPath.row)
             cell.checkbox.isUserInteractionEnabled = false
             if textField.isMultiSelect {
-
+                let values = textField.attributeValue as? [NSObject] ?? []
+                cell.checkbox.isChecked = values.contains(value)
             } else {
-                cell.checkbox.isChecked = textField.attributeValue == textField.sources[textField.sourceIndex].value(at: indexPath.row)
+                cell.checkbox.isChecked = textField.attributeValue == value
             }
         }
         return cell
@@ -90,16 +92,29 @@ class AutocompleteDropdownView: UIView, UITableViewDataSource, UITableViewDelega
         tableView.deselectRow(at: indexPath, animated: true)
         if let cell = tableView.cellForRow(at: indexPath) as? CheckboxTableViewCell, let value = textField.sources[textField.sourceIndex].value(at: indexPath.row) {
             if cell.checkbox.isChecked {
-                // de-select
+                cell.checkbox.isChecked = false
+                if textField.isMultiSelect {
+                    if var values = textField.attributeValue as? [NSObject], let index = values.firstIndex(of: value) {
+                        values.remove(at: index)
+                        textField.attributeValue = values as NSObject
+                    } else {
+                        textField.attributeValue = [] as NSObject
+                    }
+                } else {
+                    textField.attributeValue = nil
+                }
             } else {
-                // select
                 cell.checkbox.isChecked = true
                 if textField.isMultiSelect {
-
+                    if var values = textField.attributeValue as? [NSObject] {
+                        values.append(value)
+                        textField.attributeValue = values as NSObject
+                    } else {
+                        textField.attributeValue = [value] as NSObject
+                    }
                 } else {
                     textField.attributeValue = value
                     textField.text = cell.checkbox.labelText
-                    print("???", textField.attributeValues)
                     for otherIndexPath in tableView.indexPathsForVisibleRows ?? [] {
                         if otherIndexPath != indexPath, let otherCell = tableView.cellForRow(at: otherIndexPath) as? CheckboxTableViewCell {
                             otherCell.checkbox.isChecked = false
@@ -119,6 +134,12 @@ open class AutocompleteTextField: TextField {
     public var sourceIndex = 0
 
     var dropdownView: AutocompleteDropdownView?
+
+    override open func updateStyle() {
+        super.updateStyle()
+        clearButton.isHidden = (text?.isEmpty ?? true) || !isEnabled
+        _placeholderLabel?.isHidden = !(text?.isEmpty ?? true)
+    }
 
     open override func clearPressed(_ sender: UIButton? = nil) {
         super.clearPressed(sender)
@@ -142,7 +163,7 @@ open class AutocompleteTextField: TextField {
                 scrollView.setContentOffset(CGPoint(x: 0, y: -(scrollView.safeAreaInsets.top - frame.origin.y)), animated: true)
                 scrollView.addSubview(dropdownView)
                 NSLayoutConstraint.activate([
-                    dropdownView.topAnchor.constraint(equalTo: bottomAnchor, constant: 4),
+                    dropdownView.topAnchor.constraint(equalTo: textView.bottomAnchor, constant: 14),
                     dropdownView.leadingAnchor.constraint(equalTo: leadingAnchor),
                     dropdownView.trailingAnchor.constraint(equalTo: trailingAnchor),
                     dropdownView.bottomAnchor.constraint(equalTo: scrollView.frameLayoutGuide.bottomAnchor, constant: -4),
@@ -163,6 +184,17 @@ open class AutocompleteTextField: TextField {
         }
         dropdownView?.removeFromSuperview()
         dropdownView = nil
+    }
+
+    // MARK: - NSTextStorageDelegate
+
+    override public func textStorage(_ textStorage: NSTextStorage, didProcessEditing editedMask: NSTextStorage.EditActions,
+                     range editedRange: NSRange, changeInLength delta: Int) {
+        super.textStorage(textStorage, didProcessEditing: editedMask, range: editedRange, changeInLength: delta)
+        if editedMask.contains(.editedCharacters) {
+            _placeholderLabel?.isHidden = !(text?.isEmpty ?? true)
+            clearButton.isHidden = (text?.isEmpty ?? true) || !isEnabled
+        }
     }
 
     // MARK: - UITextViewDelegate

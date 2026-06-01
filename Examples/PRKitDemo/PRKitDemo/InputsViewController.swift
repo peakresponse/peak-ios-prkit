@@ -60,7 +60,7 @@ class InputsViewController: ViewController, FormFieldDelegate, KeyboardAwareScro
             items2.append(("Another Label \(i)", "anothervalue\(i)"))
         }
 
-        let autocompleteField = AutocompleteTextField()
+        var autocompleteField = AutocompleteTextField()
         autocompleteField.translatesAutoresizingMaskIntoConstraints = false
         autocompleteField.delegate = self
         autocompleteField.labelText = "Autocomplete (Single)"
@@ -79,6 +79,25 @@ class InputsViewController: ViewController, FormFieldDelegate, KeyboardAwareScro
         ])
         self.autocompleteField = autocompleteField
 
+        let autocompleteMultiField = AutocompleteTextField()
+        autocompleteMultiField.translatesAutoresizingMaskIntoConstraints = false
+        autocompleteMultiField.delegate = self
+        autocompleteMultiField.labelText = "Autocomplete (Multi)"
+        autocompleteMultiField.isMultiSelect = true
+        autocompleteMultiField.placeholderText = "Search..."
+        autocompleteMultiField.inputAccessoryView = inputAccessoryView
+        autocompleteMultiField.tag = tag
+        autocompleteMultiField.sources = [
+            TupleKeyboardSource(name: "Suggested", items: items),
+        ]
+        tag += 1
+        scrollView.addSubview(autocompleteMultiField)
+        NSLayoutConstraint.activate([
+            autocompleteMultiField.topAnchor.constraint(equalTo: autocompleteField.bottomAnchor, constant: 20),
+            autocompleteMultiField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            autocompleteMultiField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+        ])
+
         let emptyField = TextField()
         emptyField.translatesAutoresizingMaskIntoConstraints = false
         emptyField.delegate = self
@@ -91,7 +110,7 @@ class InputsViewController: ViewController, FormFieldDelegate, KeyboardAwareScro
         tag += 1
         scrollView.addSubview(emptyField)
         NSLayoutConstraint.activate([
-            emptyField.topAnchor.constraint(equalTo: autocompleteField.bottomAnchor, constant: 20),
+            emptyField.topAnchor.constraint(equalTo: autocompleteMultiField.bottomAnchor, constant: 20),
             emptyField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             emptyField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
         ])

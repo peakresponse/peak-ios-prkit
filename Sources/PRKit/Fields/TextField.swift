@@ -80,7 +80,7 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
     @IBInspectable open var debounceTime: Double = 0.3
     open var debounceTimer: Timer?
 
-    private weak var _placeholderLabel: UILabel!
+    weak var _placeholderLabel: UILabel!
     open var placeholderLabel: UILabel {
         if _placeholderLabel == nil {
             initPlaceholderLabel()
@@ -88,7 +88,7 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
         return _placeholderLabel
     }
 
-    private weak var _unitLabel: UILabel!
+    weak var _unitLabel: UILabel!
     open var unitLabel: UILabel {
         if _unitLabel == nil {
             initUnitLabel()

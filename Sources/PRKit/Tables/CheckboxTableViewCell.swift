@@ -28,8 +28,8 @@ open class CheckboxTableViewCell: UITableViewCell {
         contentView.addSubview(checkbox)
         NSLayoutConstraint.activate([
             checkbox.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
-            checkbox.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 20),
-            checkbox.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -20),
+            checkbox.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 16),
+            checkbox.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -16),
             contentView.bottomAnchor.constraint(equalTo: checkbox.bottomAnchor, constant: 12)
         ])
         self.checkbox = checkbox

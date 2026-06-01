@@ -420,7 +420,7 @@ open class FormField: FormComponent, Localizable, FormInputViewDelegate {
             let values = values.compactMap({ attributeTypes[0].text(for: $0)})
             if !values.isEmpty {
                 for (i, value) in values.enumerated() {
-                    if i == values.count - 1 {
+                    if i == values.count - 1 && attributeTypes[0] != .text {
                         self.text = value
                     } else {
                         if multiValueViews == nil {
@@ -470,7 +470,7 @@ open class FormField: FormComponent, Localizable, FormInputViewDelegate {
                             valueClearButton.widthAnchor.constraint(equalToConstant: 44),
                             valueClearButton.heightAnchor.constraint(equalToConstant: 44),
                             valueClearButton.rightAnchor.constraint(equalTo: valueView.rightAnchor, constant: 12),
-                            valueClearButton.centerYAnchor.constraint(equalTo: valueLabel.centerYAnchor)
+                            valueClearButton.centerYAnchor.constraint(equalTo: valueLabel.centerYAnchor, constant: 2)
                         ])
                     }
                 }
@@ -552,6 +552,10 @@ open class FormField: FormComponent, Localizable, FormInputViewDelegate {
                 break
             }
             if !found {
+                if attributeTypes[0] == .text {
+                    text = nil
+                    return
+                }
                 values.removeLast()
             }
             attributeValues[0] = values as NSObject
