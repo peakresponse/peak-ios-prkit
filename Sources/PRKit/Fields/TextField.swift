@@ -434,6 +434,19 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
         default:
             autocorrectionType = .no
         }
+        if attributeType == .autocomplete() {
+            showDropdown()
+        } else {
+            if case let .autocomplete(sources, isMultiSelect) = attributeTypes[0] {
+                if isMultiSelect || attributeValue == nil {
+                    text = nil
+                    for source in sources ?? [] {
+                        source.search(nil, callback: nil)
+                    }
+                }
+            }
+            hideDropdown()
+        }
     }
 
     open override func reloadInputViews() {
@@ -582,8 +595,9 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
 
     public func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         if case let .autocomplete(_, isMultiSelect) = attributeType {
-            if !isMultiSelect && attributeValue != nil {
-                attributeValue = nil
+            if  (!isMultiSelect && !attributeValues.reduce(true, { $0 && $1 == nil })) ||
+                (isMultiSelect && attributeValue == nil && !attributeValues.reduce(true, { $0 && $1 == nil })) {
+                attributeValues = .init(repeating: nil, count: attributeTypes.count)
                 if text == "" {
                     textViewDidChange(textView)
                 }

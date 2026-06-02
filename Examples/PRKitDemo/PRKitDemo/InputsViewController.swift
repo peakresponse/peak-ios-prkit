@@ -69,7 +69,8 @@ class InputsViewController: ViewController, FormFieldDelegate, KeyboardAwareScro
         autocompleteField.attributeTypes = [
             .autocomplete([
                 TupleKeyboardSource(name: "Suggested", items: items)
-            ])
+            ]),
+            .single(TupleKeyboardSource(name: "Negatives", items: items2))
         ]
         autocompleteField.tag = tag
         tag += 1
@@ -90,7 +91,8 @@ class InputsViewController: ViewController, FormFieldDelegate, KeyboardAwareScro
         autocompleteMultiField.attributeTypes = [
             .autocomplete([
                 TupleKeyboardSource(name: "Suggested", items: items)
-            ], true)
+            ], true),
+            .single(TupleKeyboardSource(name: "Negatives", items: items2))
         ]
         autocompleteMultiField.tag = tag
         tag += 1
