@@ -47,6 +47,9 @@ open class FormComponent: UIView {
         }
     }
 
+    open func didScrollIntoView(_ scrollView: UIScrollView) {
+    }
+
     open func didUpdateAttributeValue() {
     }
 

@@ -34,9 +34,9 @@ class TextFieldDropdownView: UIView, UITableViewDataSource, UITableViewDelegate 
         addSubview(stackView)
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: topAnchor),
-            stackView.bottomAnchor.constraint(equalTo: bottomAnchor),
             stackView.leadingAnchor.constraint(equalTo: leadingAnchor),
             stackView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            bottomAnchor.constraint(equalTo: stackView.bottomAnchor),
         ])
 
         if case let .autocomplete(sources, _) = textField.attributeTypes[0], let sources, sources.count > 1 {
@@ -213,7 +213,7 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
     @IBInspectable open var debounceTime: Double = 0.3
     open var debounceTimer: Timer?
 
-    weak var dropdownView: TextFieldDropdownView?
+    var dropdownView: TextFieldDropdownView?
 
     weak var _placeholderLabel: UILabel!
     open var placeholderLabel: UILabel {
@@ -434,7 +434,7 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
         default:
             autocorrectionType = .no
         }
-        if attributeType == .autocomplete() {
+        if attributeType == .autocomplete() && isFirstResponder {
             showDropdown()
         } else {
             if case let .autocomplete(sources, isMultiSelect) = attributeTypes[0] {
@@ -489,26 +489,25 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
         return textView.resignFirstResponder()
     }
 
+    override open func didScrollIntoView(_ scrollView: UIScrollView) {
+        if let dropdownView = dropdownView {
+            scrollView.isScrollEnabled = false
+            scrollView.addSubview(dropdownView)
+            let height = round(scrollView.frame.height - 108)
+            let constraints = [
+                dropdownView.topAnchor.constraint(equalTo: self.textView.bottomAnchor, constant: 14),
+                dropdownView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+                dropdownView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+                dropdownView.heightAnchor.constraint(equalToConstant: height),
+            ]
+            NSLayoutConstraint.activate(constraints)
+        }
+    }
+
     func showDropdown() {
         if dropdownView == nil {
             let dropdownView = TextFieldDropdownView(textField: self)
             dropdownView.translatesAutoresizingMaskIntoConstraints = false
-            var superview: UIView? = superview
-            while !(superview is UIScrollView) && superview != nil {
-                superview = superview?.superview
-            }
-            if let scrollView = superview as? UIScrollView {
-                scrollView.isScrollEnabled = false
-                scrollView.contentInset = .init(top: 0, left: 0, bottom: scrollView.frame.height, right: 0)
-                scrollView.setContentOffset(CGPoint(x: 0, y: -(scrollView.safeAreaInsets.top - frame.origin.y)), animated: true)
-                scrollView.addSubview(dropdownView)
-                NSLayoutConstraint.activate([
-                    dropdownView.topAnchor.constraint(equalTo: textView.bottomAnchor, constant: 14),
-                    dropdownView.leadingAnchor.constraint(equalTo: leadingAnchor),
-                    dropdownView.trailingAnchor.constraint(equalTo: trailingAnchor),
-                    dropdownView.bottomAnchor.constraint(equalTo: scrollView.frameLayoutGuide.bottomAnchor, constant: -4),
-                ])
-            }
             self.dropdownView = dropdownView
         }
     }
@@ -519,7 +518,6 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
             superview = superview?.superview
         }
         if let scrollView = superview as? UIScrollView {
-            scrollView.contentInset = .zero
             scrollView.isScrollEnabled = true
         }
         dropdownView?.removeFromSuperview()

@@ -32,6 +32,8 @@ open class FormInputAccessoryView: UIInputView {
     }
 
     open func commonInit() {
+        backgroundColor = .background
+
         var newFrame = frame
         newFrame.size.height = 64
         self.frame = newFrame
