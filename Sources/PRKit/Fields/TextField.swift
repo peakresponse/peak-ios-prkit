@@ -493,7 +493,7 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
         if let dropdownView = dropdownView {
             scrollView.isScrollEnabled = false
             scrollView.addSubview(dropdownView)
-            let height = round(scrollView.frame.height - 108)
+            let height = round(scrollView.frame.height - scrollView.safeAreaInsets.top - 108)
             let constraints = [
                 dropdownView.topAnchor.constraint(equalTo: self.textView.bottomAnchor, constant: 14),
                 dropdownView.leadingAnchor.constraint(equalTo: self.leadingAnchor),

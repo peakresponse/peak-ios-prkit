@@ -35,7 +35,8 @@ extension KeyboardAwareScrollViewController {
         if let firstResponder = scrollView.firstResponder, let superview = firstResponder.superview {
             let rect = superview.convert(firstResponder.frame, to: scrollView)
             UIView.animate(withDuration: 0.25, animations: {
-                self.scrollView.contentOffset = CGPoint(x: 0, y: rect.origin.y - self.scrollView.safeAreaInsets.top - 20)
+                self.scrollView.contentOffset = CGPoint(x: 0,
+                                                        y: rect.origin.y - self.scrollView.safeAreaInsets.top - 20)
             }) { _ in
                 if let formComponent = firstResponder as? FormComponent {
                     formComponent.didScrollIntoView(self.scrollView)
