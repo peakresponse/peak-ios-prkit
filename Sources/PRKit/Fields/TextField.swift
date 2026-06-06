@@ -79,7 +79,7 @@ class TextFieldDropdownView: UIView, KeyboardSourceTableViewControllerDelegate {
     func reload() {
         navVC.popToRootViewController(animated: false)
         if let sourceVC = navVC.viewControllers.first as? KeyboardSourceTableViewController {
-            sourceVC.tableView.reloadData()
+            sourceVC.tableView?.reloadData()
         }
     }
 
@@ -106,6 +106,8 @@ class TextFieldDropdownView: UIView, KeyboardSourceTableViewControllerDelegate {
         } else {
             textField.attributeValue = value
             textField.text = vc.source?.title(for: value)
+            textField.hideDropdown()
+            textField.delegate?.formComponentDidChange?(textField)
         }
     }
 
@@ -468,7 +470,7 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
     }
 
     override open func didScrollIntoView(_ scrollView: UIScrollView) {
-        if let dropdownView = dropdownView {
+        if let dropdownView = dropdownView, dropdownView.superview == nil {
             scrollView.isScrollEnabled = false
             scrollView.addSubview(dropdownView)
             let height = round(scrollView.frame.height - scrollView.safeAreaInsets.top - 108)
@@ -487,6 +489,20 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
             let dropdownView = TextFieldDropdownView(textField: self)
             dropdownView.translatesAutoresizingMaskIntoConstraints = false
             self.dropdownView = dropdownView
+
+            var superview: UIView? = superview
+            while !(superview is UIScrollView) && superview != nil {
+                superview = superview?.superview
+            }
+            if let scrollView = superview as? UIScrollView, let superview = self.superview {
+                let rect = superview.convert(frame, to: scrollView)
+                UIView.animate(withDuration: 0.25, animations: {
+                    scrollView.contentOffset = CGPoint(x: 0,
+                                                       y: rect.origin.y - scrollView.safeAreaInsets.top - 20)
+                }) { _ in
+                    self.didScrollIntoView(scrollView)
+                }
+            }
         }
     }
 
