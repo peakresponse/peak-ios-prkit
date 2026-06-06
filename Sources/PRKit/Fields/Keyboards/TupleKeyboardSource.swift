@@ -24,13 +24,6 @@ open class TupleKeyboardSource: KeyboardSource {
         return items.count
     }
 
-    public func firstIndex(of value: NSObject) -> Int? {
-        if let filtered = filtered {
-            return filtered.firstIndex(where: { $0.1 == (value as? String) })
-        }
-        return items.firstIndex(where: { $0.1 == (value as? String) })
-    }
-
     public func search(_ query: String?, callback: ((Bool) -> Void)?) {
         if let query = query?.trimmingCharacters(in: .whitespacesAndNewlines), !query.isEmpty {
             filtered = items.filter({ $0.0.localizedLowercase.contains(query.localizedLowercase) })

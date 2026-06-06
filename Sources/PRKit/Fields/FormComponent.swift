@@ -29,8 +29,19 @@ open class FormComponent: UIView {
 
     @IBInspectable open var attributeKey: String?
 
-    open var attributeValue: NSObject? {
+    open var attributeIndex: Int = 0
+    open var attributeValues: [NSObject?] = [nil] {
         didSet {
+            didUpdateAttributeValue()
+        }
+    }
+    open var attributeValue: NSObject? {
+        get { return attributeValues[attributeIndex] }
+        set {
+            attributeValues[attributeIndex] = newValue
+            for (i, _) in attributeValues.enumerated() where i != attributeIndex {
+                attributeValues[i] = nil
+            }
             didUpdateAttributeValue()
         }
     }

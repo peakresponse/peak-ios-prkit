@@ -24,7 +24,6 @@ public enum FormFieldAttributeType: Equatable {
     case integer, integerWithUnit(KeyboardSource? = nil)
     case decimal, decimalWithUnit(KeyboardSource? = nil)
     case date, datetime
-    case picker(KeyboardSource? = nil)
     case single(KeyboardSource? = nil)
     case multi(KeyboardSource? = nil)
     case custom(FormInputView? = nil)
@@ -40,11 +39,6 @@ public enum FormFieldAttributeType: Equatable {
             return "Button.123".localized
         case .date, .datetime:
             return "Button.date".localized
-        case .picker(let source), .single(let source), .multi(let source):
-            if let name = source?.name, !name.isEmpty {
-                return name
-            }
-            return "Button.select".localized
         default:
             return "Button.abc".localized
         }
@@ -66,8 +60,6 @@ public enum FormFieldAttributeType: Equatable {
             self = .date
         case "datetime":
             self = .datetime
-        case "picker":
-            self = .picker()
         case "single":
             self = .single()
         case "multi":
@@ -91,8 +83,6 @@ public enum FormFieldAttributeType: Equatable {
             return DateKeyboard.instance
         case .datetime:
             return DateTimeKeyboard.instance
-        case .picker(_):
-            return PickerKeyboard.instance
         case .single(_), .multi(_):
             return SelectKeyboard.instance
         case .custom(let inputView):
@@ -114,8 +104,6 @@ public enum FormFieldAttributeType: Equatable {
         case .decimalWithUnit(let source):
             (inputView as? NumberAndUnitKeypad)?.isDecimalHidden = false
             (inputView as? NumberAndUnitKeypad)?.unitSource = source
-        case .picker(let source):
-            (inputView as? PickerKeyboard)?.source = source
         case .single(let source):
             (inputView as? SelectKeyboard)?.isMultiSelect = false
             (inputView as? SelectKeyboard)?.source = source
@@ -140,7 +128,7 @@ public enum FormFieldAttributeType: Equatable {
                 return value[0]
             }
             return nil
-        case .picker(let source), .single(let source), .multi(let source):
+        case .single(let source), .multi(let source):
             if let value = value as? [NSObject] {
                 return value.compactMap({ text(for: $0) }).joined(separator: "\n")
             }
@@ -186,8 +174,6 @@ public enum FormFieldAttributeType: Equatable {
         case (.date, .date):
             return true
         case (.datetime, .datetime):
-            return true
-        case (.picker, .picker):
             return true
         case (.single, .single):
             return true
@@ -250,7 +236,7 @@ open class FormField: FormComponent, Localizable, FormInputViewDelegate {
         }
     }
 
-    open var attributeIndex: Int = 0 {
+    open override var attributeIndex: Int {
         didSet {
             updateAttributeType()
         }
@@ -273,19 +259,10 @@ open class FormField: FormComponent, Localizable, FormInputViewDelegate {
         set { attributeType = FormFieldAttributeType(rawValue: newValue) ?? .text }
     }
 
-    open var attributeValues: [NSObject?] = [nil] {
-        didSet {
-            didUpdateAttributeValue()
-        }
-    }
-    open override var attributeValue: NSObject? {
-        get { return attributeValues[attributeIndex] }
-        set {
-            attributeValues[attributeIndex] = newValue
-            for (i, _) in attributeValues.enumerated() where i != attributeIndex {
-                attributeValues[i] = nil
-            }
-        }
+    private var _inputAccessoryView: UIView?
+    open override var inputAccessoryView: UIView? {
+        get { return _inputAccessoryView }
+        set { _inputAccessoryView = newValue }
     }
 
     open var inputAccessoryViewOtherButtonTitle: String?

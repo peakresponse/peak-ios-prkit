@@ -20,14 +20,6 @@ open class EnumKeyboardSource<T: StringCaseIterable>: NSObject, KeyboardSource {
         return T.allCases.count
     }
 
-    open func firstIndex(of value: NSObject) -> Int? {
-        guard let value = value as? String else { return nil }
-        if let filtered = filtered {
-            return filtered.map { $0.rawValue }.firstIndex(of: value)
-        }
-        return T.allCases.map { $0.rawValue }.firstIndex(of: value)
-    }
-
     open func search(_ query: String?, callback: ((Bool) -> Void)? = nil) {
         if let query = query?.trimmingCharacters(in: .whitespacesAndNewlines), !query.isEmpty {
             filtered = T.allCases.filter { $0.description.localizedLowercase.contains(query.localizedLowercase) }

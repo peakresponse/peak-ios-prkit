@@ -7,11 +7,11 @@
 
 import UIKit
 
-class TextFieldDropdownView: UIView, UITableViewDataSource, UITableViewDelegate {
+class TextFieldDropdownView: UIView, KeyboardSourceTableViewControllerDelegate {
     weak var textField: TextField!
     var stackView: UIStackView!
     var segmentedControl: SegmentedControl?
-    var tableView: TableView!
+    var navVC: UINavigationController!
 
     init(textField: TextField) {
         self.textField = textField
@@ -39,9 +39,11 @@ class TextFieldDropdownView: UIView, UITableViewDataSource, UITableViewDelegate 
             bottomAnchor.constraint(equalTo: stackView.bottomAnchor),
         ])
 
-        if case let .autocomplete(sources, _) = textField.attributeTypes[0], let sources, sources.count > 1 {
+        guard case let .autocomplete(sources, isMultiSelect) = textField.attributeType, let sources, sources.count > 0 else { return }
+
+        if sources.count > 1 {
             let segmentedControl = SegmentedControl()
-            segmentedControl.addTarget(self, action: #selector(segmentedControlValueChanged), for: .valueChanged)
+            segmentedControl.addTarget(self, action: #selector(segmentedControlValueChanged(_:)), for: .valueChanged)
             for source in sources {
                 segmentedControl.addSegment(title: source.name)
             }
@@ -49,93 +51,75 @@ class TextFieldDropdownView: UIView, UITableViewDataSource, UITableViewDelegate 
             self.segmentedControl = segmentedControl
         }
 
-        tableView = TableView()
-        tableView.backgroundColor = .white
-        tableView.layer.borderColor = UIColor.focusedBorder.cgColor
-        tableView.layer.borderWidth = 2
-        tableView.layer.cornerRadius = 8
-        tableView.clipsToBounds = true
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.register(CheckboxTableViewCell.self, forCellReuseIdentifier: "Item")
-        stackView.addArrangedSubview(tableView)
+        let sourceVC = KeyboardSourceTableViewController()
+        sourceVC.source = sources.first
+        sourceVC.isMultiSelect = isMultiSelect
+        sourceVC.delegate = self
+
+        navVC = UINavigationController(rootViewController: sourceVC)
+        navVC.isNavigationBarHidden = true
+        navVC.view.backgroundColor = .white
+        navVC.view.layer.borderColor = UIColor.focusedBorder.cgColor
+        navVC.view.layer.borderWidth = 2
+        navVC.view.layer.cornerRadius = 8
+        navVC.view.clipsToBounds = true
+        stackView.addArrangedSubview(navVC.view)
     }
 
-    @objc func segmentedControlValueChanged() {
-        tableView.reloadData()
-    }
-
-    // MARK: - UITableViewDataSource
-
-    public func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-
-    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard case let .autocomplete(sources, _) = textField.attributeTypes[0], let sources else { return 0 }
-        return sources[segmentedControl?.selectedIndex ?? 0].count()
-    }
-
-    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Item", for: indexPath)
-        if let cell = cell as? CheckboxTableViewCell,
-           case let .autocomplete(sources, isMultiSelect) = textField.attributeTypes[0],
-           let sources,
-           let value = sources[segmentedControl?.selectedIndex ?? 0].value(at: indexPath.row) {
-            cell.checkbox.isRadioButton = !isMultiSelect
-            cell.checkbox.labelText = sources[segmentedControl?.selectedIndex ?? 0].title(at: indexPath.row)
-            cell.checkbox.isUserInteractionEnabled = false
-            if isMultiSelect {
-                let values = textField.attributeValue as? [NSObject] ?? []
-                cell.checkbox.isChecked = values.contains(value)
-            } else {
-                cell.checkbox.isChecked = textField.attributeValue == value
-            }
+    @objc func segmentedControlValueChanged(_ sender: SegmentedControl) {
+        guard case let .autocomplete(sources, _) = textField.attributeType else { return }
+        navVC.popToRootViewController(animated: false)
+        if let sourceVC = navVC.viewControllers.first as? KeyboardSourceTableViewController,
+           let source = sources?[sender.selectedIndex] {
+            sourceVC.source = source
+            sourceVC.tableView.reloadData()
         }
-        return cell
     }
 
-    // MARK: - UITableViewDelegate
+    func reload() {
+        navVC.popToRootViewController(animated: false)
+        if let sourceVC = navVC.viewControllers.first as? KeyboardSourceTableViewController {
+            sourceVC.tableView.reloadData()
+        }
+    }
 
-    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        if let cell = tableView.cellForRow(at: indexPath) as? CheckboxTableViewCell,
-           case let .autocomplete(sources, isMultiSelect) = textField.attributeTypes[0],
-           let sources,
-           let value = sources[segmentedControl?.selectedIndex ?? 0].value(at: indexPath.row) {
-            if cell.checkbox.isChecked {
-                cell.checkbox.isChecked = false
-                if isMultiSelect {
-                    if var values = textField.attributeValue as? [NSObject], let index = values.firstIndex(of: value) {
-                        values.remove(at: index)
-                        textField.attributeValue = values as NSObject
-                    } else {
-                        textField.attributeValue = [] as NSObject
-                    }
-                } else {
-                    textField.attributeValue = nil
-                }
+    // MARK: - KeyboardSourceTableViewControllerDelegate
+
+    @objc func keyboardSourceTableViewController(_ vc: KeyboardSourceTableViewController, isSelected value: NSObject) -> Bool {
+        guard case let .autocomplete(_, isMultiSelect) = textField.attributeType else { return false }
+        if isMultiSelect {
+            let values = textField.attributeValue as? [NSObject] ?? []
+            return values.contains(value)
+        }
+        return textField.attributeValue == value
+    }
+
+    @objc func keyboardSourceTableViewController(_ vc: KeyboardSourceTableViewController, didSelect value: NSObject) {
+        guard case let .autocomplete(_, isMultiSelect) = textField.attributeType else { return }
+        if isMultiSelect {
+            if var values = textField.attributeValue as? [NSObject] {
+                values.append(value)
+                textField.attributeValue = values as NSObject
             } else {
-                cell.checkbox.isChecked = true
-                if isMultiSelect {
-                    if var values = textField.attributeValue as? [NSObject] {
-                        values.append(value)
-                        textField.attributeValue = values as NSObject
-                    } else {
-                        textField.attributeValue = [value] as NSObject
-                    }
-                } else {
-                    textField.attributeValue = value
-                    textField.text = cell.checkbox.labelText
-                    for otherIndexPath in tableView.indexPathsForVisibleRows ?? [] {
-                        if otherIndexPath != indexPath, let otherCell = tableView.cellForRow(at: otherIndexPath) as? CheckboxTableViewCell {
-                            otherCell.checkbox.isChecked = false
-                        }
-                    }
-                    textField.hideDropdown()
-                    textField.delegate?.formComponentDidChange?(textField)
-                }
+                textField.attributeValue = [value] as NSObject
             }
+        } else {
+            textField.attributeValue = value
+            textField.text = vc.source?.title(for: value)
+        }
+    }
+
+    @objc func keyboardSourceTableViewController(_ vc: KeyboardSourceTableViewController, didDeselect value: NSObject) {
+        guard case let .autocomplete(_, isMultiSelect) = textField.attributeType else { return }
+        if isMultiSelect {
+            if var values = textField.attributeValue as? [NSObject], let index = values.firstIndex(of: value) {
+                values.remove(at: index)
+                textField.attributeValue = values as NSObject
+            } else {
+                textField.attributeValue = [] as NSObject
+            }
+        } else {
+            textField.attributeValue = nil
         }
     }
 }
@@ -245,12 +229,6 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
     open override var inputView: UIView? {
         get { return textView.inputView }
         set { textView.inputView = newValue }
-    }
-
-    private var _inputAccessoryView: UIView?
-    open override var inputAccessoryView: UIView? {
-        get { return _inputAccessoryView }
-        set { _inputAccessoryView = newValue }
     }
 
     open var keyboardType: UIKeyboardType {
@@ -575,7 +553,7 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
             for source in sources ?? [] {
                 source.search(text, callback: nil)
             }
-            dropdownView?.tableView.reloadData()
+            dropdownView?.reload()
             return
         }
         text = textView.text ?? ""

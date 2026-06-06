@@ -10,7 +10,7 @@ import Keyboardy
 import UIKit
 import PRKit
 
-enum PickerTestEnum: String, StringCaseIterable {
+enum TestEnum: String, StringCaseIterable {
     case option1, option2, option3, option4, option5, option6, option7, option8
 
     var description: String {
@@ -48,7 +48,6 @@ class KeyboardsViewController: ViewController, FormFieldDelegate, KeyboardAwareS
     weak var dateField: TextField!
     weak var dateTimeField: TextField!
     weak var emailField: TextField!
-    weak var pickerField: TextField!
     weak var integerField: TextField!
     weak var decimalField: TextField!
     weak var ageField: TextField!
@@ -90,7 +89,7 @@ class KeyboardsViewController: ViewController, FormFieldDelegate, KeyboardAwareS
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.delegate = self
         textField.labelText = "Multiple keyboards (new)"
-        textField.attributeTypes = [.text, .single(EnumKeyboardSource<PickerTestEnum>())]
+        textField.attributeTypes = [.text, .single(EnumKeyboardSource<TestEnum>())]
         textField.inputAccessoryView = inputAccessoryView
         textField.tag = tag
         tag += 1
@@ -150,23 +149,6 @@ class KeyboardsViewController: ViewController, FormFieldDelegate, KeyboardAwareS
         ])
         self.emailField = emailField
 
-        let pickerField = TextField()
-        pickerField.translatesAutoresizingMaskIntoConstraints = false
-        pickerField.delegate = self
-        pickerField.labelText = "Picker"
-        pickerField.attributeType = .picker(EnumKeyboardSource<PickerTestEnum>())
-        pickerField.attributeValue = "option2" as NSObject
-        pickerField.inputAccessoryView = inputAccessoryView
-        pickerField.tag = tag
-        tag += 1
-        scrollView.addSubview(pickerField)
-        NSLayoutConstraint.activate([
-            pickerField.topAnchor.constraint(equalTo: emailField.bottomAnchor, constant: 20),
-            pickerField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            pickerField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-        ])
-        self.pickerField = pickerField
-
         let integerField = TextField()
         integerField.translatesAutoresizingMaskIntoConstraints = false
         integerField.delegate = self
@@ -178,7 +160,7 @@ class KeyboardsViewController: ViewController, FormFieldDelegate, KeyboardAwareS
         tag += 1
         scrollView.addSubview(integerField)
         NSLayoutConstraint.activate([
-            integerField.topAnchor.constraint(equalTo: pickerField.bottomAnchor, constant: 20),
+            integerField.topAnchor.constraint(equalTo: emailField.bottomAnchor, constant: 20),
             integerField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             integerField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
         ])
@@ -221,7 +203,7 @@ class KeyboardsViewController: ViewController, FormFieldDelegate, KeyboardAwareS
         multiField.translatesAutoresizingMaskIntoConstraints = false
         multiField.delegate = self
         multiField.labelText = "Multi Select"
-        multiField.attributeType = .multi(EnumKeyboardSource<PickerTestEnum>())
+        multiField.attributeType = .multi(EnumKeyboardSource<TestEnum>())
         multiField.inputAccessoryView = inputAccessoryView
         multiField.tag = tag
         tag += 1
@@ -237,7 +219,7 @@ class KeyboardsViewController: ViewController, FormFieldDelegate, KeyboardAwareS
         singleField.translatesAutoresizingMaskIntoConstraints = false
         singleField.delegate = self
         singleField.labelText = "Single Select"
-        singleField.attributeType = .multi(EnumKeyboardSource<PickerTestEnum>())
+        singleField.attributeType = .single(EnumKeyboardSource<TestEnum>())
         singleField.inputAccessoryView = inputAccessoryView
         singleField.tag = tag
         tag += 1
@@ -253,7 +235,7 @@ class KeyboardsViewController: ViewController, FormFieldDelegate, KeyboardAwareS
         multiSearchField.translatesAutoresizingMaskIntoConstraints = false
         multiSearchField.delegate = self
         multiSearchField.labelText = "Multi Select w/ Search"
-        multiSearchField.attributeType = .custom(SearchKeyboard(source: EnumKeyboardSource<PickerTestEnum>(), isMultiSelect: true))
+        multiSearchField.attributeType = .custom(SearchKeyboard(source: EnumKeyboardSource<TestEnum>(), isMultiSelect: true))
         multiSearchField.inputAccessoryView = inputAccessoryView
         multiSearchField.tag = tag
         tag += 1
@@ -269,7 +251,7 @@ class KeyboardsViewController: ViewController, FormFieldDelegate, KeyboardAwareS
         singleSearchField.translatesAutoresizingMaskIntoConstraints = false
         singleSearchField.delegate = self
         singleSearchField.labelText = "Single Select"
-        singleSearchField.attributeType = .custom(SearchKeyboard(source: EnumKeyboardSource<PickerTestEnum>(), isMultiSelect: false))
+        singleSearchField.attributeType = .custom(SearchKeyboard(source: EnumKeyboardSource<TestEnum>(), isMultiSelect: false))
         singleSearchField.inputAccessoryView = inputAccessoryView
         singleSearchField.tag = tag
         tag += 1
@@ -285,15 +267,14 @@ class KeyboardsViewController: ViewController, FormFieldDelegate, KeyboardAwareS
         comboField.translatesAutoresizingMaskIntoConstraints = false
         comboField.delegate = self
         comboField.labelText = "Combo Select"
-        let searchKeyboard = SearchKeyboard(source: EnumKeyboardSource<PickerTestEnum>(), isMultiSelect: false)
-        let pickerKeyboard = PickerKeyboard()
-        pickerKeyboard.source = EnumKeyboardSource<PickerTestEnum>()
+        let searchKeyboard = SearchKeyboard(source: EnumKeyboardSource<TestEnum>(), isMultiSelect: false)
+        let selectKeyboard = SelectKeyboard(source: EnumKeyboardSource<TestEnum>())
         comboField.attributeType = .custom(ComboKeyboard(keyboards: [
             searchKeyboard,
-            pickerKeyboard
+            selectKeyboard
         ], titles: [
             "Search",
-            "Picker"
+            "Select"
         ]))
         comboField.inputAccessoryView = inputAccessoryView
         comboField.tag = tag
