@@ -76,6 +76,13 @@ class TextFieldDropdownView: UIView, KeyboardSourceTableViewControllerDelegate {
         }
     }
 
+    @objc func backPressed() {
+        if let sourceVC = navVC.viewControllers.first as? KeyboardSourceTableViewController {
+            sourceVC.source?.setSectionId(nil)
+        }
+        navVC.popToRootViewController(animated: true)
+    }
+
     func reload() {
         navVC.popToRootViewController(animated: false)
         if let sourceVC = navVC.viewControllers.first as? KeyboardSourceTableViewController {
@@ -95,7 +102,7 @@ class TextFieldDropdownView: UIView, KeyboardSourceTableViewControllerDelegate {
     }
 
     @objc func keyboardSourceTableViewController(_ vc: KeyboardSourceTableViewController, didSelect value: NSObject) {
-        guard case let .autocomplete(_, isMultiSelect) = textField.attributeType else { return }
+        guard case let .autocomplete(sources, isMultiSelect) = textField.attributeType, let sources else { return }
         if isMultiSelect {
             if var values = textField.attributeValue as? [NSObject] {
                 values.append(value)
@@ -105,7 +112,7 @@ class TextFieldDropdownView: UIView, KeyboardSourceTableViewControllerDelegate {
             }
         } else {
             textField.attributeValue = value
-            textField.text = vc.source?.title(for: value)
+            textField.text = sources[segmentedControl?.selectedIndex ?? 0].title(for: value)
             textField.hideDropdown()
             textField.delegate?.formComponentDidChange?(textField)
         }
@@ -122,6 +129,25 @@ class TextFieldDropdownView: UIView, KeyboardSourceTableViewControllerDelegate {
             }
         } else {
             textField.attributeValue = nil
+        }
+    }
+
+    @objc func keyboardSourceTableViewController(_ vc: KeyboardSourceTableViewController, didNavigateTo id: String) {
+        if let source = vc.source, let title = source.title(for: id as NSObject), let newSource = source.clone() {
+            newSource.setSectionId(id)
+
+            let newVC = KeyboardSourceTableViewController()
+            newVC.source = newSource
+            newVC.isMultiSelect = vc.isMultiSelect
+            newVC.delegate = self
+            _ = newVC.view
+
+            let backButton = UIBarButtonItem(title: title, style: .plain, target: self, action: #selector(backPressed))
+            backButton.image = UIImage(named: "ChevronLeft40px", in: PRKitBundle.instance, compatibleWith: nil)
+            newVC.commandHeader.leftBarButtonItem = backButton
+            newVC.commandHeader.isHidden = false
+
+            navVC.pushViewController(newVC, animated: true)
         }
     }
 }

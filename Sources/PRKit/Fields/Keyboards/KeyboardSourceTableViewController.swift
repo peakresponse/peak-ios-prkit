@@ -12,9 +12,12 @@ import UIKit
     @objc optional func keyboardSourceTableViewController(_ vc: KeyboardSourceTableViewController, isSelected value: NSObject) -> Bool
     @objc optional func keyboardSourceTableViewController(_ vc: KeyboardSourceTableViewController, didSelect value: NSObject)
     @objc optional func keyboardSourceTableViewController(_ vc: KeyboardSourceTableViewController, didDeselect value: NSObject)
+    @objc optional func keyboardSourceTableViewController(_ vc: KeyboardSourceTableViewController, didNavigateTo id: String)
 }
 
 class KeyboardSourceTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    var stackView: UIStackView!
+    var commandHeader: CommandHeader!
     var tableView: UITableView!
     var source: KeyboardSource?
     var isMultiSelect = false
@@ -29,16 +32,28 @@ class KeyboardSourceTableViewController: UIViewController, UITableViewDataSource
         super.init(coder: coder)
     }
 
-    override func loadView() {
-        tableView = TableView()
-        view = tableView
-    }
-
     override func viewDidLoad() {
+        stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        view.addSubview(stackView)
+        NSLayoutConstraint.activate([
+            stackView.topAnchor.constraint(equalTo: view.topAnchor),
+            stackView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        ])
+
+        commandHeader = CommandHeader()
+        commandHeader.isHidden = true
+        stackView.addArrangedSubview(commandHeader)
+
+        tableView = TableView()
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(ListItemTableViewCell.self, forCellReuseIdentifier: "item")
         tableView.register(CheckboxTableViewCell.self, forCellReuseIdentifier: "checkbox")
+        stackView.addArrangedSubview(tableView)
     }
 
     // MARK: - UITableViewDataSource
@@ -52,6 +67,14 @@ class KeyboardSourceTableViewController: UIViewController, UITableViewDataSource
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let value = source?.value(at: indexPath.row), let isCategories = source?.isSectioned else { return UITableViewCell() }
+        if isCategories {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "item", for: indexPath)
+            if let cell = cell as? ListItemTableViewCell {
+                cell.label.text = source?.title(at: indexPath.row)
+            }
+            return cell
+        }
         let cell = tableView.dequeueReusableCell(withIdentifier: "checkbox", for: indexPath)
         if let cell = cell as? CheckboxTableViewCell,
            let value = source?.value(at: indexPath.row) {
@@ -66,8 +89,9 @@ class KeyboardSourceTableViewController: UIViewController, UITableViewDataSource
     // MARK: - UITableViewDelegate
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        if let cell = tableView.cellForRow(at: indexPath) as? CheckboxTableViewCell,
-           let value = source?.value(at: indexPath.row) {
+        let cell = tableView.cellForRow(at: indexPath)
+        let value = source?.value(at: indexPath.row)
+        if let cell = cell as? CheckboxTableViewCell, let value {
             if cell.checkbox.isChecked {
                 cell.checkbox.isChecked = false
                 delegate?.keyboardSourceTableViewController?(self, didDeselect: value)
@@ -82,6 +106,8 @@ class KeyboardSourceTableViewController: UIViewController, UITableViewDataSource
                 }
                 delegate?.keyboardSourceTableViewController?(self, didSelect: value)
             }
+        } else if let cell = cell as? ListItemTableViewCell, let value = value as? String {
+            delegate?.keyboardSourceTableViewController?(self, didNavigateTo: value)
         }
     }
 }
