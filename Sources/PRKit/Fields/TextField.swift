@@ -181,6 +181,10 @@ class InternalTextView: UITextView {
         if super.resignFirstResponder() {
             (inputView as? FormInputView)?.removeAllSubInputViews()
             textField?.updateStyle()
+            if case let .autocomplete(_, isMultiSelect) = textField?.attributeTypes.first, isMultiSelect, !(textField?.multiValueViews?.isEmpty ?? true) {
+                textField?.contentView.isHidden = true
+                textField?.multiValueViews?.last?.separatorView.isHidden = true
+            }
             return true
         }
         return false
@@ -488,6 +492,10 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
     }
 
     override open func becomeFirstResponder() -> Bool {
+        if contentView.isHidden {
+            contentView.isHidden = false
+            multiValueViews?.last?.separatorView.isHidden = false
+        }
         return textView.becomeFirstResponder()
     }
 

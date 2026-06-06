@@ -189,12 +189,83 @@ public enum FormFieldAttributeType: Equatable {
     }
 }
 
+class FormFieldValue: UIView {
+    var separatorView: UIView!
+    var separatorViewTopConstraint: NSLayoutConstraint!
+    var label: UILabel!
+    var clearButton: UIButton!
+
+    var labelText: String? {
+        get { label.text }
+        set {
+            if let newValue {
+                let attributedText = NSMutableAttributedString(string: newValue)
+                let paragraphStyle = NSMutableParagraphStyle()
+                paragraphStyle.lineSpacing = 4
+                attributedText.addAttribute(.paragraphStyle, value: paragraphStyle, range: .init(location: 0, length: attributedText.length))
+                label.attributedText = attributedText
+            } else {
+                label.text = nil
+            }
+        }
+    }
+
+    init() {
+        super.init(frame: .zero)
+        commonInit()
+    }
+
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        commonInit()
+    }
+
+    func commonInit() {
+        separatorView = UIView()
+        separatorView.translatesAutoresizingMaskIntoConstraints = false
+        separatorView.backgroundColor = .disabledBorder
+        addSubview(separatorView)
+        separatorViewTopConstraint = separatorView.topAnchor.constraint(equalTo: topAnchor)
+        NSLayoutConstraint.activate([
+            separatorViewTopConstraint,
+            separatorView.leftAnchor.constraint(equalTo: leftAnchor),
+            separatorView.rightAnchor.constraint(equalTo: rightAnchor),
+            separatorView.heightAnchor.constraint(equalToConstant: 2)
+        ])
+
+        label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .h4SemiBold
+        label.numberOfLines = 0
+        label.textColor = .text
+        addSubview(label)
+        NSLayoutConstraint.activate([
+            label.topAnchor.constraint(equalTo: separatorView.bottomAnchor, constant: 10),
+            label.leadingAnchor.constraint(equalTo: leadingAnchor),
+            label.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -44),
+            label.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10)
+        ])
+
+        clearButton = UIButton(type: .custom)
+        clearButton.translatesAutoresizingMaskIntoConstraints = false
+        clearButton.setImage(UIImage(named: "Exit24px", in: PRKitBundle.instance, compatibleWith: nil), for: .normal)
+        clearButton.imageView?.tintColor = .labelText
+        addSubview(clearButton)
+        NSLayoutConstraint.activate([
+            clearButton.widthAnchor.constraint(equalToConstant: 44),
+            clearButton.heightAnchor.constraint(equalToConstant: 44),
+            clearButton.rightAnchor.constraint(equalTo: rightAnchor, constant: 12),
+            clearButton.centerYAnchor.constraint(equalTo: label.centerYAnchor, constant: 2)
+        ])
+    }
+}
+
 open class FormField: FormComponent, Localizable, FormInputViewDelegate {
     open weak var borderedView: UIView!
     open weak var stackView: UIStackView!
     open weak var contentStackView: UIStackView!
     open weak var contentView: UIView!
-    var multiValueViews: [UIView]?
+    var multiValueViews: [FormFieldValue]?
 
     open weak var statusButton: UIButton!
     open weak var accessoryButton: UIButton?
@@ -415,52 +486,12 @@ open class FormField: FormComponent, Localizable, FormInputViewDelegate {
                         if multiValueViews == nil {
                             multiValueViews = []
                         }
-                        let valueView = UIView()
+                        let valueView = FormFieldValue()
                         multiValueViews?.append(valueView)
                         contentStackView.insertArrangedSubview(valueView, at: 2)
-
-                        let valueSeparatorView = UIView()
-                        valueSeparatorView.translatesAutoresizingMaskIntoConstraints = false
-                        valueSeparatorView.backgroundColor = .disabledBorder
-                        valueView.addSubview(valueSeparatorView)
-                        NSLayoutConstraint.activate([
-                            valueSeparatorView.topAnchor.constraint(equalTo: valueView.topAnchor, constant: (i == values.count - 2) ? 2 : 0),
-                            valueSeparatorView.leftAnchor.constraint(equalTo: valueView.leftAnchor),
-                            valueSeparatorView.rightAnchor.constraint(equalTo: valueView.rightAnchor),
-                            valueSeparatorView.heightAnchor.constraint(equalToConstant: 2)
-                        ])
-
-                        let valueLabel = UILabel()
-                        valueLabel.translatesAutoresizingMaskIntoConstraints = false
-                        valueLabel.font = .h4SemiBold
-                        valueLabel.numberOfLines = 0
-                        let attributedText = NSMutableAttributedString(string: value)
-                        let paragraphStyle = NSMutableParagraphStyle()
-                        paragraphStyle.lineSpacing = 4
-                        attributedText.addAttribute(.paragraphStyle, value: paragraphStyle, range: .init(location: 0, length: attributedText.length))
-                        valueLabel.attributedText = attributedText
-
-                        valueLabel.textColor = .text
-                        valueView.addSubview(valueLabel)
-                        NSLayoutConstraint.activate([
-                            valueLabel.topAnchor.constraint(equalTo: valueSeparatorView.bottomAnchor, constant: 10),
-                            valueLabel.leadingAnchor.constraint(equalTo: valueView.leadingAnchor),
-                            valueLabel.trailingAnchor.constraint(equalTo: valueView.trailingAnchor, constant: -44),
-                            valueLabel.bottomAnchor.constraint(equalTo: valueView.bottomAnchor, constant: -10)
-                        ])
-
-                        let valueClearButton = UIButton(type: .custom)
-                        valueClearButton.translatesAutoresizingMaskIntoConstraints = false
-                        valueClearButton.setImage(UIImage(named: "Exit24px", in: PRKitBundle.instance, compatibleWith: nil), for: .normal)
-                        valueClearButton.imageView?.tintColor = .labelText
-                        valueClearButton.addTarget(self, action: #selector(clearPressed(_:)), for: .touchUpInside)
-                        valueView.addSubview(valueClearButton)
-                        NSLayoutConstraint.activate([
-                            valueClearButton.widthAnchor.constraint(equalToConstant: 44),
-                            valueClearButton.heightAnchor.constraint(equalToConstant: 44),
-                            valueClearButton.rightAnchor.constraint(equalTo: valueView.rightAnchor, constant: 12),
-                            valueClearButton.centerYAnchor.constraint(equalTo: valueLabel.centerYAnchor, constant: 2)
-                        ])
+                        valueView.separatorViewTopConstraint.constant = (i == values.count - 2) ? 2 : 0
+                        valueView.labelText = value
+                        valueView.clearButton.addTarget(self, action: #selector(clearPressed(_:)), for: .touchUpInside)
                     }
                 }
                 return
