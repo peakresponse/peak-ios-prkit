@@ -190,8 +190,8 @@ public enum FormFieldAttributeType: Equatable {
 }
 
 class FormFieldValue: UIView {
+    var stackView: UIStackView!
     var separatorView: UIView!
-    var separatorViewTopConstraint: NSLayoutConstraint!
     var label: UILabel!
     var clearButton: UIButton!
 
@@ -201,7 +201,7 @@ class FormFieldValue: UIView {
             if let newValue {
                 let attributedText = NSMutableAttributedString(string: newValue)
                 let paragraphStyle = NSMutableParagraphStyle()
-                paragraphStyle.lineSpacing = 4
+                paragraphStyle.lineSpacing = 0.2 * label.font.lineHeight
                 attributedText.addAttribute(.paragraphStyle, value: paragraphStyle, range: .init(location: 0, length: attributedText.length))
                 label.attributedText = attributedText
             } else {
@@ -221,41 +221,59 @@ class FormFieldValue: UIView {
     }
 
     func commonInit() {
-        separatorView = UIView()
-        separatorView.translatesAutoresizingMaskIntoConstraints = false
-        separatorView.backgroundColor = .disabledBorder
-        addSubview(separatorView)
-        separatorViewTopConstraint = separatorView.topAnchor.constraint(equalTo: topAnchor)
+        stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        stackView.spacing = 0
+        addSubview(stackView)
         NSLayoutConstraint.activate([
-            separatorViewTopConstraint,
-            separatorView.leftAnchor.constraint(equalTo: leftAnchor),
-            separatorView.rightAnchor.constraint(equalTo: rightAnchor),
-            separatorView.heightAnchor.constraint(equalToConstant: 2)
+            stackView.topAnchor.constraint(equalTo: topAnchor),
+            stackView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            stackView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            stackView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
+
+        separatorView = UIView()
+        stackView.addArrangedSubview(separatorView)
+
+        let hr = UIView()
+        hr.translatesAutoresizingMaskIntoConstraints = false
+        hr.backgroundColor = .disabledBorder
+        separatorView.addSubview(hr)
+        NSLayoutConstraint.activate([
+            hr.topAnchor.constraint(equalTo: separatorView.topAnchor, constant: 4),
+            hr.heightAnchor.constraint(equalToConstant: 2),
+            hr.bottomAnchor.constraint(equalTo: separatorView.bottomAnchor, constant: -6),
+            hr.leadingAnchor.constraint(equalTo: separatorView.leadingAnchor),
+            hr.trailingAnchor.constraint(equalTo: separatorView.trailingAnchor)
+        ])
+
+        let view = UIView()
+        stackView.addArrangedSubview(view)
 
         label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .h4SemiBold
         label.numberOfLines = 0
         label.textColor = .text
-        addSubview(label)
+        view.addSubview(label)
         NSLayoutConstraint.activate([
-            label.topAnchor.constraint(equalTo: separatorView.bottomAnchor, constant: 10),
-            label.leadingAnchor.constraint(equalTo: leadingAnchor),
-            label.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -44),
-            label.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10)
+            label.topAnchor.constraint(equalTo: view.topAnchor, constant: 4),
+            label.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            label.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -2 - 0.2 * label.font.lineHeight)
         ])
 
         clearButton = UIButton(type: .custom)
         clearButton.translatesAutoresizingMaskIntoConstraints = false
         clearButton.setImage(UIImage(named: "Exit24px", in: PRKitBundle.instance, compatibleWith: nil), for: .normal)
         clearButton.imageView?.tintColor = .labelText
-        addSubview(clearButton)
+        view.addSubview(clearButton)
         NSLayoutConstraint.activate([
             clearButton.widthAnchor.constraint(equalToConstant: 44),
             clearButton.heightAnchor.constraint(equalToConstant: 44),
-            clearButton.rightAnchor.constraint(equalTo: rightAnchor, constant: 12),
-            clearButton.centerYAnchor.constraint(equalTo: label.centerYAnchor, constant: 2)
+            clearButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 12),
+            clearButton.centerYAnchor.constraint(equalTo: label.centerYAnchor, constant: 2),
+            label.trailingAnchor.constraint(equalTo: clearButton.leadingAnchor)
         ])
     }
 }
@@ -412,13 +430,13 @@ open class FormField: FormComponent, Localizable, FormInputViewDelegate {
         let contentStackView = UIStackView()
         contentStackView.translatesAutoresizingMaskIntoConstraints = false
         contentStackView.axis = .vertical
-        contentStackView.spacing = 2
+        contentStackView.spacing = 0
         view.addSubview(contentStackView)
         NSLayoutConstraint.activate([
             contentStackView.topAnchor.constraint(equalTo: view.topAnchor, constant: 10),
             contentStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             contentStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            contentStackView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -8),
+            contentStackView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -6),
         ])
         self.contentStackView = contentStackView
 
@@ -489,10 +507,12 @@ open class FormField: FormComponent, Localizable, FormInputViewDelegate {
                         let valueView = FormFieldValue()
                         multiValueViews?.append(valueView)
                         contentStackView.insertArrangedSubview(valueView, at: 2)
-                        valueView.separatorViewTopConstraint.constant = (i == values.count - 2) ? 2 : 0
                         valueView.labelText = value
                         valueView.clearButton.addTarget(self, action: #selector(clearPressed(_:)), for: .touchUpInside)
                     }
+                }
+                if case let .autocomplete(_, isMultiSelect) = attributeTypes.first, isMultiSelect, !isFirstResponder {
+                    multiValueViews?.last?.separatorView.isHidden = true
                 }
                 return
             }
@@ -581,6 +601,9 @@ open class FormField: FormComponent, Localizable, FormInputViewDelegate {
             attributeValues[0] = values as NSObject
             delegate?.formComponentDidChange?(self)
             reloadInputViews()
+            if values.isEmpty {
+                contentView.isHidden = false
+            }
             return
         }
         attributeValues = .init(repeating: nil, count: attributeTypes.count)
