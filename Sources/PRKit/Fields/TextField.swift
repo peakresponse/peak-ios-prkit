@@ -114,8 +114,8 @@ class TextFieldDropdownView: UIView, KeyboardSourceTableViewControllerDelegate {
             textField.attributeValue = value
             textField.text = sources[segmentedControl?.selectedIndex ?? 0].title(for: value)
             textField.hideDropdown()
-            textField.delegate?.formComponentDidChange?(textField)
         }
+        textField.delegate?.formComponentDidChange?(textField)
     }
 
     @objc func keyboardSourceTableViewController(_ vc: KeyboardSourceTableViewController, didDeselect value: NSObject) {
@@ -130,6 +130,7 @@ class TextFieldDropdownView: UIView, KeyboardSourceTableViewControllerDelegate {
         } else {
             textField.attributeValue = nil
         }
+        textField.delegate?.formComponentDidChange?(textField)
     }
 
     @objc func keyboardSourceTableViewController(_ vc: KeyboardSourceTableViewController, didNavigateTo id: String) {
