@@ -9,10 +9,10 @@ import Foundation
 
 open class TupleKeyboardSource: KeyboardSource {
     public let name: String
-    public let items: [(String, String)]
-    public var filtered: [(String, String)]?
+    public let items: [(label: String, value: String)]
+    public var filtered: [(label: String, value: String)]?
 
-    public init(name: String, items: [(String, String)]) {
+    public init(name: String, items: [(label: String, value: String)]) {
         self.name = name
         self.items = items
     }

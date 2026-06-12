@@ -111,14 +111,20 @@ open class NumberKeypad: FormInputView {
     @objc func buttonPressed(_ button: Button) {
         var range = textView.selectedRange
         if button.tag == 12 {
-            if value.count == 0 || (range.location == 0 && range.length == 0) {
+            if (value.count == 0 && range.location == 0) || (range.location == 0 && range.length == 0) {
                 return
             }
             if range.length == 0 {
                 range = NSRange(location: range.location - 1, length: 1)
             }
             if textView.delegate?.textView?(textView, shouldChangeTextIn: range, replacementText: "") ?? true {
-                value = (value as NSString).replacingCharacters(in: range, with: "")
+                range = textView.selectedRange
+                if value.count > 0 && (range.location > 0 || range.length > 0) {
+                    if range.length == 0 {
+                        range = NSRange(location: range.location - 1, length: 1)
+                    }
+                    value = (value as NSString).replacingCharacters(in: range, with: "")
+                }
             }
             range = NSRange(location: range.location, length: 0)
         } else {
@@ -144,6 +150,7 @@ open class NumberKeypad: FormInputView {
                 replacementText = "0"
             }
             if textView.delegate?.textView?(textView, shouldChangeTextIn: range, replacementText: replacementText) ?? true {
+                range = textView.selectedRange
                 value = (value as NSString).replacingCharacters(in: range, with: replacementText)
             }
             range = NSRange(location: range.location + replacementText.count, length: 0)

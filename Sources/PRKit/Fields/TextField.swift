@@ -308,7 +308,7 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
         set { textView.spellCheckingType = newValue }
     }
 
-    private func heightForText(_ text: String, font: UIFont, width: CGFloat) -> CGFloat {
+    public func heightForText(_ text: String, font: UIFont, width: CGFloat) -> CGFloat {
         let text = text as NSString
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineSpacing = 4
@@ -320,7 +320,7 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
         return max(font.lineHeight * 1.2, ceil(rect.height / (font.lineHeight * 1.2)) * font.lineHeight * 1.2)
     }
 
-    private func widthForText(_ text: String, font: UIFont) -> CGFloat {
+    public func widthForText(_ text: String, font: UIFont) -> CGFloat {
         let text = text as NSString
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineSpacing = 4

@@ -625,18 +625,18 @@ open class FormField: FormComponent, Localizable, FormInputViewDelegate {
 
     // MARK: - FormInputViewDelegate
 
-    public func formInputView(_ inputView: FormInputView, didChange value: NSObject?) {
+    open func formInputView(_ inputView: FormInputView, didChange value: NSObject?) {
         attributeValue = value
         delegate?.formComponentDidChange?(self)
     }
 
-    public func formInputView(_ inputView: FormInputView, wantsToPresent vc: UIViewController) {
+    open func formInputView(_ inputView: FormInputView, wantsToPresent vc: UIViewController) {
         (delegate as? FormFieldDelegate)?.formField?(self, wantsToPresent: vc)
     }
 
     // MARK: - UIResponder
 
-    public override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    override open func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if touches.count == 1, let touch = touches.first, bounds.contains(touch.location(in: self)), canBecomeFirstResponder {
             _ = becomeFirstResponder()
             return
