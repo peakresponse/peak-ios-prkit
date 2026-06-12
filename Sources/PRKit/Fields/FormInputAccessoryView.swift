@@ -190,6 +190,8 @@ open class FormInputAccessoryView: UIInputView {
                        formField.attributeTypes.count > 1 {
                 formField.attributeIndex = (formField.attributeIndex + 1) % formField.attributeTypes.count
                 formField.reloadInputViews()
+                let nextAttributeType = formField.attributeTypes[(formField.attributeIndex + 1) % formField.attributeTypes.count]
+                otherButton.setTitle(nextAttributeType.buttonLabel, for: .normal)
             } else if let inputView = currentView.inputView as? FormInputView {
                 if let otherTitle = inputView.accessoryOtherButtonPressed(self) {
                     otherButton.setTitle(otherTitle, for: .normal)

@@ -39,6 +39,8 @@ public enum FormFieldAttributeType: Equatable {
             return "Button.123".localized
         case .date, .datetime:
             return "Button.date".localized
+        case .single(let source), .multi(let source):
+            return source?.name ?? ""
         default:
             return "Button.abc".localized
         }
