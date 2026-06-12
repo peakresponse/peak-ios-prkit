@@ -222,7 +222,7 @@ open class SelectKeyboard: FormInputView, CheckboxDelegate,
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Checkbox", for: indexPath)
         if let cell = cell as? SelectCheckboxCell {
             cell.checkbox.value = source?.value(at: indexPath.row)
-            cell.checkbox.labelText = text(for: cell.checkbox.value)
+            cell.checkbox.labelText = text(for: cell.checkbox.value)?.trimmingCharacters(in: .whitespacesAndNewlines)
             cell.checkbox.delegate = self
             cell.checkbox.isRadioButton = !isMultiSelect
             if let value = cell.checkbox.value, values?.contains(value) ?? false {
