@@ -124,7 +124,12 @@ public enum FormFieldAttributeType: Equatable {
         case .date:
             return ISO8601DateFormatter.date(from: value as? String)?.asDateString()
         case .datetime:
-            return (value as? Date)?.asDateTimeString()
+            if let value = value as? Date {
+                return value.asDateTimeString()
+            } else if let value = value as? String, let value = try? Date(value, strategy: .iso8601) {
+                return value.asDateTimeString()
+            }
+            return nil
         case .integerWithUnit(_), .decimalWithUnit(_):
             if let value = value as? [String?], value.count > 0 {
                 return value[0]

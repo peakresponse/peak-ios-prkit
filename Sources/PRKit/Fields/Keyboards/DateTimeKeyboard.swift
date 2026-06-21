@@ -62,6 +62,8 @@ open class DateTimeKeyboard: FormInputView {
     open override func setValue(_ value: NSObject?) {
         if let value = value as? Date {
             date = value
+        } else if let value = value as? String, let value = try? Date(value, strategy: .iso8601) {
+            date = value
         } else {
             date = Date()
             dateChanged()
@@ -69,7 +71,12 @@ open class DateTimeKeyboard: FormInputView {
     }
 
     open override func text(for value: NSObject?) -> String? {
-        return (value as? Date)?.asDateTimeString()
+        if let value = value as? Date {
+            return value.asDateTimeString()
+        } else if let value = value as? String, let value = try? Date(value, strategy: .iso8601) {
+            return value.asDateTimeString()
+        }
+        return nil
     }
 
     @objc func dateChanged() {
