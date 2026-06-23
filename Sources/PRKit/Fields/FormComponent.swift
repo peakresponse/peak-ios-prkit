@@ -58,6 +58,11 @@ open class FormComponent: UIView {
         }
     }
 
+    open override var inputAccessoryView: UIView? {
+        get { nil }
+        set { /* no-op */ }
+    }
+
     open func didScrollIntoView(_ scrollView: UIScrollView) {
     }
 
