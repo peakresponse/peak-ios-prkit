@@ -217,11 +217,14 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
             let text = newValue ?? ""
             let paragraphStyle = NSMutableParagraphStyle()
             paragraphStyle.lineSpacing = 4
+            // remove delegate due to strange bug triggering shouldTextChangeIn callback on programmatic changes
+            textView.delegate = nil
             textView.attributedText = NSAttributedString(string: text, attributes: [
                 .font: textView.font!,
                 .paragraphStyle: paragraphStyle,
                 .foregroundColor: textView.textColor!
             ])
+            textView.delegate = self
             updateStyle()
         }
     }

@@ -38,11 +38,12 @@ open class FormComponent: UIView {
     open var attributeValue: NSObject? {
         get { return attributeValues[attributeIndex] }
         set {
-            attributeValues[attributeIndex] = newValue
-            for (i, _) in attributeValues.enumerated() where i != attributeIndex {
-                attributeValues[i] = nil
+            var newValues = attributeValues
+            newValues[attributeIndex] = newValue
+            for (i, _) in newValues.enumerated() where i != attributeIndex {
+                newValues[i] = nil
             }
-            didUpdateAttributeValue()
+            attributeValues = newValues
         }
     }
 
