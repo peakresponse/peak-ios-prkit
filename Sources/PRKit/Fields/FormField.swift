@@ -524,7 +524,7 @@ open class FormField: FormComponent, Localizable, FormInputViewDelegate {
                 return
             }
         }
-        text = attributeValues.enumerated().compactMap { attributeTypes[$0].text(for: $1) }.joined(separator: " ")
+        text = attributeValues.enumerated().compactMap { attributeTypes[$0].text(for: $1) }.joined(separator: " - ")
         self.text = text.isEmpty ? nil : text
     }
 
