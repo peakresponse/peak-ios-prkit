@@ -225,6 +225,7 @@ open class SelectKeyboard: FormInputView, CheckboxDelegate,
             cell.checkbox.labelText = text(for: cell.checkbox.value)?.trimmingCharacters(in: .whitespacesAndNewlines)
             cell.checkbox.delegate = self
             cell.checkbox.isRadioButton = !isMultiSelect
+            cell.checkbox.isRadioButtonDeselectable = true
             if let value = cell.checkbox.value, values?.contains(value) ?? false {
                 cell.checkbox.isChecked = true
             } else {

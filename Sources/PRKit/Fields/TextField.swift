@@ -39,7 +39,7 @@ class TextFieldDropdownView: UIView, KeyboardSourceTableViewControllerDelegate {
             bottomAnchor.constraint(equalTo: stackView.bottomAnchor),
         ])
 
-        guard case let .autocomplete(sources, isMultiSelect) = textField.attributeType, let sources, sources.count > 0 else { return }
+        guard case let .autocomplete(sources) = textField.attributeType, let sources, sources.count > 0 else { return }
 
         if sources.count > 1 {
             let segmentedControl = SegmentedControl()
@@ -53,7 +53,7 @@ class TextFieldDropdownView: UIView, KeyboardSourceTableViewControllerDelegate {
 
         let sourceVC = KeyboardSourceTableViewController()
         sourceVC.source = sources.first
-        sourceVC.isMultiSelect = isMultiSelect
+        sourceVC.isMultiSelect = textField.isMultiValue
         sourceVC.delegate = self
 
         navVC = UINavigationController(rootViewController: sourceVC)
@@ -67,7 +67,7 @@ class TextFieldDropdownView: UIView, KeyboardSourceTableViewControllerDelegate {
     }
 
     @objc func segmentedControlValueChanged(_ sender: SegmentedControl) {
-        guard case let .autocomplete(sources, _) = textField.attributeType else { return }
+        guard case let .autocomplete(sources) = textField.attributeType else { return }
         navVC.popToRootViewController(animated: false)
         if let sourceVC = navVC.viewControllers.first as? KeyboardSourceTableViewController,
            let source = sources?[sender.selectedIndex] {
@@ -93,39 +93,31 @@ class TextFieldDropdownView: UIView, KeyboardSourceTableViewControllerDelegate {
     // MARK: - KeyboardSourceTableViewControllerDelegate
 
     @objc func keyboardSourceTableViewController(_ vc: KeyboardSourceTableViewController, isSelected value: NSObject) -> Bool {
-        guard case let .autocomplete(_, isMultiSelect) = textField.attributeType else { return false }
-        if isMultiSelect {
-            let values = textField.attributeValue as? [NSObject] ?? []
-            return values.contains(value)
+        if textField.isMultiValue {
+            return textField.attributeValues.contains(where: { $0[textField.attributeIndex] == value })
         }
         return textField.attributeValue == value
     }
 
     @objc func keyboardSourceTableViewController(_ vc: KeyboardSourceTableViewController, didSelect value: NSObject) {
-        guard case let .autocomplete(sources, isMultiSelect) = textField.attributeType, let sources else { return }
-        if isMultiSelect {
-            if var values = textField.attributeValue as? [NSObject] {
-                values.append(value)
-                textField.attributeValue = values as NSObject
-            } else {
-                textField.attributeValue = [value] as NSObject
-            }
+        textField.attributeValue = value
+        if textField.isMultiValue {
+            textField.attributeRow += 1
+            textField.attributeValues.append(.init(repeating: nil, count: textField.attributeTypes.count))
+            textField.textView.text = ""
         } else {
-            textField.attributeValue = value
-            textField.text = sources[segmentedControl?.selectedIndex ?? 0].title(for: value)
+            let range = textField.rangeOfActiveText()
+            textField.textView.selectedRange = NSRange(location: range.location + range.length, length: 0)
             textField.hideDropdown()
         }
         textField.delegate?.formComponentDidChange?(textField)
     }
 
     @objc func keyboardSourceTableViewController(_ vc: KeyboardSourceTableViewController, didDeselect value: NSObject) {
-        guard case let .autocomplete(_, isMultiSelect) = textField.attributeType else { return }
-        if isMultiSelect {
-            if var values = textField.attributeValue as? [NSObject], let index = values.firstIndex(of: value) {
-                values.remove(at: index)
-                textField.attributeValue = values as NSObject
-            } else {
-                textField.attributeValue = [] as NSObject
+        if textField.isMultiValue {
+            if let index = textField.attributeValues.firstIndex(where: { $0[textField.attributeIndex] == value }) {
+                textField.attributeRow -= 1
+                textField.attributeValues.remove(at: index)
             }
         } else {
             textField.attributeValue = nil
@@ -182,7 +174,7 @@ class InternalTextView: UITextView {
         if super.resignFirstResponder() {
             (inputView as? FormInputView)?.removeAllSubInputViews()
             textField?.updateStyle()
-            if case let .autocomplete(_, isMultiSelect) = textField?.attributeTypes.first, isMultiSelect, !(textField?.multiValueViews?.isEmpty ?? true) {
+            if textField?.isMultiValue ?? false, !(textField?.multiValueViews?.isEmpty ?? true) {
                 textField?.contentView.isHidden = true
                 textField?.multiValueViews?.last?.separatorView.isHidden = true
             }
@@ -429,36 +421,34 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
 
     open override func clearPressed(_ sender: UIButton? = nil) {
         super.clearPressed(sender)
-        if case .autocomplete(_, _) = attributeType {
-            textViewDidChange(textView)
+        if attributeType == .autocomplete() {
             if isFirstResponder {
+                dropdownView?.reload()
                 showDropdown()
             }
         }
     }
     open override func updateAttributeType() {
+        // switch the input view per the new attribute type
         (textView as? InternalTextView)?.ignoreResignFirstResponder = true
         let inputView = attributeType.inputView
         textView.isEditable = inputView?.isTextViewEditable ?? true
         (textView as? InternalTextView)?.ignoreResignFirstResponder = false
         self.inputView = inputView
+        // adjust selection point
+        let range = rangeOfActiveText()
+        textView.selectedRange = NSRange(location: range.location + range.length, length: 0)
+        // change autocorrection based on attribute type
         switch attributeType {
         case .text:
             autocorrectionType = .default
         default:
             autocorrectionType = .no
         }
+        // handle autocomplete dropdown show/hide
         if attributeType == .autocomplete() && isFirstResponder {
             showDropdown()
         } else {
-            if case let .autocomplete(sources, isMultiSelect) = attributeTypes[0] {
-                if isMultiSelect || attributeValue == nil {
-                    text = nil
-                    for source in sources ?? [] {
-                        source.search(nil, callback: nil)
-                    }
-                }
-            }
             hideDropdown()
         }
     }
@@ -527,20 +517,7 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
             let dropdownView = TextFieldDropdownView(textField: self)
             dropdownView.translatesAutoresizingMaskIntoConstraints = false
             self.dropdownView = dropdownView
-
-            var superview: UIView? = superview
-            while !(superview is UIScrollView) && superview != nil {
-                superview = superview?.superview
-            }
-            if let scrollView = superview as? UIScrollView, let superview = self.superview {
-                let rect = superview.convert(frame, to: scrollView)
-                UIView.animate(withDuration: 0.25, animations: {
-                    scrollView.contentOffset = CGPoint(x: 0,
-                                                       y: rect.origin.y - scrollView.safeAreaInsets.top - 20)
-                }) { _ in
-                    self.didScrollIntoView(scrollView)
-                }
-            }
+            scrollIntoView()
         }
     }
 
@@ -554,6 +531,20 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
         }
         dropdownView?.removeFromSuperview()
         dropdownView = nil
+    }
+
+    func rangeOfActiveText() -> NSRange {
+        let parts = attributeValues[attributeRow].enumerated().map { attributeTypes[$0].text(for: $1) }
+        var range = NSRange(location: 0, length: textView.text.count)
+        for (i, part) in parts.enumerated() {
+            if i < attributeIndex, let part {
+                range.location += part.count + 3
+                range.length -= part.count + 3
+            } else if i > attributeIndex, let part {
+                range.length -= part.count + 3
+            }
+        }
+        return range
     }
 
     // MARK: - NSTextStorageDelegate
@@ -576,7 +567,7 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
 
     public func textViewDidBeginEditing(_ textView: UITextView) {
         (delegate as? FormFieldDelegate)?.formFieldDidBeginEditing?(self)
-        if case .autocomplete(_, _) = attributeType {
+        if attributeType == .autocomplete() {
             showDropdown()
         }
     }
@@ -586,8 +577,8 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
     }
 
     public func textViewDidEndEditing(_ textView: UITextView) {
-        if case let .autocomplete(sources, isMultiSelect) = attributeType {
-            if isMultiSelect || attributeValue == nil {
+        if case let .autocomplete(sources) = attributeType {
+            if isMultiValue || attributeValue == nil {
                 text = nil
             }
             for source in sources ?? [] {
@@ -599,42 +590,45 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
     }
 
     public func textViewDidChange(_ textView: UITextView) {
-        if case let .autocomplete(sources, _) = attributeType {
-            var text: String?
-            if !(textView.text?.isEmpty ?? true) {
-                text = textView.text
+        let range = rangeOfActiveText()
+        let text = textView.text
+        let activeText = String(textView.text[Range(range, in: textView.text)!])
+
+        if case let .autocomplete(sources) = attributeType {
+            if attributeValue != nil {
+                attributeValue = nil
+                textView.text = text
+                textView.selectedRange = NSRange(location: range.location + range.length, length: 0)
             }
             for source in sources ?? [] {
-                source.search(text, callback: nil)
+                source.search(activeText, callback: nil)
             }
+            showDropdown()
             dropdownView?.reload()
-            return
-        }
-        text = textView.text ?? ""
-        attributeValue = text as NSObject?
-        if isDebounced {
-            debounceTimer?.invalidate()
-            debounceTimer = Timer.scheduledTimer(withTimeInterval: debounceTime, repeats: false, block: { [weak self] (_) in
-                guard let self = self else { return }
-                self.delegate?.formComponentDidChange?(self)
-            })
         } else {
-            delegate?.formComponentDidChange?(self)
+            attributeValue = activeText as NSObject?
+
+            if isDebounced {
+                debounceTimer?.invalidate()
+                debounceTimer = Timer.scheduledTimer(withTimeInterval: debounceTime, repeats: false, block: { [weak self] (_) in
+                    guard let self = self else { return }
+                    self.delegate?.formComponentDidChange?(self)
+                })
+            } else {
+                delegate?.formComponentDidChange?(self)
+            }
+        }
+    }
+
+    public func textViewDidChangeSelection(_ textView: UITextView) {
+        let range = rangeOfActiveText()
+        if textView.selectedRange.location < range.location ||
+            textView.selectedRange.location >= range.location + range.length {
+            textView.selectedRange = NSRange(location: range.location + range.length, length: 0)
         }
     }
 
     public func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        if case let .autocomplete(_, isMultiSelect) = attributeType {
-            if  (!isMultiSelect && !attributeValues.reduce(true, { $0 && $1 == nil })) ||
-                (isMultiSelect && attributeValue == nil && !attributeValues.reduce(true, { $0 && $1 == nil })) {
-                attributeValues = .init(repeating: nil, count: attributeTypes.count)
-                if text == "" {
-                    textViewDidChange(textView)
-                }
-                showDropdown()
-            }
-            return true
-        }
         if text == "\n" || text == "\t" {
             if !((delegate as? FormFieldDelegate)?.formFieldShouldReturn?(self) ?? true) {
                 return false
@@ -643,15 +637,6 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
             }
             _ = resignFirstResponder()
             return false
-        }
-        var currentValue: String?
-        if let values = attributeValues[attributeIndex] as? [NSObject] {
-            currentValue = values[0] as? String
-        } else {
-            currentValue = attributeValues[attributeIndex] as? String
-        }
-        if textView.text != currentValue {
-            textView.text = ""
         }
         return true
     }

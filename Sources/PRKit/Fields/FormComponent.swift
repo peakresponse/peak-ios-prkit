@@ -29,22 +29,17 @@ open class FormComponent: UIView {
 
     @IBInspectable open var attributeKey: String?
 
+    open var isMultiValue = false
+    open var attributeRow: Int = 0
     open var attributeIndex: Int = 0
-    open var attributeValues: [NSObject?] = [nil] {
+    open var attributeValues: [[NSObject?]] = [[nil]] {
         didSet {
             didUpdateAttributeValue()
         }
     }
     open var attributeValue: NSObject? {
-        get { return attributeValues[attributeIndex] }
-        set {
-            var newValues = attributeValues
-            newValues[attributeIndex] = newValue
-            for (i, _) in newValues.enumerated() where i != attributeIndex {
-                newValues[i] = nil
-            }
-            attributeValues = newValues
-        }
+        get { return attributeValues[attributeRow][attributeIndex] }
+        set { attributeValues[attributeRow][attributeIndex] = newValue }
     }
 
     @IBInspectable open var isEditing: Bool = true {

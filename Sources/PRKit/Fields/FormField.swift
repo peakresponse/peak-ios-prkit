@@ -27,7 +27,7 @@ public enum FormFieldAttributeType: Equatable {
     case single(KeyboardSource? = nil)
     case multi(KeyboardSource? = nil)
     case custom(FormInputView? = nil)
-    case autocomplete([KeyboardSource]? = nil, Bool = false)
+    case autocomplete([KeyboardSource]? = nil)
 
     var rawValue: String {
         return String(describing: self)
@@ -142,7 +142,7 @@ public enum FormFieldAttributeType: Equatable {
             return source?.title(for: value)
         case .custom(let inputView):
             return inputView?.text(for: value)
-        case .autocomplete(let sources, _):
+        case .autocomplete(let sources):
             for source in sources ?? [] {
                 if let text = source.title(for: value) {
                     return text
@@ -240,21 +240,6 @@ class FormFieldValue: UIView {
             stackView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
 
-        separatorView = UIView()
-        stackView.addArrangedSubview(separatorView)
-
-        let hr = UIView()
-        hr.translatesAutoresizingMaskIntoConstraints = false
-        hr.backgroundColor = .disabledBorder
-        separatorView.addSubview(hr)
-        NSLayoutConstraint.activate([
-            hr.topAnchor.constraint(equalTo: separatorView.topAnchor, constant: 4),
-            hr.heightAnchor.constraint(equalToConstant: 2),
-            hr.bottomAnchor.constraint(equalTo: separatorView.bottomAnchor, constant: -6),
-            hr.leadingAnchor.constraint(equalTo: separatorView.leadingAnchor),
-            hr.trailingAnchor.constraint(equalTo: separatorView.trailingAnchor)
-        ])
-
         let view = UIView()
         stackView.addArrangedSubview(view)
 
@@ -265,9 +250,9 @@ class FormFieldValue: UIView {
         label.textColor = .text
         view.addSubview(label)
         NSLayoutConstraint.activate([
-            label.topAnchor.constraint(equalTo: view.topAnchor, constant: 4),
+            label.topAnchor.constraint(equalTo: view.topAnchor, constant: 6),
             label.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            label.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -2 - 0.2 * label.font.lineHeight)
+            label.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -6 - 0.2 * label.font.lineHeight)
         ])
 
         clearButton = UIButton(type: .custom)
@@ -281,6 +266,21 @@ class FormFieldValue: UIView {
             clearButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 12),
             clearButton.centerYAnchor.constraint(equalTo: label.centerYAnchor, constant: 2),
             label.trailingAnchor.constraint(equalTo: clearButton.leadingAnchor)
+        ])
+
+        separatorView = UIView()
+        stackView.addArrangedSubview(separatorView)
+
+        let hr = UIView()
+        hr.translatesAutoresizingMaskIntoConstraints = false
+        hr.backgroundColor = .disabledBorder
+        separatorView.addSubview(hr)
+        NSLayoutConstraint.activate([
+            hr.topAnchor.constraint(equalTo: separatorView.topAnchor, constant: 0),
+            hr.heightAnchor.constraint(equalToConstant: 2),
+            hr.bottomAnchor.constraint(equalTo: separatorView.bottomAnchor, constant: -4),
+            hr.leadingAnchor.constraint(equalTo: separatorView.leadingAnchor),
+            hr.trailingAnchor.constraint(equalTo: separatorView.trailingAnchor)
         ])
     }
 }
@@ -339,7 +339,7 @@ open class FormField: FormComponent, Localizable, FormInputViewDelegate {
     }
     open var attributeTypes: [FormFieldAttributeType] = [.text] {
         didSet {
-            attributeValues = [NSObject?](repeating: nil, count: attributeTypes.count)
+            attributeValues = [.init(repeating: nil, count: attributeTypes.count)]
             updateAttributeType()
         }
     }
@@ -364,15 +364,16 @@ open class FormField: FormComponent, Localizable, FormInputViewDelegate {
     open var inputAccessoryViewOtherButtonTitle: String?
 
     open var isEmpty: Bool {
-        if (text?.isEmpty ?? true) && ((attributeValue as? String)?.isEmpty ?? (attributeValue == nil)) {
-            return true
-        }
-        if let attributeValues = attributeValue as? [NSObject] {
-            return attributeValues.reduce(into: true) { (partialResult, value) in
+        var isEmpty = true
+        for row in attributeValues {
+            isEmpty = isEmpty && row.reduce(into: true) { (partialResult, value) in
                 partialResult = partialResult && ((value as? String)?.isEmpty ?? (value == NSNull()))
             }
+            if !isEmpty {
+                break
+            }
         }
-        return false
+        return isEmpty
     }
 
     @IBInspectable open var isPlainText: Bool = false {
@@ -494,38 +495,44 @@ open class FormField: FormComponent, Localizable, FormInputViewDelegate {
 
     open override func didUpdateAttributeValue() {
         super.didUpdateAttributeValue()
-        var text: String = ""
-        if let multiValueViews {
-            for view in multiValueViews {
-                view.removeFromSuperview()
+        if isMultiValue {
+            // for now, brute force remove all...
+            if let multiValueViews {
+                for view in multiValueViews {
+                    view.removeFromSuperview()
+                }
+                self.multiValueViews?.removeAll()
             }
-            self.multiValueViews?.removeAll()
-        }
-        if let values = attributeValues.first as? [NSObject?], !values.isEmpty {
-            let values = values.compactMap({ attributeTypes[0].text(for: $0)})
-            if !values.isEmpty {
-                for (i, value) in values.enumerated() {
-                    if i == values.count - 1 && attributeTypes[0] != .autocomplete() {
-                        self.text = value
-                    } else {
-                        if multiValueViews == nil {
-                            multiValueViews = []
-                        }
-                        let valueView = FormFieldValue()
-                        multiValueViews?.append(valueView)
-                        contentStackView.insertArrangedSubview(valueView, at: 2)
-                        valueView.labelText = value
-                        valueView.clearButton.addTarget(self, action: #selector(clearPressed(_:)), for: .touchUpInside)
+            // then re-add
+            for (i, row) in attributeValues.enumerated() {
+                let text = row.enumerated().compactMap({ attributeTypes[$0].text(for: $1)}).joined(separator: " - ")
+                if i == attributeValues.count - 1 {
+                    self.text = text
+                    if attributeValues.count == 1 {
+                        contentView.isHidden = false
                     }
+                } else {
+                    if multiValueViews == nil {
+                        multiValueViews = []
+                    }
+                    let valueView = FormFieldValue()
+                    multiValueViews?.append(valueView)
+                    contentStackView.insertArrangedSubview(valueView, at: contentStackView.arrangedSubviews.count - 1)
+                    valueView.labelText = text
+                    valueView.clearButton.addTarget(self, action: #selector(clearPressed(_:)), for: .touchUpInside)
                 }
-                if case let .autocomplete(_, isMultiSelect) = attributeTypes.first, isMultiSelect, !isFirstResponder {
-                    multiValueViews?.last?.separatorView.isHidden = true
-                }
-                return
             }
+            if contentView.isHidden {
+                multiValueViews?.last?.separatorView.isHidden = true
+            }
+            if isFirstResponder {
+                DispatchQueue.main.async {
+                    self.scrollIntoView()
+                }
+            }
+        } else {
+            self.text = attributeValues[0].enumerated().compactMap { attributeTypes[$0].text(for: $1) }.joined(separator: " - ")
         }
-        text = attributeValues.enumerated().compactMap { attributeTypes[$0].text(for: $1) }.joined(separator: " - ")
-        self.text = text.isEmpty ? nil : text
     }
 
     open override func didUpdateEnabled() {
@@ -591,30 +598,18 @@ open class FormField: FormComponent, Localizable, FormInputViewDelegate {
     }
 
     @objc open func clearPressed(_ sender: UIButton? = nil) {
-        if let sender, let multiValueViews, var values = attributeValues[0] as? [NSObject?] {
-            var found = false
+        var found = false
+        if let sender, let multiValueViews {
             for (i, view) in multiValueViews.enumerated() where sender.isDescendant(of: view) {
                 found = true
-                values.remove(at: i)
+                attributeRow -= 1
+                attributeValues.remove(at: i)
                 break
             }
-            if !found {
-                if attributeTypes[0] == .autocomplete() {
-                    text = nil
-                    return
-                }
-                values.removeLast()
-            }
-            attributeValues[0] = values as NSObject
-            delegate?.formComponentDidChange?(self)
-            reloadInputViews()
-            if values.isEmpty {
-                contentView.isHidden = false
-            }
-            return
         }
-        attributeValues = .init(repeating: nil, count: attributeTypes.count)
-        text = nil
+        if !found {
+            attributeValues = [.init(repeating: nil, count: attributeTypes.count)]
+        }
         status = .none
         delegate?.formComponentDidChange?(self)
         if let inputView = inputView as? FormInputView, inputView.shouldResignAfterClear {
@@ -626,6 +621,23 @@ open class FormField: FormComponent, Localizable, FormInputViewDelegate {
 
     @objc open func statusPressed() {
         (delegate as? FormFieldDelegate)?.formFieldDidPressStatus?(self)
+    }
+
+    open func scrollIntoView() {
+        var superview: UIView? = superview
+        while !(superview is UIScrollView) && superview != nil {
+            superview = superview?.superview
+        }
+        if let scrollView = superview as? UIScrollView, let superview = self.superview {
+            let rect = superview.convert(frame, to: scrollView)
+            UIView.animate(withDuration: 0.25, animations: {
+                scrollView.contentOffset = CGPoint(x: 0,
+                                                   y: rect.origin.y + rect.height - scrollView.safeAreaInsets.top - 95)
+            }) { _ in
+                self.didScrollIntoView(scrollView)
+            }
+        }
+
     }
 
     // MARK: - FormInputViewDelegate

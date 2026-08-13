@@ -187,7 +187,6 @@ class KeyboardsViewController: ViewController, FormFieldDelegate, KeyboardAwareS
         ageField.delegate = self
         ageField.labelText = "Integer w/ Unit"
         ageField.attributeType = .integerWithUnit(EnumKeyboardSource<AgeTestUnits>())
-        ageField.attributeValue = ["23", "years"] as NSObject
         ageField.inputAccessoryView = inputAccessoryView
         ageField.tag = tag
         tag += 1
@@ -300,6 +299,12 @@ class KeyboardsViewController: ViewController, FormFieldDelegate, KeyboardAwareS
     }
 
     // MARK: - FormFieldDelegate
+
+    func formComponentDidChange(_ component: FormComponent) {
+        if let field = component as? FormField {
+            print("Changed: ", field.text, field.attributeValues)
+        }
+    }
 
     func formField(_ field: FormField, wantsToPresent vc: UIViewController) {
         present(vc, animated: true, completion: nil)

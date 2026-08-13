@@ -76,8 +76,7 @@ class KeyboardSourceTableViewController: UIViewController, UITableViewDataSource
             return cell
         }
         let cell = tableView.dequeueReusableCell(withIdentifier: "checkbox", for: indexPath)
-        if let cell = cell as? CheckboxTableViewCell,
-           let value = source?.value(at: indexPath.row) {
+        if let cell = cell as? CheckboxTableViewCell {
             cell.checkbox.labelText = source?.title(at: indexPath.row)
             cell.checkbox.isChecked = delegate?.keyboardSourceTableViewController?(self, isSelected: value) ?? false
             cell.checkbox.isRadioButton = !isMultiSelect

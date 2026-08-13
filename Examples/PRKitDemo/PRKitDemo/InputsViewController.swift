@@ -64,7 +64,7 @@ class InputsViewController: ViewController, FormFieldDelegate, KeyboardAwareScro
         autocompleteField.translatesAutoresizingMaskIntoConstraints = false
         autocompleteField.delegate = self
         autocompleteField.labelText = "Autocomplete (Single)"
-        autocompleteField.placeholderText = "Search"
+        autocompleteField.placeholderText = "Search..."
         autocompleteField.inputAccessoryView = inputAccessoryView
         autocompleteField.attributeTypes = [
             .autocomplete([
@@ -88,10 +88,11 @@ class InputsViewController: ViewController, FormFieldDelegate, KeyboardAwareScro
         autocompleteMultiField.labelText = "Autocomplete (Multi)"
         autocompleteMultiField.placeholderText = "Search..."
         autocompleteMultiField.inputAccessoryView = inputAccessoryView
+        autocompleteMultiField.isMultiValue = true
         autocompleteMultiField.attributeTypes = [
             .autocomplete([
                 TupleKeyboardSource(name: "Suggested", items: items)
-            ], true),
+            ]),
             .single(TupleKeyboardSource(name: "Negatives", items: items2))
         ]
         autocompleteMultiField.tag = tag
@@ -323,7 +324,7 @@ class InputsViewController: ViewController, FormFieldDelegate, KeyboardAwareScro
 
     func formComponentDidChange(_ component: FormComponent) {
         if let field = component as? FormField {
-            print("changed", field.labelText ?? "", field.text ?? "", field.attributeValue ?? "nil")
+            print("changed", field.labelText ?? "", field.text ?? "", field.attributeValues)
         } else {
             print("changed", component.attributeKey ?? "", component.attributeValue ?? "nil")
         }
