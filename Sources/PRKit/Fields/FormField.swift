@@ -337,6 +337,7 @@ open class FormField: FormComponent, Localizable, FormInputViewDelegate {
             updateAttributeType()
         }
     }
+    open var attributeSeparator = " - "
     open var attributeTypes: [FormFieldAttributeType] = [.text] {
         didSet {
             attributeValues = [.init(repeating: nil, count: attributeTypes.count)]
@@ -505,7 +506,7 @@ open class FormField: FormComponent, Localizable, FormInputViewDelegate {
             }
             // then re-add
             for (i, row) in attributeValues.enumerated() {
-                let text = row.enumerated().compactMap({ attributeTypes[$0].text(for: $1)}).joined(separator: " - ")
+                let text = row.enumerated().compactMap({ attributeTypes[$0].text(for: $1)}).joined(separator: attributeSeparator)
                 if i == attributeValues.count - 1 {
                     self.text = text
                     if attributeValues.count == 1 {
@@ -531,7 +532,7 @@ open class FormField: FormComponent, Localizable, FormInputViewDelegate {
                 }
             }
         } else {
-            self.text = attributeValues[0].enumerated().compactMap { attributeTypes[$0].text(for: $1) }.joined(separator: " - ")
+            self.text = attributeValues[0].enumerated().compactMap { attributeTypes[$0].text(for: $1) }.joined(separator: attributeSeparator)
         }
     }
 

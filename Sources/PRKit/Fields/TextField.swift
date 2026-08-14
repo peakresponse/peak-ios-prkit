@@ -534,14 +534,22 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
     }
 
     func rangeOfActiveText() -> NSRange {
+        let text = textView.text ?? ""
         let parts = attributeValues[attributeRow].enumerated().map { attributeTypes[$0].text(for: $1) }
-        var range = NSRange(location: 0, length: textView.text.count)
+        var range = NSRange(location: 0, length: text.count)
         for (i, part) in parts.enumerated() {
             if i < attributeIndex, let part {
-                range.location += part.count + 3
-                range.length -= part.count + 3
+                range.location += part.count
+                range.length -= part.count
+                if text[Range(range, in: text)!].hasPrefix(attributeSeparator) {
+                    range.location += attributeSeparator.count
+                    range.length -= attributeSeparator.count
+                }
             } else if i > attributeIndex, let part {
-                range.length = max(0, range.length - part.count - 3)
+                range.length = max(0, range.length - part.count)
+                if text[Range(range, in: text)!].hasSuffix(attributeSeparator) {
+                    range.length -= attributeSeparator.count
+                }
             }
         }
         return range
