@@ -545,11 +545,18 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
                     range.location += attributeSeparator.count
                     range.length -= attributeSeparator.count
                 }
-            } else if i > attributeIndex, let part {
+            } else if i == attributeIndex {
+                break
+            }
+        }
+        for i in parts.indices.reversed() {
+            if i > attributeIndex, let part = parts[i] {
                 range.length = max(0, range.length - part.count)
                 if text[Range(range, in: text)!].hasSuffix(attributeSeparator) {
                     range.length -= attributeSeparator.count
                 }
+            } else if i == attributeIndex {
+                break
             }
         }
         return range
