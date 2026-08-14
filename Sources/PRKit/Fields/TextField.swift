@@ -541,7 +541,7 @@ open class TextField: FormField, NSTextStorageDelegate, UITextViewDelegate {
                 range.location += part.count + 3
                 range.length -= part.count + 3
             } else if i > attributeIndex, let part {
-                range.length -= part.count + 3
+                range.length = max(0, range.length - part.count - 3)
             }
         }
         return range
