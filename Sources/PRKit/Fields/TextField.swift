@@ -105,6 +105,12 @@ class TextFieldDropdownView: UIView, KeyboardSourceTableViewControllerDelegate {
             textField.attributeRow += 1
             textField.attributeValues.append(.init(repeating: nil, count: textField.attributeTypes.count))
             textField.textView.text = ""
+            if case let .autocomplete(sources) = textField.attributeType {
+                for source in sources ?? [] {
+                    source.search(nil, callback: nil)
+                }
+                reload()
+            }
         } else {
             let range = textField.rangeOfActiveText()
             textField.textView.selectedRange = NSRange(location: range.location + range.length, length: 0)
