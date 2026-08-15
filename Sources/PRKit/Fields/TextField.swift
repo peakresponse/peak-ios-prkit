@@ -174,7 +174,7 @@ class InternalTextView: UITextView {
         if super.resignFirstResponder() {
             (inputView as? FormInputView)?.removeAllSubInputViews()
             textField?.updateStyle()
-            if textField?.isMultiValue ?? false, !(textField?.multiValueViews?.isEmpty ?? true) {
+            if textField?.attributeTypes[0] == .autocomplete(), textField?.isMultiValue ?? false, !(textField?.multiValueViews?.isEmpty ?? true) {
                 textField?.contentView.isHidden = true
                 textField?.multiValueViews?.last?.separatorView.isHidden = true
             }

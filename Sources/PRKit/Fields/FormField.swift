@@ -591,7 +591,11 @@ open class FormField: FormComponent, Localizable, FormInputViewDelegate {
     open override func reloadInputViews() {
         inputView?.reloadInputViews()
         if let inputView = inputView as? FormInputView {
-            inputView.setValue(attributeValue)
+            if isMultiValue {
+                inputView.setValue(attributeValues.compactMap({ $0[attributeIndex] }) as NSObject)
+            } else {
+                inputView.setValue(attributeValue)
+            }
         }
         if let inputAccessoryView = inputAccessoryView as? FormInputAccessoryView, isFirstResponder {
             inputAccessoryView.currentView = self
@@ -603,7 +607,7 @@ open class FormField: FormComponent, Localizable, FormInputViewDelegate {
         if let sender, let multiValueViews {
             for (i, view) in multiValueViews.enumerated() where sender.isDescendant(of: view) {
                 found = true
-                attributeRow -= 1
+                attributeRow = max(0, attributeRow - 1)
                 attributeValues.remove(at: i)
                 break
             }
@@ -644,7 +648,17 @@ open class FormField: FormComponent, Localizable, FormInputViewDelegate {
     // MARK: - FormInputViewDelegate
 
     open func formInputView(_ inputView: FormInputView, didChange value: NSObject?) {
-        attributeValue = value
+        if isMultiValue, let values = value as? [NSObject?] {
+            var newValues: [[NSObject?]] = []
+            for value in values {
+                var newValue: [NSObject?] = .init(repeating: nil, count: attributeTypes.count)
+                newValue[attributeIndex] = value
+                newValues.append(newValue)
+            }
+            attributeValues = newValues
+        } else {
+            attributeValue = value
+        }
         delegate?.formComponentDidChange?(self)
     }
 
