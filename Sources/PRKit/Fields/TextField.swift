@@ -154,6 +154,16 @@ class TextFieldDropdownView: UIView, KeyboardSourceTableViewControllerDelegate {
 class InternalTextView: UITextView {
     weak var textField: TextField?
     var ignoreResignFirstResponder: Bool = false
+    var didLayoutSubviews = false
+
+    override open func layoutSubviews() {
+        super.layoutSubviews()
+        // ensure that we resize textField once frame width has been initially set
+        if frame.width != 0 && !didLayoutSubviews {
+            didLayoutSubviews = true
+            textField?.updateStyle()
+        }
+    }
 
     override func becomeFirstResponder() -> Bool {
         if !isEditable, let textField = textField {

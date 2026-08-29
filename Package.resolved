@@ -1,6 +1,15 @@
 {
-  "originHash" : "9c324ac88cd97d591b1d318f06077f5695eae5440322aaa102975050f0c69145",
+  "originHash" : "0a9aabee0da6c1d45104e475689b6c42545d5f69d86450d8aac96e669baede60",
   "pins" : [
+    {
+      "identity" : "alignedcollectionviewflowlayout",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/mischa-hildebrand/AlignedCollectionViewFlowLayout",
+      "state" : {
+        "revision" : "236094ac389234d528cc782c140bcb20724b86bf",
+        "version" : "1.1.3"
+      }
+    },
     {
       "identity" : "cocoalumberjack",
       "kind" : "remoteSourceControl",
@@ -8,6 +17,15 @@
       "state" : {
         "revision" : "a9ed4b6f9bdedce7d77046f43adfb8ce1fd54114",
         "version" : "3.9.0"
+      }
+    },
+    {
+      "identity" : "keyboardy",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/podkovyrin/Keyboardy",
+      "state" : {
+        "revision" : "16083ab9e90581342609ce342d5e664f0f885d05",
+        "version" : "0.2.7"
       }
     },
     {
@@ -26,6 +44,15 @@
       "state" : {
         "revision" : "8c0f217f01000dd30f60d6e536569ad4e74291f9",
         "version" : "1.11.0"
+      }
+    },
+    {
+      "identity" : "swiftsignatureview",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/alankarmisra/SwiftSignatureView",
+      "state" : {
+        "revision" : "04ce145272c47d9b87657af3cc3d12bd26de6745",
+        "version" : "3.2.1"
       }
     }
   ],
