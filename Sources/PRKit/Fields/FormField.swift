@@ -196,13 +196,13 @@ public enum FormFieldAttributeType: Equatable {
     }
 }
 
-class FormFieldValue: UIView {
-    var stackView: UIStackView!
-    var separatorView: UIView!
-    var label: UILabel!
-    var clearButton: UIButton!
+open class FormFieldValue: UIView {
+    open var stackView: UIStackView!
+    open var separatorView: UIView!
+    open var label: UILabel!
+    open var clearButton: UIButton!
 
-    var labelText: String? {
+    open var labelText: String? {
         get { label.text }
         set {
             if let newValue {
@@ -222,7 +222,7 @@ class FormFieldValue: UIView {
         commonInit()
     }
 
-    required init?(coder: NSCoder) {
+    required public init?(coder: NSCoder) {
         super.init(coder: coder)
         commonInit()
     }
@@ -290,7 +290,7 @@ open class FormField: FormComponent, Localizable, FormInputViewDelegate {
     open weak var stackView: UIStackView!
     open weak var contentStackView: UIStackView!
     open weak var contentView: UIView!
-    var multiValueViews: [FormFieldValue]?
+    open var multiValueViews: [FormFieldValue]?
 
     open weak var statusButton: UIButton!
     open weak var accessoryButton: UIButton?
