@@ -18,4 +18,12 @@ public extension String {
         }
         return NSLocalizedString(self, bundle: bundle, comment: "")
     }
+
+    func asDate() -> Date? {
+        return ISO8601DateFormatter.date(from: self)
+    }
+
+    func asTimeInterval() -> TimeInterval? {
+        return TimeInterval(self)
+    }
 }

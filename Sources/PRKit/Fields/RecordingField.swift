@@ -125,6 +125,7 @@ open class RecordingField: UIView {
         titleLabel.font = .body14Bold
         titleLabel.textColor = .labelText
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        titleLabel.lineBreakMode = .byTruncatingMiddle
         addSubview(titleLabel)
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 10),
