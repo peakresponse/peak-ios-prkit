@@ -18,7 +18,7 @@ let package = Package(
     dependencies: [
         .package(url: "https://github.com/svgkit/svgkit", from: "3.0.0"),
         .package(url: "https://github.com/mischa-hildebrand/AlignedCollectionViewFlowLayout", from: "1.1.3"),
-        .package(url: "https://github.com/alankarmisra/SwiftSignatureView", exact: "3.2.1"),
+        .package(url: "https://github.com/peakresponse/SwiftSignatureView", branch: "peak-main"),
         .package(url: "https://github.com/podkovyrin/Keyboardy", from: "0.2.7")
     ],
     targets: [

@@ -1,5 +1,5 @@
 {
-  "originHash" : "60ed6a6673e1c7ddbf56cbd74b13d35288647d26b521816daa232d5695a47d0e",
+  "originHash" : "0b7c823ae2618243222635f005c8f92fca5ba905e9847b10586dc89fe2eb08f0",
   "pins" : [
     {
       "identity" : "alignedcollectionviewflowlayout",
@@ -49,10 +49,10 @@
     {
       "identity" : "swiftsignatureview",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/alankarmisra/SwiftSignatureView",
+      "location" : "https://github.com/peakresponse/SwiftSignatureView",
       "state" : {
-        "revision" : "04ce145272c47d9b87657af3cc3d12bd26de6745",
-        "version" : "3.2.1"
+        "branch" : "peak-main",
+        "revision" : "d36afa97de3d65e27eb1b55939517484986f0897"
       }
     }
   ],
