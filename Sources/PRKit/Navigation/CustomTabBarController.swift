@@ -25,7 +25,7 @@ open class CustomTabBarPlaceholder: UITabBar {
 }
 
 open class CustomTabBarController: UITabBarController, CustomTabBarDelegate {
-    open weak var customTabBar: CustomTabBar!
+    open var customTabBar: CustomTabBar!
 
     open override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,6 +46,9 @@ open class CustomTabBarController: UITabBarController, CustomTabBarDelegate {
         super.viewDidLayoutSubviews()
         // always ensure custom tab bar is arranged in front of default tab bar
         customTabBar.frame = tabBar.frame
+        if customTabBar.superview == nil {
+            tabBar.superview?.addSubview(customTabBar)
+        }
         tabBar.superview?.bringSubviewToFront(customTabBar)
     }
 
