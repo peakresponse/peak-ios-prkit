@@ -121,7 +121,7 @@ open class CommandHeader: UIView, FormFieldDelegate {
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 12),
             stackView.leftAnchor.constraint(equalTo: leftAnchor),
-            stackView.rightAnchor.constraint(equalTo: rightAnchor),
+            stackView.rightAnchor.constraint(equalTo: safeAreaLayoutGuide.rightAnchor),
             bottomAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 12)
         ])
         self.stackView = stackView

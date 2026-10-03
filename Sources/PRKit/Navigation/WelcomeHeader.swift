@@ -81,7 +81,7 @@ open class WelcomeHeader: UIView {
         NSLayoutConstraint.activate([
             label.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             label.leftAnchor.constraint(equalTo: imageView.rightAnchor, constant: isRegularWidth ? 16 : 10),
-            label.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -16)
+            label.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -16)
         ])
         self.label = label
     }
