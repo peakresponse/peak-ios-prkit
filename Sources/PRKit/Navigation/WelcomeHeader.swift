@@ -55,7 +55,7 @@ open class WelcomeHeader: UIView {
             bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
 
-        let isRegularWidth = traitCollection.horizontalSizeClass == .regular
+        let isRegularWidth = traitCollection.userInterfaceIdiom == .pad
 
         let imageSize: CGFloat = isRegularWidth ? 90 : 32
         let imageView = ImageView()
