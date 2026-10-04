@@ -7,23 +7,11 @@
 
 import UIKit
 
-@objc public protocol CommandFooterDelegate {
-    @objc optional func commandFooterDidUpdateLayout(_ commandFooter: CommandFooter, isOverlapping: Bool)
-}
-
 @IBDesignable
 open class CommandFooter: UIView {
     open weak var activityIndicatorView: UIActivityIndicatorView!
     open var stackView = UIStackView()
     open var layoutConstraints: [NSLayoutConstraint] = []
-
-    @IBOutlet open weak var delegate: CommandFooterDelegate?
-
-    open var isOverlapping: Bool {
-        return traitCollection.horizontalSizeClass == .compact ||
-               UIDevice.current.orientation == .portrait ||
-               UIDevice.current.orientation == .portraitUpsideDown
-    }
 
     open var isLoading: Bool {
         get { activityIndicatorView.isAnimating }
@@ -71,6 +59,14 @@ open class CommandFooter: UIView {
         updateLayout()
     }
 
+    open func isOverlapping(_ size: CGSize? = nil) -> Bool {
+        if traitCollection.horizontalSizeClass == .compact {
+            return true
+        }
+        let size = size ?? screen.bounds.size
+        return size.width < size.height
+    }
+
     open func updateLayout() {
         NSLayoutConstraint.deactivate(layoutConstraints)
         layoutConstraints.removeAll()
@@ -93,24 +89,19 @@ open class CommandFooter: UIView {
                 }
                 view.invalidateIntrinsicContentSize()
             }
-            delegate?.commandFooterDidUpdateLayout?(self, isOverlapping: true)
         } else {
-            let orientation = UIApplication.interfaceOrientation()
-            if orientation == .landscapeLeft || orientation == .landscapeRight {
+            let screen = self.screen
+            if screen.bounds.size.width > screen.bounds.size.height {
                 backgroundColor = .clear
                 removeShadow()
                 stackView.axis = .vertical
-                if let screen {
-                    let width = floor((max(screen.bounds.width, screen.bounds.height) - 710) / 2 - 20)
-                    layoutConstraints.append(stackView.widthAnchor.constraint(equalToConstant: width))
-                }
-                delegate?.commandFooterDidUpdateLayout?(self, isOverlapping: false)
+                let width = floor((max(screen.bounds.width, screen.bounds.height) - 710) / 2 - 20)
+                layoutConstraints.append(stackView.widthAnchor.constraint(equalToConstant: width))
             } else {
                 backgroundColor = .background
                 addShadow(withOffset: CGSize(width: 4, height: -4), radius: 20, color: .dropShadow, opacity: 0.2)
                 stackView.axis = .horizontal
                 layoutConstraints.append(stackView.leftAnchor.constraint(greaterThanOrEqualTo: leftAnchor, constant: 20))
-                delegate?.commandFooterDidUpdateLayout?(self, isOverlapping: true)
             }
             for view in stackView.arrangedSubviews {
                 if let button = view as? Button {
@@ -128,7 +119,7 @@ open class CommandFooter: UIView {
     }
 
     open override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
-        if isOverlapping {
+        if isOverlapping() {
             return super.point(inside: point, with: event)
         }
         for subview in subviews {
