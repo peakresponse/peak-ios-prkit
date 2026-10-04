@@ -54,7 +54,6 @@ open class CommandFooter: UIView {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.spacing = 20
         super.addSubview(stackView)
-        updateLayout()
 
         let activityIndicatorView = UIActivityIndicatorView.withLargeStyle()
         activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
@@ -65,18 +64,11 @@ open class CommandFooter: UIView {
             activityIndicatorView.centerYAnchor.constraint(equalTo: stackView.centerYAnchor)
         ])
         self.activityIndicatorView = activityIndicatorView
-
-        if traitCollection.horizontalSizeClass == .regular {
-            UIDevice.current.beginGeneratingDeviceOrientationNotifications()
-            NotificationCenter.default.addObserver(self, selector: #selector(orientationChanged),
-                                                   name: UIDevice.orientationDidChangeNotification, object: nil)
-        }
     }
 
-    deinit {
-        if traitCollection.horizontalSizeClass == .regular {
-            UIDevice.current.endGeneratingDeviceOrientationNotifications()
-        }
+    override open func layoutSubviews() {
+        super.layoutSubviews()
+        updateLayout()
     }
 
     open func updateLayout() {
@@ -108,8 +100,10 @@ open class CommandFooter: UIView {
                 backgroundColor = .clear
                 removeShadow()
                 stackView.axis = .vertical
-                let width = floor((max(UIScreen.main.bounds.width, UIScreen.main.bounds.height) - 710) / 2 - 20)
-                layoutConstraints.append(stackView.widthAnchor.constraint(equalToConstant: width))
+                if let screen {
+                    let width = floor((max(screen.bounds.width, screen.bounds.height) - 710) / 2 - 20)
+                    layoutConstraints.append(stackView.widthAnchor.constraint(equalToConstant: width))
+                }
                 delegate?.commandFooterDidUpdateLayout?(self, isOverlapping: false)
             } else {
                 backgroundColor = .background
@@ -121,7 +115,7 @@ open class CommandFooter: UIView {
             for view in stackView.arrangedSubviews {
                 if let button = view as? Button {
                     button.isLayoutVertical = false
-                    button.size = .medium
+                    button.size = traitCollection.userInterfaceIdiom == .phone ? .small : .medium
                 }
                 view.invalidateIntrinsicContentSize()
             }
@@ -131,15 +125,6 @@ open class CommandFooter: UIView {
 
     open override func addSubview(_ view: UIView) {
         stackView.addArrangedSubview(view)
-    }
-
-    @objc func orientationChanged() {
-        updateLayout()
-    }
-
-    open override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        updateLayout()
     }
 
     open override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {

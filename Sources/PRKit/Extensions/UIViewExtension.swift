@@ -8,6 +8,16 @@
 import UIKit
 
 public extension UIView {
+    var screen: UIScreen? {
+        if let screen = window?.windowScene?.screen {
+            return screen
+        }
+        return UIApplication.shared.connectedScenes
+            .compactMap { $0 as? UIWindowScene }
+            .first { $0.activationState == .foregroundActive }?
+            .screen
+    }
+
     var firstResponder: UIView? {
         guard !isFirstResponder else { return self }
         for subview in subviews {
