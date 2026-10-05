@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="24128" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="pLw-Kb-tnX">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="25098" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="pLw-Kb-tnX">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24063"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="25073"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -28,7 +28,7 @@
         <!--Inputs-->
         <scene sceneID="so1-AM-8hb">
             <objects>
-                <viewController title="Inputs" id="ipr-zj-hHa" customClass="InputsViewController" customModule="PRKit_Example" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Inputs" id="ipr-zj-hHa" customClass="InputsViewController" customModule="PRKitDemo" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="MqT-dz-7bR"/>
                         <viewControllerLayoutGuide type="bottom" id="QRS-kN-5A6"/>
@@ -251,7 +251,7 @@
         <!--Keyboards-->
         <scene sceneID="F1h-q5-c3I">
             <objects>
-                <viewController id="eyu-sI-ctB" customClass="KeyboardsViewController" customModule="PRKit_Example" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="eyu-sI-ctB" customClass="KeyboardsViewController" customModule="PRKitDemo" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="RQu-RI-4ix"/>
                         <viewControllerLayoutGuide type="bottom" id="U3n-zf-zZr"/>
@@ -488,7 +488,7 @@
         <!--Chips-->
         <scene sceneID="U5V-8n-xb6">
             <objects>
-                <viewController id="zxa-MG-ex6" customClass="ChipsViewController" customModule="PRKit_Example" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="zxa-MG-ex6" customClass="ChipsViewController" customModule="PRKitDemo" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="x5C-n2-Xs5"/>
                         <viewControllerLayoutGuide type="bottom" id="uka-pa-S8O"/>
@@ -735,7 +735,7 @@
         <!--Buttons-->
         <scene sceneID="Oht-ji-Sz1">
             <objects>
-                <viewController title="Buttons" id="hYy-H2-TVc" customClass="ButtonsViewController" customModule="PRKit_Example" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Buttons" id="hYy-H2-TVc" customClass="ButtonsViewController" customModule="PRKitDemo" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="XgC-YR-MwM"/>
                         <viewControllerLayoutGuide type="bottom" id="dLL-rA-cvc"/>
@@ -1101,7 +1101,7 @@
         <!--Branding-->
         <scene sceneID="clR-S6-Tf0">
             <objects>
-                <viewController id="xxn-Ty-V5J" customClass="ViewController" customModule="PRKit_Example" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="xxn-Ty-V5J" customClass="ViewController" customModule="PRKitDemo" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Q7M-oX-ACD"/>
                         <viewControllerLayoutGuide type="bottom" id="DyJ-Ty-0Z0"/>
@@ -1231,7 +1231,7 @@
         <!--Headers-->
         <scene sceneID="TN4-1M-cWi">
             <objects>
-                <viewController id="XnX-u6-GFM" customClass="HeadersViewController" customModule="PRKit_Example" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="XnX-u6-GFM" customClass="HeadersViewController" customModule="PRKitDemo" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="30E-si-bCG"/>
                         <viewControllerLayoutGuide type="bottom" id="SqT-E0-mjs"/>
@@ -1341,7 +1341,7 @@
         <!--Navigation-->
         <scene sceneID="vqS-4a-pNv">
             <objects>
-                <viewController id="YiS-Uq-bKw" customClass="NavigationViewController" customModule="PRKit_Example" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="YiS-Uq-bKw" customClass="NavigationViewController" customModule="PRKitDemo" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="mfN-yq-DTH"/>
                         <viewControllerLayoutGuide type="bottom" id="4pf-98-Svn"/>
@@ -1389,7 +1389,7 @@
         <!--Treat-->
         <scene sceneID="ad6-P7-fkC">
             <objects>
-                <viewController id="Xzx-pu-qdp" customClass="SecondNavigationViewController" customModule="PRKit_Example" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Xzx-pu-qdp" customClass="SecondNavigationViewController" customModule="PRKitDemo" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="QIE-jg-O2r"/>
                         <viewControllerLayoutGuide type="bottom" id="Q61-mO-7fX"/>
@@ -1408,7 +1408,7 @@
         <!--Triage-->
         <scene sceneID="aXX-js-H60">
             <objects>
-                <viewController id="UWG-zF-qDT" customClass="SecondNavigationViewController" customModule="PRKit_Example" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="UWG-zF-qDT" customClass="SecondNavigationViewController" customModule="PRKitDemo" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="CpR-O1-F9N"/>
                         <viewControllerLayoutGuide type="bottom" id="hWI-we-dtj"/>
@@ -1458,7 +1458,7 @@
         <!--Tables View Controller-->
         <scene sceneID="uzj-Ba-dxv">
             <objects>
-                <tableViewController id="iAL-kP-iJd" userLabel="Tables View Controller" customClass="TablesViewController" customModule="PRKit_Example" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="iAL-kP-iJd" userLabel="Tables View Controller" customClass="TablesViewController" customModule="PRKitDemo" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" id="w6r-ns-cmX" customClass="TableView" customModule="PRKit">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1521,7 +1521,7 @@
         <!--Roles/Resources-->
         <scene sceneID="mLk-xE-yiD">
             <objects>
-                <viewController id="DXt-nW-JiG" customClass="SecondNavigationViewController" customModule="PRKit_Example" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="DXt-nW-JiG" customClass="SecondNavigationViewController" customModule="PRKitDemo" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ekB-xq-EyC"/>
                         <viewControllerLayoutGuide type="bottom" id="9yO-b3-2hR"/>
@@ -1608,7 +1608,7 @@
         <!--Custom View Controller-->
         <scene sceneID="Wik-xh-p6M">
             <objects>
-                <viewController id="OLM-bO-o8S" customClass="CustomViewController" customModule="PRKit_Example" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="OLM-bO-o8S" customClass="CustomViewController" customModule="PRKitDemo" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="UXI-p5-1DR"/>
                         <viewControllerLayoutGuide type="bottom" id="3DK-79-N1c"/>
@@ -1623,6 +1623,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="g71-ZG-d7V" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-409" y="1869"/>
+        </scene>
+        <!--Base View Controller-->
+        <scene sceneID="kRJ-Hu-08k">
+            <objects>
+                <viewController id="MLW-D4-vMf" customClass="BaseViewController" customModule="PRKit" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="SGj-pj-03H"/>
+                        <viewControllerLayoutGuide type="bottom" id="4so-kA-3Bz"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="vJN-2x-eme">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CuO-v7-5bL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="93" y="860"/>
         </scene>
         <!--Root View Controller-->
         <scene sceneID="s32-kW-uB5">
@@ -1871,16 +1889,17 @@
                 <splitViewController allowDoubleColumnStyle="YES" preferredDisplayMode="secondaryOnly" id="pLw-Kb-tnX" sceneMemberID="viewController">
                     <connections>
                         <segue destination="OP1-u8-JfB" kind="relationship" relationship="masterViewController" id="ptn-d0-k9j"/>
+                        <segue destination="MLW-D4-vMf" kind="relationship" relationship="detailViewController" id="qXI-Bz-zBV"/>
                     </connections>
                 </splitViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3Kv-hh-AFp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="138" y="771"/>
+            <point key="canvasLocation" x="-628" y="467"/>
         </scene>
         <!--Stage-->
         <scene sceneID="zWr-jU-P3P">
             <objects>
-                <viewController id="7OG-1l-2sQ" customClass="SecondNavigationViewController" customModule="PRKit_Example" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="7OG-1l-2sQ" customClass="SecondNavigationViewController" customModule="PRKitDemo" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="42b-qw-il0"/>
                         <viewControllerLayoutGuide type="bottom" id="deP-L9-oQu"/>
@@ -1899,7 +1918,7 @@
         <!--Transport-->
         <scene sceneID="KBI-Ya-JvN">
             <objects>
-                <viewController id="oJj-qK-Pbg" customClass="SecondNavigationViewController" customModule="PRKit_Example" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="oJj-qK-Pbg" customClass="SecondNavigationViewController" customModule="PRKitDemo" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="u51-np-kLh"/>
                         <viewControllerLayoutGuide type="bottom" id="ZcY-GZ-oPX"/>
@@ -1918,7 +1937,7 @@
         <!--Reunify-->
         <scene sceneID="gPS-D3-eZ5">
             <objects>
-                <viewController id="Fin-bh-ock" customClass="SecondNavigationViewController" customModule="PRKit_Example" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Fin-bh-ock" customClass="SecondNavigationViewController" customModule="PRKitDemo" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="l6o-Ll-Jja"/>
                         <viewControllerLayoutGuide type="bottom" id="wdK-dj-S2P"/>
