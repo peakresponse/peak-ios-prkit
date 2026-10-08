@@ -92,6 +92,15 @@ open class CommandFooter: UIView {
         }
     }
 
+    open func layoutConstraints(for contentView: UIView, in view: UIView) -> [NSLayoutConstraint] {
+        var constraints: [NSLayoutConstraint] = []
+        if traitCollection.horizontalSizeClass == .compact || view.bounds.size.width < view.bounds.size.height {
+            constraints.append(stackView.leftAnchor.constraint(equalTo: contentView.leftAnchor))
+            constraints.append(stackView.rightAnchor.constraint(equalTo: contentView.rightAnchor))
+        }
+        return constraints
+    }
+
     open override func addSubview(_ view: UIView) {
         stackView.addArrangedSubview(view)
     }
