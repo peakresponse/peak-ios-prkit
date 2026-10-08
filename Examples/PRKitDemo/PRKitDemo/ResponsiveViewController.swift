@@ -15,11 +15,8 @@ class ResponsiveViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = .red
-        headerView.backgroundColor = .yellow
         mainView.backgroundColor = .green
         contentView.backgroundColor = .black.withAlphaComponent(0.5)
-        footerView.backgroundColor = .blue
 
         let welcomeHeader = WelcomeHeader()
         welcomeHeader.translatesAutoresizingMaskIntoConstraints = false
@@ -41,12 +38,10 @@ class ResponsiveViewController: BaseViewController {
         commandFooter.preservesSuperviewLayoutMargins = true
         footerView.addSubview(commandFooter)
         NSLayoutConstraint.activate([
-            footerView.topAnchor.constraint(equalTo: commandFooter.topAnchor),
+            commandFooter.topAnchor.constraint(equalTo: footerView.topAnchor),
             commandFooter.leftAnchor.constraint(equalTo: footerView.leftAnchor),
             commandFooter.rightAnchor.constraint(equalTo: footerView.rightAnchor),
-            commandFooter.bottomAnchor.constraint(equalTo: footerView.bottomAnchor),
-            commandFooter.bottomContentView.leftAnchor.constraint(equalTo: contentView.leftAnchor),
-            commandFooter.bottomContentView.rightAnchor.constraint(equalTo: contentView.rightAnchor)
+            footerView.bottomAnchor.constraint(equalTo: commandFooter.bottomAnchor),
         ])
         self.commandFooter = commandFooter
 
@@ -64,7 +59,6 @@ class ResponsiveViewController: BaseViewController {
 
         button = PRKit.Button()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.style = .primary
         button.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
         contentView.addSubview(button)
         NSLayoutConstraint.activate([
@@ -72,6 +66,14 @@ class ResponsiveViewController: BaseViewController {
             button.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
         ])
         self.button = button
+    }
+
+    override func updateFooterConstraints() {
+        super.updateFooterConstraints()
+        if traitCollection.horizontalSizeClass == .compact || view.bounds.size.width < view.bounds.size.height {
+            footerViewConstraints.append(commandFooter.stackView.leftAnchor.constraint(equalTo: contentView.leftAnchor))
+            footerViewConstraints.append(commandFooter.stackView.rightAnchor.constraint(equalTo: contentView.rightAnchor))
+        }
     }
 
     open override func viewWillAppear(_ animated: Bool) {

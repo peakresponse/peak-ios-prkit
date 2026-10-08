@@ -82,7 +82,7 @@ open class TemperatureField: FormComponent, FormComponentDelegate {
 
     open func commonInit() {
         let stackView = UIStackView()
-        stackView.axis = screen.bounds.width < 402 ? .vertical : .horizontal
+        stackView.axis = screen?.bounds.width ?? 0 < 402 ? .vertical : .horizontal
         stackView.distribution = .fillEqually
         stackView.alignment = .fill
         stackView.spacing = 20

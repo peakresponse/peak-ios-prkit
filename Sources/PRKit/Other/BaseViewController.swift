@@ -14,6 +14,7 @@ open class BaseViewController: UIViewController {
     open weak var contentView: UIView!
     open var contentViewRightConstraint: NSLayoutConstraint!
     open weak var footerView: UIView!
+    open var footerViewConstraints: [NSLayoutConstraint] = []
 
     open weak var button: PRKit.Button!
 
@@ -63,13 +64,13 @@ open class BaseViewController: UIViewController {
         contentViewCenterXConstraint.priority = .defaultHigh
         let contentViewWidthConstraint = contentView.widthAnchor.constraint(equalTo: view.layoutMarginsGuide.widthAnchor)
         contentViewWidthConstraint.priority = .defaultHigh
-        let contentViewRightConstraint = contentView.rightAnchor.constraint(lessThanOrEqualTo: view.rightAnchor, constant: -100)
+        let contentViewRightConstraint = contentView.rightAnchor.constraint(lessThanOrEqualTo: view.rightAnchor, constant: -140)
         NSLayoutConstraint.activate([
-            contentView.topAnchor.constraint(equalTo: mainView.layoutMarginsGuide.topAnchor),
+            contentView.topAnchor.constraint(equalTo: mainView.topAnchor),
             contentView.leftAnchor.constraint(greaterThanOrEqualTo: view.layoutMarginsGuide.leftAnchor),
             contentView.rightAnchor.constraint(lessThanOrEqualTo: view.layoutMarginsGuide.rightAnchor),
             contentView.widthAnchor.constraint(lessThanOrEqualToConstant: 780),
-            contentView.bottomAnchor.constraint(equalTo: mainView.layoutMarginsGuide.bottomAnchor),
+            contentView.bottomAnchor.constraint(equalTo: mainView.bottomAnchor),
             contentViewCenterXConstraint,
             contentViewWidthConstraint,
             contentViewRightConstraint
@@ -85,9 +86,7 @@ open class BaseViewController: UIViewController {
         let footerViewHeightConstraint = footerView.heightAnchor.constraint(equalToConstant: 0)
         footerViewHeightConstraint.priority = .defaultLow
         NSLayoutConstraint.activate([
-            mainView.bottomAnchor.constraint(equalTo: footerView.topAnchor),
-            footerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            footerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            footerView.rightAnchor.constraint(equalTo: view.rightAnchor),
             footerView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             footerViewHeightConstraint
         ])
@@ -96,14 +95,21 @@ open class BaseViewController: UIViewController {
 
     open override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        if view.bounds.size.width > view.bounds.size.height {
-            if traitCollection.horizontalSizeClass == .regular {
-                contentViewRightConstraint.isActive = true
-            } else {
-                contentViewRightConstraint.isActive = false
-            }
+        NSLayoutConstraint.deactivate(footerViewConstraints)
+        footerViewConstraints.removeAll()
+        updateFooterConstraints()
+        NSLayoutConstraint.activate(footerViewConstraints)
+    }
+
+    open func updateFooterConstraints() {
+        if view.bounds.size.width > view.bounds.size.height && traitCollection.horizontalSizeClass == .regular {
+            contentViewRightConstraint.isActive = true
+            footerViewConstraints.append(mainView.bottomAnchor.constraint(equalTo: view.bottomAnchor))
+            footerViewConstraints.append(footerView.leftAnchor.constraint(equalTo: contentView.rightAnchor))
         } else {
             contentViewRightConstraint.isActive = false
+            footerViewConstraints.append(mainView.bottomAnchor.constraint(equalTo: footerView.topAnchor))
+            footerViewConstraints.append(footerView.leftAnchor.constraint(equalTo: view.leftAnchor))
         }
     }
 }
