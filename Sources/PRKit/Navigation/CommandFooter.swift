@@ -9,6 +9,8 @@ import UIKit
 
 @IBDesignable
 open class CommandFooter: UIView {
+    open weak var bottomContentView: UIView!
+    open weak var sideContentView: UIView!
     open weak var activityIndicatorView: UIActivityIndicatorView!
     open var stackView = UIStackView()
     open var layoutConstraints: [NSLayoutConstraint] = []
@@ -37,6 +39,39 @@ open class CommandFooter: UIView {
     }
 
     open func commonInit() {
+        layoutMargins = UIEdgeInsets(top: 16, left: 8, bottom: 16, right: 8)
+
+        let bottomContentView = UIView()
+        bottomContentView.translatesAutoresizingMaskIntoConstraints = false
+        bottomContentView.backgroundColor = .black.withAlphaComponent(0.5)
+        super.addSubview(bottomContentView)
+        let bottomContentViewLeftConstraint = bottomContentView.leftAnchor.constraint(equalTo: layoutMarginsGuide.leftAnchor)
+        bottomContentViewLeftConstraint.priority = .defaultHigh
+        let bottomContentViewRightConstraint = bottomContentView.rightAnchor.constraint(equalTo: layoutMarginsGuide.rightAnchor)
+        bottomContentViewRightConstraint.priority = .defaultLow
+        NSLayoutConstraint.activate([
+            bottomContentView.topAnchor.constraint(equalTo: layoutMarginsGuide.topAnchor),
+            bottomContentViewLeftConstraint,
+            bottomContentViewRightConstraint,
+            layoutMarginsGuide.bottomAnchor.constraint(equalTo: bottomContentView.bottomAnchor)
+        ])
+        self.bottomContentView = bottomContentView
+
+        let sideContentView = UIView()
+        sideContentView.translatesAutoresizingMaskIntoConstraints = false
+        sideContentView.backgroundColor = .blue.withAlphaComponent(0.5)
+        super.addSubview(sideContentView)
+        let sideContentViewWidthConstraint = sideContentView.widthAnchor.constraint(equalToConstant: 140)
+        sideContentViewWidthConstraint.priority = .defaultHigh
+        let sideContentViewRightConstraint = sideContentView.rightAnchor.constraint(equalTo: layoutMarginsGuide.rightAnchor)
+        sideContentViewRightConstraint.priority = .defaultHigh
+        NSLayoutConstraint.activate([
+            sideContentViewWidthConstraint,
+            sideContentViewRightConstraint,
+            sideContentView.bottomAnchor.constraint(equalTo: layoutMarginsGuide.bottomAnchor)
+        ])
+        self.sideContentView = sideContentView
+
         stackView.alignment = .fill
         stackView.distribution = .fillEqually
         stackView.translatesAutoresizingMaskIntoConstraints = false
