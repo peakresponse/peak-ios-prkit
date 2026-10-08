@@ -9,6 +9,7 @@ import UIKit
 
 @IBDesignable
 open class WelcomeHeader: UIView {
+    open weak var contentView: UIView!
     open weak var imageView: ImageView!
     open weak var label: UILabel!
 
@@ -39,36 +40,38 @@ open class WelcomeHeader: UIView {
 
     open func commonInit() {
         backgroundColor = .header
+        layoutMargins = UIEdgeInsets(top: 16, left: 8, bottom: 16, right: 8)
 
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(view)
-        let maxWidthConstraint = view.widthAnchor.constraint(equalTo: widthAnchor)
-        maxWidthConstraint.priority = .defaultHigh
+        let contentView = UIView()
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(contentView)
+        let contentViewLeftConstraint = contentView.leftAnchor.constraint(equalTo: layoutMarginsGuide.leftAnchor)
+        contentViewLeftConstraint.priority = .defaultHigh
+        let contentViewRightConstraint = contentView.rightAnchor.constraint(equalTo: layoutMarginsGuide.rightAnchor)
+        contentViewRightConstraint.priority = .defaultHigh
         NSLayoutConstraint.activate([
-            view.topAnchor.constraint(equalTo: layoutMarginsGuide.topAnchor),
-            view.leftAnchor.constraint(greaterThanOrEqualTo: leftAnchor),
-            view.centerXAnchor.constraint(equalTo: centerXAnchor),
-            view.rightAnchor.constraint(lessThanOrEqualTo: rightAnchor),
-            view.widthAnchor.constraint(lessThanOrEqualToConstant: 934),
-            maxWidthConstraint,
-            bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            contentView.topAnchor.constraint(equalTo: layoutMarginsGuide.topAnchor),
+            contentViewLeftConstraint,
+            contentViewRightConstraint,
+            layoutMarginsGuide.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
+        self.contentView = contentView
 
         let isRegularWidth = traitCollection.userInterfaceIdiom == .pad
 
         let imageSize: CGFloat = isRegularWidth ? 90 : 32
+
         let imageView = ImageView()
-        imageView.round = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(imageView)
+        imageView.round = true
+        contentView.addSubview(imageView)
         NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 16),
-            imageView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16),
+            imageView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            imageView.leftAnchor.constraint(equalTo: contentView.leftAnchor),
             imageView.widthAnchor.constraint(equalToConstant: imageSize),
             imageView.heightAnchor.constraint(equalToConstant: imageSize),
-            imageView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            view.bottomAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 16)
+            imageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            contentView.bottomAnchor.constraint(equalTo: imageView.bottomAnchor)
         ])
         self.imageView = imageView
         imageURL = nil
@@ -77,11 +80,11 @@ open class WelcomeHeader: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .h4SemiBold
         label.textColor = .text
-        view.addSubview(label)
+        contentView.addSubview(label)
         NSLayoutConstraint.activate([
-            label.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            label.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             label.leftAnchor.constraint(equalTo: imageView.rightAnchor, constant: isRegularWidth ? 16 : 10),
-            label.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -16)
+            label.rightAnchor.constraint(equalTo: contentView.rightAnchor)
         ])
         self.label = label
     }

@@ -29,11 +29,9 @@ open class BaseViewController: UIViewController {
     open override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = .red
-
         let headerView = UIView()
         headerView.translatesAutoresizingMaskIntoConstraints = false
-        headerView.backgroundColor = .yellow
+        headerView.preservesSuperviewLayoutMargins = true
         headerView.layoutMargins = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
         view.addSubview(headerView)
         let headerViewHeightConstraint = headerView.heightAnchor.constraint(equalToConstant: 0)
@@ -48,7 +46,7 @@ open class BaseViewController: UIViewController {
 
         let mainView = UIView()
         mainView.translatesAutoresizingMaskIntoConstraints = false
-        mainView.backgroundColor = .green
+        mainView.preservesSuperviewLayoutMargins = true
         mainView.layoutMargins = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
         view.addSubview(mainView)
         NSLayoutConstraint.activate([
@@ -60,7 +58,6 @@ open class BaseViewController: UIViewController {
 
         let contentView = UIView()
         contentView.translatesAutoresizingMaskIntoConstraints = false
-        contentView.backgroundColor = .black.withAlphaComponent(0.5)
         mainView.addSubview(contentView)
         let contentViewCenterXConstraint = contentView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         contentViewCenterXConstraint.priority = .defaultHigh
@@ -80,20 +77,9 @@ open class BaseViewController: UIViewController {
         self.contentView = contentView
         self.contentViewRightConstraint = contentViewRightConstraint
 
-        let button = PRKit.Button()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.style = .primary
-        button.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
-        contentView.addSubview(button)
-        NSLayoutConstraint.activate([
-            button.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            button.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
-        ])
-        self.button = button
-
         let footerView = UIView()
         footerView.translatesAutoresizingMaskIntoConstraints = false
-        footerView.backgroundColor = .blue
+        footerView.preservesSuperviewLayoutMargins = true
         footerView.layoutMargins = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
         view.addSubview(footerView)
         let footerViewHeightConstraint = footerView.heightAnchor.constraint(equalToConstant: 0)
@@ -106,30 +92,6 @@ open class BaseViewController: UIViewController {
             footerViewHeightConstraint
         ])
         self.footerView = footerView
-
-        var testView = UIView()
-        testView.translatesAutoresizingMaskIntoConstraints = false
-        testView.backgroundColor = .black.withAlphaComponent(0.5)
-        headerView.addSubview(testView)
-        NSLayoutConstraint.activate([
-            testView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
-            testView.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
-            testView.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
-            testView.heightAnchor.constraint(equalToConstant: 64),
-            headerView.layoutMarginsGuide.bottomAnchor.constraint(equalTo: testView.bottomAnchor)
-        ])
-
-        testView = UIView()
-        testView.translatesAutoresizingMaskIntoConstraints = false
-        testView.backgroundColor = .black.withAlphaComponent(0.5)
-        footerView.addSubview(testView)
-        NSLayoutConstraint.activate([
-            testView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            testView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            testView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor),
-            testView.heightAnchor.constraint(equalToConstant: 64),
-            footerView.layoutMarginsGuide.topAnchor.constraint(equalTo: testView.topAnchor),
-        ])
     }
 
     open override func viewDidLayoutSubviews() {
@@ -142,20 +104,6 @@ open class BaseViewController: UIViewController {
             }
         } else {
             contentViewRightConstraint.isActive = false
-        }
-    }
-
-    open override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        button.setTitle(presentingViewController == nil ? "Open" : "Close", for: .normal)
-    }
-
-    @objc func buttonPressed() {
-        if presentingViewController == nil {
-            let vc = BaseViewController()
-            present(vc, animated: true)
-        } else {
-            presentingViewController?.dismiss(animated: true)
         }
     }
 }

@@ -1624,10 +1624,10 @@
             </objects>
             <point key="canvasLocation" x="-409" y="1869"/>
         </scene>
-        <!--Base View Controller-->
+        <!--Responsive View Controller-->
         <scene sceneID="kRJ-Hu-08k">
             <objects>
-                <viewController id="MLW-D4-vMf" customClass="BaseViewController" customModule="PRKit" sceneMemberID="viewController">
+                <viewController id="MLW-D4-vMf" customClass="ResponsiveViewController" customModule="PRKitDemo" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="SGj-pj-03H"/>
                         <viewControllerLayoutGuide type="bottom" id="4so-kA-3Bz"/>
