@@ -11,13 +11,16 @@ class UserButton: UIButton {
     override func layoutSubviews() {
         super.layoutSubviews()
         let isCompact = traitCollection.horizontalSizeClass == .compact
-        let size = isCompact ? 36 : 48
+        let size = isCompact ? 36.0 : 48.0
         imageView?.frame = CGRect(x: 0, y: 0, width: size, height: size)
         titleLabel?.sizeToFit()
         if var frame = titleLabel?.frame {
             frame.origin.x = CGFloat(size + (isCompact ? 6 : 9))
             frame.size.width = max(0, min(frame.size.width, self.frame.size.width - frame.origin.x))
             titleLabel?.frame = frame
+        }
+        if let heightConstraint = constraints.first(where: { $0.identifier == "userButtonHeightConstraint" }) {
+            heightConstraint.constant = size
         }
     }
 }
@@ -37,7 +40,7 @@ open class CommandHeader: UIView, FormFieldDelegate {
         set { searchField.isHidden = newValue }
     }
 
-    open weak var stackView: UIStackView!
+    open weak var contentView: UIStackView!
 
     open weak var _userButton: UIButton!
     open var userButton: UIButton {
@@ -110,21 +113,26 @@ open class CommandHeader: UIView, FormFieldDelegate {
 
     open func commonInit() {
         backgroundColor = .background
+        layoutMargins = UIEdgeInsets(top: 16, left: 8, bottom: 16, right: 8)
 
-        let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .horizontal
-        stackView.alignment = .center
-        stackView.distribution = .fillEqually
-        stackView.spacing = 20
-        addSubview(stackView)
+        let contentView = UIStackView()
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.axis = .horizontal
+        contentView.alignment = .center
+        contentView.distribution = .fillEqually
+        contentView.spacing = 16
+        addSubview(contentView)
+        let contentViewLeftConstraint = contentView.leftAnchor.constraint(equalTo: layoutMarginsGuide.leftAnchor)
+        contentViewLeftConstraint.priority = .defaultHigh
+        let contentViewRightConstraint = contentView.rightAnchor.constraint(equalTo: layoutMarginsGuide.rightAnchor)
+        contentViewRightConstraint.priority = .defaultHigh
         NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 12),
-            stackView.leftAnchor.constraint(equalTo: leftAnchor),
-            stackView.rightAnchor.constraint(equalTo: safeAreaLayoutGuide.rightAnchor),
-            bottomAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 12)
+            contentView.topAnchor.constraint(equalTo: layoutMarginsGuide.topAnchor),
+            contentViewLeftConstraint,
+            contentViewRightConstraint,
+            layoutMarginsGuide.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
-        self.stackView = stackView
+        self.contentView = contentView
     }
 
     open func initUserButton() {
@@ -141,14 +149,16 @@ open class CommandHeader: UIView, FormFieldDelegate {
 
         let view = UIView()
         view.addSubview(userButton)
+        let userButtonHeightConstraint = userButton.heightAnchor.constraint(equalToConstant: isCompact ? 36 : 48)
+        userButtonHeightConstraint.identifier = "userButtonHeightConstraint"
         NSLayoutConstraint.activate([
             userButton.topAnchor.constraint(equalTo: view.topAnchor),
-            userButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20),
+            userButton.leftAnchor.constraint(equalTo: view.leftAnchor),
             userButton.rightAnchor.constraint(equalTo: view.rightAnchor),
             userButton.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            userButton.heightAnchor.constraint(equalToConstant: isCompact ? 36 : 48)
+            userButtonHeightConstraint
         ])
-        stackView.insertArrangedSubview(view, at: 0)
+        contentView.insertArrangedSubview(view, at: 0)
 
         _userButton = userButton
         userImageURL = nil
@@ -169,12 +179,12 @@ open class CommandHeader: UIView, FormFieldDelegate {
         NSLayoutConstraint.activate([
             searchField.topAnchor.constraint(equalTo: view.topAnchor),
             searchFieldLeftConstraint,
-            searchField.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20),
+            searchField.rightAnchor.constraint(equalTo: view.rightAnchor),
             searchField.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
         self.searchFieldLeftConstraint = searchFieldLeftConstraint
 
-        stackView.addArrangedSubview(view)
+        contentView.addArrangedSubview(view)
 
         _searchField = searchField
     }
@@ -211,11 +221,11 @@ open class CommandHeader: UIView, FormFieldDelegate {
             view.addSubview(subview)
             NSLayoutConstraint.activate([
                 subview.topAnchor.constraint(equalTo: view.topAnchor),
-                subview.leftAnchor.constraint(equalTo: view.leftAnchor, constant: leftBarButtonItem.image != nil ? 0 : 20),
+                subview.leftAnchor.constraint(equalTo: view.leftAnchor),
                 subview.rightAnchor.constraint(lessThanOrEqualTo: view.rightAnchor),
                 view.bottomAnchor.constraint(equalTo: subview.bottomAnchor)
             ])
-            stackView.insertArrangedSubview(view, at: 0)
+            contentView.insertArrangedSubview(view, at: 0)
             leftBarButtonView = view
         }
     }
@@ -233,7 +243,7 @@ open class CommandHeader: UIView, FormFieldDelegate {
                 subview.rightAnchor.constraint(lessThanOrEqualTo: view.rightAnchor),
                 view.bottomAnchor.constraint(equalTo: subview.bottomAnchor)
             ])
-            stackView.insertArrangedSubview(view, at: 1)
+            contentView.insertArrangedSubview(view, at: 1)
             centerBarButtonView = view
         }
     }
@@ -247,10 +257,10 @@ open class CommandHeader: UIView, FormFieldDelegate {
             NSLayoutConstraint.activate([
                 subview.topAnchor.constraint(equalTo: view.topAnchor),
                 subview.leftAnchor.constraint(greaterThanOrEqualTo: view.leftAnchor),
-                subview.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20),
+                subview.rightAnchor.constraint(equalTo: view.rightAnchor),
                 view.bottomAnchor.constraint(equalTo: subview.bottomAnchor)
             ])
-            stackView.addArrangedSubview(view)
+            contentView.addArrangedSubview(view)
             self.rightBarButtonView = view
         }
     }
@@ -296,8 +306,7 @@ open class CommandHeader: UIView, FormFieldDelegate {
             layoutIfNeeded()
             UIView.animate(withDuration: 0.2) { [weak self] in
                 guard let self = self else { return }
-                searchFieldLeftConstraint.constant = 20
-                for subview in stackView.arrangedSubviews {
+                for subview in contentView.arrangedSubviews {
                     if subview != field.superview {
                         subview.isHidden = true
                     }
@@ -316,10 +325,9 @@ open class CommandHeader: UIView, FormFieldDelegate {
             layoutIfNeeded()
             UIView.animate(withDuration: 0.2) { [weak self] in
                 guard let self = self else { return }
-                for subview in stackView.arrangedSubviews {
+                for subview in contentView.arrangedSubviews {
                     subview.isHidden = false
                 }
-                self.searchFieldLeftConstraint.constant = 0
                 layoutIfNeeded()
             }
             return false
