@@ -9,7 +9,6 @@ import PRKit
 import UIKit
 
 class ResponsiveViewController: BaseViewController, FormFieldDelegate {
-//    weak var welcomeHeader: WelcomeHeader!
     weak var commandHeader: CommandHeader!
     weak var commandFooter: CommandFooter!
 
@@ -18,21 +17,6 @@ class ResponsiveViewController: BaseViewController, FormFieldDelegate {
 
         mainView.backgroundColor = .green
         contentView.backgroundColor = .black.withAlphaComponent(0.5)
-
-//        let welcomeHeader = WelcomeHeader()
-//        welcomeHeader.translatesAutoresizingMaskIntoConstraints = false
-//        welcomeHeader.labelText = "Welcome John Doe. Here's some really long text to test truncation/wrapping."
-//        welcomeHeader.preservesSuperviewLayoutMargins = true
-//        headerView.addSubview(welcomeHeader)
-//        NSLayoutConstraint.activate([
-//            welcomeHeader.topAnchor.constraint(equalTo: headerView.topAnchor),
-//            welcomeHeader.leftAnchor.constraint(equalTo: headerView.leftAnchor),
-//            welcomeHeader.rightAnchor.constraint(equalTo: headerView.rightAnchor),
-//            headerView.bottomAnchor.constraint(equalTo: welcomeHeader.bottomAnchor),
-//            welcomeHeader.contentView.leftAnchor.constraint(equalTo: contentView.leftAnchor),
-//            welcomeHeader.contentView.rightAnchor.constraint(equalTo: contentView.rightAnchor)
-//        ])
-//        self.welcomeHeader = welcomeHeader
 
         let commandHeader = CommandHeader()
         commandHeader.translatesAutoresizingMaskIntoConstraints = false
