@@ -39,8 +39,8 @@ open class BaseViewController: UIViewController {
         headerViewHeightConstraint.priority = .defaultLow
         NSLayoutConstraint.activate([
             headerView.topAnchor.constraint(equalTo: view.topAnchor),
-            headerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            headerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            headerView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            headerView.rightAnchor.constraint(equalTo: view.rightAnchor),
             headerViewHeightConstraint
         ])
         self.headerView = headerView
@@ -52,8 +52,8 @@ open class BaseViewController: UIViewController {
         view.addSubview(mainView)
         NSLayoutConstraint.activate([
             mainView.topAnchor.constraint(equalTo: headerView.bottomAnchor),
-            mainView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            mainView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            mainView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            mainView.rightAnchor.constraint(equalTo: view.rightAnchor)
         ])
         self.mainView = mainView
 
