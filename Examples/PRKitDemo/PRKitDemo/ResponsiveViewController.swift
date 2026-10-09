@@ -12,7 +12,6 @@ class ResponsiveViewController: BaseViewController, CommandHeaderDelegate, FormF
     weak var commandHeader: CommandHeader!
     weak var commandFooter: CommandFooter!
     weak var sidebarTableView: SidebarTableView!
-    weak var sidebarTableViewLeftConstraint: NSLayoutConstraint!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,15 +53,13 @@ class ResponsiveViewController: BaseViewController, CommandHeaderDelegate, FormF
         let sidebarTableView = SidebarTableView()
         sidebarTableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(sidebarTableView)
-        let sidebarTableViewLeftConstraint = sidebarTableView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: -300)
-        NSLayoutConstraint.activate([
+        var sidebarTableViewConstraints = [
             sidebarTableView.topAnchor.constraint(equalTo: headerView.bottomAnchor),
-            sidebarTableViewLeftConstraint,
-            sidebarTableView.widthAnchor.constraint(equalToConstant: 300),
             sidebarTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
+        ]
+        sidebarTableViewConstraints.append(contentsOf: sidebarTableView.layoutConstraints(in: view))
+        NSLayoutConstraint.activate(sidebarTableViewConstraints)
         self.sidebarTableView = sidebarTableView
-        self.sidebarTableViewLeftConstraint = sidebarTableViewLeftConstraint
 
         var button = PRKit.Button()
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -106,22 +103,9 @@ class ResponsiveViewController: BaseViewController, CommandHeaderDelegate, FormF
         }
     }
 
-    func toggleSidebar(completion: ((Bool) -> Void)? = nil) {
-        UIView.animate(withDuration: 0.2, animations: { [weak self] in
-            if self?.sidebarTableViewLeftConstraint.constant == 0 {
-                self?.sidebarTableViewLeftConstraint.constant = -300
-                self?.sidebarTableView.removeShadow()
-            } else {
-                self?.sidebarTableViewLeftConstraint.constant = 0
-                self?.sidebarTableView.addShadow(withOffset: CGSize(width: 6, height: 0), radius: 10, color: .dropShadow, opacity: 0.15)
-            }
-            self?.view.layoutIfNeeded()
-        }, completion: completion)
-    }
-
     // MARK: - CommandHeaderDelegate
 
     func commandHeaderDidPressUser(_ header: CommandHeader) {
-        toggleSidebar()
+        sidebarTableView.toggle()
     }
 }

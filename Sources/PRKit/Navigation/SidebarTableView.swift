@@ -43,6 +43,8 @@ open class SidebarTableViewCell: UITableViewCell {
 }
 
 open class SidebarTableView: UITableView {
+    open var sidebarTableViewLeftConstraint: NSLayoutConstraint?
+
     override public init(frame: CGRect, style: UITableView.Style) {
         super.init(frame: frame, style: style)
         commonInit()
@@ -58,5 +60,28 @@ open class SidebarTableView: UITableView {
         separatorStyle = .none
         rowHeight = 66
         register(SidebarTableViewCell.self, forCellReuseIdentifier: "SidebarItem")
+    }
+
+    open func layoutConstraints(in view: UIView) -> [NSLayoutConstraint] {
+        let sidebarTableViewLeftConstraint = leftAnchor.constraint(equalTo: view.leftAnchor, constant: -300)
+        self.sidebarTableViewLeftConstraint = sidebarTableViewLeftConstraint
+        return [
+            sidebarTableViewLeftConstraint,
+            widthAnchor.constraint(equalToConstant: 300)
+        ]
+    }
+
+    open func toggle(completion: ((Bool) -> Void)? = nil) {
+        UIView.animate(withDuration: 0.2, animations: { [weak self] in
+            guard let sidebarTableViewLeftConstraint = self?.sidebarTableViewLeftConstraint else { return }
+            if sidebarTableViewLeftConstraint.constant == 0 {
+                sidebarTableViewLeftConstraint.constant = -300
+                self?.removeShadow()
+            } else {
+                sidebarTableViewLeftConstraint.constant = 0
+                self?.addShadow(withOffset: CGSize(width: 6, height: 0), radius: 10, color: .dropShadow, opacity: 0.15)
+            }
+            (sidebarTableViewLeftConstraint.secondItem as? UIView)?.layoutIfNeeded()
+        }, completion: completion)
     }
 }
