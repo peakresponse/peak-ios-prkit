@@ -83,7 +83,6 @@ open class CommandHeader: UIView, FormFieldDelegate {
         }
         return _searchField
     }
-    open weak var searchFieldLeftConstraint: NSLayoutConstraint!
     open weak var searchFieldDelegate: FormFieldDelegate?
 
     @IBOutlet open var leftBarButtonItem: UIBarButtonItem? {
@@ -175,14 +174,12 @@ open class CommandHeader: UIView, FormFieldDelegate {
 
         let view = UIView()
         view.addSubview(searchField)
-        let searchFieldLeftConstraint = searchField.leftAnchor.constraint(equalTo: view.leftAnchor)
         NSLayoutConstraint.activate([
             searchField.topAnchor.constraint(equalTo: view.topAnchor),
-            searchFieldLeftConstraint,
+            searchField.leftAnchor.constraint(equalTo: view.leftAnchor),
             searchField.rightAnchor.constraint(equalTo: view.rightAnchor),
             searchField.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
-        self.searchFieldLeftConstraint = searchFieldLeftConstraint
 
         contentView.addArrangedSubview(view)
 
@@ -303,15 +300,17 @@ open class CommandHeader: UIView, FormFieldDelegate {
         if let formFieldShouldBeginEditing = searchFieldDelegate?.formFieldShouldBeginEditing {
             return formFieldShouldBeginEditing(field)
         } else {
-            layoutIfNeeded()
-            UIView.animate(withDuration: 0.2) { [weak self] in
-                guard let self = self else { return }
-                for subview in contentView.arrangedSubviews {
-                    if subview != field.superview {
-                        subview.isHidden = true
-                    }
-                }
+            if traitCollection.horizontalSizeClass == .compact {
                 layoutIfNeeded()
+                UIView.animate(withDuration: 0.2) { [weak self] in
+                    guard let self = self else { return }
+                    for subview in contentView.arrangedSubviews {
+                        if subview != field.superview {
+                            subview.isHidden = true
+                        }
+                    }
+                    layoutIfNeeded()
+                }
             }
             return true
         }
