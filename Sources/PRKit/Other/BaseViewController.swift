@@ -16,8 +16,6 @@ open class BaseViewController: UIViewController {
     open weak var footerView: UIView!
     open var footerViewConstraints: [NSLayoutConstraint] = []
 
-    open weak var button: PRKit.Button!
-
     public init() {
         super.init(nibName: nil, bundle: nil)
         modalPresentationStyle = .fullScreen
@@ -95,6 +93,10 @@ open class BaseViewController: UIViewController {
 
     open override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        updateFooter()
+    }
+
+    open func updateFooter() {
         NSLayoutConstraint.deactivate(footerViewConstraints)
         footerViewConstraints.removeAll()
         updateFooterConstraints()
@@ -108,8 +110,22 @@ open class BaseViewController: UIViewController {
             footerViewConstraints.append(footerView.leftAnchor.constraint(equalTo: contentView.rightAnchor))
         } else {
             contentViewRightConstraint.isActive = false
-            footerViewConstraints.append(mainView.bottomAnchor.constraint(equalTo: footerView.topAnchor))
+            if footerView.isHidden {
+                footerViewConstraints.append(mainView.bottomAnchor.constraint(equalTo: view.bottomAnchor))
+            } else {
+                footerViewConstraints.append(mainView.bottomAnchor.constraint(equalTo: footerView.topAnchor))
+            }
             footerViewConstraints.append(footerView.leftAnchor.constraint(equalTo: view.leftAnchor))
         }
+    }
+
+    open func hideFooter() {
+        footerView.isHidden = true
+        updateFooter()
+    }
+
+    open func showFooter() {
+        footerView.isHidden = false
+        updateFooter()
     }
 }

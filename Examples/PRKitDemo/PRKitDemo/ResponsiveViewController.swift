@@ -13,6 +13,9 @@ class ResponsiveViewController: BaseViewController, CommandHeaderDelegate, FormF
     weak var commandFooter: CommandFooter!
     weak var sidebarTableView: SidebarTableView!
 
+    weak var button: PRKit.Button!
+    weak var footerButton: PRKit.Button!
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -75,13 +78,24 @@ class ResponsiveViewController: BaseViewController, CommandHeaderDelegate, FormF
 
         button = PRKit.Button()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
+        button.addTarget(self, action: #selector(buttonPressed(_:)), for: .touchUpInside)
         contentView.addSubview(button)
         NSLayoutConstraint.activate([
             button.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             button.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
         ])
         self.button = button
+
+        button = PRKit.Button()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(buttonPressed(_:)), for: .touchUpInside)
+        button.setTitle("Toggle Footer", for: .normal)
+        contentView.addSubview(button)
+        NSLayoutConstraint.activate([
+            button.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            button.topAnchor.constraint(equalTo: self.button.bottomAnchor, constant: 12)
+        ])
+        self.footerButton = button
     }
 
     override func updateFooterConstraints() {
@@ -94,12 +108,20 @@ class ResponsiveViewController: BaseViewController, CommandHeaderDelegate, FormF
         button.setTitle(presentingViewController == nil ? "Open" : "Close", for: .normal)
     }
 
-    @objc func buttonPressed() {
-        if presentingViewController == nil {
-            let vc = ResponsiveViewController()
-            present(vc, animated: true)
-        } else {
-            presentingViewController?.dismiss(animated: true)
+    @objc func buttonPressed(_ sender: PRKit.Button) {
+        if sender == button {
+            if presentingViewController == nil {
+                let vc = ResponsiveViewController()
+                present(vc, animated: true)
+            } else {
+                presentingViewController?.dismiss(animated: true)
+            }
+        } else if sender == footerButton {
+            if footerView.isHidden {
+                showFooter()
+            } else {
+                hideFooter()
+            }
         }
     }
 
