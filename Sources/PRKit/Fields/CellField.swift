@@ -41,6 +41,7 @@ open class CellField: FormField {
         disclosureIndicatorView.translatesAutoresizingMaskIntoConstraints = false
         disclosureIndicatorView.image = UIImage(named: "ChevronRight24px", in: PRKitBundle.instance, compatibleWith: nil)
         disclosureIndicatorView.tintColor = .labelText
+        disclosureIndicatorView.setContentHuggingPriority(.required, for: .horizontal)
         contentView.addSubview(disclosureIndicatorView)
         NSLayoutConstraint.activate([
             textLabel.rightAnchor.constraint(equalTo: disclosureIndicatorView.leftAnchor, constant: -6),
