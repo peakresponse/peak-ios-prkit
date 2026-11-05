@@ -110,10 +110,14 @@ open class CustomTabBar: UIView {
         contentView.backgroundColor = .textBackground
         contentView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(contentView)
+        let contentViewLeftConstraint = contentView.leftAnchor.constraint(equalTo: safeAreaLayoutGuide.leftAnchor)
+        contentViewLeftConstraint.priority = .defaultHigh
+        let contentViewRightConstraint = contentView.rightAnchor.constraint(equalTo: safeAreaLayoutGuide.rightAnchor)
+        contentViewRightConstraint.priority = .defaultHigh
         NSLayoutConstraint.activate([
-            contentView.leftAnchor.constraint(equalTo: safeAreaLayoutGuide.leftAnchor),
-            contentView.rightAnchor.constraint(equalTo: safeAreaLayoutGuide.rightAnchor),
-            contentView.heightAnchor.constraint(equalToConstant: 105),
+            contentViewLeftConstraint,
+            contentViewRightConstraint,
+            contentView.heightAnchor.constraint(equalToConstant: 93),
             contentView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor)
         ])
         self.contentView = contentView

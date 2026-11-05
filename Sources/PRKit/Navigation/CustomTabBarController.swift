@@ -7,9 +7,7 @@
 
 import UIKit
 
-// TODO: handle constant sizes 105 (no action button), 147 (with action button)
-
-open class CustomTabBarController: UIViewController, CustomTabBarDelegate {
+open class CustomTabBarController: BaseViewController, CustomTabBarDelegate {
     open weak var containerView: UIView!
     open weak var customTabBar: CustomTabBar!
     open var viewControllers: [UIViewController]? {
@@ -58,10 +56,11 @@ open class CustomTabBarController: UIViewController, CustomTabBarDelegate {
         customTabBar.isActionButtonEnabled = false
         view.addSubview(customTabBar)
         NSLayoutConstraint.activate([
-            customTabBar.topAnchor.constraint(equalTo: containerView.bottomAnchor),
-            customTabBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -105),
+            customTabBar.contentView.topAnchor.constraint(equalTo: containerView.bottomAnchor),
             customTabBar.leftAnchor.constraint(equalTo: containerView.leftAnchor),
             customTabBar.rightAnchor.constraint(equalTo: containerView.rightAnchor),
+            customTabBar.contentView.leftAnchor.constraint(equalTo: contentView.leftAnchor),
+            customTabBar.contentView.rightAnchor.constraint(equalTo: contentView.rightAnchor),
             view.bottomAnchor.constraint(equalTo: customTabBar.bottomAnchor)
         ])
         self.customTabBar = customTabBar
