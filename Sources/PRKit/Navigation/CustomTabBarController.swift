@@ -7,49 +7,88 @@
 
 import UIKit
 
-@IBDesignable
-open class CustomTabBarPlaceholder: UITabBar {
-    @IBInspectable open var height: CGFloat = 147
-    @IBInspectable open var isActionButtonEnabled: Bool = true
+// TODO: handle constant sizes 105 (no action button), 147 (with action button)
 
-    override open func sizeThatFits(_ size: CGSize) -> CGSize {
-        var sizeThatFits = super.sizeThatFits(size)
-        sizeThatFits.height = height
-        // adjust for safe area
-        if let window = UIApplication.shared.windows.first(where: { $0.isKeyWindow }) {
-            let insets = window.safeAreaInsets
-            sizeThatFits.height += insets.bottom
+open class CustomTabBarController: UIViewController, CustomTabBarDelegate {
+    open weak var containerView: UIView!
+    open weak var customTabBar: CustomTabBar!
+    open var viewControllers: [UIViewController]? {
+        didSet {
+            updateTabBarItems()
         }
-        return sizeThatFits
     }
-}
-
-open class CustomTabBarController: UITabBarController, CustomTabBarDelegate {
-    open var customTabBar: CustomTabBar!
+    open var selectedIndex: Int = NSNotFound {
+        didSet {
+            showSelectedViewController()
+        }
+    }
+    open var selectedViewController: UIViewController? {
+        get {
+            if let viewControllers, selectedIndex >= 0 && selectedIndex < viewControllers.count {
+                return viewControllers[selectedIndex]
+            }
+            return nil
+        }
+        set {
+            if let newValue, let index = viewControllers?.firstIndex(of: newValue) {
+                selectedIndex = index
+            } else {
+                selectedIndex = NSNotFound
+            }
+        }
+    }
 
     open override func viewDidLoad() {
         super.viewDidLoad()
 
+        let containerView = UIView()
+        containerView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(containerView)
+        NSLayoutConstraint.activate([
+            containerView.topAnchor.constraint(equalTo: view.topAnchor),
+            containerView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            containerView.rightAnchor.constraint(equalTo: view.rightAnchor)
+        ])
+        self.containerView = containerView
+
         // set up custom tab bar, overlaying existing tab bar
-        let customTabBar = CustomTabBar(frame: tabBar.frame)
+        let customTabBar = CustomTabBar()
+        customTabBar.translatesAutoresizingMaskIntoConstraints = false
         customTabBar.delegate = self
-        customTabBar.isActionButtonEnabled = (tabBar as? CustomTabBarPlaceholder)?.isActionButtonEnabled ?? true
-        customTabBar.items = viewControllers?.map({ $0.tabBarItem })
-        customTabBar.selectedItem = customTabBar.items?.first
+        customTabBar.isActionButtonEnabled = false
+        view.addSubview(customTabBar)
+        NSLayoutConstraint.activate([
+            customTabBar.topAnchor.constraint(equalTo: containerView.bottomAnchor),
+            customTabBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -105),
+            customTabBar.leftAnchor.constraint(equalTo: containerView.leftAnchor),
+            customTabBar.rightAnchor.constraint(equalTo: containerView.rightAnchor),
+            view.bottomAnchor.constraint(equalTo: customTabBar.bottomAnchor)
+        ])
         self.customTabBar = customTabBar
-        // hide default tab bar, add to superview on top
-        tabBar.alpha = 0
-        tabBar.superview?.addSubview(customTabBar)
+
+        updateTabBarItems()
     }
 
-    open override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        // always ensure custom tab bar is arranged in front of default tab bar
-        customTabBar.frame = tabBar.frame
-        if customTabBar.superview == nil {
-            tabBar.superview?.addSubview(customTabBar)
+    open func updateTabBarItems() {
+        customTabBar?.items = viewControllers?.map({ $0.tabBarItem })
+        customTabBar?.selectedItem = customTabBar?.items?.first
+        selectedViewController = viewControllers?.first
+    }
+
+    open func showSelectedViewController() {
+        for vc in children {
+            vc.willMove(toParent: nil)
+            vc.view.removeFromSuperview()
+            vc.removeFromParent()
+            vc.didMove(toParent: nil)
         }
-        tabBar.superview?.bringSubviewToFront(customTabBar)
+        if let containerView, let vc = selectedViewController {
+            vc.willMove(toParent: self)
+            addChild(vc)
+            containerView.addSubview(vc.view)
+            vc.view.frame = containerView.bounds
+            vc.didMove(toParent: self)
+        }
     }
 
     // MARK: - TabBarDelegate

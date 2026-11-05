@@ -112,8 +112,8 @@ open class CustomTabBar: UIView {
         contentView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(contentView)
         NSLayoutConstraint.activate([
-            contentView.leftAnchor.constraint(equalTo: leftAnchor),
-            contentView.rightAnchor.constraint(equalTo: rightAnchor),
+            contentView.leftAnchor.constraint(equalTo: safeAreaLayoutGuide.leftAnchor),
+            contentView.rightAnchor.constraint(equalTo: safeAreaLayoutGuide.rightAnchor),
             contentView.heightAnchor.constraint(equalToConstant: 105),
             contentView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor)
         ])
@@ -137,7 +137,7 @@ open class CustomTabBar: UIView {
         insertSubview(bottomImageView, belowSubview: contentView)
         NSLayoutConstraint.activate([
             topAnchor.constraint(equalTo: bottomImageView.topAnchor),
-            bottomImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            bottomImageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             bottomImageView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor)
         ])
         self.bottomImageView = bottomImageView
@@ -151,7 +151,7 @@ open class CustomTabBar: UIView {
         addSubview(button)
         NSLayoutConstraint.activate([
             button.topAnchor.constraint(equalTo: topAnchor, constant: 10),
-            button.centerXAnchor.constraint(equalTo: centerXAnchor),
+            button.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             button.widthAnchor.constraint(equalToConstant: 94),
             button.heightAnchor.constraint(equalToConstant: 94)
         ])
