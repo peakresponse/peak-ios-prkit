@@ -29,6 +29,36 @@ class TabsViewController: CustomTabBarController {
                 imageView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
                 imageView.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor)
             ])
+            if $0.title == "Triage" {
+                let segmentedControl = SegmentedControl()
+                segmentedControl.translatesAutoresizingMaskIntoConstraints = false
+                segmentedControl.addSegment(title: "Segment 1")
+                segmentedControl.addSegment(title: "Segment 2")
+                segmentedControl.addSegment(title: "Segment 3")
+                segmentedControl.addAction(UIAction(title: "segmentedControlValueChanged") { _ in
+                    print("segmentedControl.selectedIndex=", segmentedControl.selectedIndex)
+                }, for: .valueChanged)
+                view.addSubview(segmentedControl)
+                NSLayoutConstraint.activate([
+                    segmentedControl.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
+                    segmentedControl.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor),
+                    segmentedControl.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor)
+                ])
+
+                let button = PRKit.Button()
+                button.style = .primary
+                button.size = .small
+                button.translatesAutoresizingMaskIntoConstraints = false
+                button.setTitle("Next", for: .normal)
+                button.addAction(UIAction(title: "buttonPressed") { _ in
+                    segmentedControl.selectedIndex = (segmentedControl.selectedIndex + 1) % 3
+                }, for: .touchUpInside)
+                view.addSubview(button)
+                NSLayoutConstraint.activate([
+                    button.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor, constant: 20),
+                    button.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor)
+                ])
+            }
             return vc
         }
         super.viewDidLoad()

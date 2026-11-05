@@ -21,7 +21,6 @@ private let screens: [Screen] = [
     Screen(title: "Headers", vcType: nil),
     Screen(title: "Inputs", vcType: nil),
     Screen(title: "Keyboards", vcType: nil),
-    Screen(title: "Navigation", vcType: nil),
     Screen(title: "Tabs", vcType: TabsViewController.self),
     Screen(title: "Tables", vcType: nil)
 ]

@@ -62,7 +62,6 @@ open class CustomTabBarButton: UIButton {
     }
 }
 
-@IBDesignable
 open class CustomTabBar: UIView {
     open weak var bottomImageView: UIImageView!
     open weak var bottomView: UIView!
@@ -88,7 +87,7 @@ open class CustomTabBar: UIView {
 
     open weak var delegate: CustomTabBarDelegate?
 
-    @IBInspectable open var buttonTitle: String? {
+    open var buttonTitle: String? {
         get { return buttonLabel.text }
         set { buttonLabel.text = newValue }
     }

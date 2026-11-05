@@ -1322,70 +1322,6 @@
             </objects>
             <point key="canvasLocation" x="2318.840579710145" y="3337.5"/>
         </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="D6I-AZ-bJh">
-            <objects>
-                <navigationController storyboardIdentifier="Navigation" id="RtH-KL-45c" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="vvK-SV-jcX">
-                        <rect key="frame" x="0.0" y="48" width="414" height="54"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="ASh-eu-KMT" kind="relationship" relationship="rootViewController" id="2hc-pu-F4m"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="wS0-iY-MJJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1625" y="4063"/>
-        </scene>
-        <!--Navigation-->
-        <scene sceneID="vqS-4a-pNv">
-            <objects>
-                <viewController id="YiS-Uq-bKw" customClass="NavigationViewController" customModule="PRKitDemo" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="mfN-yq-DTH"/>
-                        <viewControllerLayoutGuide type="bottom" id="4pf-98-Svn"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="A1k-ui-Piq">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" placeholderIntrinsicWidth="374" placeholderIntrinsicHeight="64" translatesAutoresizingMaskIntoConstraints="NO" id="hHj-lI-GEh" customClass="SegmentedControl" customModule="PRKit">
-                                <rect key="frame" x="20" y="102" width="374" height="64"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <connections>
-                                    <action selector="segmentedControlValueChanged:" destination="YiS-Uq-bKw" eventType="valueChanged" id="73D-Tw-f4h"/>
-                                </connections>
-                            </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h8g-Ey-IoI">
-                                <rect key="frame" x="20" y="206" width="132.5" height="35"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Next Segment"/>
-                                <connections>
-                                    <action selector="buttonPressed:" destination="YiS-Uq-bKw" eventType="touchUpInside" id="aOj-7x-ceK"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="hHj-lI-GEh" firstAttribute="top" secondItem="mfN-yq-DTH" secondAttribute="bottom" id="777-NN-Gzr"/>
-                            <constraint firstItem="hHj-lI-GEh" firstAttribute="leading" secondItem="A1k-ui-Piq" secondAttribute="leadingMargin" id="IEJ-A5-Y5W"/>
-                            <constraint firstItem="h8g-Ey-IoI" firstAttribute="top" secondItem="hHj-lI-GEh" secondAttribute="bottom" constant="40" id="WfQ-Di-z1d"/>
-                            <constraint firstItem="h8g-Ey-IoI" firstAttribute="leading" secondItem="hHj-lI-GEh" secondAttribute="leading" id="gYV-gw-DFa"/>
-                            <constraint firstItem="hHj-lI-GEh" firstAttribute="trailing" secondItem="A1k-ui-Piq" secondAttribute="trailingMargin" id="pDu-UT-2Iw"/>
-                        </constraints>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="Overview" id="7ZU-LY-Yaq"/>
-                    <navigationItem key="navigationItem" title="Navigation" id="Z5e-sj-FVu"/>
-                    <connections>
-                        <outlet property="button" destination="h8g-Ey-IoI" id="0K6-MP-9gI"/>
-                        <outlet property="segmentedControl" destination="hHj-lI-GEh" id="cWl-GF-mre"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="UdB-7R-9yF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3097" y="4063"/>
-        </scene>
         <!--Tables View Controller-->
         <scene sceneID="uzj-Ba-dxv">
             <objects>
@@ -1420,44 +1356,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0dI-wn-YYa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1625" y="5597"/>
-        </scene>
-        <!--Roles/Resources-->
-        <scene sceneID="mLk-xE-yiD">
-            <objects>
-                <viewController id="DXt-nW-JiG" customClass="SecondNavigationViewController" customModule="PRKitDemo" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="ekB-xq-EyC"/>
-                        <viewControllerLayoutGuide type="bottom" id="9yO-b3-2hR"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="ucZ-Tu-Y5n">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="Roles/Resources" id="S5X-eD-EFM"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="XJK-BT-mkk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3830" y="4063"/>
-        </scene>
-        <!--Custom Tab Bar Controller-->
-        <scene sceneID="6Lh-UC-JIJ">
-            <objects>
-                <tabBarController id="ASh-eu-KMT" customClass="CustomTabBarController" customModule="PRKit" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="WMR-uh-bwp"/>
-                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="CCX-Fn-tDy" customClass="CustomTabBarPlaceholder" customModule="PRKit">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    </tabBar>
-                    <connections>
-                        <segue destination="YiS-Uq-bKw" kind="relationship" relationship="viewControllers" id="KDu-vu-FJ7"/>
-                        <segue destination="DXt-nW-JiG" kind="relationship" relationship="viewControllers" id="LxV-Aw-soQ"/>
-                    </connections>
-                </tabBarController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="psv-FH-dTA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2372" y="4063"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="SYF-Ju-xpA">
