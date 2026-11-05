@@ -15,7 +15,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = scene as? UIWindowScene else { return }
 
         let vc = UISplitViewController(style: .doubleColumn)
-        vc.setViewController(UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "Menu"), for: .primary)
+        vc.setViewController(MenuViewController(), for: .primary)
         vc.setViewController(ResponsiveViewController(), for: .secondary)
 
         window = UIWindow(windowScene: windowScene)
