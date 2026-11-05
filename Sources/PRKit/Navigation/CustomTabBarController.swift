@@ -8,7 +8,6 @@
 import UIKit
 
 open class CustomTabBarController: BaseViewController, CustomTabBarDelegate {
-    open weak var containerView: UIView!
     open weak var customTabBar: CustomTabBar!
     open var viewControllers: [UIViewController]? {
         didSet {
@@ -39,29 +38,19 @@ open class CustomTabBarController: BaseViewController, CustomTabBarDelegate {
     open override func viewDidLoad() {
         super.viewDidLoad()
 
-        let containerView = UIView()
-        containerView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(containerView)
-        NSLayoutConstraint.activate([
-            containerView.topAnchor.constraint(equalTo: view.topAnchor),
-            containerView.leftAnchor.constraint(equalTo: view.leftAnchor),
-            containerView.rightAnchor.constraint(equalTo: view.rightAnchor)
-        ])
-        self.containerView = containerView
-
         // set up custom tab bar, overlaying existing tab bar
         let customTabBar = CustomTabBar()
         customTabBar.translatesAutoresizingMaskIntoConstraints = false
         customTabBar.delegate = self
         customTabBar.isActionButtonEnabled = false
-        view.addSubview(customTabBar)
+        footerView.addSubview(customTabBar)
         NSLayoutConstraint.activate([
-            customTabBar.contentView.topAnchor.constraint(equalTo: containerView.bottomAnchor),
-            customTabBar.leftAnchor.constraint(equalTo: containerView.leftAnchor),
-            customTabBar.rightAnchor.constraint(equalTo: containerView.rightAnchor),
+            customTabBar.contentView.topAnchor.constraint(equalTo: footerView.topAnchor),
+            customTabBar.leftAnchor.constraint(equalTo: footerView.leftAnchor),
+            customTabBar.rightAnchor.constraint(equalTo: footerView.rightAnchor),
             customTabBar.contentView.leftAnchor.constraint(equalTo: contentView.leftAnchor),
             customTabBar.contentView.rightAnchor.constraint(equalTo: contentView.rightAnchor),
-            view.bottomAnchor.constraint(equalTo: customTabBar.bottomAnchor)
+            customTabBar.bottomAnchor.constraint(equalTo: footerView.bottomAnchor)
         ])
         self.customTabBar = customTabBar
 
@@ -81,11 +70,11 @@ open class CustomTabBarController: BaseViewController, CustomTabBarDelegate {
             vc.removeFromParent()
             vc.didMove(toParent: nil)
         }
-        if let containerView, let vc = selectedViewController {
+        if let mainView, let vc = selectedViewController {
             vc.willMove(toParent: self)
             addChild(vc)
-            containerView.addSubview(vc.view)
-            vc.view.frame = containerView.bounds
+            mainView.addSubview(vc.view)
+            vc.view.frame = mainView.bounds
             vc.didMove(toParent: self)
         }
     }
