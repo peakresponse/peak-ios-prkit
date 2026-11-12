@@ -15,6 +15,7 @@ open class BaseViewController: UIViewController {
     open var contentViewRightConstraint: NSLayoutConstraint!
     open weak var footerView: UIView!
     open var footerViewConstraints: [NSLayoutConstraint] = []
+    open var isKeyboardShowing = false
 
     public init() {
         super.init(nibName: nil, bundle: nil)
@@ -96,27 +97,35 @@ open class BaseViewController: UIViewController {
         updateFooter()
     }
 
-    open func updateFooter() {
-        NSLayoutConstraint.deactivate(footerViewConstraints)
-        footerViewConstraints.removeAll()
-        updateFooterConstraints()
-        NSLayoutConstraint.activate(footerViewConstraints)
+    open override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        let defaultCenter = NotificationCenter.default
+        defaultCenter.addObserver(self,
+                                  selector: #selector(keyboardWillShow(_:)),
+                                  name: UIResponder.keyboardWillShowNotification,
+                                  object: nil)
+        defaultCenter.addObserver(self,
+                                  selector: #selector(keyboardDidHide(_:)),
+                                  name: UIResponder.keyboardDidHideNotification,
+                                  object: nil)
     }
 
-    open func updateFooterConstraints() {
-        if view.bounds.size.width > view.bounds.size.height && traitCollection.horizontalSizeClass == .regular {
-            contentViewRightConstraint.isActive = true
-            footerViewConstraints.append(mainView.bottomAnchor.constraint(equalTo: view.bottomAnchor))
-            footerViewConstraints.append(footerView.leftAnchor.constraint(equalTo: contentView.rightAnchor))
-        } else {
-            contentViewRightConstraint.isActive = false
-            if footerView.isHidden {
-                footerViewConstraints.append(mainView.bottomAnchor.constraint(equalTo: view.bottomAnchor))
-            } else {
-                footerViewConstraints.append(mainView.bottomAnchor.constraint(equalTo: footerView.topAnchor))
-            }
-            footerViewConstraints.append(footerView.leftAnchor.constraint(equalTo: view.leftAnchor))
-        }
+    @objc open func keyboardWillShow(_ notification: Notification) {
+        isKeyboardShowing = true
+        updateFooter()
+    }
+
+    @objc open func keyboardDidHide(_ notification: Notification) {
+        isKeyboardShowing = false
+        updateFooter()
+    }
+
+    open override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+
+        let defaultCenter = NotificationCenter.default
+        defaultCenter.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        defaultCenter.removeObserver(self, name: UIResponder.keyboardDidHideNotification, object: nil)
     }
 
     open func hideFooter() {
@@ -127,5 +136,34 @@ open class BaseViewController: UIViewController {
     open func showFooter() {
         footerView.isHidden = false
         updateFooter()
+    }
+
+    open func updateFooter() {
+        NSLayoutConstraint.deactivate(footerViewConstraints)
+        footerViewConstraints.removeAll()
+        updateFooterConstraints()
+        NSLayoutConstraint.activate(footerViewConstraints)
+    }
+
+    open func updateFooterConstraints() {
+        if view.bounds.size.width > view.bounds.size.height && traitCollection.horizontalSizeClass == .regular {
+            contentViewRightConstraint.isActive = true
+            if isKeyboardShowing {
+                footerViewConstraints.append(mainView.bottomAnchor.constraint(equalTo: view.keyboardLayoutGuide.topAnchor))
+            } else {
+                footerViewConstraints.append(mainView.bottomAnchor.constraint(equalTo: view.bottomAnchor))
+            }
+            footerViewConstraints.append(footerView.leftAnchor.constraint(equalTo: contentView.rightAnchor))
+        } else {
+            contentViewRightConstraint.isActive = false
+            if isKeyboardShowing {
+                footerViewConstraints.append(mainView.bottomAnchor.constraint(equalTo: view.keyboardLayoutGuide.topAnchor))
+            } else if footerView.isHidden {
+                footerViewConstraints.append(mainView.bottomAnchor.constraint(equalTo: view.bottomAnchor))
+            } else {
+                footerViewConstraints.append(mainView.bottomAnchor.constraint(equalTo: footerView.topAnchor))
+            }
+            footerViewConstraints.append(footerView.leftAnchor.constraint(equalTo: view.leftAnchor))
+        }
     }
 }

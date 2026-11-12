@@ -20,7 +20,7 @@ private let screens: [Screen] = [
     Screen(title: "Custom", vcType: nil),
     Screen(title: "Headers", vcType: nil),
     Screen(title: "Inputs", vcType: nil),
-    Screen(title: "Keyboards", vcType: nil),
+    Screen(title: "Keyboards", vcType: KeyboardsViewController.self),
     Screen(title: "Tabs", vcType: TabsViewController.self),
     Screen(title: "Tables", vcType: nil)
 ]
