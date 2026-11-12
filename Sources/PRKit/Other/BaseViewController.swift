@@ -105,17 +105,27 @@ open class BaseViewController: UIViewController {
                                   name: UIResponder.keyboardWillShowNotification,
                                   object: nil)
         defaultCenter.addObserver(self,
-                                  selector: #selector(keyboardDidHide(_:)),
-                                  name: UIResponder.keyboardDidHideNotification,
+                                  selector: #selector(keyboardDidShow(_:)),
+                                  name: UIResponder.keyboardDidShowNotification,
+                                  object: nil)
+        defaultCenter.addObserver(self,
+                                  selector: #selector(keyboardWillHide(_:)),
+                                  name: UIResponder.keyboardWillHideNotification,
                                   object: nil)
     }
 
     @objc open func keyboardWillShow(_ notification: Notification) {
-        isKeyboardShowing = true
-        updateFooter()
+        if !isKeyboardShowing {
+            isKeyboardShowing = true
+            updateFooter()
+        }
     }
 
-    @objc open func keyboardDidHide(_ notification: Notification) {
+    @objc open func keyboardDidShow(_ notification: Notification) {
+
+    }
+
+    @objc open func keyboardWillHide(_ notification: Notification) {
         isKeyboardShowing = false
         updateFooter()
     }
@@ -124,8 +134,15 @@ open class BaseViewController: UIViewController {
         super.viewWillDisappear(animated)
 
         let defaultCenter = NotificationCenter.default
-        defaultCenter.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
-        defaultCenter.removeObserver(self, name: UIResponder.keyboardDidHideNotification, object: nil)
+        defaultCenter.removeObserver(self,
+                                     name: UIResponder.keyboardWillShowNotification,
+                                     object: nil)
+        defaultCenter.removeObserver(self,
+                                     name: UIResponder.keyboardDidShowNotification,
+                                     object: nil)
+        defaultCenter.removeObserver(self,
+                                     name: UIResponder.keyboardWillHideNotification,
+                                     object: nil)
     }
 
     open func hideFooter() {

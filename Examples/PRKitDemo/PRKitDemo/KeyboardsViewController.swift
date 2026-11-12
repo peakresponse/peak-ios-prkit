@@ -81,6 +81,7 @@ class KeyboardsViewController: BaseViewController, FormFieldDelegate {
             containerView.topAnchor.constraint(equalTo: scrollView.contentLayoutGuide.topAnchor),
             containerView.leftAnchor.constraint(equalTo: contentView.leftAnchor),
             containerView.rightAnchor.constraint(equalTo: contentView.rightAnchor),
+            scrollView.contentLayoutGuide.rightAnchor.constraint(equalTo: containerView.rightAnchor),
             scrollView.contentLayoutGuide.bottomAnchor.constraint(equalTo: containerView.bottomAnchor)
         ])
         self.containerView = containerView
@@ -98,7 +99,7 @@ class KeyboardsViewController: BaseViewController, FormFieldDelegate {
         tag += 1
         containerView.addSubview(dateField)
         NSLayoutConstraint.activate([
-            dateField.topAnchor.constraint(equalTo: containerView.topAnchor),
+            dateField.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 16),
             dateField.leftAnchor.constraint(equalTo: containerView.leftAnchor),
             dateField.rightAnchor.constraint(equalTo: containerView.rightAnchor),
         ])
@@ -282,10 +283,21 @@ class KeyboardsViewController: BaseViewController, FormFieldDelegate {
             comboField.topAnchor.constraint(equalTo: singleSearchField.bottomAnchor, constant: 16),
             comboField.leftAnchor.constraint(equalTo: containerView.leftAnchor),
             comboField.rightAnchor.constraint(equalTo: containerView.rightAnchor),
-            containerView.bottomAnchor.constraint(equalTo: comboField.bottomAnchor)
+            containerView.bottomAnchor.constraint(equalTo: comboField.bottomAnchor, constant: 16)
         ])
         self.comboField = comboField
     }
+
+    override func keyboardDidShow(_ notification: Notification) {
+        super.keyboardDidShow(notification)
+        if let firstResponder = scrollView.firstResponder {
+            var rect = firstResponder.convert(firstResponder.bounds, to: scrollView)
+            rect.origin.y += 16
+            scrollView.scrollRectToVisible(rect, animated: true)
+        }
+    }
+
+    // MARK: - FormFieldDelegate
 
     func formField(_ field: FormField, wantsToPresent vc: UIViewController) {
         present(vc, animated: true, completion: nil)
