@@ -15,7 +15,8 @@ import UIKit
 @IBDesignable
 open class FormComponent: UIView {
     @IBOutlet open weak var delegate: FormComponentDelegate?
-
+    open var formGridSpan = 1
+    open var formGridOffset = 0
     open var source: NSObject?
     open var target: NSObject?
 

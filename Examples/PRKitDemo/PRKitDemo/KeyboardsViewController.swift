@@ -43,7 +43,7 @@ enum AgeTestUnits: String, StringCaseIterable {
 }
 
 class KeyboardsViewController: BaseViewController, FormFieldDelegate {
-    weak var scrollView: UIScrollView!
+    weak var formGridView: FormGridView!
     weak var containerView: UIView!
     weak var dateTimeField: TextField!
     weak var pickerField: TextField!
@@ -63,28 +63,18 @@ class KeyboardsViewController: BaseViewController, FormFieldDelegate {
 
         view.backgroundColor = .background
 
-        let scrollView = UIScrollView()
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        contentView.addSubview(scrollView)
+        let formGridView = FormGridView()
+        formGridView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(formGridView)
         NSLayoutConstraint.activate([
-            scrollView.frameLayoutGuide.topAnchor.constraint(equalTo: contentView.topAnchor),
-            scrollView.frameLayoutGuide.leftAnchor.constraint(equalTo: mainView.leftAnchor),
-            scrollView.frameLayoutGuide.rightAnchor.constraint(equalTo: mainView.rightAnchor),
-            scrollView.frameLayoutGuide.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+            formGridView.frameLayoutGuide.topAnchor.constraint(equalTo: contentView.topAnchor),
+            formGridView.frameLayoutGuide.leftAnchor.constraint(equalTo: mainView.leftAnchor),
+            formGridView.frameLayoutGuide.rightAnchor.constraint(equalTo: mainView.rightAnchor),
+            formGridView.frameLayoutGuide.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            formGridView.contentView.leftAnchor.constraint(equalTo: contentView.leftAnchor),
+            formGridView.contentView.rightAnchor.constraint(equalTo: contentView.rightAnchor)
         ])
-        self.scrollView = scrollView
-
-        let containerView = UIView()
-        containerView.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.addSubview(containerView)
-        NSLayoutConstraint.activate([
-            containerView.topAnchor.constraint(equalTo: scrollView.contentLayoutGuide.topAnchor),
-            containerView.leftAnchor.constraint(equalTo: contentView.leftAnchor),
-            containerView.rightAnchor.constraint(equalTo: contentView.rightAnchor),
-            scrollView.contentLayoutGuide.rightAnchor.constraint(equalTo: containerView.rightAnchor),
-            scrollView.contentLayoutGuide.bottomAnchor.constraint(equalTo: containerView.bottomAnchor)
-        ])
-        self.containerView = containerView
+        self.formGridView = formGridView
 
         let inputAccessoryView = FormInputAccessoryView(rootView: view)
         var tag = 1
@@ -97,12 +87,7 @@ class KeyboardsViewController: BaseViewController, FormFieldDelegate {
         dateField.inputAccessoryView = inputAccessoryView
         dateField.tag = tag
         tag += 1
-        containerView.addSubview(dateField)
-        NSLayoutConstraint.activate([
-            dateField.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 16),
-            dateField.leftAnchor.constraint(equalTo: containerView.leftAnchor),
-            dateField.rightAnchor.constraint(equalTo: containerView.rightAnchor),
-        ])
+        formGridView.addArrangedSubview(dateField)
         self.dateField = dateField
 
         let dateTimeField = PRKit.TextField()
@@ -113,12 +98,7 @@ class KeyboardsViewController: BaseViewController, FormFieldDelegate {
         dateTimeField.inputAccessoryView = inputAccessoryView
         dateTimeField.tag = tag
         tag += 1
-        containerView.addSubview(dateTimeField)
-        NSLayoutConstraint.activate([
-            dateTimeField.topAnchor.constraint(equalTo: dateField.bottomAnchor, constant: 16),
-            dateTimeField.leftAnchor.constraint(equalTo: containerView.leftAnchor),
-            dateTimeField.rightAnchor.constraint(equalTo: containerView.rightAnchor),
-        ])
+        formGridView.addArrangedSubview(dateTimeField)
         self.dateTimeField = dateTimeField
 
         let emailField = PRKit.TextField()
@@ -129,12 +109,8 @@ class KeyboardsViewController: BaseViewController, FormFieldDelegate {
         emailField.inputAccessoryView = inputAccessoryView
         emailField.tag = tag
         tag += 1
-        containerView.addSubview(emailField)
-        NSLayoutConstraint.activate([
-            emailField.topAnchor.constraint(equalTo: dateTimeField.bottomAnchor, constant: 16),
-            emailField.leftAnchor.constraint(equalTo: containerView.leftAnchor),
-            emailField.rightAnchor.constraint(equalTo: containerView.rightAnchor),
-        ])
+        emailField.formGridSpan = 2
+        formGridView.addArrangedSubview(emailField)
         self.emailField = emailField
 
         let pickerField = PRKit.TextField()
@@ -145,12 +121,7 @@ class KeyboardsViewController: BaseViewController, FormFieldDelegate {
         pickerField.inputAccessoryView = inputAccessoryView
         pickerField.tag = tag
         tag += 1
-        containerView.addSubview(pickerField)
-        NSLayoutConstraint.activate([
-            pickerField.topAnchor.constraint(equalTo: emailField.bottomAnchor, constant: 16),
-            pickerField.leftAnchor.constraint(equalTo: containerView.leftAnchor),
-            pickerField.rightAnchor.constraint(equalTo: containerView.rightAnchor),
-        ])
+        formGridView.addArrangedSubview(pickerField)
         self.pickerField = pickerField
 
         let integerField = PRKit.TextField()
@@ -161,12 +132,7 @@ class KeyboardsViewController: BaseViewController, FormFieldDelegate {
         integerField.inputAccessoryView = inputAccessoryView
         integerField.tag = tag
         tag += 1
-        containerView.addSubview(integerField)
-        NSLayoutConstraint.activate([
-            integerField.topAnchor.constraint(equalTo: pickerField.bottomAnchor, constant: 16),
-            integerField.leftAnchor.constraint(equalTo: containerView.leftAnchor),
-            integerField.rightAnchor.constraint(equalTo: containerView.rightAnchor),
-        ])
+        formGridView.addArrangedSubview(integerField)
         self.integerField = integerField
 
         let decimalField = PRKit.TextField()
@@ -176,12 +142,7 @@ class KeyboardsViewController: BaseViewController, FormFieldDelegate {
         decimalField.inputAccessoryView = inputAccessoryView
         decimalField.tag = tag
         tag += 1
-        containerView.addSubview(decimalField)
-        NSLayoutConstraint.activate([
-            decimalField.topAnchor.constraint(equalTo: integerField.bottomAnchor, constant: 16),
-            decimalField.leftAnchor.constraint(equalTo: containerView.leftAnchor),
-            decimalField.rightAnchor.constraint(equalTo: containerView.rightAnchor),
-        ])
+        formGridView.addArrangedSubview(decimalField)
         self.decimalField = decimalField
 
         let ageField = PRKit.TextField()
@@ -192,12 +153,8 @@ class KeyboardsViewController: BaseViewController, FormFieldDelegate {
         ageField.inputAccessoryView = inputAccessoryView
         ageField.tag = tag
         tag += 1
-        containerView.addSubview(ageField)
-        NSLayoutConstraint.activate([
-            ageField.topAnchor.constraint(equalTo: decimalField.bottomAnchor, constant: 16),
-            ageField.leftAnchor.constraint(equalTo: containerView.leftAnchor),
-            ageField.rightAnchor.constraint(equalTo: containerView.rightAnchor),
-        ])
+        ageField.formGridSpan = 2
+        formGridView.addArrangedSubview(ageField)
         self.ageField = ageField
 
         let multiField = PRKit.TextField()
@@ -207,12 +164,7 @@ class KeyboardsViewController: BaseViewController, FormFieldDelegate {
         multiField.inputAccessoryView = inputAccessoryView
         multiField.tag = tag
         tag += 1
-        containerView.addSubview(multiField)
-        NSLayoutConstraint.activate([
-            multiField.topAnchor.constraint(equalTo: ageField.bottomAnchor, constant: 16),
-            multiField.leftAnchor.constraint(equalTo: containerView.leftAnchor),
-            multiField.rightAnchor.constraint(equalTo: containerView.rightAnchor),
-        ])
+        formGridView.addArrangedSubview(multiField)
         self.multiField = multiField
 
         let singleField = PRKit.TextField()
@@ -222,12 +174,8 @@ class KeyboardsViewController: BaseViewController, FormFieldDelegate {
         singleField.inputAccessoryView = inputAccessoryView
         singleField.tag = tag
         tag += 1
-        containerView.addSubview(singleField)
-        NSLayoutConstraint.activate([
-            singleField.topAnchor.constraint(equalTo: multiField.bottomAnchor, constant: 16),
-            singleField.leftAnchor.constraint(equalTo: containerView.leftAnchor),
-            singleField.rightAnchor.constraint(equalTo: containerView.rightAnchor),
-        ])
+        singleField.formGridOffset = 1
+        formGridView.addArrangedSubview(singleField)
         self.singleField = singleField
 
         let multiSearchField = PRKit.TextField()
@@ -238,12 +186,8 @@ class KeyboardsViewController: BaseViewController, FormFieldDelegate {
         multiSearchField.inputAccessoryView = inputAccessoryView
         multiSearchField.tag = tag
         tag += 1
-        containerView.addSubview(multiSearchField)
-        NSLayoutConstraint.activate([
-            multiSearchField.topAnchor.constraint(equalTo: singleField.bottomAnchor, constant: 16),
-            multiSearchField.leftAnchor.constraint(equalTo: containerView.leftAnchor),
-            multiSearchField.rightAnchor.constraint(equalTo: containerView.rightAnchor),
-        ])
+        multiSearchField.formGridOffset = 1
+        formGridView.addArrangedSubview(multiSearchField)
         self.multiSearchField = multiSearchField
 
         let singleSearchField = PRKit.TextField()
@@ -254,12 +198,7 @@ class KeyboardsViewController: BaseViewController, FormFieldDelegate {
         singleSearchField.inputAccessoryView = inputAccessoryView
         singleSearchField.tag = tag
         tag += 1
-        containerView.addSubview(singleSearchField)
-        NSLayoutConstraint.activate([
-            singleSearchField.topAnchor.constraint(equalTo: multiSearchField.bottomAnchor, constant: 16),
-            singleSearchField.leftAnchor.constraint(equalTo: containerView.leftAnchor),
-            singleSearchField.rightAnchor.constraint(equalTo: containerView.rightAnchor),
-        ])
+        formGridView.addArrangedSubview(singleSearchField)
         self.singleSearchField = singleSearchField
 
         let searchKeyboard = SearchKeyboard(source: EnumKeyboardSource<PickerTestEnum>(), isMultiSelect: false)
@@ -278,22 +217,19 @@ class KeyboardsViewController: BaseViewController, FormFieldDelegate {
         comboField.inputAccessoryView = inputAccessoryView
         comboField.tag = tag
         tag += 1
-        containerView.addSubview(comboField)
-        NSLayoutConstraint.activate([
-            comboField.topAnchor.constraint(equalTo: singleSearchField.bottomAnchor, constant: 16),
-            comboField.leftAnchor.constraint(equalTo: containerView.leftAnchor),
-            comboField.rightAnchor.constraint(equalTo: containerView.rightAnchor),
-            containerView.bottomAnchor.constraint(equalTo: comboField.bottomAnchor, constant: 16)
-        ])
+        comboField.formGridOffset = 1
+        formGridView.addArrangedSubview(comboField)
         self.comboField = comboField
+
+        formGridView.updateLayout()
     }
 
     override func keyboardDidShow(_ notification: Notification) {
         super.keyboardDidShow(notification)
-        if let firstResponder = scrollView.firstResponder {
-            var rect = firstResponder.convert(firstResponder.bounds, to: scrollView)
+        if let firstResponder = formGridView.firstResponder {
+            var rect = firstResponder.convert(firstResponder.bounds, to: formGridView)
             rect.origin.y += 16
-            scrollView.scrollRectToVisible(rect, animated: true)
+            formGridView.scrollRectToVisible(rect, animated: true)
         }
     }
 
