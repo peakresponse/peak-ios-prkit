@@ -186,4 +186,10 @@ open class FormInputAccessoryView: UIInputView {
             }
         }
     }
+
+    // MARK: - UIResponder
+
+    public override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        // no-op, consume touches
+    }
 }
