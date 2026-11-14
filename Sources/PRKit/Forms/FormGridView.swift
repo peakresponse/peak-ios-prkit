@@ -7,29 +7,10 @@
 
 import UIKit
 
-open class FormGridView: UIScrollView {
-    open weak var contentView: UIView!
+open class FormGridView: UIView {
     open var arrangedSubviews: [UIView] = []
-    open var contentConstraints: [NSLayoutConstraint] = []
+    open var gridConstraints: [NSLayoutConstraint] = []
     open var rows: [UIStackView] = []
-
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-
-        let contentView = UIView()
-        contentView.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(contentView)
-        NSLayoutConstraint.activate([
-            contentView.topAnchor.constraint(equalTo: contentLayoutGuide.topAnchor),
-            contentLayoutGuide.rightAnchor.constraint(equalTo: contentView.rightAnchor),
-            contentLayoutGuide.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
-        ])
-        self.contentView = contentView
-    }
-
-    required public init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
 
     open func addArrangedSubview(_ view: UIView) {
         arrangedSubviews.append(view)
@@ -46,8 +27,8 @@ open class FormGridView: UIScrollView {
             row.removeFromSuperview()
         }
         rows.removeAll()
-        NSLayoutConstraint.deactivate(contentConstraints)
-        contentConstraints.removeAll()
+        NSLayoutConstraint.deactivate(gridConstraints)
+        gridConstraints.removeAll()
         var prev: UIView?
         var row: UIStackView!
         var rowCount = 2
@@ -55,7 +36,7 @@ open class FormGridView: UIScrollView {
             view.removeFromSuperview()
             if traitCollection.horizontalSizeClass == .regular {
                 let component = view as? FormComponent
-                var span = component?.formGridSpan ?? 1
+                let span = component?.formGridSpan ?? 1
                 var offset = component?.formGridOffset ?? 0
                 while rowCount + span + offset > 2 {
                     while rowCount < 2 {
@@ -71,12 +52,12 @@ open class FormGridView: UIScrollView {
                     row.axis = .horizontal
                     row.distribution = .fillEqually
                     row.spacing = 16
-                    contentView.addSubview(row)
+                    addSubview(row)
                     rows.append(row)
-                    contentConstraints.append(contentsOf: [
-                        row.topAnchor.constraint(equalTo: prev == nil ? contentView.topAnchor : prev!.bottomAnchor, constant: 16),
-                        row.leftAnchor.constraint(equalTo: contentView.leftAnchor),
-                        row.rightAnchor.constraint(equalTo: contentView.rightAnchor)
+                    gridConstraints.append(contentsOf: [
+                        row.topAnchor.constraint(equalTo: prev == nil ? topAnchor : prev!.bottomAnchor, constant: 16),
+                        row.leftAnchor.constraint(equalTo: leftAnchor),
+                        row.rightAnchor.constraint(equalTo: rightAnchor)
                     ])
                     prev = row
                 }
@@ -88,11 +69,11 @@ open class FormGridView: UIScrollView {
                 row?.addArrangedSubview(view)
                 rowCount += span
             } else {
-                contentView.addSubview(view)
-                contentConstraints.append(contentsOf: [
-                    view.topAnchor.constraint(equalTo: prev == nil ? contentView.topAnchor : prev!.bottomAnchor, constant: 16),
-                    view.leftAnchor.constraint(equalTo: contentView.leftAnchor),
-                    view.rightAnchor.constraint(equalTo: contentView.rightAnchor)
+                addSubview(view)
+                gridConstraints.append(contentsOf: [
+                    view.topAnchor.constraint(equalTo: prev == nil ? topAnchor : prev!.bottomAnchor, constant: 16),
+                    view.leftAnchor.constraint(equalTo: leftAnchor),
+                    view.rightAnchor.constraint(equalTo: rightAnchor)
                 ])
                 prev = view
             }
@@ -102,8 +83,8 @@ open class FormGridView: UIScrollView {
             rowCount += 1
         }
         if let prev {
-            contentConstraints.append(contentView.bottomAnchor.constraint(equalTo: prev.bottomAnchor, constant: 16))
+            gridConstraints.append(bottomAnchor.constraint(equalTo: prev.bottomAnchor, constant: 16))
         }
-        NSLayoutConstraint.activate(contentConstraints)
+        NSLayoutConstraint.activate(gridConstraints)
     }
 }

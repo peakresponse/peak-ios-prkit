@@ -43,8 +43,7 @@ enum AgeTestUnits: String, StringCaseIterable {
 }
 
 class KeyboardsViewController: BaseViewController, FormFieldDelegate {
-    weak var formGridView: FormGridView!
-    weak var containerView: UIView!
+    weak var formScrollView: FormScrollView!
     weak var dateTimeField: TextField!
     weak var pickerField: TextField!
     weak var emailField: TextField!
@@ -63,18 +62,20 @@ class KeyboardsViewController: BaseViewController, FormFieldDelegate {
 
         view.backgroundColor = .background
 
-        let formGridView = FormGridView()
-        formGridView.translatesAutoresizingMaskIntoConstraints = false
-        contentView.addSubview(formGridView)
+        let formScrollView = FormScrollView()
+        formScrollView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(formScrollView)
         NSLayoutConstraint.activate([
-            formGridView.frameLayoutGuide.topAnchor.constraint(equalTo: contentView.topAnchor),
-            formGridView.frameLayoutGuide.leftAnchor.constraint(equalTo: mainView.leftAnchor),
-            formGridView.frameLayoutGuide.rightAnchor.constraint(equalTo: mainView.rightAnchor),
-            formGridView.frameLayoutGuide.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            formGridView.contentView.leftAnchor.constraint(equalTo: contentView.leftAnchor),
-            formGridView.contentView.rightAnchor.constraint(equalTo: contentView.rightAnchor)
+            formScrollView.frameLayoutGuide.topAnchor.constraint(equalTo: contentView.topAnchor),
+            formScrollView.frameLayoutGuide.leftAnchor.constraint(equalTo: mainView.leftAnchor),
+            formScrollView.frameLayoutGuide.rightAnchor.constraint(equalTo: mainView.rightAnchor),
+            formScrollView.frameLayoutGuide.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            formScrollView.contentStackView.leftAnchor.constraint(equalTo: contentView.leftAnchor),
+            formScrollView.contentStackView.rightAnchor.constraint(equalTo: contentView.rightAnchor)
         ])
-        self.formGridView = formGridView
+        self.formScrollView = formScrollView
+
+        let formSectionView = formScrollView.addSection()
 
         let inputAccessoryView = FormInputAccessoryView(rootView: view)
         var tag = 1
@@ -87,7 +88,7 @@ class KeyboardsViewController: BaseViewController, FormFieldDelegate {
         dateField.inputAccessoryView = inputAccessoryView
         dateField.tag = tag
         tag += 1
-        formGridView.addArrangedSubview(dateField)
+        formSectionView.formGridView.addArrangedSubview(dateField)
         self.dateField = dateField
 
         let dateTimeField = PRKit.TextField()
@@ -98,7 +99,7 @@ class KeyboardsViewController: BaseViewController, FormFieldDelegate {
         dateTimeField.inputAccessoryView = inputAccessoryView
         dateTimeField.tag = tag
         tag += 1
-        formGridView.addArrangedSubview(dateTimeField)
+        formSectionView.formGridView.addArrangedSubview(dateTimeField)
         self.dateTimeField = dateTimeField
 
         let emailField = PRKit.TextField()
@@ -110,7 +111,7 @@ class KeyboardsViewController: BaseViewController, FormFieldDelegate {
         emailField.tag = tag
         tag += 1
         emailField.formGridSpan = 2
-        formGridView.addArrangedSubview(emailField)
+        formSectionView.formGridView.addArrangedSubview(emailField)
         self.emailField = emailField
 
         let pickerField = PRKit.TextField()
@@ -121,7 +122,7 @@ class KeyboardsViewController: BaseViewController, FormFieldDelegate {
         pickerField.inputAccessoryView = inputAccessoryView
         pickerField.tag = tag
         tag += 1
-        formGridView.addArrangedSubview(pickerField)
+        formSectionView.formGridView.addArrangedSubview(pickerField)
         self.pickerField = pickerField
 
         let integerField = PRKit.TextField()
@@ -132,7 +133,7 @@ class KeyboardsViewController: BaseViewController, FormFieldDelegate {
         integerField.inputAccessoryView = inputAccessoryView
         integerField.tag = tag
         tag += 1
-        formGridView.addArrangedSubview(integerField)
+        formSectionView.formGridView.addArrangedSubview(integerField)
         self.integerField = integerField
 
         let decimalField = PRKit.TextField()
@@ -142,7 +143,7 @@ class KeyboardsViewController: BaseViewController, FormFieldDelegate {
         decimalField.inputAccessoryView = inputAccessoryView
         decimalField.tag = tag
         tag += 1
-        formGridView.addArrangedSubview(decimalField)
+        formSectionView.formGridView.addArrangedSubview(decimalField)
         self.decimalField = decimalField
 
         let ageField = PRKit.TextField()
@@ -154,7 +155,7 @@ class KeyboardsViewController: BaseViewController, FormFieldDelegate {
         ageField.tag = tag
         tag += 1
         ageField.formGridSpan = 2
-        formGridView.addArrangedSubview(ageField)
+        formSectionView.formGridView.addArrangedSubview(ageField)
         self.ageField = ageField
 
         let multiField = PRKit.TextField()
@@ -164,7 +165,7 @@ class KeyboardsViewController: BaseViewController, FormFieldDelegate {
         multiField.inputAccessoryView = inputAccessoryView
         multiField.tag = tag
         tag += 1
-        formGridView.addArrangedSubview(multiField)
+        formSectionView.formGridView.addArrangedSubview(multiField)
         self.multiField = multiField
 
         let singleField = PRKit.TextField()
@@ -175,7 +176,7 @@ class KeyboardsViewController: BaseViewController, FormFieldDelegate {
         singleField.tag = tag
         tag += 1
         singleField.formGridOffset = 1
-        formGridView.addArrangedSubview(singleField)
+        formSectionView.formGridView.addArrangedSubview(singleField)
         self.singleField = singleField
 
         let multiSearchField = PRKit.TextField()
@@ -187,7 +188,7 @@ class KeyboardsViewController: BaseViewController, FormFieldDelegate {
         multiSearchField.tag = tag
         tag += 1
         multiSearchField.formGridOffset = 1
-        formGridView.addArrangedSubview(multiSearchField)
+        formSectionView.formGridView.addArrangedSubview(multiSearchField)
         self.multiSearchField = multiSearchField
 
         let singleSearchField = PRKit.TextField()
@@ -198,7 +199,7 @@ class KeyboardsViewController: BaseViewController, FormFieldDelegate {
         singleSearchField.inputAccessoryView = inputAccessoryView
         singleSearchField.tag = tag
         tag += 1
-        formGridView.addArrangedSubview(singleSearchField)
+        formSectionView.formGridView.addArrangedSubview(singleSearchField)
         self.singleSearchField = singleSearchField
 
         let searchKeyboard = SearchKeyboard(source: EnumKeyboardSource<PickerTestEnum>(), isMultiSelect: false)
@@ -218,18 +219,18 @@ class KeyboardsViewController: BaseViewController, FormFieldDelegate {
         comboField.tag = tag
         tag += 1
         comboField.formGridOffset = 1
-        formGridView.addArrangedSubview(comboField)
+        formSectionView.formGridView.addArrangedSubview(comboField)
         self.comboField = comboField
 
-        formGridView.updateLayout()
+        formScrollView.updateLayout()
     }
 
     override func keyboardDidShow(_ notification: Notification) {
         super.keyboardDidShow(notification)
-        if let firstResponder = formGridView.firstResponder {
-            var rect = firstResponder.convert(firstResponder.bounds, to: formGridView)
+        if let firstResponder = formScrollView.firstResponder {
+            var rect = firstResponder.convert(firstResponder.bounds, to: formScrollView)
             rect.origin.y += 16
-            formGridView.scrollRectToVisible(rect, animated: true)
+            formScrollView.scrollRectToVisible(rect, animated: true)
         }
     }
 
