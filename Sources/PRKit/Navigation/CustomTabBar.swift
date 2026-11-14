@@ -203,6 +203,12 @@ open class CustomTabBar: UIView {
         self.rightStackView = rightStackView
     }
 
+    open override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+        let hitView = super.hitTest(point, with: event)
+        // Return nil if the touch landed on the container itself rather than a subview
+        return hitView == self ? nil : hitView
+    }
+
     open func updateItems() {
         guard let items = items else { return }
         if isActionButtonEnabled {
