@@ -13,6 +13,7 @@ open class FormGridView: UIView {
     open var rows: [UIStackView] = []
 
     open func addArrangedSubview(_ view: UIView) {
+        view.translatesAutoresizingMaskIntoConstraints = false
         arrangedSubviews.append(view)
     }
 
@@ -50,6 +51,7 @@ open class FormGridView: UIView {
                     row = UIStackView()
                     row.translatesAutoresizingMaskIntoConstraints = false
                     row.axis = .horizontal
+                    row.alignment = .top
                     row.distribution = .fillEqually
                     row.spacing = 16
                     addSubview(row)

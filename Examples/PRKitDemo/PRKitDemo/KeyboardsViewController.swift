@@ -222,6 +222,12 @@ class KeyboardsViewController: BaseViewController, FormFieldDelegate {
         formSectionView.formGridView.addArrangedSubview(comboField)
         self.comboField = comboField
 
+        let button = PRKit.Button()
+        button.size = .medium
+        button.style = .primary
+        button.setTitle("Done", for: .normal)
+        formSectionView.formGridView.addArrangedSubview(button)
+
         formScrollView.updateLayout()
     }
 
