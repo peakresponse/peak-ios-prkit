@@ -231,15 +231,6 @@ class KeyboardsViewController: BaseViewController, FormFieldDelegate {
         formScrollView.updateLayout()
     }
 
-    override func keyboardDidShow(_ notification: Notification) {
-        super.keyboardDidShow(notification)
-        if let firstResponder = formScrollView.firstResponder {
-            var rect = firstResponder.convert(firstResponder.bounds, to: formScrollView)
-            rect.origin.y += 16
-            formScrollView.scrollRectToVisible(rect, animated: true)
-        }
-    }
-
     // MARK: - FormFieldDelegate
 
     func formField(_ field: FormField, wantsToPresent vc: UIViewController) {

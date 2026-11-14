@@ -28,6 +28,18 @@ public extension UIView {
         return nil
     }
 
+    func firstView(of type: UIView.Type) -> UIView? {
+        if isKind(of: type) {
+            return self
+        }
+        for subview in subviews {
+            if let view = subview.firstView(of: type) {
+                return view
+            }
+        }
+        return nil
+    }
+
     func addOutline(size: CGFloat, color: UIColor, opacity: Float) {
         layer.shadowOffset = .zero
         layer.shadowRadius = 0

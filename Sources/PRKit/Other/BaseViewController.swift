@@ -122,7 +122,11 @@ open class BaseViewController: UIViewController {
     }
 
     @objc open func keyboardDidShow(_ notification: Notification) {
-
+        if let firstResponder = view.firstResponder, let scrollView = view.firstView(of: UIScrollView.self) as? UIScrollView {
+            var rect = firstResponder.convert(firstResponder.bounds, to: scrollView)
+            rect.origin.y += 16
+            scrollView.scrollRectToVisible(rect, animated: true)
+        }
     }
 
     @objc open func keyboardWillHide(_ notification: Notification) {
