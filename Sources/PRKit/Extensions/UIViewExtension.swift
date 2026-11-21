@@ -40,6 +40,13 @@ public extension UIView {
         return nil
     }
 
+    func firstParentView(of type: UIView.Type) -> UIView? {
+        if isKind(of: type) {
+            return self
+        }
+        return superview?.firstParentView(of: type)
+    }
+
     func addOutline(size: CGFloat, color: UIColor, opacity: Float) {
         layer.shadowOffset = .zero
         layer.shadowRadius = 0
