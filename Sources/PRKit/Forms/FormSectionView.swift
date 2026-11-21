@@ -15,6 +15,7 @@ open class FormSectionView: UIStackView {
 
         axis = .vertical
         alignment = .fill
+        spacing = 16
 
         let formGridView = FormGridView()
         addArrangedSubview(formGridView)

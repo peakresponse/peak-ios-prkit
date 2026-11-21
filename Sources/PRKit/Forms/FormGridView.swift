@@ -57,7 +57,7 @@ open class FormGridView: UIView {
                     addSubview(row)
                     rows.append(row)
                     gridConstraints.append(contentsOf: [
-                        row.topAnchor.constraint(equalTo: prev == nil ? topAnchor : prev!.bottomAnchor, constant: 16),
+                        row.topAnchor.constraint(equalTo: prev == nil ? topAnchor : prev!.bottomAnchor, constant: prev == nil ? 0 : 16),
                         row.leftAnchor.constraint(equalTo: leftAnchor),
                         row.rightAnchor.constraint(equalTo: rightAnchor)
                     ])
@@ -73,7 +73,7 @@ open class FormGridView: UIView {
             } else {
                 addSubview(view)
                 gridConstraints.append(contentsOf: [
-                    view.topAnchor.constraint(equalTo: prev == nil ? topAnchor : prev!.bottomAnchor, constant: 16),
+                    view.topAnchor.constraint(equalTo: prev == nil ? topAnchor : prev!.bottomAnchor, constant: prev == nil ? 0 : 16),
                     view.leftAnchor.constraint(equalTo: leftAnchor),
                     view.rightAnchor.constraint(equalTo: rightAnchor)
                 ])
@@ -85,7 +85,7 @@ open class FormGridView: UIView {
             rowCount += 1
         }
         if let prev {
-            gridConstraints.append(bottomAnchor.constraint(equalTo: prev.bottomAnchor, constant: 16))
+            gridConstraints.append(bottomAnchor.constraint(equalTo: prev.bottomAnchor))
         }
         NSLayoutConstraint.activate(gridConstraints)
     }
