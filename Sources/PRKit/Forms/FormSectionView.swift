@@ -42,16 +42,16 @@ open class FormSectionView: UIStackView {
         ])
 
         if let secondaryText = secondaryText {
-            let subheader = UILabel()
-            subheader.translatesAutoresizingMaskIntoConstraints = false
-            subheader.font = .h4SemiBold
-            subheader.text = secondaryText
-            subheader.textColor = .labelText
-            view.addSubview(subheader)
+            let secondaryHeader = UILabel()
+            secondaryHeader.translatesAutoresizingMaskIntoConstraints = false
+            secondaryHeader.font = .h4SemiBold
+            secondaryHeader.text = secondaryText
+            secondaryHeader.textColor = .labelText
+            view.addSubview(secondaryHeader)
             NSLayoutConstraint.activate([
-                subheader.firstBaselineAnchor.constraint(equalTo: header.firstBaselineAnchor),
-                subheader.leftAnchor.constraint(equalTo: header.rightAnchor),
-                subheader.rightAnchor.constraint(lessThanOrEqualTo: view.rightAnchor)
+                secondaryHeader.firstBaselineAnchor.constraint(equalTo: header.firstBaselineAnchor),
+                secondaryHeader.leftAnchor.constraint(equalTo: header.rightAnchor),
+                secondaryHeader.rightAnchor.constraint(lessThanOrEqualTo: view.rightAnchor)
             ])
         } else {
             header.rightAnchor.constraint(lessThanOrEqualTo: view.rightAnchor).isActive = true
