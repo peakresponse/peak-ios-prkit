@@ -8,6 +8,8 @@
 import UIKit
 
 open class FormSectionView: UIStackView {
+    open var type: AnyClass?
+    open var index: Int?
     open weak var formGridView: FormGridView!
 
     public override init(frame: CGRect) {
