@@ -38,7 +38,7 @@ open class FormSectionView: UIStackView {
         header.numberOfLines = 0
         view.addSubview(header)
         NSLayoutConstraint.activate([
-            header.topAnchor.constraint(equalTo: view.topAnchor, constant: 40),
+            header.topAnchor.constraint(equalTo: view.topAnchor),
             header.leftAnchor.constraint(equalTo: view.leftAnchor)
         ])
 
