@@ -77,6 +77,8 @@ class KeyboardsViewController: BaseViewController, FormFieldDelegate {
 
         let formSectionView = formScrollView.addSection()
 
+        formSectionView.addHeader(text: "Keyboards")
+
         let inputAccessoryView = FormInputAccessoryView(rootView: view)
         var tag = 1
 
