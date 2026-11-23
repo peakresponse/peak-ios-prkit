@@ -35,6 +35,9 @@ open class FormGridView: UIView {
         var rowCount = 2
         for view in arrangedSubviews {
             view.removeFromSuperview()
+            if view.isHidden {
+                continue
+            }
             if traitCollection.horizontalSizeClass == .regular {
                 let component = view as? FormComponent
                 let span = component?.formGridSpan ?? 1
