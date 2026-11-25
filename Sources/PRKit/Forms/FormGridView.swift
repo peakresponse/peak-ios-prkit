@@ -11,6 +11,7 @@ import UIKit
 public extension UIView {
     private static var formGridSpanKey: UInt8 = 0
     private static var formGridOffsetKey: UInt8 = 0
+    private static var fromGridBreakKey: UInt8 = 0
 
     var formGridSpan: Int {
         get {
@@ -34,6 +35,20 @@ public extension UIView {
             objc_setAssociatedObject(
                 self,
                 &Self.formGridOffsetKey,
+                newValue,
+                .OBJC_ASSOCIATION_COPY_NONATOMIC
+            )
+        }
+    }
+
+    var formGridBreak: Bool {
+        get {
+            return (objc_getAssociatedObject(self, &Self.fromGridBreakKey) as? Bool) ?? false
+        }
+        set {
+            objc_setAssociatedObject(
+                self,
+                &Self.fromGridBreakKey,
                 newValue,
                 .OBJC_ASSOCIATION_COPY_NONATOMIC
             )
@@ -73,6 +88,13 @@ open class FormGridView: UIView {
                 continue
             }
             if traitCollection.horizontalSizeClass == .regular {
+                if view.formGridBreak && rowCount > 0 {
+                    while rowCount < 2 {
+                        row?.addArrangedSubview(UIView())
+                        rowCount += 1
+                    }
+                    rowCount = 0
+                }
                 let span = view.formGridSpan
                 var offset = view.formGridOffset
                 while rowCount + span + offset > 2 {
