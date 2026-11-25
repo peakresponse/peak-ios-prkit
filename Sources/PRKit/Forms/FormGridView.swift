@@ -73,9 +73,8 @@ open class FormGridView: UIView {
                 continue
             }
             if traitCollection.horizontalSizeClass == .regular {
-                let component = view as? FormComponent
-                let span = component?.formGridSpan ?? 1
-                var offset = component?.formGridOffset ?? 0
+                let span = view.formGridSpan
+                var offset = view.formGridOffset
                 while rowCount + span + offset > 2 {
                     while rowCount < 2 {
                         row?.addArrangedSubview(UIView())
