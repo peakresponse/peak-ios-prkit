@@ -5,7 +5,41 @@
 //  Created by Francis Li on 11/12/26.
 //
 
+import ObjectiveC
 import UIKit
+
+public extension UIView {
+    private static var formGridSpanKey: UInt8 = 0
+    private static var formGridOffsetKey: UInt8 = 0
+
+    var formGridSpan: Int {
+        get {
+            return (objc_getAssociatedObject(self, &Self.formGridSpanKey) as? Int) ?? 1
+        }
+        set {
+            objc_setAssociatedObject(
+                self,
+                &Self.formGridSpanKey,
+                newValue,
+                .OBJC_ASSOCIATION_COPY_NONATOMIC
+            )
+        }
+    }
+
+    var formGridOffset: Int {
+        get {
+            return (objc_getAssociatedObject(self, &Self.formGridOffsetKey) as? Int) ?? 0
+        }
+        set {
+            objc_setAssociatedObject(
+                self,
+                &Self.formGridOffsetKey,
+                newValue,
+                .OBJC_ASSOCIATION_COPY_NONATOMIC
+            )
+        }
+    }
+}
 
 open class FormGridView: UIView {
     open var arrangedSubviews: [UIView] = []
