@@ -93,7 +93,7 @@ open class FormGridView: UIView {
                         row?.addArrangedSubview(UIView())
                         rowCount += 1
                     }
-                    rowCount = 0
+                    rowCount = 2
                 }
                 let span = view.formGridSpan
                 var offset = view.formGridOffset
