@@ -178,7 +178,8 @@ open class BaseViewController: UIViewController {
     }
 
     open func updateFooterConstraints() {
-        if view.bounds.size.width > view.bounds.size.height && traitCollection.horizontalSizeClass == .regular {
+        let bounds = view.screen?.bounds ?? view.bounds
+        if bounds.size.width > bounds.size.height && traitCollection.horizontalSizeClass == .regular {
             contentViewRightConstraint.isActive = true
             if isKeyboardShowing {
                 footerViewConstraints.append(mainView.bottomAnchor.constraint(equalTo: view.keyboardLayoutGuide.topAnchor))
