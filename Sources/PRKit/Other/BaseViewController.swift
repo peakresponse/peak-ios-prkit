@@ -112,6 +112,10 @@ open class BaseViewController: UIViewController {
                                   selector: #selector(keyboardWillHide(_:)),
                                   name: UIResponder.keyboardWillHideNotification,
                                   object: nil)
+        defaultCenter.addObserver(self,
+                                  selector: #selector(keyboardDidHide(_:)),
+                                  name: UIResponder.keyboardDidHideNotification,
+                                  object: nil)
     }
 
     @objc open func keyboardWillShow(_ notification: Notification) {
@@ -134,6 +138,10 @@ open class BaseViewController: UIViewController {
         updateFooter()
     }
 
+    @objc open func keyboardDidHide(_ notification: Notification) {
+
+    }
+
     open override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
 
@@ -146,6 +154,9 @@ open class BaseViewController: UIViewController {
                                      object: nil)
         defaultCenter.removeObserver(self,
                                      name: UIResponder.keyboardWillHideNotification,
+                                     object: nil)
+        defaultCenter.removeObserver(self,
+                                     name: UIResponder.keyboardDidHideNotification,
                                      object: nil)
     }
 
